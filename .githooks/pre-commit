@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -eu
+
+if [ -x ".venv/Scripts/python.exe" ]; then
+  ".venv/Scripts/python.exe" "tools/docx_sidecar.py" sync-staged
+  exit $?
+fi
+
+if command -v python >/dev/null 2>&1; then
+  python "tools/docx_sidecar.py" sync-staged
+  exit $?
+fi
+
+if command -v py >/dev/null 2>&1; then
+  py -3 "tools/docx_sidecar.py" sync-staged
+  exit $?
+fi
+
+echo "pre-commit: Python no esta disponible. Instala Python y python-docx." >&2
+exit 1
