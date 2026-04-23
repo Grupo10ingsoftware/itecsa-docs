@@ -1,5 +1,7 @@
 $ErrorActionPreference = "Stop"
 
+# Resolve everything from the repo root so the script works from double click,
+# PowerShell, or the batch wrapper in the repository root.
 $RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $VenvPath = Join-Path $RepoRoot ".venv"
 $VenvPython = Join-Path $VenvPath "Scripts\python.exe"
@@ -37,6 +39,7 @@ if (-not (Test-CommandExists "git")) {
 }
 
 try {
+    # Fail early if Git LFS is missing; the repo depends on it for Office files.
     git -C $RepoRoot lfs version | Out-Null
 }
 catch {
@@ -65,6 +68,7 @@ Write-Host "Configurando Git LFS para este usuario"
 git -C $RepoRoot lfs install | Out-Null
 
 Write-Host "Activando hooks del repositorio"
+# The custom hooks are part of the repo, so point Git at .githooks explicitly.
 git -C $RepoRoot config core.hooksPath .githooks
 
 Write-Host ""

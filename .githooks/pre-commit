@@ -2,6 +2,7 @@
 
 set -eu
 
+# Prefer the repo-local virtualenv so every contributor runs the same tooling.
 if [ -x ".venv/Scripts/python.exe" ]; then
   ".venv/Scripts/python.exe" "tools/docx_sidecar.py" sync-staged
   exit $?

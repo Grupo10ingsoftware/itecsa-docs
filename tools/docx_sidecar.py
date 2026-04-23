@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 from __future__ import annotations
 
+"""Keep DOCX sidecars synchronized so the DOCX remains the source of truth."""
+
 import argparse
 import subprocess
 import sys
@@ -20,6 +22,7 @@ def sidecar_pattern_for(output_format: str) -> str:
 
 
 def run_git(args: list[str], cwd: Path, check: bool = True) -> subprocess.CompletedProcess[str]:
+    # Centralize Git execution so the hook gets consistent error reporting.
     result = subprocess.run(
         ["git", *args],
         cwd=cwd,
@@ -65,6 +68,8 @@ def build_normalized_text(docx_path: Path, output_format: str) -> str:
 
 
 def sync_one_file(docx_path: Path, output_format: str) -> Path:
+    # Always rebuild the sidecar from the DOCX instead of trying to patch the
+    # existing file. That keeps manual sidecar edits from becoming authoritative.
     sidecar_path = sidecar_path_for(docx_path, output_format)
     text = build_normalized_text(docx_path, output_format)
     write_text(sidecar_path, text)
@@ -141,6 +146,9 @@ def staged_changes(repo: Path, pattern: str) -> list[tuple[str, list[Path]]]:
 
 
 def sync_staged(repo: Path, output_format: str, *, dry_run: bool) -> int:
+    # The hook only touches files that are part of the next commit. That keeps
+    # the repo clean while still guaranteeing that committed sidecars match
+    # their DOCX counterpart.
     docx_changes = staged_changes(repo, "*.docx")
     sidecar_changes = staged_changes(repo, sidecar_pattern_for(output_format))
     docx_updates: set[Path] = set()
@@ -165,6 +173,8 @@ def sync_staged(repo: Path, output_format: str, *, dry_run: bool) -> int:
         for relative_sidecar_path in sidecar_paths:
             docx_path = repo / docx_path_for_sidecar(relative_sidecar_path, output_format)
             if docx_path.exists():
+                # If someone stages the sidecar directly, regenerate it from the
+                # DOCX before the commit is created.
                 docx_updates.add(docx_path)
                 continue
 
@@ -197,6 +207,8 @@ def sync_staged(repo: Path, output_format: str, *, dry_run: bool) -> int:
 def run_update(args: argparse.Namespace) -> int:
     repo = repo_root()
     for raw_path in args.paths:
+        # Accept both repo-relative and absolute paths so the script is useful
+        # from the hook and for one-off manual backfills.
         docx_path = (repo / raw_path).resolve() if not raw_path.is_absolute() else raw_path.resolve()
         if not docx_path.exists():
             raise FileNotFoundError(f"DOCX not found: {docx_path}")

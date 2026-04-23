@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 from __future__ import annotations
 
+"""Utilities to turn DOCX files into stable text/Markdown for Git diffs."""
+
 import argparse
 import difflib
 import re
@@ -25,6 +27,7 @@ except ImportError as exc:  # pragma: no cover - handled at runtime
 
 
 def normalize_text(text: str) -> str:
+    # Collapse Word-specific spacing so equivalent visual content diffes cleanly.
     pieces = []
     for raw_line in text.replace("\xa0", " ").splitlines():
         line = " ".join(raw_line.split())
@@ -78,6 +81,8 @@ def heading_level(paragraph: Paragraph) -> int | None:
 
 
 def iter_block_items(parent):
+    # python-docx exposes paragraphs and tables separately; Git-friendly output
+    # needs them in document order, including content nested inside table cells.
     if isinstance(parent, DocxDocument):
         parent_element = parent.element.body
     elif isinstance(parent, _Cell):
@@ -111,6 +116,8 @@ def escape_markdown_cell(text: str) -> str:
 
 
 def table_to_markdown_lines(table: Table, table_index: int) -> list[str]:
+    # Normalize ragged Word tables into a rectangular Markdown table so the
+    # rendered structure stays stable across edits.
     rows = [[escape_markdown_cell(cell_to_text(cell)) for cell in row.cells] for row in table.rows]
     if not rows:
         return [f"### Table {table_index}", "", "[EMPTY TABLE]"]
@@ -189,6 +196,8 @@ def unique_part_lines(parts, label: str, counters: dict[str, int]) -> list[str]:
 
     for part in parts:
         xml = str(part._element.xml)
+        # Word often reuses the same header/footer definition across sections.
+        # Deduping by XML avoids noisy repeated output.
         if xml in seen_xml:
             continue
         seen_xml.add(xml)
@@ -285,6 +294,8 @@ def document_to_markdown_lines(path: Path) -> list[str]:
 
 
 def document_to_serialized_lines(path: Path, output_format: str) -> list[str]:
+    # Keep the text and Markdown pipelines separate so the hook can choose the
+    # sidecar format without changing the diff logic.
     if output_format == "markdown":
         return document_to_markdown_lines(path)
     return document_to_lines(path)
@@ -296,6 +307,7 @@ def write_text(output_path: Path | None, text: str) -> None:
         return
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
+    # Use UTF-8 with BOM so the generated files open cleanly in Windows editors.
     output_path.write_text(text, encoding="utf-8-sig")
 
 
