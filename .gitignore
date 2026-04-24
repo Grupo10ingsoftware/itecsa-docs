@@ -10,3 +10,9 @@ ehthumbs.db
 # Generic temporary files
 *.tmp
 *.temp
+
+# Python cache
+__pycache__/
+
+# Local virtual environment
+.venv/
