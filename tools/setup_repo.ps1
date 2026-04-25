@@ -38,6 +38,29 @@ function Get-PythonBootstrapCommand {
     throw "Python no esta instalado o no esta en PATH. Instala Python 3 y vuelve a ejecutar este script."
 }
 
+function Test-LfsPointersPresent {
+    $lfsPaths = git -C $RepoRoot lfs ls-files --name-only
+
+    foreach ($relativePath in $lfsPaths) {
+        $path = Join-Path $RepoRoot $relativePath
+        if (-not (Test-Path -LiteralPath $path)) {
+            continue
+        }
+
+        $file = Get-Item -LiteralPath $path
+        if ($file.Length -gt 1024) {
+            continue
+        }
+
+        $firstLine = Get-Content -LiteralPath $path -TotalCount 1 -ErrorAction SilentlyContinue
+        if ($firstLine -eq "version https://git-lfs.github.com/spec/v1") {
+            return $true
+        }
+    }
+
+    return $false
+}
+
 if (-not (Test-CommandExists "git")) {
     throw "Git no esta instalado o no esta en PATH."
 }
@@ -63,12 +86,15 @@ git -C $RepoRoot lfs install --skip-repo | Out-Null
 Write-Host "Activando rutas largas para este repo"
 git -C $RepoRoot config core.longpaths true
 
-if ($RepairLfs) {
+Write-Host "Verificando archivos Git LFS"
+$ShouldPullLfs = $RepairLfs -or (Test-LfsPointersPresent)
+
+if ($ShouldPullLfs) {
     Write-Host "Descargando archivos Git LFS"
     git -C $RepoRoot lfs pull
 }
 else {
-    Write-Host "Saltando git lfs pull. Si ves punteros LFS, ejecuta: .\setup_local.cmd -RepairLfs"
+    Write-Host "Archivos Git LFS listos"
 }
 
 $BootstrapPython = Get-PythonBootstrapCommand

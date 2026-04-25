@@ -42,7 +42,38 @@ Importante:
 
 ## Preparar el repo local
 
-Despues de clonar el repo con Git LFS, ejecuta estos comandos una sola vez desde la raiz del repo:
+Despues de clonar el repo con Git LFS, ejecuta una sola vez el setup desde la raiz del repo:
+
+```powershell
+.\setup_local.cmd
+```
+
+El setup hace esto automaticamente:
+
+1. Verifica que Git y Git LFS esten disponibles.
+2. Configura Git LFS sin tocar los hooks propios del repo.
+3. Activa rutas largas en este repo.
+4. Repara archivos LFS si detecta punteros en vez de archivos reales.
+5. Crea `.venv` local si no existe.
+6. Instala las dependencias Python desde `requirements-dev.txt`.
+7. Activa los hooks del repo en `.githooks`.
+
+Prerequisitos de este paso:
+
+- Repo clonado con Git y Git LFS.
+- Python 3 disponible en `PATH`.
+
+No ejecutes `setup_local.cmd` desde una descarga ZIP. El ZIP sirve para abrir o revisar documentos, pero no es un clon Git y no sirve para trabajar con commits, hooks ni ramas.
+
+Si el clon quedo con punteros LFS en vez de archivos reales, repara la descarga con:
+
+```powershell
+.\setup_local.cmd -RepairLfs
+```
+
+Ese modo fuerza `git lfs pull`. El setup normal tambien lo ejecuta automaticamente si detecta punteros LFS.
+
+Si el `.cmd` falla por permisos, ejecuta manualmente estos comandos desde la raiz del repo:
 
 ```powershell
 git lfs install --skip-repo
@@ -51,29 +82,6 @@ git config core.hooksPath .githooks
 py -3 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install --disable-pip-version-check -r requirements-dev.txt
 ```
-
-Si `py -3` no funciona, usa:
-
-```powershell
-python -m venv .venv
-```
-
-Prerequisitos de este paso:
-
-- Repo clonado con Git y Git LFS.
-- Python 3 disponible en `PATH`.
-
-Estos comandos dejan el repo listo para trabajar con hooks, archivos LFS y el entorno Python local.
-
-Si el clon quedo con punteros LFS en vez de archivos reales, repara la descarga con:
-
-```powershell
-git lfs pull
-```
-
-Ese comando necesita conexion a internet y puede activar una alerta del antivirus o firewall. El resto del setup manual no descarga archivos LFS.
-
-El archivo `setup_local.cmd` queda como alternativa opcional, pero no es el flujo recomendado si el antivirus bloquea archivos `.cmd`.
 
 ## Tutorial Git basico
 
@@ -87,11 +95,7 @@ Esta seccion esta pensada para alguien que no usa Git todos los dias.
 git lfs install
 git clone https://github.com/Grupo10ingsoftware/itecsa-docs.git C:\repos\itecsa
 cd C:\repos\itecsa
-git lfs install --skip-repo
-git config core.longpaths true
-git config core.hooksPath .githooks
-py -3 -m venv .venv
-.\.venv\Scripts\python.exe -m pip install --disable-pip-version-check -r requirements-dev.txt
+.\setup_local.cmd
 ```
 
 Eso se hace una sola vez por equipo y por clon.
@@ -364,10 +368,12 @@ Este repositorio usa Git LFS para manejar archivos binarios y pesados. Si otra p
 ```powershell
 git lfs install
 git clone https://github.com/Grupo10ingsoftware/itecsa-docs.git C:\repos\itecsa
+cd C:\repos\itecsa
+.\setup_local.cmd
 ```
 
-Si despues del clon algun archivo grande pesa cerca de 130 bytes, descarga los objetos reales con:
+Si despues del clon algun archivo grande pesa cerca de 130 bytes, repara los objetos reales con:
 
 ```powershell
-git lfs pull
+.\setup_local.cmd -RepairLfs
 ```
