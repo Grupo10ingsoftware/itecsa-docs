@@ -85,7 +85,7 @@ Esta seccion esta pensada para alguien que no usa Git todos los dias.
 
 ```powershell
 git lfs install
-git clone https://github.com/Grupo10ingsoftware/ing-software-2026-grupo-10-documentacion-itecsa.git C:\repos\itecsa
+git clone https://github.com/Grupo10ingsoftware/itecsa-docs.git C:\repos\itecsa
 cd C:\repos\itecsa
 git lfs install --skip-repo
 git config core.longpaths true
@@ -363,7 +363,7 @@ Este repositorio usa Git LFS para manejar archivos binarios y pesados. Si otra p
 
 ```powershell
 git lfs install
-git clone https://github.com/Grupo10ingsoftware/ing-software-2026-grupo-10-documentacion-itecsa.git C:\repos\itecsa
+git clone https://github.com/Grupo10ingsoftware/itecsa-docs.git C:\repos\itecsa
 ```
 
 Si despues del clon algun archivo grande pesa cerca de 130 bytes, descarga los objetos reales con:
