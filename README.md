@@ -38,42 +38,42 @@ Importante:
 
 ## Estructura
 
-- `Documentacion de los incrementos/`: documentacion del proyecto, entrevistas, requerimientos, planificacion, BPMN, presentaciones y material de apoyo.
+- `docs/`: documentacion del proyecto, entrevistas, requerimientos, planificacion, BPMN, presentaciones y material de apoyo.
 
 ## Preparar el repo local
 
-Despues de clonar el repo con Git LFS, ejecuta una sola vez el script [setup_local.cmd](./setup_local.cmd) en cada clon del repositorio.
+Despues de clonar el repo con Git LFS, ejecuta estos comandos una sola vez desde la raiz del repo:
 
-Opciones:
+```powershell
+git lfs install --skip-repo
+git config core.longpaths true
+git config core.hooksPath .githooks
+py -3 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install --disable-pip-version-check -r requirements-dev.txt
+```
 
-- Doble click en `setup_local.cmd`
-- O desde terminal: `.\setup_local.cmd`
+Si `py -3` no funciona, usa:
+
+```powershell
+python -m venv .venv
+```
 
 Prerequisitos de este paso:
 
 - Repo clonado con Git y Git LFS.
-- Python 3 disponible en `PATH`
+- Python 3 disponible en `PATH`.
 
-Ese script deja el repo listo. Hace esto automaticamente:
-
-1. Verifica que Git y Git LFS esten disponibles.
-2. Ejecuta `git lfs install`.
-3. Crea `.venv` local si no existe.
-4. Instala las dependencias Python del repo desde `requirements-dev.txt`.
-5. Configura `core.hooksPath=.githooks`.
-6. Configura `core.longpaths=true` localmente en este repo.
-
-Despues de correr `setup_local.cmd`, no hace falta ejecutar comandos extra de PowerShell para que el flujo normal del repo funcione.
+Estos comandos dejan el repo listo para trabajar con hooks, archivos LFS y el entorno Python local.
 
 Si el clon quedo con punteros LFS en vez de archivos reales, repara la descarga con:
 
 ```powershell
-.\setup_local.cmd -RepairLfs
+git lfs pull
 ```
 
-Ese modo ejecuta `git lfs pull`, por lo que necesita conexion a internet y puede activar una alerta del antivirus o firewall.
+Ese comando necesita conexion a internet y puede activar una alerta del antivirus o firewall. El resto del setup manual no descarga archivos LFS.
 
-El setup normal no ejecuta `git lfs pull` ni actualiza `pip`. En un clon nuevo puede necesitar internet solo para instalar las dependencias Python de `requirements-dev.txt`.
+El archivo `setup_local.cmd` queda como alternativa opcional, pero no es el flujo recomendado si el antivirus bloquea archivos `.cmd`.
 
 ## Tutorial Git basico
 
@@ -87,7 +87,11 @@ Esta seccion esta pensada para alguien que no usa Git todos los dias.
 git lfs install
 git clone https://github.com/Grupo10ingsoftware/ing-software-2026-grupo-10-documentacion-itecsa.git C:\repos\itecsa
 cd C:\repos\itecsa
-.\setup_local.cmd
+git lfs install --skip-repo
+git config core.longpaths true
+git config core.hooksPath .githooks
+py -3 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install --disable-pip-version-check -r requirements-dev.txt
 ```
 
 Eso se hace una sola vez por equipo y por clon.
@@ -313,7 +317,7 @@ Estos comandos son opcionales. El flujo normal no los necesita, pero sirven para
 Regenerar manualmente el sidecar Markdown de un archivo:
 
 ```bash
-.\.venv\Scripts\python.exe tools/docx_sidecar.py update "Documentacion de los incrementos\Contexto\Contexto.docx" --stage
+.\.venv\Scripts\python.exe tools/docx_sidecar.py update "docs\Contexto\Contexto.docx" --stage
 ```
 
 Comparar manualmente dos exportaciones distintas del mismo documento:
@@ -325,7 +329,7 @@ Comparar manualmente dos exportaciones distintas del mismo documento:
 Generar salida en texto plano en vez de Markdown:
 
 ```bash
-.\.venv\Scripts\python.exe tools/docx_sidecar.py update --format text "Documentacion de los incrementos\Contexto\Contexto.docx"
+.\.venv\Scripts\python.exe tools/docx_sidecar.py update --format text "docs\Contexto\Contexto.docx"
 ```
 
 ## Pull Requests con GitHub CLI
@@ -355,8 +359,15 @@ Comandos utiles:
 
 ## Archivos grandes
 
-Este repositorio usa Git LFS para manejar archivos binarios y pesados. Si otra persona clona el repositorio en un equipo nuevo, debe ejecutar:
+Este repositorio usa Git LFS para manejar archivos binarios y pesados. Si otra persona clona el repositorio en un equipo nuevo, debe tener Git LFS instalado antes del `git clone`:
 
-```bash
-.\setup_local.cmd
+```powershell
+git lfs install
+git clone https://github.com/Grupo10ingsoftware/ing-software-2026-grupo-10-documentacion-itecsa.git C:\repos\itecsa
+```
+
+Si despues del clon algun archivo grande pesa cerca de 130 bytes, descarga los objetos reales con:
+
+```powershell
+git lfs pull
 ```
