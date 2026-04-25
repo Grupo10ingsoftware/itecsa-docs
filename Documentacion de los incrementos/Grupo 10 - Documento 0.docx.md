@@ -643,13 +643,13 @@ RF08: El sistema debe mostrar un listado de los últimos diez registros asociado
 
 9- Bloqueo de acceso a usuarios desvinculados <br> RF09: El sistema debe impedir el acceso a la interfaz web, endpoints de API y operaciones internas cuando el usuario tenga estado “Desvinculado”
 
-10- Validación de credenciales y estado vinculado <br> RF10: El sistema debe validar que el correo electrónico y la contraseña ingresados correspondan a un usuario registrado.
+10- Validación de credenciales y estado vinculado
 
-RF11: El sistema debe permitir el acceso al sistema cuando el correo electrónico y la contraseña correspondan a un usuario registrado y su estado sea “vinculado”.
+RF10: El sistema debe permitir el acceso al sistema cuando el correo electrónico y la contraseña correspondan a un usuario registrado y su estado sea “vinculado”.
 
-11- Validación de correo electrónico único <br> RF09: El sistema debe validar que el correo electrónico no esté previamente registrado en la tabla de usuarios, independientemente de si el usuario está vinculado o desvinculado. En caso de duplicado, debe mostrar el mensaje “El correo ingresado ya está asociado a una cuenta”.
+11- Validación de correo electrónico único <br> RF12: El sistema debe validar que el correo electrónico no esté previamente registrado en la tabla de usuarios, independientemente de si el usuario está vinculado o desvinculado. En caso de duplicado, debe mostrar el mensaje “El correo ingresado ya está asociado a una cuenta”.
 
-12- Restricción de acceso por rol <br> RF12: El sistema debe restringir el acceso a módulos, pantallas, botones y API según el rol del usuario autenticado.
+12- Restricción de acceso por rol <br> RF12: El sistema debe restringir el acceso a módulos, pantallas, botones y API según el rol del usuario autenticado
 
 13- Mensaje Acceso denegado por rol
 
@@ -1565,7 +1565,7 @@ Tabla 3.17: “Registrando ficha de cliente”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.18: “Validando campos mínimos de la NV”
+Tabla 3.18: “Validando campos mínimos de la NVnta”
 
 ### Table 22
 
@@ -1603,7 +1603,7 @@ Tabla 3.19: “Validando SKU contra catálogo”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.20: “Validando unicidad del código de la NV”
+Tabla 3.20: “Validando unicidad del código de la Nota de Venta”
 
 ### Table 24
 
@@ -2134,7 +2134,7 @@ Tabla 3.47: “Accediendo a módulo Kanban”
 
 ### Table 52
 
-| Caso de uso N°44 | Accediendo a módulo Kanban |
+| Caso de uso N°47 | Accediendo a módulo Kanban |
 | --- | --- |
 | Actores | -Producción. |
 | Propósito | Permitir visualizar las órdenes según su estado. |
@@ -2148,11 +2148,11 @@ Tabla 3.47: “Accediendo a módulo Kanban”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.47,1: “Accediendo a módulo Kanban”
+Tabla 3.48: “Visualización del tablero Kanban por Administrador”
 
 ### Table 53
 
-| Caso de uso N°44.1 | Visualización del tablero Kanban por Administrador |
+| Caso de uso N°48 | Visualización del tablero Kanban por Administrador |
 | --- | --- |
 | Actores | -Administrador. |
 | Propósito | Permitir al administrador visualizar los pedidos en el tablero Kanban para analizar su estado dentro del flujo productivo y gestionar su organización y prioridad. |
@@ -2166,11 +2166,11 @@ Tabla 3.47,1: “Accediendo a módulo Kanban”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.47,2: “Accediendo a módulo Kanban”
+Tabla 3.49: “Visualización tablero Kanban Operario”
 
 ### Table 54
 
-| Caso de uso 44.2 | Visualizando tablero Kanban Operario. |
+| Caso de uso 49 | Visualizando tablero Kanban Operario. |
 | --- | --- |
 | Actores | -Operario |
 | Propósito | Permitir al operario visualizar los pedidos en el tablero Kanban para identificar su estado actual dentro del flujo productivo y ejecutar las tareas correspondientes. |
@@ -2186,11 +2186,11 @@ Tabla 3.47,2: “Accediendo a módulo Kanban”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.47,3: “Accediendo a módulo Kanban”
+Tabla 3.50: “Visualización tablero Kanban Ventas”
 
 ### Table 55
 
-| Caso de uso 44.3 | Visualizando tablero Kanban Ventas. |
+| Caso de uso 50 | Visualizando tablero Kanban Ventas. |
 | --- | --- |
 | Actores | -Usuario con rol Ventas |
 | Propósito | Permitir al usuario de ventas visualizar el estado de los pedidos registrados mediante notas de venta, con el fin de realizar seguimiento a su progreso dentro del proceso productivo. |
@@ -2204,11 +2204,11 @@ Tabla 3.47,3: “Accediendo a módulo Kanban”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.44,4: “Accediendo a módulo Kanban”
+Tabla 3.51: “Visualizando tablero Kanban Facturación ”
 
 ### Table 56
 
-| Caso de uso 44.4 | Visualizando tablero Kanban Facturación. |
+| Caso de uso 51 | Visualizando tablero Kanban Facturación. |
 | --- | --- |
 | Actores | -Facturación |
 | Propósito | Permitir al usuario de facturación visualizar los pedidos en el tablero Kanban para identificar aquellos que requieren validación de pago dentro del flujo del proceso. |
@@ -2224,11 +2224,11 @@ Tabla 3.44,4: “Accediendo a módulo Kanban”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.45: “Visualizando columnas del tablero Kanban”
+Tabla 3.52: “Visualizando columnas del tablero Kanban”
 
 ### Table 57
 
-| Caso de uso N°45 | Visualizando columnas del tablero Kanban. |
+| Caso de uso N°52 | Visualizando columnas del tablero Kanban. |
 | --- | --- |
 | Actores | -Operarios. <br> -Administración. <br> -Facturación. <br> -ventas. |
 | Propósito | Permitir al usuario autorizado cambiar manualmente el estado de un pedido dentro del tablero Kanban mediante la acción de arrastrar y soltar, siempre que el estado de destino sea válido. |
@@ -2238,15 +2238,15 @@ Tabla 3.45: “Visualizando columnas del tablero Kanban”
 | Tipos | Principal. |
 | Curso normal de eventos | Curso normal de eventos |
 | Acciones de los actores | Respuesta del sistema |
-| 1. El usuario de cualquier rol ingresa sus credenciales al sistema. <br> 3. El usuario de cualquier rol ingresa al módulo kanban. <br> 5. El usuario espera la respuesta del sistema. | 2. El sistema valida los permisos del usuario. <br> 4. El sistema carga las columnas predefinidas del tablero Kanban. <br> 6.El sistema despliega la estructura del tablero al usuario. |
+| 1. El usuario de cualquier rol ingresa sus credenciales al sistema. <br> 3. El usuario de cualquier rol ingresa al módulo Kanban. <br> 5. El usuario espera la respuesta del sistema. | 2. El sistema valida los permisos del usuario. <br> 4. El sistema carga las columnas predefinidas del tablero Kanban. <br> 6.El sistema despliega la estructura del tablero al usuario. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.49: “Cambiando el estado de la orden mediante arrastre (Drag and Drop)”
+Tabla 3.53: “Cambiando el estado de la orden mediante arrastre”
 
 ### Table 58
 
-| Caso de uso N°46 | Cambiando el estado de la orden mediante arrastre. |
+| Caso de uso N°53 | Cambiando el estado de la orden mediante arrastre. |
 | --- | --- |
 | Actores | -Producción. |
 | Propósito | Actualizar el estado de una orden |
@@ -2260,11 +2260,11 @@ Tabla 3.49: “Cambiando el estado de la orden mediante arrastre (Drag and Drop)
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto.
 
-Tabla 3.50: “Marcando subtareas de producción como completadas”
+Tabla 3.54: “Cambiando manual de estado de un pedido mediante arrastrar y soltar”
 
 ### Table 59
 
-| Caso de uso 46.1 | Cambiando manual de estado de un pedido mediante arrastrar y soltar. |
+| Caso de uso 54 | Cambiando manual de estado de un pedido mediante arrastrar y soltar. |
 | --- | --- |
 | Actores | -Operario. <br> -Administrador. |
 | Propósito | Permitir al usuario autorizado cambiar manualmente el estado de un pedido dentro del tablero Kanban mediante la acción de arrastrar y soltar, siempre que el estado de destino sea válido. |
@@ -2278,11 +2278,11 @@ Tabla 3.50: “Marcando subtareas de producción como completadas”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto.
 
-Tabla 3.50: “Marcando subtareas de producción como completadas”
+Tabla 3.55: “Intento de cambio de estado hacia una columna no permitida”
 
 ### Table 60
 
-| Caso de uso 46.2 | Intento de cambio de estado hacia una columna no permitida. |
+| Caso de uso 55 | Intento de cambio de estado hacia una columna no permitida. |
 | --- | --- |
 | Actores | -Operario. <br> -Administrador. |
 | Propósito | Evitar que un usuario realice un cambio de estado de un pedido hacia una columna no permitida según las reglas del sistema. |
@@ -2296,9 +2296,11 @@ Tabla 3.50: “Marcando subtareas de producción como completadas”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto.
 
+Tabla 3.56: “Intento de cambio de estado de un pedido sin permisos”
+
 ### Table 61
 
-| Caso de uso 46.3 | Intento de cambio de estado de un pedido sin permisos. |
+| Caso de uso 56 | Intento de cambio de estado de un pedido sin permisos. |
 | --- | --- |
 | Actores | Usuario no autorizado. |
 | Propósito | Evitar que un usuario sin los permisos necesarios modifique el estado de un pedido dentro del tablero Kanban. |
@@ -2312,11 +2314,11 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto.
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto.
 
-Tabla 3.47: “Marcando subtareas de producción como completadas”
+Tabla 3.: “Marcando subtareas de producción como completadas”
 
 ### Table 62
 
-| Caso de uso N°47 | Registrando subtareas de producción. |
+| Caso de uso N°57 | Registrando subtareas de producción. |
 | --- | --- |
 | Actores | -Operario. |
 | Propósito | Permitir al operario registrar como completadas las subtareas de producción asociadas a un pedido en proceso. |
@@ -2332,139 +2334,205 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.47: “Marcando subtareas de producción como completadas”
 
+### Table 63
+
+| Caso de uso 48 | Registrando trazabilidad de cambios de estado de los pedidos. |
+| --- | --- |
+| Actores | Usuario autorizado con rol de: <br> Operario <br> Administrador |
+| Propósito | Permitir registrar de forma automática el historial de cambios de estado de un pedido, a partir de una acción realizada por el usuario. |
+| Precondiciones | El usuario debe estar autenticado en el sistema <br> El usuario debe realizar un cambio de estado sobre un pedido <br> El cambio de estado debe ser válido según las reglas del sistema |
+| Resumen | Cuando un usuario realiza un cambio de estado en un pedido, el sistema registra automáticamente la información asociada al evento, manteniendo un historial completo de trazabilidad. |
+| Postcondiciones | El cambio de estado queda registrado en el historial del pedido <br> Se almacena la fecha, hora y usuario responsable <br> No se sobrescriben registros anteriores |
+| Tipos | Principal |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario cambia el estado de un pedido <br> 3. El usuario espera la respuesta del sistema <br> 5. El usuario espera la respuesta del sistema | 2. El sistema valida el cambio de estado <br> 4. El sistema obtiene la información del evento (fecha, hora y usuario) <br> 6. El sistema registra el cambio en el historial del sistema |
+
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.51: “Consultando trazabilidad”
 
-### Table 63
-
-| Caso de uso N°48 | Registrando trazabilidad de cambios de estado del pedidos |
-| --- | --- |
-| Actores | -Administrador. <br> -Operario. |
-| Propósito | Permitir registrar de forma automática el historial de cambios de estado de un pedido, a partir de una acción realizada por el usuario. |
-| Precondiciones | -El usuario debe estar autenticado en el sistema. <br> -El usuario debe realizar un cambio de estado sobre un pedido. <br> El cambio de estado debe ser válido según las reglas del sistema. |
-| Resumen | Cuando un usuario realiza un cambio de estado en un pedido, el sistema registra automáticamente la información asociada al evento, manteniendo un historial completo de trazabilidad. |
-| Postcondiciones | -El cambio de estado queda registrado en el historial del pedido. <br> -Se almacena la fecha, hora y usuario responsable. <br> -No se sobrescriben registros anteriores. |
-| Tipos | Principal. |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario cambia el estado de un pedido. <br> 3. El usuario espera la respuesta del sistema. <br> 5. El usuario espera la respuesta del sistema. | 2. El sistema valida el cambio de estado. <br> 4. El sistema obtiene la información del evento (fecha, hora y usuario). <br> 6. El sistema registra el cambio en el historial del sistema. |
-
-Fuente: Elaborado por el estudiante de acuerdo con el proyecto
-
-Tabla 3.52: “Viendo detalle de orden”
-
 ### Table 64
 
-| Caso de uso N°52 | Viendo detalle de orden |
+| Caso de uson 49 | Filtrando de pedidos en el tablero Kanban |
 | --- | --- |
-| Actores | Usuario de cualquier rol. |
-| Propósito | Revisar información específica de una orden de producción |
-| Precondiciones | Existencia de Orden |
-| Resumen | El usuario hace Click en el botón “ver detalle” en la orden presente en el Kanban para observar información específica |
-| Postcondiciones | Modal con información específica de la orden visible |
-| Tipos | Primario. |
+| Actores | Usuario autorizado (Operario, Administrador, Ventas, Facturación) |
+| Propósito | Permitir al usuario filtrar los pedidos visibles en el tablero Kanban según criterios específicos de búsqueda, para facilitar su localización y análisis. |
+| Precondiciones | El usuario debe estar autenticado en el sistema <br> El usuario debe encontrarse en el módulo Kanban <br> Deben existir pedidos registrados en el sistema |
+| Resumen | El usuario aplica uno o más criterios de búsqueda para filtrar los pedidos visibles en el tablero Kanban, utilizando atributos como número de nota de venta, número de orden de producción, nombre del cliente o vendedor asociado. |
+| Postcondiciones | El tablero muestra únicamente los pedidos que cumplen con los criterios de filtrado <br> Los pedidos que no cumplen con los criterios quedan ocultos temporalmente |
+| Tipos | Principal |
 | Curso normal de eventos | Curso normal de eventos |
 | Acciones de los actores | Respuesta del sistema |
-| 1. El usuario identifica una orden de producción de interés. <br> 3. El usuario hace clic en la opción “Ver detalle” o en la tarjeta de la orden. <br> 5. El usuario espera la carga de la información. | 2. El sistema mantiene visibles los datos resumidos de cada orden en el tablero. <br> 4. El sistema recupera la información completa de la orden de producción seleccionada. <br> 6. El sistema muestra un modal o panel con el detalle de la orden, incluyendo datos como cliente, producto, cantidad, fechas, estado y trazabilidad. |
+| 1. El usuario accede al tablero Kanban <br> 3. El usuario selecciona uno o más criterios de filtrado <br> 5. El usuario ingresa los valores de búsqueda correspondientes <br> 7. El usuario aplica el filtro | 2. El sistema muestra los pedidos disponibles <br> 4. El sistema recibe los criterios de búsqueda <br> 6. El sistema valida los datos ingresados <br> 8. El sistema filtra los pedidos según los criterios seleccionados |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.53: “Filtrando órdenes en el tablero Kanban”
+Tabla 3.47: “Marcando subtareas de producción como completadas”
 
 ### Table 65
 
-| Caso de uso N°53 | Filtrando órdenes en el tablero Kanban. |
+| Caso de uson 49 | Filtrando de pedidos en el tablero Kanban |
 | --- | --- |
-| Actores | -Producción. <br> -Ventas. |
-| Propósito | Facilitar búsqueda de órdenes. |
-| Precondiciones | Tablero debe estar cargado. |
-| Resumen | Aplicando filtros de búsqueda. |
-| Postcondiciones | Órdenes filtradas. |
-| Tipos | Secundario. |
+| Actores | Usuario autorizado (Operario, Administrador, Ventas, Facturación) |
+| Propósito | Permitir al usuario filtrar los pedidos visibles en el tablero Kanban según criterios específicos de búsqueda, para facilitar su localización y análisis. |
+| Precondiciones | El usuario debe estar autenticado en el sistema <br> El usuario debe encontrarse en el módulo Kanban <br> Deben existir pedidos registrados en el sistema |
+| Resumen | El usuario aplica uno o más criterios de búsqueda para filtrar los pedidos visibles en el tablero Kanban, utilizando atributos como número de nota de venta, número de orden de producción, nombre del cliente o vendedor asociado. |
+| Postcondiciones | El tablero muestra únicamente los pedidos que cumplen con los criterios de filtrado <br> Los pedidos que no cumplen con los criterios quedan ocultos temporalmente |
+| Tipos | Principal |
 | Curso normal de eventos | Curso normal de eventos |
 | Acciones de los actores | Respuesta del sistema |
-| 1. El usuario ingresa un criterio de búsqueda (NV, OP o cliente). <br> 3. El usuario aplica el filtro en el tablero. | 2. El sistema procesa el criterio ingresado. <br> 4. El sistema muestra solo las órdenes que coinciden con el filtro. |
+| 1. El usuario accede al tablero Kanban <br> 3. El usuario selecciona uno o más criterios de filtrado <br> 5. El usuario ingresa los valores de búsqueda correspondientes <br> 7. El usuario aplica el filtro | 2. El sistema muestra los pedidos disponibles <br> 4. El sistema recibe los criterios de búsqueda <br> 6. El sistema valida los datos ingresados <br> 8. El sistema filtra los pedidos según los criterios seleccionados |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.54: “Filtrando órdenes por vendedor”
+Tabla 3.47: “Marcando subtareas de producción como completadas”
 
 ### Table 66
 
-| Caso de uso N° 54 | Filtrando órdenes por vendedor. |
+| Caso de uso 50 | Organizando pedidos mediante etiquetas en el tablero Kanban |
 | --- | --- |
-| Actores | -Ventas. |
-| Propósito | Visualizar órdenes por responsable de venta. |
-| Precondiciones | Tablero debe estar disponible para visualizar las órdenes. |
-| Resumen | El usuario filtra por vendedor. |
-| Postcondiciones | Órdenes filtradas correctamente. |
-| Tipos | Secundario |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario selecciona un vendedor desde el filtro disponible. <br> 3. El usuario confirma la aplicación del filtro. | 2. El sistema identifica las órdenes asociadas a ese vendedor. <br> 4. El sistema actualiza el tablero mostrando las órdenes correspondientes. |
-
-Fuente: Elaborado por el estudiante de acuerdo con el proyecto
-
-Tabla 3.55: “Ordenando órdenes de producción en el tablero”
-
-### Table 67
-
-| Caso de uso N°55 | Ordenando órdenes de producción en el tablero. |
-| --- | --- |
-| Actores | Usuario con rol destinado: <br> -Producción. |
-| Propósito | Organizar visualización de órdenes. |
-| Precondiciones | El tablero debe estar activo. |
-| Resumen | El usuario aplica criterios de ordenamiento. |
-| Postcondiciones | Orden actualizado. |
-| Tipos | Secundario. |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario selecciona un criterio de ordenamiento (urgencia o atraso). <br> 3. El usuario aplica el orden en el tablero. | 2. El sistema analiza el criterio seleccionado. <br> 4. El sistema reorganiza las tarjetas según el criterio elegido. |
-
-Fuente: Elaborado por el estudiante de acuerdo con el proyecto
-
-Tabla 3.56: “Mostrando indicador visual de retrasos”
-
-### Table 68
-
-| Caso de uso N°56 | Mostrando indicador visual de retrasos. |
-| --- | --- |
-| Actores | -Administrador. |
-| Propósito | Alertar retrasos en producción. |
-| Precondiciones | Existencia de órdenes con atraso. |
-| Resumen | El sistema muestra alertas visuales. |
-| Postcondiciones | Órdenes identificadas con retraso. |
+| Actores | Administrador |
+| Propósito | Permitir al administrador organizar los pedidos en el tablero Kanban mediante la asignación de etiquetas, con el fin de facilitar su priorización y seguimiento dentro del flujo de trabajo. |
+| Precondiciones | -El administrador debe estar autenticado en el sistema. <br> -El administrador debe tener acceso al módulo Kanban. <br> -El pedido debe estar visible en el tablero. |
+| Resumen | El administrador selecciona un pedido en el tablero Kanban y le asigna una o más etiquetas de organización (urgencia y/o atraso) para destacar su prioridad o condición dentro del proceso. |
+| Postcondiciones | El pedido queda asociado a una o más etiquetas seleccionadas. <br> Las etiquetas asignadas son visibles en la representación del pedido dentro del tablero. |
 | Tipos | Principal. |
 | Curso normal de eventos | Curso normal de eventos |
 | Acciones de los actores | Respuesta del sistema |
-| 1. El Administrador accede al tablero Kanban. <br> 3. El Administrador revisa las tarjetas del tablero. | 2. El sistema evalúa el estado temporal de cada orden. <br> 4. El sistema muestra indicadores visuales de retraso en las órdenes correspondientes. |
+| 1. El administrador accede al tablero Kanban <br> 3. El administrador selecciona un pedido <br> 5. El administrador selecciona una o más etiquetas de organización <br> 7. El administrador confirma la acción | 2. El sistema muestra los pedidos disponibles <br> 4.El sistema identifica el pedido seleccionado <br> 6. El sistema valida la selección realizada. <br> 8. El sistema asigna las etiquetas al pedido. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.57: “Asignando operarios a orden de producción”
+Tabla 3.47: “Marcando subtareas de producción como completadas”
+
+### Table 67
+
+| Caso de uso 51 | Calculando y registrando el tiempo real por etapa de producción |
+| --- | --- |
+| Actores | Usuario autorizado (Operario, Administrador) |
+| Propósito | Permitir al sistema calcular y registrar el tiempo real que un pedido permanece en cada etapa del proceso productivo, a partir de los cambios de estado realizados por el usuario. |
+| Precondiciones | El usuario debe estar autenticado en el sistema <br> El usuario debe realizar un cambio de estado en un pedido <br> El pedido debe haber registrado previamente su ingreso a una etapa <br> Debe existir un registro de fecha y hora de entrada a la etapa |
+| Resumen | Cada vez que un usuario cambia el estado de un pedido, el sistema calcula el tiempo transcurrido en la etapa anterior utilizando las marcas de tiempo de entrada y salida, y registra dicho valor. |
+| Postcondiciones | El tiempo real de permanencia en la etapa es calculado <br> El tiempo calculado queda registrado en el sistema <br> El pedido queda asociado al tiempo registrado en la etapa correspondiente |
+| Tipos | Principal |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario cambia el estado de un pedido. <br> 3. El usuario espera la respuesta del sistema. <br> 5. El usuario espera la respuesta del sistema. <br> 7. El usuario espera la respuesta del pedido. <br> 9. El usuario espera la respuesta del pedido. | 2. El sistema valida el cambio de estado <br> 4. El sistema identifica la etapa anterior del pedido <br> 6. El sistema obtiene la fecha y hora de ingreso a la etapa <br> 8. El sistema calcula el tiempo transcurrido en la etapa <br> 10. El sistema almacena el tiempo calculado |
+
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
+Tabla 3.47: “Marcando subtareas de producción como completadas”
+
+### Table 68
+
+| Caso de uso 52 | Cálculando de la diferencia entre tiempo estimado y tiempo real por etapa. |
+| --- | --- |
+| Actores | -Operario. <br> -Administrador. |
+| Propósito | Permitir al sistema calcular la diferencia entre el tiempo estimado predefinido y el tiempo real transcurrido en una etapa del proceso productivo, a partir de las acciones realizadas por el usuario. |
+| Precondiciones | -El usuario debe estar autenticado en el sistema. <br> -El usuario debe realizar un cambio de estado en un pedido. <br> -Debe existir un tiempo estimado predefinido para la etapa. <br> -Debe existir un tiempo real previamente calculado para la etapa. |
+| Resumen | Cuando un usuario realiza un cambio de estado en un pedido, el sistema calcula automáticamente la diferencia entre el tiempo estimado y el tiempo real de la etapa finalizada, permitiendo evaluar su desempeño. |
+| Postcondiciones | -La diferencia entre tiempo estimado y tiempo real es calculada. <br> -El resultado queda disponible para visualización por usuarios autorizados. <br> -El pedido queda asociado al valor calculado. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario cambia el estado de un pedido. <br> 3. El usuario espera la respuesta del sistema. <br> 5. El usuario espera la respuesta del sistema. <br> 7. El usuario espera la respuesta del pedido. <br> 9. El usuario espera la respuesta del pedido. <br> 11.El usuario espera la respuesta del pedido. | 2. El sistema valida el cambio de estado. <br> 4. El sistema identifica la etapa finalizada. <br> 6.El sistema obtiene el tiempo real registrado. <br> 8.El sistema calcula la diferencia entre ambos valores. <br> 10. El sistema almacena el resultado. <br> 12.El sistema deja disponible la información para su visualización. |
+
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
+Tabla 3.47: “Marcando subtareas de producción como completadas”
 
 ### Table 69
 
-| Caso de uso N°57 | Asignando operarios a orden de producción. |
+| Caso de uso 53 | Visualizando indicador de retraso en el tablero Kanban. |
 | --- | --- |
-| Actores | Usuario de rol destinado: <br> -Administrador. |
-| Propósito | Asignar uno o más operarios a una orden de producción específica. |
-| Precondiciones | Existencia de Orden <br> Existencia de operario |
-| Resumen | El administrador asigna operarios según la carga o necesidad hacia un cliente específico |
-| Postcondiciones | Detalle de orden muestra a él o los operarios asignados |
-| Tipos | Secundario. |
+| Actores | -Operario. <br> -Administrador. <br> -Ventas. <br> -Facturación. |
+| Propósito | Permitir al sistema mostrar automáticamente un indicador visual de retraso en los pedidos que exceden el tiempo estimado de una etapa, facilitando su identificación en el tablero Kanban. |
+| Precondiciones | -El usuario debe estar autenticado en el sistema. <br> -El usuario debe acceder al módulo Kanban. <br> -Debe existir un tiempo estimado definido para la etapa. <br> -Debe existir un tiempo real calculado para el pedido en la etapa. |
+| Resumen | Al visualizar el tablero Kanban, el sistema evalúa automáticamente si los pedidos han superado el tiempo estimado de su etapa y, en caso afirmativo, muestra un indicador visual de retraso sobre su representación. |
+| Postcondiciones | -Los pedidos que superan el tiempo estimado muestran un indicador visual de retraso. <br> -El indicador es visible en la representación del pedido dentro del tablero. |
+| Tipos | Principal. |
 | Curso normal de eventos | Curso normal de eventos |
 | Acciones de los actores | Respuesta del sistema |
-| 1. El Administrador selecciona una orden de producción específica. <br> 3. El Administrador accede a la opción “Asignar operarios”. <br> 5. El Administrador selecciona uno o más operarios para la orden de producción. <br> 7. El Administrador confirma la asignación realizada | 2. El sistema muestra el detalle de la orden seleccionada. <br> 4. El sistema despliega el listado de operarios disponibles para asignación. <br> 6. El sistema valida la existencia de los operarios seleccionados y registra la asignación en la orden. <br> 8. El sistema actualiza el detalle de la orden y muestra los operarios asignados correctamente. |
+| 1. El usuario accede al tablero Kanban. <br> 3. El usuario espera la respuesta del sistema. <br> 5. El usuario espera la respuesta del sistema. <br> 7. El usuario espera la respuesta del pedido. | 2. El sistema muestra los pedidos disponibles. <br> 4. El sistema compara el tiempo real con el tiempo estimado. <br> 6. El sistema identifica los pedidos con retraso. <br> 8. El sistema muestra el indicador visual correspondiente en cada pedido. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
+Tabla 3.47: “Marcando subtareas de producción como completadas”
+
+### Table 70
+
+| Caso de uso 54 | Asignación de operario a una orden de producción. |
+| --- | --- |
+| Actores | Administrador. |
+| Propósito | Permitir al administrador asignar un operario a una orden de producción específica, con el fin de definir responsables dentro del proceso productivo. |
+| Precondiciones | -El administrador debe estar autenticado en el sistema. <br> -El administrador debe tener acceso al módulo Kanban. <br> -Debe existir al menos un operario registrado en el sistema. <br> -El pedido debe estar registrado y visible en el tablero. |
+| Resumen | El administrador selecciona un pedido en el tablero Kanban y asigna un operario registrado, estableciendo su responsabilidad en la ejecución del proceso. |
+| Postcondiciones | -El operario queda asignado al pedido. <br> -La asignación queda registrada en el sistema. <br> -La información del operario es visible en el pedido. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El administrador selecciona un pedido en el tablero Kanban. <br> 3. El administrador accede a la opción de asignación de operario. <br> 5. El administrador selecciona un operario. <br> 7. El administrador confirma la asignación. <br> 9. El usuario espera la respuesta del sistema. | 2. El sistema identifica el pedido seleccionado. <br> 4. El sistema muestra los operarios disponibles. <br> 6. El sistema valida la selección realizada. <br> 8. El sistema registra la asignación del operario al pedido. <br> 10. El sistema actualiza la información visible del pedido. |
+
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
+Tabla 3.47: “Marcando subtareas de producción como completadas”
+
+### Table 71
+
+| Caso de uso 55.1 | Registro de rechazo de pedido en etapa de control de calidad. |
+| --- | --- |
+| Actores | -Operario. |
+| Propósito | Permitir al usuario registrar el rechazo de un pedido en la etapa de control de calidad, ingresando obligatoriamente el motivo del rechazo, con el fin de gestionar su reproceso dentro del flujo productivo. |
+| Precondiciones | -El usuario debe estar autenticado en el sistema. <br> -El pedido debe encontrarse en la etapa “Control de calidad”. <br> -El usuario debe contar con permisos para registrar rechazos. |
+| Resumen | El usuario identifica un pedido en la etapa de control de calidad y lo marca como rechazado, ingresando el motivo correspondiente. El sistema registra la información, conserva el historial y cambia automáticamente el estado del pedido a “En producción”. |
+| Postcondiciones | -El rechazo queda registrado con su motivo, fecha, hora y usuario responsable. <br> -El pedido cambia automáticamente al estado “En producción”. <br> -El registro del rechazo queda almacenado en el historial del pedido. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario selecciona un pedido en etapa “Control de calidad”. <br> 3. El usuario selecciona la opción de marcar como rechazado. <br> 5. El usuario ingresa el motivo del rechazo. <br> 7. El usuario confirma la acción. <br> 9. El usuario espera la respuesta del sistema. <br> 11. El usuario espera la respuesta del sistema. <br> 13. El usuario espera la respuesta del pedido. | 2. El sistema identifica el pedido seleccionado. <br> 4. El sistema solicita el ingreso del motivo del rechazo. <br> 6. El sistema valida que el motivo haya sido ingresado. <br> 8. El sistema registra el rechazo junto con la fecha, hora y usuario. <br> 10. El sistema almacena el registro en el historial del pedido. <br> 12. El sistema cambia automáticamente el estado del pedido a “En producción”. <br> 14. El sistema actualiza la visualización del tablero Kanban. |
+
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
+### Table 72
+
+| Caso de uso 55.2 | Caso de uso 55.2 | Intentando registrar el rechazo sin motivo |
+| --- | --- | --- |
+| Actores | Actores | Operario |
+| Propósito | Propósito | Evitar que un usuario registre un rechazo de un pedido sin ingresar el motivo correspondiente. |
+| Precondiciones | Precondiciones | El usuario debe estar autenticado en el sistema <br> El pedido debe encontrarse en la etapa “Control de calidad” |
+| Resumen | Resumen | El usuario intenta marcar un pedido como rechazado sin ingresar el motivo requerido, provocando que el sistema bloquee la acción. |
+| Postcondiciones | Postcondiciones | El rechazo no es registrado <br> El estado del pedido no es modificado <br> El sistema solicita el ingreso del motivo del rechazo |
+| Tipos | Tipos | Principal |
+| Curso normal de eventos | Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Acciones de los actores | Respuesta del sistema |
+| 1. El usuario selecciona un pedido en etapa “Control de calidad” <br> 3. El usuario selecciona la opción de marcar como rechazado <br> 5. El usuario no ingresa el motivo y confirma la acción <br> 7. El usuario espera la respuesta del sistema <br> 9. El usuario espera la respuesta del sistema | 1. El usuario selecciona un pedido en etapa “Control de calidad” <br> 3. El usuario selecciona la opción de marcar como rechazado <br> 5. El usuario no ingresa el motivo y confirma la acción <br> 7. El usuario espera la respuesta del sistema <br> 9. El usuario espera la respuesta del sistema | 2. El sistema identifica el pedido seleccionado <br> 4. El sistema solicita el ingreso del motivo del rechazo <br> 6. El sistema valida la entrada <br> 8. El sistema cancela la operación <br> 10. El sistema muestra un mensaje solicitando el ingreso del motivo |
+| Caso de uso 56 | Cambiando automáticamente el estado tras rechazo | Cambiando automáticamente el estado tras rechazo |
+| Actores | Operario | Operario |
+| Propósito | Permitir que el sistema cambia automáticamente el estado de un pedido rechazado en control de calidad hacia “En producción”. | Permitir que el sistema cambia automáticamente el estado de un pedido rechazado en control de calidad hacia “En producción”. |
+| Precondiciones | El usuario debe estar autenticado. <br> El pedido debe encontrarse en “Control de calidad”. <br> El usuario debe haber registrado un rechazo válido con motivo. | El usuario debe estar autenticado. <br> El pedido debe encontrarse en “Control de calidad”. <br> El usuario debe haber registrado un rechazo válido con motivo. |
+| Resumen | Cuando el usuario registra correctamente el rechazo de un pedido en control de calidad, el sistema cambia automáticamente su estado a “En producción” para permitir su reproceso. | Cuando el usuario registra correctamente el rechazo de un pedido en control de calidad, el sistema cambia automáticamente su estado a “En producción” para permitir su reproceso. |
+| Postcondiciones | El pedido queda en estado “En producción”. <br> El tablero Kanban muestra el pedido en la columna correspondiente. <br> El cambio de estado queda registrado en el sistema. | El pedido queda en estado “En producción”. <br> El tablero Kanban muestra el pedido en la columna correspondiente. <br> El cambio de estado queda registrado en el sistema. |
+| Tipos | Principal | Principal |
+| Curso normal de eventos | Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema | Respuesta del sistema |
+| 1. El usuario confirma el rechazo del pedido en control de calidad <br> 3. El usuario espera la respuesta del sistema <br> 5. El usuario espera la respuesta del sistema <br> 7. El usuario espera la respuesta del pedido | 2. El sistema valida que el rechazo haya sido registrado correctamente <br> 4. El sistema cambia automáticamente el estado del pedido a “En producción” <br> 6. El sistema actualiza la ubicación del pedido en el tablero Kanban <br> 8. El sistema registra el cambio de estado efectuado | 2. El sistema valida que el rechazo haya sido registrado correctamente <br> 4. El sistema cambia automáticamente el estado del pedido a “En producción” <br> 6. El sistema actualiza la ubicación del pedido en el tablero Kanban <br> 8. El sistema registra el cambio de estado efectuado |
+| Caso de uso 57 | Conservación del historial de rechazos en control de calidad | Conservación del historial de rechazos en control de calidad |
+| Actores | Administrador | Administrador |
+| Propósito | Permitir que el sistema conserve el historial de rechazos efectuados en control de calidad, manteniendo los datos necesarios para su trazabilidad. | Permitir que el sistema conserve el historial de rechazos efectuados en control de calidad, manteniendo los datos necesarios para su trazabilidad. |
+| Precondiciones | El usuario debe estar autenticado. <br> Debe haberse registrado un rechazo válido en control de calidad. <br> El pedido debe existir en el sistema. | El usuario debe estar autenticado. <br> Debe haberse registrado un rechazo válido en control de calidad. <br> El pedido debe existir en el sistema. |
+| Resumen | Cuando se confirma un rechazo en control de calidad, el sistema almacena el motivo, fecha, hora y número del pedido, conservando el registro histórico sin eliminar rechazos anteriores. | Cuando se confirma un rechazo en control de calidad, el sistema almacena el motivo, fecha, hora y número del pedido, conservando el registro histórico sin eliminar rechazos anteriores. |
+| Postcondiciones | El rechazo queda almacenado en el historial del pedido. <br> Se conserva el motivo del rechazo, fecha, hora y número del pedido. <br> Los rechazos previos no son sobrescritos. | El rechazo queda almacenado en el historial del pedido. <br> Se conserva el motivo del rechazo, fecha, hora y número del pedido. <br> Los rechazos previos no son sobrescritos. |
+| Tipos | Principal | Principal |
+| Curso normal de eventos | Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema | Respuesta del sistema |
+| 1. El usuario confirma el rechazo del pedido <br> 3. El usuario espera la respuesta del sistema <br> 5. El usuario espera la respuesta del sistema <br> 7. El usuario espera la respuesta del pedido <br> 9. El usuario espera la respuesta del pedido | 2. El sistema obtiene el motivo del rechazo <br> 4. El sistema obtiene la fecha y hora de confirmación <br> 6. El sistema identifica el número del pedido <br> 8. El sistema almacena el registro en el historial de rechazos <br> 10. El sistema conserva los registros anteriores sin sobrescribirlos | 2. El sistema obtiene el motivo del rechazo <br> 4. El sistema obtiene la fecha y hora de confirmación <br> 6. El sistema identifica el número del pedido <br> 8. El sistema almacena el registro en el historial de rechazos <br> 10. El sistema conserva los registros anteriores sin sobrescribirlos |
 
 9.6. Gestión de muestras y aprobaciones
 
 Tabla 3.58: “Notificando creación de nueva orden a jefatura de producción”
 
-### Table 70
+### Table 73
 
 | Caso de uso N°58 | Notificando creación de nueva orden a jefatura de producción |
 | --- | --- |
@@ -2482,7 +2550,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.59: “Visualizando historial de trazabilidad de producción”
 
-### Table 71
+### Table 74
 
 | Caso de uso N°59 | Visualizando historial de trazabilidad de producción |
 | --- | --- |
@@ -2500,7 +2568,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.60: “Visualizando historial consolidado de la orden de producción”
 
-### Table 72
+### Table 75
 
 | Caso de uso N°60 | Visualizando historial consolidado de la orden de producción |
 | --- | --- |
@@ -2520,7 +2588,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.61: “Notificando disponibilidad de orden para despacho”
 
-### Table 73
+### Table 76
 
 | Caso de uso N°61 | Notificando disponibilidad para despacho. |
 | --- | --- |
@@ -2538,7 +2606,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.62: “Registrando comentarios y alertas en órdenes de producción”
 
-### Table 74
+### Table 77
 
 | Caso de uso N°62 | Registrando comentarios y alertas en orden de producción. |
 | --- | --- |
@@ -2558,7 +2626,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.63: “Asignando etiquetas visuales a órdenes de producción”
 
-### Table 75
+### Table 78
 
 | Caso de uso N°63 | Registrando trazabilidad de comentarios, observaciones y alertas. |
 | --- | --- |
@@ -2576,27 +2644,27 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.64: “Generando alerta de urgencia al ingresar una nota de venta”
 
-### Table 76
+### Table 79
 
-| Caso de uso N°64 | Caso de uso N°64 | Asignando etiquetas visuales a pedidos. |
-| --- | --- | --- |
-| Actores | Actores | -Administrador. <br> -Producción. |
-| Propósito | Propósito | Permitir que los usuarios con rol Administrador y Producción asignen etiquetas visuales a los pedidos para facilitar su categorización. |
-| Precondiciones | Precondiciones | - El usuario debe tener rol Administrador o Producción. <br> - Debe existir un pedido registrado en el sistema. <br> - Deben existir etiquetas visuales disponibles para ser asignadas. |
-| Resumen | Resumen | El usuario con rol Administrador o Producción accede a un pedido y asigna una etiqueta visual disponible. El sistema registra la etiqueta seleccionada y la asocia al pedido correspondiente. |
-| Postcondiciones | Postcondiciones | - La etiqueta visual queda asignada al pedido seleccionado. <br> - El pedido queda categorizado mediante la etiqueta visual correspondiente. |
-| Tipos | Tipos | Principal. |
-| Curso normal de eventos | Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema | [EMPTY] |
-| 1. El usuario con rol Administrador o Producción accede a un pedido registrado en el sistema. | 1. El usuario con rol Administrador o Producción accede a un pedido registrado en el sistema. | 2. El sistema muestra la información del pedido seleccionado. |
-| 3. El usuario selecciona una etiqueta visual disponible para asignarla al pedido. | 3. El usuario selecciona una etiqueta visual disponible para asignarla al pedido. | 4. El sistema recibe la etiqueta visual seleccionada. |
-| 5. El usuario confirma la asignación de la etiqueta visual. | 5. El usuario confirma la asignación de la etiqueta visual. | 6. El sistema asigna la etiqueta visual al pedido seleccionado. |
+| Caso de uso N°64 | Asignando etiquetas visuales a pedidos. |
+| --- | --- |
+| Actores | -Administrador. <br> -Producción. |
+| Propósito | Permitir que los usuarios con rol Administrador y Producción asignen etiquetas visuales a los pedidos para facilitar su categorización. |
+| Precondiciones | - El usuario debe tener rol Administrador o Producción. <br> - Debe existir un pedido registrado en el sistema. <br> - Deben existir etiquetas visuales disponibles para ser asignadas. |
+| Resumen | El usuario con rol Administrador o Producción accede a un pedido y asigna una etiqueta visual disponible. El sistema registra la etiqueta seleccionada y la asocia al pedido correspondiente. |
+| Postcondiciones | - La etiqueta visual queda asignada al pedido seleccionado. <br> - El pedido queda categorizado mediante la etiqueta visual correspondiente. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario con rol Administrador o Producción accede a un pedido registrado en el sistema. | 2. El sistema muestra la información del pedido seleccionado. |
+| 3. El usuario selecciona una etiqueta visual disponible para asignarla al pedido. | 4. El sistema recibe la etiqueta visual seleccionada. |
+| 5. El usuario confirma la asignación de la etiqueta visual. | 6. El sistema asigna la etiqueta visual al pedido seleccionado. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.65: “Notificando rechazo de nota de venta al vendedor desde facturación”
 
-### Table 77
+### Table 80
 
 | Caso de uso N°65 | Caso de uso N°65 | Removiendo etiquetas visuales de pedidos. |
 | --- | --- | --- |
@@ -2608,13 +2676,13 @@ Tabla 3.65: “Notificando rechazo de nota de venta al vendedor desde facturaci�
 | Tipos | Tipos | Principal. |
 | Curso normal de eventos | Curso normal de eventos | Curso normal de eventos |
 | Acciones de los actores | Acciones de los actores | Respuesta del sistema |
-| 1. El usuario con rol Administrador o Producción accede a un pedido con etiqueta visual asignada. <br> 3. El usuario selecciona la etiqueta visual que desea remover. <br> 7. El usuario visualiza el pedido actualizado sin la etiqueta removida. | 2. El sistema muestra la información del pedido y sus etiquetas visuales asignadas. <br> 4. El sistema recibe la etiqueta visual seleccionada para remoción. <br> 6. El sistema remueve la etiqueta visual del pedido seleccionado. | 2. El sistema muestra la información del pedido y sus etiquetas visuales asignadas. <br> 4. El sistema recibe la etiqueta visual seleccionada para remoción. <br> 6. El sistema remueve la etiqueta visual del pedido seleccionado. |
+| 1. El usuario con rol Administrador o Producción accede a un pedido con etiqueta visual asignada. <br> 3. El usuario selecciona la etiqueta visual que desea remover del pedido. <br> 5. El usuario confirma la remoción de la etiqueta visual. | 2. El sistema muestra la información del pedido y sus etiquetas visuales asignadas. <br> 4. El sistema recibe la etiqueta visual seleccionada para remoción. <br> 6. El sistema remueve la etiqueta visual del pedido seleccionado. | 2. El sistema muestra la información del pedido y sus etiquetas visuales asignadas. <br> 4. El sistema recibe la etiqueta visual seleccionada para remoción. <br> 6. El sistema remueve la etiqueta visual del pedido seleccionado. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.66: “Publicando anuncios en el panel interno”
 
-### Table 78
+### Table 81
 
 | Caso de uso N°66 | Caso de uso N°66 | Disponiendo etiquetas visuales para pedidos. |
 | --- | --- | --- |
@@ -2632,7 +2700,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.67: “Generando indicador de urgencia.”
 
-### Table 79
+### Table 82
 
 | Caso de uso N°67 | Caso de uso N°67 | Generando indicador de urgencia. |
 | --- | --- | --- |
@@ -2650,7 +2718,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.67: “Notificando rechazo de Nota de Venta.”
 
-### Table 80
+### Table 83
 
 | Caso de uso N°68 | Caso de uso N°68 | Notificando rechazo de Nota de Venta. |
 | --- | --- | --- |
@@ -2668,7 +2736,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.69: “Accediendo al panel de anuncios internos.”
 
-### Table 81
+### Table 84
 
 | Caso de uso N°69 | Caso de uso N°69 | Accediendo al panel de anuncios internos. |
 | --- | --- | --- |
@@ -2686,7 +2754,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.70: “Publicando anuncios internos.”
 
-### Table 82
+### Table 85
 
 | Caso de uso N°70 | Caso de uso N°70 | Publicando anuncios internos. |
 | --- | --- | --- |
@@ -2704,7 +2772,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.66: “Visualizando y accediendo al panel de anuncios internos.”
 
-### Table 83
+### Table 86
 
 | Caso de uso N°71 | Caso de uso N°71 | Visualizando y accediendo al panel de anuncios internos. |
 | --- | --- | --- |
@@ -2724,7 +2792,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.71: “Generando reporte de pedidos entregados a tiempo y fuera de plazo”
 
-### Table 84
+### Table 87
 
 | Caso de uso N°71 | Caso de uso N°71 | Generando reporte de pedidos entregados a tiempo y fuera de plazo. |
 | --- | --- | --- |
@@ -2742,7 +2810,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.71,1: “Generando reporte de pedidos entregados a tiempo y fuera de plazo”
 
-### Table 85
+### Table 88
 
 | Caso de uso N°72 | Caso de uso N°72 | Exportando el reporte de pedidos entregados a tiempo y fuera de plazo |
 | --- | --- | --- |
@@ -2760,7 +2828,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.72: “Exportando reportes de producción a Excel y CSV”
 
-### Table 86
+### Table 89
 
 | Caso de uso N°73 | Caso de uso N°73 | Exportando reportes de producción a Excel y CSV. |
 | --- | --- | --- |
@@ -2779,7 +2847,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.73: “Calculando tiempo de ciclo promedio de pedidos”
 
-### Table 87
+### Table 90
 
 | Caso de uso N°74 | Caso de uso N°74 | Calculando tiempo de ciclo promedio de pedidos |
 | --- | --- | --- |
@@ -2797,7 +2865,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.74: “Visualizando mapa de carga de producción por día”
 
-### Table 88
+### Table 91
 
 | Caso de uso N°75 | Visualizando mapa de carga de producción por día |
 | --- | --- |
@@ -2815,7 +2883,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.75: “Filtrando reportes por rango de fechas”
 
-### Table 89
+### Table 92
 
 | Caso de uso N°76 | Filtrando reportes por rango de fechas |
 | --- | --- |
@@ -2833,7 +2901,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.76: “Accediendo a panel de control gerencial”
 
-### Table 90
+### Table 93
 
 | Caso de uso N°77 | Accediendo a panel de control gerencial |
 | --- | --- |
@@ -2851,7 +2919,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.77: “Visualizando ranking de productos más solicitados”
 
-### Table 91
+### Table 94
 
 | Caso de uso N°78 | Visualizando ranking de productos más solicitados. |
 | --- | --- |
@@ -2869,7 +2937,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.78: “Generando reporte de órdenes agrupadas por estado”
 
-### Table 92
+### Table 95
 
 | Caso de uso N°79 | Generando reporte de órdenes agrupadas por estado |
 | --- | --- |
@@ -2887,7 +2955,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 3.79: “Generando indicador de cumplimiento por usuario de ventas”
 
-### Table 93
+### Table 96
 
 | Caso de uso N°80 | Generando indicador de cumplimiento por usuario de ventas |
 | --- | --- |
@@ -2975,7 +3043,7 @@ La matriz correspondiente se presenta en la Tabla 4.1
 
 Tabla 4.1: “Matriz Requerimiento VS CU.”
 
-### Table 94
+### Table 97
 
 | CU / RF | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | n… |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -3052,7 +3120,7 @@ Tabla tiempos de proceso.xlsx
 
 Tabla 5.1: “Glosario de términos A”
 
-### Table 95
+### Table 98
 
 | Término | Definición |
 | --- | --- |
@@ -3080,7 +3148,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 5.2: “Glosario de términos B”
 
-### Table 96
+### Table 99
 
 | Término | Definición |
 | --- | --- |
@@ -3381,7 +3449,7 @@ produccion_tarjetas
 
 ## Footer 1
 
-### Table 97
+### Table 100
 
 | [EMPTY] | 1 | [EMPTY] |
 | --- | --- | --- |
