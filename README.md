@@ -21,6 +21,14 @@ C:\repos\itecsa
 
 Si solo necesitas mirar o abrir documentos, puedes usar **Download ZIP** desde GitHub. La repo tiene activada la opcion **Include Git LFS objects in archives**, por lo que el ZIP deberia traer los archivos reales.
 
+Para ZIP en Windows, extrae directamente en una ruta corta, por ejemplo:
+
+```powershell
+C:\itecsa
+```
+
+Evita extraer o copiar desde rutas largas como OneDrive, carpetas dentro de carpetas, o copias anidadas del ZIP. Si Windows muestra `Error 0x80010135: Path too long`, mueve el ZIP a una ruta corta y extraelo de nuevo.
+
 Importante:
 
 - El ZIP sirve para lectura o entrega de una copia.
@@ -50,13 +58,22 @@ Ese script deja el repo listo. Hace esto automaticamente:
 
 1. Verifica que Git y Git LFS esten disponibles.
 2. Ejecuta `git lfs install`.
-3. Ejecuta `git lfs pull` para descargar o reparar archivos LFS.
-4. Crea `.venv` local si no existe.
-5. Instala las dependencias Python del repo desde `requirements-dev.txt`.
-6. Configura `core.hooksPath=.githooks`.
-7. Configura `core.longpaths=true` localmente en este repo.
+3. Crea `.venv` local si no existe.
+4. Instala las dependencias Python del repo desde `requirements-dev.txt`.
+5. Configura `core.hooksPath=.githooks`.
+6. Configura `core.longpaths=true` localmente en este repo.
 
 Despues de correr `setup_local.cmd`, no hace falta ejecutar comandos extra de PowerShell para que el flujo normal del repo funcione.
+
+Si el clon quedo con punteros LFS en vez de archivos reales, repara la descarga con:
+
+```powershell
+.\setup_local.cmd -RepairLfs
+```
+
+Ese modo ejecuta `git lfs pull`, por lo que necesita conexion a internet y puede activar una alerta del antivirus o firewall.
+
+El setup normal no ejecuta `git lfs pull` ni actualiza `pip`. En un clon nuevo puede necesitar internet solo para instalar las dependencias Python de `requirements-dev.txt`.
 
 ## Tutorial Git basico
 
@@ -70,7 +87,6 @@ Esta seccion esta pensada para alguien que no usa Git todos los dias.
 git lfs install
 git clone https://github.com/Grupo10ingsoftware/ing-software-2026-grupo-10-documentacion-itecsa.git C:\repos\itecsa
 cd C:\repos\itecsa
-git lfs pull
 .\setup_local.cmd
 ```
 

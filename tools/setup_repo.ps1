@@ -1,3 +1,7 @@
+param(
+    [switch]$RepairLfs
+)
+
 $ErrorActionPreference = "Stop"
 
 # Resolve everything from the repo root so the script works from double click,
@@ -59,8 +63,13 @@ git -C $RepoRoot lfs install --skip-repo | Out-Null
 Write-Host "Activando rutas largas para este repo"
 git -C $RepoRoot config core.longpaths true
 
-Write-Host "Descargando archivos Git LFS"
-git -C $RepoRoot lfs pull
+if ($RepairLfs) {
+    Write-Host "Descargando archivos Git LFS"
+    git -C $RepoRoot lfs pull
+}
+else {
+    Write-Host "Saltando git lfs pull. Si ves punteros LFS, ejecuta: .\setup_local.cmd -RepairLfs"
+}
 
 $BootstrapPython = Get-PythonBootstrapCommand
 $BootstrapPythonCommand = $BootstrapPython.Command
@@ -74,11 +83,8 @@ else {
     Write-Host "Usando entorno virtual existente en $VenvPath"
 }
 
-Write-Host "Actualizando pip"
-& $VenvPython -m pip install --upgrade pip
-
 Write-Host "Instalando dependencias Python"
-& $VenvPython -m pip install -r $RequirementsFile
+& $VenvPython -m pip install --disable-pip-version-check -r $RequirementsFile
 
 Write-Host "Activando hooks del repositorio"
 # The custom hooks are part of the repo, so point Git at .githooks explicitly.
