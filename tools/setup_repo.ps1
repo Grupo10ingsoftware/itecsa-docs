@@ -39,12 +39,28 @@ if (-not (Test-CommandExists "git")) {
 }
 
 try {
+    git -C $RepoRoot rev-parse --is-inside-work-tree | Out-Null
+}
+catch {
+    throw "Esta carpeta no es un clon Git. Si descargaste un ZIP, sirve solo para lectura. Para trabajar en el repo, clona con Git y Git LFS."
+}
+
+try {
     # Fail early if Git LFS is missing; the repo depends on it for Office files.
     git -C $RepoRoot lfs version | Out-Null
 }
 catch {
     throw "Git LFS no esta instalado. Instala Git LFS y vuelve a ejecutar este script."
 }
+
+Write-Host "Configurando Git LFS para este usuario"
+git -C $RepoRoot lfs install --skip-repo | Out-Null
+
+Write-Host "Activando rutas largas para este repo"
+git -C $RepoRoot config core.longpaths true
+
+Write-Host "Descargando archivos Git LFS"
+git -C $RepoRoot lfs pull
 
 $BootstrapPython = Get-PythonBootstrapCommand
 $BootstrapPythonCommand = $BootstrapPython.Command
@@ -64,9 +80,6 @@ Write-Host "Actualizando pip"
 Write-Host "Instalando dependencias Python"
 & $VenvPython -m pip install -r $RequirementsFile
 
-Write-Host "Configurando Git LFS para este usuario"
-git -C $RepoRoot lfs install | Out-Null
-
 Write-Host "Activando hooks del repositorio"
 # The custom hooks are part of the repo, so point Git at .githooks explicitly.
 git -C $RepoRoot config core.hooksPath .githooks
@@ -75,3 +88,4 @@ Write-Host ""
 Write-Host "Repositorio listo."
 Write-Host "Python del repo: $VenvPython"
 Write-Host "Hooks: .githooks"
+Write-Host "Git LFS: instalado y sincronizado"

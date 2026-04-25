@@ -2,31 +2,59 @@
 
 Repositorio de documentacion, evidencias y trazabilidad del proyecto de Ingenieria de Software 2026 del Grupo 10 para ITECSA.
 
+## Antes de descargar o clonar
+
+Este repositorio usa Git LFS para manejar archivos grandes como `.docx`, `.pdf`, `.png`, `.jpg`, `.xlsx`, `.pptx` y audios. Instala Git y Git LFS antes de clonar el repo.
+
+Ejecuta una vez en tu computador:
+
+```powershell
+git lfs install
+git config --global core.longpaths true
+```
+
+En Windows, clona en una ruta corta para evitar errores de rutas largas. Ejemplo recomendado:
+
+```powershell
+C:\repos\itecsa
+```
+
+Si solo necesitas mirar o abrir documentos, puedes usar **Download ZIP** desde GitHub. La repo tiene activada la opcion **Include Git LFS objects in archives**, por lo que el ZIP deberia traer los archivos reales.
+
+Importante:
+
+- El ZIP sirve para lectura o entrega de una copia.
+- El ZIP no sirve para trabajar con `commit`, `pull`, `push`, hooks ni ramas.
+- Para contribuir al repositorio, usa `git clone`.
+- Si un `.docx`, `.pdf` o `.png` pesa cerca de 130 bytes y empieza con `version https://git-lfs.github.com/spec/v1`, no es el archivo real: es un puntero de Git LFS.
+
 ## Estructura
 
 - `Documentacion de los incrementos/`: documentacion del proyecto, entrevistas, requerimientos, planificacion, BPMN, presentaciones y material de apoyo.
 
 ## Preparar el repo local
 
-La forma recomendada es ejecutar una sola vez el script [setup_local.cmd](./setup_local.cmd) en cada clon del repositorio.
+Despues de clonar el repo con Git LFS, ejecuta una sola vez el script [setup_local.cmd](./setup_local.cmd) en cada clon del repositorio.
 
 Opciones:
 
 - Doble click en `setup_local.cmd`
 - O desde terminal: `.\setup_local.cmd`
 
-Prerequisitos del sistema:
+Prerequisitos de este paso:
 
-- Git
-- Git LFS
+- Repo clonado con Git y Git LFS.
 - Python 3 disponible en `PATH`
 
 Ese script deja el repo listo. Hace esto automaticamente:
 
-1. Crea `.venv` local si no existe.
-2. Instala las dependencias Python del repo desde `requirements-dev.txt`.
-3. Ejecuta `git lfs install`.
-4. Configura `core.hooksPath=.githooks`.
+1. Verifica que Git y Git LFS esten disponibles.
+2. Ejecuta `git lfs install`.
+3. Ejecuta `git lfs pull` para descargar o reparar archivos LFS.
+4. Crea `.venv` local si no existe.
+5. Instala las dependencias Python del repo desde `requirements-dev.txt`.
+6. Configura `core.hooksPath=.githooks`.
+7. Configura `core.longpaths=true` localmente en este repo.
 
 Despues de correr `setup_local.cmd`, no hace falta ejecutar comandos extra de PowerShell para que el flujo normal del repo funcione.
 
@@ -38,9 +66,11 @@ Esta seccion esta pensada para alguien que no usa Git todos los dias.
 
 `git clone` crea una copia local del repositorio en tu computador.
 
-```bash
-git clone <URL-DEL-REPO>
-cd "Ingenieria de software"
+```powershell
+git lfs install
+git clone https://github.com/Grupo10ingsoftware/ing-software-2026-grupo-10-documentacion-itecsa.git C:\repos\itecsa
+cd C:\repos\itecsa
+git lfs pull
 .\setup_local.cmd
 ```
 
