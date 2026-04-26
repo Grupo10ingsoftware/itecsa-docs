@@ -84,47 +84,48 @@ Santiago, Chile.
 | Figura 5.4: Registrando notas de ventas | 202 |
 | Figura 5.5: Generando orden de produccion | 203 |
 | Figura 5.6: Gestion de produccion y pedidos | 204 |
-| Figura 5.7: Configurando capacidad de producción | 154 |
-| Figura 5.8: Calendario Producción y Ventas | 155 |
-| Figura 5.9: Tareas de producción | 156 |
-| Figura 5.10: Gestión Visual de Producción | 157 |
-| Figura 5.11: Notificación e Historial de Producción | 158 |
-| Figura 5.12: Notificando alertas de órdenes de producción | 159 |
-| Figura 5.13: Generando reportes de pedidos a tiempo y atrasados | 160 |
-| Figura 5.14: Panel de Control Gerencia | 161 |
+| Figura 5.7: Actualización estado de pago | 205 |
+| Figura 5.8: Configurando capacidad de producción | 206 |
+| Figura 5.9: Calendario de produccion y ventas | 207 |
+| Figura 5.10: Tareas de producción | 208 |
+| Figura 5.11: Gestión Visual de Producción | 209 |
+| Figura 5.12: Notificación e Historial de Producción | 210 |
+| Figura 5.13: Notificando alertas de órdenes de producción | 211 |
+| Figura 5.14: Generando reportes de pedidos a tiempo y atrasados | 213 |
+| Firura 5.15: Panel de Control Gerencia | 214 |
 | 13. Anexo | [EMPTY] |
-| Figura 6.1: Ficha cliente | 168 |
-| Figura 6.2: Nota de venta ITECSA | 169 |
-| Figura 6.3: Orden de producción ITECSA | 170 |
-| Figura 6.4: CV Diego Carrillo | 173 |
-| Figura 6.5: CV Dana Gadansky | 174 |
-| Figura 6.6: CV Brandon Jiménez | 175 |
-| Figura 6.7: CV Sebastián Oyarce | 176 |
-| Figura 6.8: CV Elías Perez | 177 |
-| Figura 6.9: CV Francisco Tassara | 178 |
-| Figura 6.10: CV Sergio Villegas | 179 |
-| Figura 6.11: Mockup RF 01 | 183 |
-| Figura 6.12: Mockup RF 02 | 184 |
-| Figura 6.13: Mockup RF 04 | 185 |
-| Figura 6.14: Mockup RF 05 | 186 |
-| Figura 6.15: Mockup RF06 | 187 |
-| Figura 6.16: Mockup RF11 | 188 |
-| Figura 6.17: Mockup RF15 | 189 |
-| Figura 6.18: Mockup RF16 | 190 |
-| Figura 6.19: Mockup RF20 | 191 |
-| Figura 6.20: Mockup RF25 | 192 |
-| Figura 6.21: Mockup RF26 | 193 |
-| Figura 6.22 Mockup RF38 | 194 |
-| Figura 6.23: Mockup RF43 | 195 |
-| Figura 6.24: Mockup RF44 Y 45 | 196 |
-| Figura 6.25: Mockup RF46 | 197 |
-| Figura 6.26: Mockup RF47 | 198 |
-| Figura 6.27: Mockup RF50 | 199 |
-| Figura 6.28: Mockup RF51 | 200 |
-| Figura 6.29: Correo de aceptación de requerimientos | 203 |
-| Figura 6.30: Tabla de actividades Actual | 204 |
-| Figura 6.31: Carta Gantt de proyección Proyecto | 205 |
-| Figura 6.32: Carta Gantt de desarrollo Documento 0 | 206 |
+| Figura 6.1: Ficha cliente | 220 |
+| Figura 6.2: Nota de venta ITECSA | 221 |
+| Figura 6.3: Orden de producción ITECSA | 222 |
+| Figura 6.4: CV Diego Carrillo | 223 |
+| Figura 6.5: CV Dana Gadansky | 224 |
+| Figura 6.6: CV Brandon Jiménez | 225 |
+| Figura 6.7: CV Sebastián Oyarce | 226 |
+| Figura 6.8: CV Elías Perez | 227 |
+| Figura 6.9: CV Francisco Tassara | 228 |
+| Figura 6.10: CV Sergio Villegas | 229 |
+| Figura 6.11: Mockup RF 01 | 233 |
+| Figura 6.12: Mockup RF 02 | 234 |
+| Figura 6.13: Mockup RF 04 | 235 |
+| Figura 6.14: Mockup RF 05 | 236 |
+| Figura 6.15: Mockup RF06 | 237 |
+| Figura 6.16: Mockup RF11 | 238 |
+| Figura 6.17: Mockup RF15 | 239 |
+| Figura 6.18: Mockup RF16 | 240 |
+| Figura 6.19: Mockup RF20 | 241 |
+| Figura 6.20: Mockup RF25 | 242 |
+| Figura 6.21: Mockup RF26 | 243 |
+| Figura 6.22: Mockup RF38 | 244 |
+| Figura 6.23: Mockup RF43 | 245 |
+| Figura 6.24: Mockup RF44 Y 45 | 246 |
+| Figura 6.25: Mockup RF46 | 247 |
+| Figura 6.26: Mockup RF47 | 248 |
+| Figura 6.27: Mockup RF50 | 249 |
+| Figura 6.28: Mockup RF51 | 250 |
+| Figura 6.29: Correo de aceptación de requerimientos | 254 |
+| Figura 6.30: Tabla de actividades Actual | 255 |
+| Figura 6.31: Carta Gantt de proyección Proyecto | 256 |
+| Figura 6.32: Carta Gantt de desarrollo Documento 0 | 257 |
 
 Índice de Tablas
 
@@ -132,17 +133,17 @@ Santiago, Chile.
 
 | 5. Análisis cuantitativo y cualitativo | [EMPTY] |
 | --- | --- |
-| Tabla 1.1: Frecuencia de pedidos y duración de proceso productivo | 36 |
+| Tabla 1.1: Frecuencia de pedidos y duración de proceso productivo | 37 |
 | 8. Requerimientos del sistema | [EMPTY] |
-| Tabla 2.1: Requerimientos para el software de ITECSA | 61 |
+| Tabla 2.1: Requerimientos para el software de ITECSA | 64 |
 | 9. Casos de uso | [EMPTY] |
-| Tabla 3.1 a 3.75: Casos de uso | 78 |
+| Tabla 3.1 a 3.75: Casos de uso | 89 |
 | 11. Matriz de Requerimientos vs Casos de uso | [EMPTY] |
-| Tabla 4.1: Matriz Req. VS CU. | 162 |
-| Tabla 5.1: Glosario de términos A | 164 |
-| Tabla 5.2: Glosario de términos B | 167 |
-| Tabla 5.3: Estimación de costos A | 180 |
-| Tabla 5.4 Estimación de costos B | 181 |
+| Tabla 4.1: Matriz Requerimientos. VS CU. | 215 |
+| Tabla 5.1: Glosario de términos A | 216 |
+| Tabla 5.2: Glosario de términos B | 218 |
+| Tabla 5.3: Estimación de costos A | 230 |
+| Tabla 5.4 Estimación de costos <br> B | 231 |
 
 INTRODUCCIÓN
 
