@@ -58,6 +58,14 @@ El setup hace esto automaticamente:
 6. Instala las dependencias Python desde `requirements-dev.txt`.
 7. Activa los hooks del repo en `.githooks`.
 
+Despues del setup, puedes validar que el clon quedo listo para trabajar con:
+
+```powershell
+.\tools\doctor.ps1
+```
+
+El doctor revisa Git, Git LFS, hooks, rutas largas, entorno Python y dependencias. Tambien avisa si estas en `main` o si existen `.docx` sin sidecar `.docx.md`. Esos sidecars faltantes no son un error: se generan automaticamente cuando un `.docx` se agrega al commit.
+
 Prerequisitos de este paso:
 
 - Repo clonado con Git y Git LFS.
@@ -115,6 +123,7 @@ Regla del equipo:
 - `main` se usa como rama principal.
 - Los cambios se hacen en una rama aparte.
 - Antes de hacer `push`, revisa otra vez que no estes en `main`.
+- El hook `pre-push` bloquea los pushes directos a `main`. Si necesitas subir cambios, hazlo desde una rama `docs/...` y abre una Pull Request.
 
 ### 3. Actualizar `main` y crear una rama local
 
@@ -202,6 +211,8 @@ git push -u origin nombre-de-tu-rama
 
 La opcion `-u` deja asociada tu rama local con la rama remota. La primera vez conviene usarla.
 
+Si intentas hacer push directo a `main`, el hook local lo va a bloquear. Crea una rama de trabajo con `git switch -c docs/nombre-del-cambio` y sube esa rama.
+
 Despues de eso, normalmente basta con:
 
 ```bash
@@ -261,6 +272,8 @@ Importante:
 - el `.docx` es la unica fuente de verdad;
 - el `.md` no reemplaza al `.docx`;
 - si alguien modifica el `.md` manualmente y trata de hacer `commit`, el hook lo regenera desde el `.docx` y sobrescribe esos cambios manuales.
+
+No todos los `.docx` historicos tienen sidecar. Eso es esperado: el sidecar se crea o actualiza cuando el `.docx` entra staged para un commit. No hace falta generar sidecars manualmente para documentos que no se van a modificar.
 
 ## Flujo diario
 
