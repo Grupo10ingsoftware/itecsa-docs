@@ -346,6 +346,21 @@ Regenerar manualmente el sidecar Markdown de un archivo:
 .\.venv\Scripts\python.exe tools/docx_sidecar.py update "docs\Contexto\Contexto.docx" --stage
 ```
 
+Si el hook no genero el `.docx.md`, puedes generar los sidecars de los `.docx` ya agregados al commit con:
+
+```bash
+.\.venv\Scripts\python.exe tools/docx_sidecar.py sync-staged
+```
+
+Flujo de respaldo:
+
+```bash
+git add "docs\ruta\archivo.docx"
+.\.venv\Scripts\python.exe tools/docx_sidecar.py sync-staged
+git status
+git commit -m "docs: descripcion breve"
+```
+
 Comparar manualmente dos exportaciones distintas del mismo documento:
 
 ```bash

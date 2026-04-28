@@ -201,13 +201,12 @@ El setup hace esto automaticamente:
 - instala dependencias Python desde `requirements-dev.txt`;
 - activa los hooks locales de Git desde `.githooks`.
 
-Si alguien pregunta por `git lfs install`, la respuesta es:
+Resumen de Git LFS:
 
-```text
-Git LFS como programa se instala antes con winget o con el instalador web.
-El comando git lfs install solo configura Git LFS.
-El setup local de la repo ejecuta esa configuracion automaticamente.
-```
+- Git LFS como programa se instala antes con `winget` o con el instalador web.
+- `git lfs install` solo configura Git LFS para el usuario.
+- `git lfs pull` descarga los archivos grandes reales de una repo ya clonada.
+- `.\setup_local.cmd` ejecuta la configuracion necesaria de Git LFS automaticamente.
 
 ## 5. Validar que el setup quedo bien
 
@@ -234,7 +233,7 @@ cd C:\repos\itecsa\tools
 .\doctor.ps1
 ```
 
-Pero para la demo conviene usar siempre la forma desde la raiz:
+La forma recomendada es ejecutarlo siempre desde la raiz del repo:
 
 ```powershell
 cd C:\repos\itecsa
@@ -417,6 +416,8 @@ Durante el commit, los hooks de la repo pueden generar o actualizar archivos `.d
 
 Si despues del commit Git muestra que se agrego un `.docx.md`, eso es esperado.
 
+Si el `.docx.md` no se genera automaticamente, revisar la seccion de problemas comunes: `No se genero el .docx.md`.
+
 ### 7.7 Subir la rama a GitHub
 
 Antes de subir, verificar rama actual:
@@ -472,16 +473,16 @@ git switch dev
 git pull
 ```
 
-Crear una rama de demo:
+Crear una rama para el ejercicio:
 
 ```powershell
-git switch -c docs/demo-hello-world-tu-nombre
+git switch -c docs/ejercicio-hello-world-tu-nombre
 ```
 
-Crear una carpeta para la demo:
+Crear una carpeta para el ejercicio:
 
 ```powershell
-mkdir docs\Demo
+mkdir docs\Ejercicios
 ```
 
 Luego abrir Word y crear un documento nuevo con este contenido:
@@ -493,7 +494,7 @@ Hello World
 Guardar el archivo en esta ruta:
 
 ```text
-C:\repos\itecsa\docs\Demo\hello-world-tu-nombre.docx
+C:\repos\itecsa\docs\Ejercicios\hello-world-tu-nombre.docx
 ```
 
 Volver a PowerShell y revisar cambios:
@@ -505,25 +506,25 @@ git status
 Deberia aparecer el archivo nuevo:
 
 ```text
-docs/Demo/hello-world-tu-nombre.docx
+docs/Ejercicios/hello-world-tu-nombre.docx
 ```
 
 Preparar el archivo para commit:
 
 ```powershell
-git add "docs\Demo\hello-world-tu-nombre.docx"
+git add "docs\Ejercicios\hello-world-tu-nombre.docx"
 ```
 
 Crear el commit:
 
 ```powershell
-git commit -m "docs: agrega demo hello world"
+git commit -m "docs: agrega ejercicio hello world"
 ```
 
 Durante el commit, el hook puede generar automaticamente:
 
 ```text
-docs/Demo/hello-world-tu-nombre.docx.md
+docs/Ejercicios/hello-world-tu-nombre.docx.md
 ```
 
 Eso es esperado. Ese `.md` sirve para revisar el contenido del Word en Git, pero no se edita a mano.
@@ -531,14 +532,14 @@ Eso es esperado. Ese `.md` sirve para revisar el contenido del Word en Git, pero
 Subir la rama:
 
 ```powershell
-git push -u origin docs/demo-hello-world-tu-nombre
+git push -u origin docs/ejercicio-hello-world-tu-nombre
 ```
 
 Luego abrir Pull Request en GitHub con:
 
 ```text
 base: dev
-compare: docs/demo-hello-world-tu-nombre
+compare: docs/ejercicio-hello-world-tu-nombre
 ```
 
 ## 9. Abrir Pull Request hacia `dev`
@@ -575,7 +576,7 @@ Esa PR representa pasar el trabajo integrado desde `dev` hacia `main`.
 
 Este paso no es parte del flujo diario de cada integrante. Lo hace quien este coordinando la integracion.
 
-## 11. Resumen rapido para mostrar en vivo
+## 11. Resumen rapido de comandos
 
 ### Setup inicial
 
@@ -627,37 +628,37 @@ base: dev
 compare: docs/nombre-del-cambio
 ```
 
-### Demo Hello World
+### Ejercicio Hello World
 
-Reemplazar `tu-nombre` por tu nombre o iniciales, sin espacios.
+Antes de ejecutar estos comandos, reemplaza `tu-nombre` por tu nombre o iniciales, sin espacios.
 
 ```powershell
 git switch dev
 git pull
-git switch -c docs/demo-hello-world-tu-nombre
-mkdir docs\Demo
+git switch -c docs/ejercicio-hello-world-tu-nombre
+mkdir docs\Ejercicios
 ```
 
 Crear en Word un archivo con el texto `Hello World` y guardarlo como:
 
 ```text
-C:\repos\itecsa\docs\Demo\hello-world-tu-nombre.docx
+C:\repos\itecsa\docs\Ejercicios\hello-world-tu-nombre.docx
 ```
 
 Luego:
 
 ```powershell
 git status
-git add "docs\Demo\hello-world-tu-nombre.docx"
-git commit -m "docs: agrega demo hello world"
-git push -u origin docs/demo-hello-world-tu-nombre
+git add "docs\Ejercicios\hello-world-tu-nombre.docx"
+git commit -m "docs: agrega ejercicio hello world"
+git push -u origin docs/ejercicio-hello-world-tu-nombre
 ```
 
 Abrir PR en GitHub:
 
 ```text
 base: dev
-compare: docs/demo-hello-world-tu-nombre
+compare: docs/ejercicio-hello-world-tu-nombre
 ```
 
 ## 12. Reglas del equipo
@@ -707,6 +708,45 @@ Solucion:
 - marcar `Add python.exe to PATH`;
 - cerrar y volver a abrir PowerShell;
 - probar `python --version` o `py -3 --version`.
+
+### No se genero el `.docx.md`
+
+Normalmente el hook `pre-commit` genera el `.docx.md` automaticamente cuando haces commit de un `.docx`.
+
+Si no se genero, primero confirma que estas en la raiz del repo:
+
+```powershell
+cd C:\repos\itecsa
+```
+
+Luego genera y agrega el sidecar manualmente para un archivo especifico:
+
+```powershell
+.\.venv\Scripts\python.exe tools\docx_sidecar.py update "docs\Ejercicios\hello-world-tu-nombre.docx" --stage
+```
+
+Despues revisa el estado:
+
+```powershell
+git status
+```
+
+Deberia aparecer el `.docx.md` como archivo agregado o listo para commit.
+
+Si ya hiciste `git add` del `.docx`, tambien puedes ejecutar manualmente lo mismo que hace el hook:
+
+```powershell
+.\.venv\Scripts\python.exe tools\docx_sidecar.py sync-staged
+```
+
+Flujo de respaldo completo:
+
+```powershell
+git add "docs\Ejercicios\hello-world-tu-nombre.docx"
+.\.venv\Scripts\python.exe tools\docx_sidecar.py sync-staged
+git status
+git commit -m "docs: agrega ejercicio hello world"
+```
 
 ### `git switch dev` no funciona
 
