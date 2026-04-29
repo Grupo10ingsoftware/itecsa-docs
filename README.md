@@ -39,6 +39,13 @@ Importante:
 ## Estructura
 
 - `docs/`: documentacion del proyecto, entrevistas, requerimientos, planificacion, BPMN, presentaciones y material de apoyo.
+- `tutorial/`: guia paso a paso para instalar herramientas, clonar el repo y trabajar con ramas desde `dev`.
+
+## Tutorial del flujo de trabajo
+
+Para mostrar el flujo al equipo, usa [tutorial/tutorial_flujo_git_itecsa.md](tutorial/tutorial_flujo_git_itecsa.md).
+
+Ese tutorial asume Windows, PowerShell, Git, Git LFS y Python 3. Tambien incluye un ejercicio guiado creando un `.docx` simple con `Hello World`.
 
 ## Preparar el repo local
 
@@ -61,8 +68,10 @@ El setup hace esto automaticamente:
 Despues del setup, puedes validar que el clon quedo listo para trabajar con:
 
 ```powershell
-.\tools\doctor.ps1
+.\tools\doctor.cmd
 ```
+
+Usa el `.cmd` porque ejecuta el doctor con una politica temporal compatible con PowerShell. Ejecutar `.\tools\doctor.ps1` directamente puede fallar si Windows tiene bloqueada la ejecucion de scripts.
 
 El doctor revisa Git, Git LFS, hooks, rutas largas, entorno Python y dependencias. Tambien avisa si estas en `main` o si existen `.docx` sin sidecar `.docx.md`. Esos sidecars faltantes no son un error: se generan automaticamente cuando un `.docx` se agrega al commit.
 
@@ -120,24 +129,25 @@ Si el resultado es `main`, no trabajes ahi.
 
 Regla del equipo:
 
-- `main` se usa como rama principal.
-- Los cambios se hacen en una rama aparte.
-- Antes de hacer `push`, revisa otra vez que no estes en `main`.
-- El hook `pre-push` bloquea los pushes directos a `main`. Si necesitas subir cambios, hazlo desde una rama `docs/...` y abre una Pull Request.
+- `main` se usa como rama estable.
+- `dev` se usa como rama compartida de integracion.
+- Los cambios se hacen en una rama aparte creada desde `dev`.
+- Antes de hacer `push`, revisa otra vez que no estes en `main` ni en `dev`.
+- El hook `pre-push` bloquea los pushes directos a `main`. El equipo tambien debe evitar pushes directos a `dev`; sube una rama `docs/...` y abre una Pull Request hacia `dev`.
 
-### 3. Actualizar `main` y crear una rama local
+### 3. Actualizar `dev` y crear una rama local
 
 Antes de empezar un cambio nuevo:
 
 ```bash
-git switch main
+git switch dev
 git pull
 git switch -c docs/nombre-del-cambio
 ```
 
 Que hace cada comando:
 
-- `git switch main`: te mueve a la rama `main`.
+- `git switch dev`: te mueve a la rama `dev`.
 - `git pull`: trae y mezcla los cambios nuevos desde GitHub.
 - `git switch -c docs/nombre-del-cambio`: crea una rama nueva local y te cambia a ella.
 
@@ -153,7 +163,7 @@ Si ya tienes una rama creada y quieres volver a usarla:
 git switch nombre-de-tu-rama
 ```
 
-Si por error empezaste a trabajar en `main` pero todavia no hiciste `commit`, puedes moverte a una rama nueva sin perder tus cambios:
+Si por error empezaste a trabajar en `main` o `dev` pero todavia no hiciste `commit`, puedes moverte a una rama nueva sin perder tus cambios:
 
 ```bash
 git switch -c docs/nombre-del-cambio
@@ -197,7 +207,7 @@ Durante este paso, el repo genera automaticamente el sidecar Markdown de los `.d
 
 ### 7. Subir tu rama a GitHub
 
-Antes de hacer `push`, revisa una vez mas que no estas en `main`:
+Antes de hacer `push`, revisa una vez mas que no estas en `main` ni en `dev`:
 
 ```bash
 git branch --show-current
@@ -211,7 +221,7 @@ git push -u origin nombre-de-tu-rama
 
 La opcion `-u` deja asociada tu rama local con la rama remota. La primera vez conviene usarla.
 
-Si intentas hacer push directo a `main`, el hook local lo va a bloquear. Crea una rama de trabajo con `git switch -c docs/nombre-del-cambio` y sube esa rama.
+Si intentas hacer push directo a `main`, el hook local lo va a bloquear. Para el trabajo diario, crea una rama desde `dev` con `git switch -c docs/nombre-del-cambio`, sube esa rama y abre Pull Request hacia `dev`.
 
 Despues de eso, normalmente basta con:
 
@@ -231,7 +241,7 @@ Si quieres mirar primero que cambio otra persona antes de mezclar:
 
 ```bash
 git fetch origin
-git diff --word-diff=color HEAD..origin/main -- "ruta/al/archivo.docx.md"
+git diff --word-diff=color HEAD..origin/dev -- "ruta/al/archivo.docx.md"
 ```
 
 Y si el cambio te parece correcto:
@@ -279,8 +289,8 @@ No todos los `.docx` historicos tienen sidecar. Eso es esperado: el sidecar se c
 
 Flujo recomendado para cualquier integrante:
 
-1. Cambiar a `main`: `git switch main`
-2. Actualizar `main`: `git pull`
+1. Cambiar a `dev`: `git switch dev`
+2. Actualizar `dev`: `git pull`
 3. Crear una rama nueva: `git switch -c docs/nombre-del-cambio`
 4. Editar el `.docx`
 5. Revisar cambios: `git status`
@@ -288,6 +298,7 @@ Flujo recomendado para cualquier integrante:
 7. Crear commit: `git commit -m "docs: actualiza documento 02"`
 8. Verificar rama actual: `git branch --show-current`
 9. Subir cambios: `git push -u origin docs/nombre-del-cambio`
+10. Abrir Pull Request hacia `dev`
 
 Durante el `commit`, el hook `pre-commit` hace esto automaticamente:
 
@@ -313,7 +324,7 @@ git fetch origin
 2. Revisar el diff del sidecar Markdown:
 
 ```bash
-git diff --word-diff=color HEAD..origin/main -- "ruta/al/archivo.docx.md"
+git diff --word-diff=color HEAD..origin/dev -- "ruta/al/archivo.docx.md"
 ```
 
 3. Si el cambio te parece correcto, traerlo:
@@ -335,6 +346,21 @@ Regenerar manualmente el sidecar Markdown de un archivo:
 
 ```bash
 .\.venv\Scripts\python.exe tools/docx_sidecar.py update "docs\Contexto\Contexto.docx" --stage
+```
+
+Si el hook no genero el `.docx.md`, puedes generar los sidecars de los `.docx` ya agregados al commit con:
+
+```bash
+.\.venv\Scripts\python.exe tools/docx_sidecar.py sync-staged
+```
+
+Flujo de respaldo:
+
+```bash
+git add "docs\ruta\archivo.docx"
+.\.venv\Scripts\python.exe tools/docx_sidecar.py sync-staged
+git status
+git commit -m "docs: descripcion breve"
 ```
 
 Comparar manualmente dos exportaciones distintas del mismo documento:
@@ -365,9 +391,11 @@ gh auth login
 
 Flujo recomendado para abrir una PR:
 
-1. Crear una rama: `git checkout -b docs/nombre-del-cambio`
-2. Subir la rama: `git push -u origin docs/nombre-del-cambio`
-3. Crear la PR: `gh pr create --fill --base main`
+1. Cambiar a `dev`: `git switch dev`
+2. Actualizar `dev`: `git pull`
+3. Crear una rama: `git switch -c docs/nombre-del-cambio`
+4. Subir la rama: `git push -u origin docs/nombre-del-cambio`
+5. Crear la PR: `gh pr create --fill --base dev`
 
 Comandos utiles:
 
