@@ -221,23 +221,25 @@ cd C:\repos\itecsa
 Luego ejecutar:
 
 ```powershell
-.\tools\doctor.ps1
+.\tools\doctor.cmd
 ```
 
-En PowerShell, `.\` significa "ejecutar desde la carpeta actual". Por eso, desde la raiz del repo se usa `.\tools\doctor.ps1`.
+En PowerShell, `.\` significa "ejecutar desde la carpeta actual". Por eso, desde la raiz del repo se usa `.\tools\doctor.cmd`.
+
+Usamos `doctor.cmd` porque llama al doctor con una politica temporal que permite ejecutar el `.ps1` interno. Si se ejecuta `.\tools\doctor.ps1` directamente, algunos Windows pueden bloquearlo con un error de `ExecutionPolicy`.
 
 Si ya entraste a la carpeta `tools`, entonces el comando seria distinto:
 
 ```powershell
 cd C:\repos\itecsa\tools
-.\doctor.ps1
+.\doctor.cmd
 ```
 
 La forma recomendada es ejecutarlo siempre desde la raiz del repo:
 
 ```powershell
 cd C:\repos\itecsa
-.\tools\doctor.ps1
+.\tools\doctor.cmd
 ```
 
 El doctor revisa:
@@ -586,7 +588,7 @@ cd C:\repos
 git clone https://github.com/Grupo10ingsoftware/itecsa-docs.git C:\repos\itecsa
 cd C:\repos\itecsa
 .\setup_local.cmd
-.\tools\doctor.ps1
+.\tools\doctor.cmd
 ```
 
 ### Conectarse a `dev`
