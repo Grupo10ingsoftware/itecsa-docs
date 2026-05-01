@@ -68,8 +68,10 @@ El setup hace esto automaticamente:
 Despues del setup, puedes validar que el clon quedo listo para trabajar con:
 
 ```powershell
-.\tools\doctor.ps1
+.\tools\doctor.cmd
 ```
+
+Usa el `.cmd` porque ejecuta el doctor con una politica temporal compatible con PowerShell. Ejecutar `.\tools\doctor.ps1` directamente puede fallar si Windows tiene bloqueada la ejecucion de scripts.
 
 El doctor revisa Git, Git LFS, hooks, rutas largas, entorno Python y dependencias. Tambien avisa si estas en `main` o si existen `.docx` sin sidecar `.docx.md`. Esos sidecars faltantes no son un error: se generan automaticamente cuando un `.docx` se agrega al commit.
 
