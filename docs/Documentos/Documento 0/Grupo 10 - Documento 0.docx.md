@@ -167,33 +167,33 @@ Figura 6.14: “Mockup RF06” 231
 
 Figura 6.15: “Mockup RF07 y 08” 232
 
-Figura 6.16: “Mockup RF14” 233
+Figura 6.16: “Mockup RF15” 233
 
-Figura 6.17: “Mockup RF18” 234
+Figura 6.17: “Mockup RF19” 234
 
-Figura 6.18: “Mockup RF19” 235
+Figura 6.18: “Mockup RF20” 235
 
-Figura 6.19: “Mockup RF23” 236
+Figura 6.19: “Mockup RF24” 236
 
-Figura 6.20: “Mockup RF28” 237
+Figura 6.20: “Mockup RF29” 237
 
-Figura 6.21: “Mockup RF29” 238
+Figura 6.21: “Mockup RF30” 238
 
-Figura 6.22: “Mockup RF39” 239
+Figura 6.22: “Mockup RF40” 239
 
-Figura 6.23: “Mockup RF43” 240
+Figura 6.23: “Mockup RF44” 240
 
-Figura 6.24: “Mockup RF44 y 45” 240
+Figura 6.24: “Mockup RF45 y 46” 240
 
-Figura 6.25: “Mockup RF46” 241
+Figura 6.25: “Mockup RF47” 241
 
-Figura 6.26: “Mockup RF47” 242
+Figura 6.26: “Mockup RF48” 242
 
-Figura 6.27: “Mockup RF49” 243
+Figura 6.27: “Mockup RF50” 243
 
-Figura 6.28: “Mockup RF66” 244
+Figura 6.28: “Mockup RF67” 244
 
-Figura 6.29: “Mockup RF72” 245
+Figura 6.29: “Mockup RF73” 245
 
 Figura 6.30: “Correo de aceptación de requerimientos” 248
 
@@ -833,17 +833,17 @@ RF08: El sistema debe mostrar un listado de los últimos diez registros asociado
 
 RF11: El sistema debe permitir el acceso al sistema cuando el correo electrónico y la contraseña correspondan a un usuario registrado y su estado sea “vinculado”.
 
-11- Validación de correo electrónico único <br> RF09: El sistema debe validar que el correo electrónico no esté previamente registrado en la tabla de usuarios, independientemente de si el usuario está vinculado o desvinculado. En caso de duplicado, debe mostrar el mensaje “El correo ingresado ya está asociado a una cuenta”.
+11- Validación de correo electrónico único <br> RF12: El sistema debe validar que el correo electrónico no esté previamente registrado en la tabla de usuarios, independientemente de si el usuario está vinculado o desvinculado. En caso de duplicado, debe mostrar el mensaje “El correo ingresado ya está asociado a una cuenta”.
 
-12- Restricción de acceso por rol <br> RF12: El sistema debe restringir el acceso a módulos, pantallas, botones y API según el rol del usuario autenticado.
+12- Restricción de acceso por rol <br> RF13: El sistema debe restringir el acceso a módulos, pantallas, botones y API según el rol del usuario autenticado.
 
 13- Mensaje Acceso denegado por rol
 
-RF13: El sistema debe redirigir al usuario a una página de “Acceso denegado” si este intenta acceder a un recurso para el cual no tenga permisos
+RF14: El sistema debe redirigir al usuario a una página de “Acceso denegado” si este intenta acceder a un recurso para el cual no tenga permisos
 
-14- Recuperación de contraseña mediante correo electrónico <br> RF14: El sistema debe proveer un flujo de “Olvidé mi contraseña” que solicite el correo electrónico. Si el correo existe en el sistema, debe enviar un enlace URL único y temporal al correo existente para establecer una nueva contraseña. Si el correo no existe, el sistema debe informar que no se encontró una cuenta asociada. El enlace debe ser de un solo uso y tener una validez limitada en el tiempo. La nueva contraseña debe cumplir el formato: mínimo 8 caracteres, con al menos una letra mayúscula, una letra minúscula, un número y un símbolo especial.
+14- Recuperación de contraseña mediante correo electrónico <br> RF15: El sistema debe proveer un flujo de “Olvidé mi contraseña” que solicite el correo electrónico. Si el correo existe en el sistema, debe enviar un enlace URL único y temporal al correo existente para establecer una nueva contraseña. Si el correo no existe, el sistema debe informar que no se encontró una cuenta asociada. El enlace debe ser de un solo uso y tener una validez limitada en el tiempo. La nueva contraseña debe cumplir el formato: mínimo 8 caracteres, con al menos una letra mayúscula, una letra minúscula, un número y un símbolo especial.
 
-15- Edición de usuarios por Administrador <br> RF15: El sistema debe permitir al usuario con rol Administrador modificar atributos de un usuario como:
+15- Edición de usuarios por Administrador <br> RF16: El sistema debe permitir al usuario con rol Administrador modificar atributos de un usuario como:
 
 Nombre
 
@@ -859,7 +859,7 @@ Cada modificación se debe registrar en la bitácora
 
 16- Conservar datos de Usuario “desvinculado”
 
-RF16: El sistema debe mantener íntegros los registros asociados a un usuario desvinculado, incluyendo:
+RF17: El sistema debe mantener íntegros los registros asociados a un usuario desvinculado, incluyendo:
 
 bitácoras
 
@@ -869,15 +869,15 @@ ventas
 
 Estos datos deben permanecer visibles en reportes.
 
-17- Cierre de sesión desde cualquier interfaz <br> RF17- El sistema debe permitir a cualquier usuario autenticado cerrar su sesión desde cualquier vista del sistema.
+17- Cierre de sesión desde cualquier interfaz <br> RF18- El sistema debe permitir a cualquier usuario autenticado cerrar su sesión desde cualquier vista del sistema.
 
 Módulo 2: Ingreso y validación de Nota de Venta, ficha de cliente y orden de producción
 
-1- Adjuntar Nota de Venta desde Manager <br> RF18: El sistema debe permitir al usuario adjuntar uno o más archivos correspondientes a la Nota de Venta proveniente del sistema Manager. El sistema debe restringir los formatos permitidos: PDF, JPEG y PNG. Tras la carga, el sistema debe mostrar en la interfaz el nombre del archivo y la fecha de subida estandarizada en formato DD-MM-YYYY.
+1- Adjuntar Nota de Venta desde Manager <br> RF19: El sistema debe permitir al usuario adjuntar uno o más archivos correspondientes a la Nota de Venta proveniente del sistema Manager. El sistema debe restringir los formatos permitidos: PDF, JPEG y PNG. Tras la carga, el sistema debe mostrar en la interfaz el nombre del archivo y la fecha de subida estandarizada en formato DD-MM-YYYY.
 
 2- Registro de campos comerciales en ficha de cliente
 
-RF19: El sistema debe permitir que el usuario con rol Ventas complete una ficha de cliente con los siguientes campos mínimos obligatorios para habilitar el inicio del proceso productivo:
+RF20: El sistema debe permitir que el usuario con rol Ventas complete una ficha de cliente con los siguientes campos mínimos obligatorios para habilitar el inicio del proceso productivo:
 
 Número de Nota de Venta: campo numérico, obligatorio.
 
@@ -895,7 +895,7 @@ El sistema debe validar que los cuatro campos enumerados estén completos antes 
 
 3- Validación de campos mínimos de la Nota de Venta para producción
 
-RF20: El sistema debe validar que la Nota de venta adjunta o sus datos ingresados manualmente contengan los siguientes campos mínimos obligatorios para poder iniciar el proceso productivo:
+RF21: El sistema debe validar que la Nota de venta adjunta o sus datos ingresados manualmente contengan los siguientes campos mínimos obligatorios para poder iniciar el proceso productivo:
 
 Código único de Nota de Venta: campo numérico, obligatorio.
 
@@ -913,23 +913,23 @@ Los demás campos adicionales, como datos del cliente, información comercial, d
 
 El sistema debe validar que todos los campos mínimos obligatorios se encuentren completos y cumplan con el formato definido antes de permitir avanzar. Si falta alguno o alguno no cumple con el formato requerido, el sistema debe mostrar un mensaje indicando el campo faltante o inválido y no permitir continuar.
 
-4- Validación de SKU contra catálogo vigente <br> RF21: El sistema debe consultar la base de datos y validar que el SKU ingresado en la NV o Ficha de Cliente exista en el catálogo de productos y posea el estado "Vigente". Si el SKU no existe o está discontinuado, el sistema debe bloquear la creación de la orden y mostrar el mensaje exacto: "SKU no válido o fuera de catálogo".
+4- Validación de SKU contra catálogo vigente <br> RF22: El sistema debe consultar la base de datos y validar que el SKU ingresado en la NV o Ficha de Cliente exista en el catálogo de productos y posea el estado "Vigente". Si el SKU no existe o está discontinuado, el sistema debe bloquear la creación de la orden y mostrar el mensaje exacto: "SKU no válido o fuera de catálogo".
 
-5- Validación de unicidad del código único de Nota de Venta <br> RF22: El sistema debe ejecutar una validación de unicidad en la base de datos sobre el campo "Código único de Nota de Venta". Si el sistema detecta que el código ya existe, independientemente del estado de la Nota de Venta, debe bloquear el registro y mostrar el mensaje: "Ya existe una Nota de Venta con el código ingresado. No se permite duplicar"
+5- Validación de unicidad del código único de Nota de Venta <br> RF23: El sistema debe ejecutar una validación de unicidad en la base de datos sobre el campo "Código único de Nota de Venta". Si el sistema detecta que el código ya existe, independientemente del estado de la Nota de Venta, debe bloquear el registro y mostrar el mensaje: "Ya existe una Nota de Venta con el código ingresado. No se permite duplicar"
 
-6- Adjuntar archivos de diseño al Kanban para productos específicos <br> RF23: El sistema debe permitir a los usuarios con rol "Operario" adjuntar archivos de diseño directamente sobre la tarjeta visual de una orden en el tablero Kanban. El sistema debe restringir esta funcionalidad exclusivamente a los formatos PDF, JPG y PNG, y habilitarla únicamente cuando el producto corresponda a las categorías: "lanyards", "tarjetas" o "yoyos".
+6- Adjuntar archivos de diseño al Kanban para productos específicos <br> RF24: El sistema debe permitir a los usuarios con rol "Operario" adjuntar archivos de diseño directamente sobre la tarjeta visual de una orden en el tablero Kanban. El sistema debe restringir esta funcionalidad exclusivamente a los formatos PDF, JPG y PNG, y habilitarla únicamente cuando el producto corresponda a las categorías: "lanyards", "tarjetas" o "yoyos".
 
-7- Registro de comentarios asociados a la Nota de Venta <br> RF24: El sistema debe permitir a los roles "Ventas" y "Administrador" agregar comentarios de texto a una Nota de Venta. El sistema debe registrar cada comentario, estampando automáticamente el autor, la fecha en formato DD-MM-YYYY y la hora en formato HH:MM:SS.
+7- Registro de comentarios asociados a la Nota de Venta <br> RF25: El sistema debe permitir a los roles "Ventas" y "Administrador" agregar comentarios de texto a una Nota de Venta. El sistema debe registrar cada comentario, estampando automáticamente el autor, la fecha en formato DD-MM-YYYY y la hora en formato HH:MM:SS.
 
-8- Registro de comentarios asociados a la Orden de Producción <br> RF25: El sistema debe permitir a los roles "Operario" y "Administrador" agregar comentarios internos a una Orden de Producción. El sistema debe registrar inmutablemente cada comentario, registrando automáticamente el autor, la fecha en formato DD-MM-YYYY y la hora en formato HH:MM:SS.
+8- Registro de comentarios asociados a la Orden de Producción <br> RF26: El sistema debe permitir a los roles "Operario" y "Administrador" agregar comentarios internos a una Orden de Producción. El sistema debe registrar inmutablemente cada comentario, registrando automáticamente el autor, la fecha en formato DD-MM-YYYY y la hora en formato HH:MM:SS.
 
-9- Validación de campos obligatorios de la ficha de cliente antes de generar Orden de Producción <br> RF26: El sistema debe validar que los cinco campos obligatorios de la sección "Ficha cliente ADM" estén completos antes de permitir la generación de la Orden de Producción, ya sea manual o automático. Si falta información, el sistema debe bloquear la creación de la orden y mostrar un listado explícito de los campos pendientes.
+9- Validación de campos obligatorios de la ficha de cliente antes de generar Orden de Producción <br> RF27: El sistema debe validar que los cinco campos obligatorios de la sección "Ficha cliente ADM" estén completos antes de permitir la generación de la Orden de Producción, ya sea manual o automático. Si falta información, el sistema debe bloquear la creación de la orden y mostrar un listado explícito de los campos pendientes.
 
-10- Validación de capacidad disponible antes de registrar Nota de Venta con fecha comprometida <br> RF27: El sistema debe consultar la capacidad de producción disponible para la "Fecha de entrega comprometida" ingresada por el rol "Ventas". Si la capacidad para dicha fecha se encuentra al cien por ciento, el sistema debe mostrar el mensaje "No hay capacidad disponible para la fecha solicitada. Se ha sugerido la fecha más cercana disponible". El sistema debe calcular la fecha hábil más cercana con capacidad y ofrecer al usuario la opción de aceptarla o modificar la NV original.
+10- Validación de capacidad disponible antes de registrar Nota de Venta con fecha comprometida <br> RF28: El sistema debe consultar la capacidad de producción disponible para la "Fecha de entrega comprometida" ingresada por el rol "Ventas". Si la capacidad para dicha fecha se encuentra al cien por ciento, el sistema debe mostrar el mensaje "No hay capacidad disponible para la fecha solicitada. Se ha sugerido la fecha más cercana disponible". El sistema debe calcular la fecha hábil más cercana con capacidad y ofrecer al usuario la opción de aceptarla o modificar la NV original.
 
-11- Visualización del estado actual de un pedido desde el Kanban <br> RF28: El sistema debe proporcionar un tablero Kanban accesible para cualquier usuario con rol asignado, mostrando las tarjetas de pedido en columnas según su estado. Al hacer clic sobre una tarjeta, el sistema debe desplegar un panel lateral que muestre: el estado actual, la fecha del último cambio DD-MM-YYYY, el tiempo transcurrido en el estado actual y el historial cronológico de estados anteriores.
+11- Visualización del estado actual de un pedido desde el Kanban <br> RF29: El sistema debe proporcionar un tablero Kanban accesible para cualquier usuario con rol asignado, mostrando las tarjetas de pedido en columnas según su estado. Al hacer clic sobre una tarjeta, el sistema debe desplegar un panel lateral que muestre: el estado actual, la fecha del último cambio DD-MM-YYYY, el tiempo transcurrido en el estado actual y el historial cronológico de estados anteriores.
 
-12- Generación automática de Orden de Producción tras validación exitosa <br> RF29: El sistema debe generar automáticamente una Orden de Producción cuando se cumplan simultáneamente tres condiciones:
+12- Generación automática de Orden de Producción tras validación exitosa <br> RF30: El sistema debe generar automáticamente una Orden de Producción cuando se cumplan simultáneamente tres condiciones:
 
 1) Nota de Venta registrada y validada
 
@@ -959,43 +959,43 @@ Listado de materiales, Nombre, unidad, cantidad
 
 Observaciones.
 
-13- Generación de información de Nota de Venta compatible con importación a Manager <br> RF30: El sistema debe permitir la exportación de los datos de cualquier Nota de Venta en un archivo estructurado de texto plano, utilizando el punto y coma como separador de valores. El sistema debe incluir en el archivo las columnas: Número de Nota de Venta, SKU, Cantidad, Identificación del producto, Fecha de entrega comprometida en formato DD-MM-YYYY, Nombre del proyecto, Razón social y Vendedor.
+13- Generación de información de Nota de Venta compatible con importación a Manager <br> RF31: El sistema debe permitir la exportación de los datos de cualquier Nota de Venta en un archivo estructurado de texto plano, utilizando el punto y coma como separador de valores. El sistema debe incluir en el archivo las columnas: Número de Nota de Venta, SKU, Cantidad, Identificación del producto, Fecha de entrega comprometida en formato DD-MM-YYYY, Nombre del proyecto, Razón social y Vendedor.
 
 Módulo 3: Confirmación de Pago y Transición a Producción
 
-1- Restricción de la actualización del estado de pago <br> RF31: El sistema debe permitir la actualización del estado de pago de una orden de únicamente a los usuarios con rol Cobranzas. Los estados de pago son: “Confirmado”, “Pendiente” y “Rechazado”.
+1- Restricción de la actualización del estado de pago <br> RF32: El sistema debe permitir la actualización del estado de pago de una orden de únicamente a los usuarios con rol Cobranzas. Los estados de pago son: “Confirmado”, “Pendiente” y “Rechazado”.
 
-2- Actualización automática de estado de orden de producción <br> RF32: El sistema debe actualizar el estado de la orden a 'Listo para producción' y notificarlo visualmente al usuario con rol Administrador tras confirmar el pago
+2- Actualización automática de estado de orden de producción <br> RF33: El sistema debe actualizar el estado de la orden a 'Listo para producción' y notificarlo visualmente al usuario con rol Administrador tras confirmar el pago
 
-3- Trazabilidad de los cambios de estado de pago <br> RF33: El sistema debe registrar automáticamente la fecha en formato DD-MM-YYYY, la hora en formato HH:MM:SS y el identificador del usuario que confirma el pago al momento de realizar la acción de confirmación.
+3- Trazabilidad de los cambios de estado de pago <br> RF34: El sistema debe registrar automáticamente la fecha en formato DD-MM-YYYY, la hora en formato HH:MM:SS y el identificador del usuario que confirma el pago al momento de realizar la acción de confirmación.
 
-4- Generación de vale de salida <br> RF34: El sistema debe generar automáticamente un vale de salida asociado a una orden de producción cuando su estado cambie a “Listo para producción”. El vale debe contener la información definida en el anexo correspondiente.
+4- Generación de vale de salida <br> RF35: El sistema debe generar automáticamente un vale de salida asociado a una orden de producción cuando su estado cambie a “Listo para producción”. El vale debe contener la información definida en el anexo correspondiente.
 
-5- Actualización automática de capacidad de producción <br> RF35: El sistema debe actualizar automáticamente la capacidad de producción diaria disponible al generarse el vale de salida.
+5- Actualización automática de capacidad de producción <br> RF36: El sistema debe actualizar automáticamente la capacidad de producción diaria disponible al generarse el vale de salida.
 
-6- Restricción de cambio a “Listo para producción” sin pago confirmado <br> RF36: El sistema no debe permitir cambiar manualmente el estado de una orden de producción a “Listo para producción” mientras el estado de pago asociado a dicha orden sea distinto de “Confirmado”, y debe mostrar un mensaje indicando que la confirmación de pago es obligatoria.
+6- Restricción de cambio a “Listo para producción” sin pago confirmado <br> RF37: El sistema no debe permitir cambiar manualmente el estado de una orden de producción a “Listo para producción” mientras el estado de pago asociado a dicha orden sea distinto de “Confirmado”, y debe mostrar un mensaje indicando que la confirmación de pago es obligatoria.
 
 Módulo 4: Gestión de capacidad instalada y reglas de negocio
 
-1- Configuración de capacidad de producción <br> RF37: El sistema debe permitir al usuario con rol Administrador configurar y ajustar la capacidad máxima diaria de producción, diferenciada como mínimo entre tarjetas y lanyards.
+1- Configuración de capacidad de producción <br> RF38: El sistema debe permitir al usuario con rol Administrador configurar y ajustar la capacidad máxima diaria de producción, diferenciada como mínimo entre tarjetas y lanyards.
 
-2- Estimación de carga laboral automática <br> RF38: El sistema debe mostrar al usuario la carga de trabajo diaria, definida como la cantidad de órdenes de producción asignadas por día en relación con la capacidad productiva definida.
+2- Estimación de carga laboral automática <br> RF39: El sistema debe mostrar al usuario la carga de trabajo diaria, definida como la cantidad de órdenes de producción asignadas por día en relación con la capacidad productiva definida.
 
-3- Alerta por sobrecarga en producción <br> RF39: El sistema debe mostrar una alerta visual al usuario con rol Ventas a la hora de ingresar una Nota de Venta y su correspondiente ficha de cliente cuando la capacidad disponible de producción para la fecha solicitada sea mayor o igual al 90%.
+3- Alerta por sobrecarga en producción <br> RF40: El sistema debe mostrar una alerta visual al usuario con rol Ventas a la hora de ingresar una Nota de Venta y su correspondiente ficha de cliente cuando la capacidad disponible de producción para la fecha solicitada sea mayor o igual al 90%.
 
-4- Restricción de creación de órdenes de producción por fecha sin capacidad <br> RF40: El sistema debe impedir el registro de una Nota de Venta para una fecha específica cuando la capacidad de producción para dicha fecha sea igual al 100%, mostrando un mensaje que diga “no existe capacidad disponible para la fecha DD-MM-YYYY”.
+4- Restricción de creación de órdenes de producción por fecha sin capacidad <br> RF41: El sistema debe impedir el registro de una Nota de Venta para una fecha específica cuando la capacidad de producción para dicha fecha sea igual al 100%, mostrando un mensaje que diga “no existe capacidad disponible para la fecha DD-MM-YYYY”.
 
-5- Cálculo de fecha de entrega en función de la capacidad productiva <br> RF41: El sistema debe mostrar al usuario una fecha de entrega alternativa en formato DD-MM-YYYY cuando la fecha solicitada no disponga de capacidad disponible, calculada en base a la cola actual de pedidos y a la capacidad configurada.
+5- Cálculo de fecha de entrega en función de la capacidad productiva <br> RF42: El sistema debe mostrar al usuario una fecha de entrega alternativa en formato DD-MM-YYYY cuando la fecha solicitada no disponga de capacidad disponible, calculada en base a la cola actual de pedidos y a la capacidad configurada.
 
-6- Estimación de fecha de término <br> RF42: El sistema debe mostrar la fecha estimada de término en formato DD-MM-YYYY de una orden de producción al visualizar su detalle. La fecha es calculada automáticamente en función de la cantidad de productos solicitados y la estimación de días de trabajo definida por el usuario Administrador.
+6- Estimación de fecha de término <br> RF43: El sistema debe mostrar la fecha estimada de término en formato DD-MM-YYYY de una orden de producción al visualizar su detalle. La fecha es calculada automáticamente en función de la cantidad de productos solicitados y la estimación de días de trabajo definida por el usuario Administrador.
 
-7- Mostrar calendario de planificación <br> RF43: El sistema debe mostrar al usuario la fecha estimada de término en un calendario de planificación, permitiendo su reajuste por parte del usuario Administrador en caso de retrasos.
+7- Mostrar calendario de planificación <br> RF44: El sistema debe mostrar al usuario la fecha estimada de término en un calendario de planificación, permitiendo su reajuste por parte del usuario Administrador en caso de retrasos.
 
 Módulo 5: Tablero Kanban y seguimiento de estados
 
-1-Visualización del tablero Kanban <br> RF44: El sistema debe permitir a los usuarios autorizados visualizar un tablero Kanban que muestre los pedidos organizados según su estado actual dentro del flujo de trabajo.
+1-Visualización del tablero Kanban <br> RF45: El sistema debe permitir a los usuarios autorizados visualizar un tablero Kanban que muestre los pedidos organizados según su estado actual dentro del flujo de trabajo.
 
-2-Estructura de columnas del tablero <br> RF45: El sistema debe mostrar en el tablero Kanban las siguientes columnas fijas, cada una asociada a una parte del flujo del proceso de producción:
+2-Estructura de columnas del tablero <br> RF46: El sistema debe mostrar en el tablero Kanban las siguientes columnas fijas, cada una asociada a una parte del flujo del proceso de producción:
 
 Confirmación de pago
 
@@ -1007,9 +1007,9 @@ Control de calidad
 
 Listo para entrega
 
-3-Cambio manual de estado por arrastrar y soltar <br> RF46: El sistema debe permitir al usuario autorizado cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar hacia otra columna del tablero Kanban, siempre que el estado de destino no esté definido como automático por las reglas del sistema. (definir en el anexo que son los estados automáticos)
+3-Cambio manual de estado por arrastrar y soltar <br> RF47: El sistema debe permitir al usuario autorizado cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar hacia otra columna del tablero Kanban, siempre que el estado de destino no esté definido como automático por las reglas del sistema. (definir en el anexo que son los estados automáticos)
 
-4-Registro de subtareas de producción <br> RF47: El sistema debe permitir al usuario autorizado marcar como completadas las subtareas de producción asociadas a una orden que se encuentre en estado “En producción”. Las subtareas son.
+4-Registro de subtareas de producción <br> RF48: El sistema debe permitir al usuario autorizado marcar como completadas las subtareas de producción asociadas a una orden que se encuentre en estado “En producción”. Las subtareas son.
 
 Impresión
 
@@ -1019,11 +1019,11 @@ corte
 
 costura
 
-5- Trazabilidad de estados de producción <br> RF48: El sistema debe almacenar el historial completo de cambios de estado de orden de producción de cada pedido guardando campos como LA fecha en formato “DD-MM-YYYY” la hora en formato “HH:MM:SS” y el usuario responsable de la modificación, sin sobrescribir registros previos.
+5- Trazabilidad de estados de producción <br> RF49: El sistema debe almacenar el historial completo de cambios de estado de orden de producción de cada pedido guardando campos como LA fecha en formato “DD-MM-YYYY” la hora en formato “HH:MM:SS” y el usuario responsable de la modificación, sin sobrescribir registros previos.
 
 6- Filtrado de los pedidos
 
-RF49: El sistema debe permitir al usuario autorizado filtrar los pedidos visibles bajo los siguientes índices de búsqueda:
+RF50: El sistema debe permitir al usuario autorizado filtrar los pedidos visibles bajo los siguientes índices de búsqueda:
 
 Número de nota de venta
 
@@ -1035,27 +1035,27 @@ Vendedor que emitió la nota de venta
 
 7- Organización de pedidos en el tablero kanban
 
-RF50: El sistema debe permitir al usuario con rol de administrador, organizar los pedidos en el tablero kanban a voluntad. Bajo una de estas dos etiquetas.
+RF51: El sistema debe permitir al usuario con rol de administrador, organizar los pedidos en el tablero kanban a voluntad. Bajo una de estas dos etiquetas.
 
 Urgencia
 
 Atraso
 
-8-Calcular tiempo real transcurrido por etapa <br> RF51: El sistema debe calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. Utilizando como marcadores la fecha y hora de ingreso a dicha etapa.
+8-Calcular tiempo real transcurrido por etapa <br> RF52: El sistema debe calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. Utilizando como marcadores la fecha y hora de ingreso a dicha etapa.
 
-9-Visualizar diferencia entre tiempo estimado y tiempo real <br> RF52: El sistema debe calcular automáticamente la diferencia entre el tiempo estimado predefinido de una etapa y el tiempo real transcurrido del pedido en dicha etapa, de forma que pueda ser visible para usuario autorizado.
+9-Visualizar diferencia entre tiempo estimado y tiempo real <br> RF53: El sistema debe calcular automáticamente la diferencia entre el tiempo estimado predefinido de una etapa y el tiempo real transcurrido del pedido en dicha etapa, de forma que pueda ser visible para usuario autorizado.
 
-10-Indicador visual de retraso <br> RF53: El sistema debe mostrar en la esquina superior de la figura que representa el pedido, dentro del tablero Kanban, un indicador visual que represente su nivel de retraso (Poner en el anexo las figuras que representan el retraso).
+10-Indicador visual de retraso <br> RF54: El sistema debe mostrar en la esquina superior de la figura que representa el pedido, dentro del tablero Kanban, un indicador visual que represente su nivel de retraso (Poner en el anexo las figuras que representan el retraso).
 
 11- Asignación de operarios a una orden de producción
 
-RF54: El sistema debe permitir al usuario con rol Administrador asignar manualmente uno o más operarios registrados a una orden de producción específica.
+RF55: El sistema debe permitir al usuario con rol Administrador asignar manualmente uno o más operarios registrados a una orden de producción específica.
 
-12- Rechazo en etapa de control de calidad <br> RF55: Cuando un pedido sea ingresado como “rechazado” en la etapa “Control de calidad”, el sistema debe exigir al usuario responsable el ingreso obligatorio del motivo del rechazo antes de confirmar la acción.
+12- Rechazo en etapa de control de calidad <br> RF56: Cuando un pedido sea ingresado como “rechazado” en la etapa “Control de calidad”, el sistema debe exigir al usuario responsable el ingreso obligatorio del motivo del rechazo antes de confirmar la acción.
 
-13-Cambio automático tras rechazo en control de calidad <br> RF56: Una vez registrado un rechazo en la etapa “Control de calidad”, el sistema debe cambiar automáticamente el estado del pedido a “En producción”.
+13-Cambio automático tras rechazo en control de calidad <br> RF57: Una vez registrado un rechazo en la etapa “Control de calidad”, el sistema debe cambiar automáticamente el estado del pedido a “En producción”.
 
-14-Conservación del historial de rechazo <br> RF57: El sistema debe conservar el registro histórico de cada rechazo efectuado en la etapa “Control de calidad”, el registro mostrará la siguiente información.
+14-Conservación del historial de rechazo <br> RF58: El sistema debe conservar el registro histórico de cada rechazo efectuado en la etapa “Control de calidad”, el registro mostrará la siguiente información.
 
 El motivo del rechazo
 
@@ -1065,69 +1065,69 @@ El número del pedido
 
 Módulo 6: Gestión de muestras y aprobaciones
 
-1- Notificación de nueva orden a jefatura <br> RF58: El sistema debe emitir una notificación automática, ya sea dentro de la aplicación o por correo electrónico, a la cuenta con el rol de Administrador inmediatamente después de que se cree y guarde una nueva orden de producción.
+1- Notificación de nueva orden a jefatura <br> RF59: El sistema debe emitir una notificación automática, ya sea dentro de la aplicación o por correo electrónico, a la cuenta con el rol de Administrador inmediatamente después de que se cree y guarde una nueva orden de producción.
 
-2- Historial de trazabilidad de producción <br> RF59: El sistema debe proporcionar una vista de historial de trazabilidad para cada orden de producción, mostrando de forma cronológica los eventos y cambios realizados, incluyendo estado, fecha en formato DD-MM-YYYY, hora en formato HH:MM:SS y el usuario que ejecutó cada acción.
+2- Historial de trazabilidad de producción <br> RF60: El sistema debe proporcionar una vista de historial de trazabilidad para cada orden de producción, mostrando de forma cronológica los eventos y cambios realizados, incluyendo estado, fecha en formato DD-MM-YYYY, hora en formato HH:MM:SS y el usuario que ejecutó cada acción.
 
-3- Historial consolidado de Orden de Producción <br> RF60: El sistema debe permitir visualizar el historial cronológico consolidado de una orden de producción, utilizando los eventos registrados en la trazabilidad del sistema. Los eventos deben mostrarse en secuencia temporal, del más reciente al más antiguo.
+3- Historial consolidado de Orden de Producción <br> RF61: El sistema debe permitir visualizar el historial cronológico consolidado de una orden de producción, utilizando los eventos registrados en la trazabilidad del sistema. Los eventos deben mostrarse en secuencia temporal, del más reciente al más antiguo.
 
 Módulo 7: Notificaciones y comunicación interdepartamental
 
 1. Notificación de disponibilidad para despacho
 
-RF61: El sistema debe enviar automáticamente una notificación por correo electrónico a la dirección de correo registrada en el sistema del usuario con rol Ventas asignado al pedido cuando la orden de producción asociada cambie al estado “Listo para entrega”.
+RF62: El sistema debe enviar automáticamente una notificación por correo electrónico a la dirección de correo registrada en el sistema del usuario con rol Ventas asignado al pedido cuando la orden de producción asociada cambie al estado “Listo para entrega”.
 
 2. Registro de comentarios y alertas
 
-RF62: El sistema debe permitir a todos los usuarios del sistema registrar comentarios, observaciones o alertas asociados a una orden de producción específica.
+RF63: El sistema debe permitir a todos los usuarios del sistema registrar comentarios, observaciones o alertas asociados a una orden de producción específica.
 
 3- Trazabilidad de comentarios, observaciones y alertas
 
-RF63: El sistema debe registrar, para cada comentario, observación o alerta asociado a una orden de producción, la fecha en formato DD-MM-YYYY, la hora en formato HH:MM:SS y el autor del registro.
+RF64: El sistema debe registrar, para cada comentario, observación o alerta asociado a una orden de producción, la fecha en formato DD-MM-YYYY, la hora en formato HH:MM:SS y el autor del registro.
 
 4. Asignación de etiquetas visuales a pedidos
 
-RF64: El sistema debe permitir a los usuarios con rol Administrador y Producción asignar etiquetas visuales a los pedidos para facilitar su categorización.
+RF65: El sistema debe permitir a los usuarios con rol Administrador y Producción asignar etiquetas visuales a los pedidos para facilitar su categorización.
 
 5- Remoción de etiquetas visuales de pedidos
 
-RF65: El sistema debe permitir a los usuarios con rol Administrador y Producción remover etiquetas visuales de los pedidos.
+RF66: El sistema debe permitir a los usuarios con rol Administrador y Producción remover etiquetas visuales de los pedidos.
 
 6- Etiquetas visuales disponibles
 
-RF66: El sistema debe incluir las etiquetas visuales “urgente” y “retrasado” para su asignación a los pedidos.
+RF67: El sistema debe incluir las etiquetas visuales “urgente” y “retrasado” para su asignación a los pedidos.
 
 7- Indicador de urgencia
 
-RF67: Cuando se ingrese una Nota de Venta clasificada como urgente, el sistema debe generar una notificación interna visible en el panel de notificaciones del sistema para todos los usuarios con rol Producción.
+RF68: Cuando se ingrese una Nota de Venta clasificada como urgente, el sistema debe generar una notificación interna visible en el panel de notificaciones del sistema para todos los usuarios con rol Producción.
 
 8. Notificación de rechazo de Nota de Venta
 
-RF68: El sistema debe enviar automáticamente una notificación por correo electrónico a la dirección de correo registrada en el sistema del vendedor creador de la Nota de Venta cada vez que esta sea rechazada durante el proceso de validación de datos.
+RF69: El sistema debe enviar automáticamente una notificación por correo electrónico a la dirección de correo registrada en el sistema del vendedor creador de la Nota de Venta cada vez que esta sea rechazada durante el proceso de validación de datos.
 
 9. Panel de anuncios internos
 
-RF69: El sistema debe contar con una pestaña independiente dedicada a un panel de anuncios internos.
+RF70: El sistema debe contar con una pestaña independiente dedicada a un panel de anuncios internos.
 
-RF70: Publicación de anuncios internos
+RF71: Publicación de anuncios internos
 
 El sistema debe permitir a los usuarios con rol Administrador publicar comunicados y novedades en el panel de anuncios internos.
 
 10- Visibilidad y acceso al panel de anuncios internos
 
-RF71: El sistema debe mostrar la pestaña del panel de anuncios internos y permitir su acceso a todos los usuarios autorizados del sistema.
+RF72: El sistema debe mostrar la pestaña del panel de anuncios internos y permitir su acceso a todos los usuarios autorizados del sistema.
 
 Módulo 8: Reportes, indicadores y analítica
 
 1- Generando reporte de cumplimiento de entregas
 
-RF72: El sistema debe permitir que el usuario de rol de Gerencia pueda seleccionar un rango de fechas en formato DD-MM-YYY y este debe generar un reporte se los pedidos que fueron entregados a tiempo y la cantidad de pedidos entregados fuera de plazo dentro del periodo solicitado.
+RF73: El sistema debe permitir que el usuario de rol de Gerencia pueda seleccionar un rango de fechas en formato DD-MM-YYY y este debe generar un reporte se los pedidos que fueron entregados a tiempo y la cantidad de pedidos entregados fuera de plazo dentro del periodo solicitado.
 
 El reporte debe incluir los porcentajes correspondientes a cada categoría y un gráfico de barras correspondiente a la información del reporte.
 
 2- Exportando reporte de pedidos entregados a tiempo y fuera de plazo a Excel
 
-RF73: El sistema debe permitir al usuario con rol de gerencia el poder exportar a Excel el reporte de pedidos, estos deben estar filtrados por:
+RF74: El sistema debe permitir al usuario con rol de gerencia el poder exportar a Excel el reporte de pedidos, estos deben estar filtrados por:
 
 Pedidos entregados a tiempo.
 
@@ -1135,25 +1135,25 @@ Pedidos no entregados a tiempo.
 
 3- Exportación de reportes de producción
 
-RF74: El sistema debe permitir al usuario seleccionar un rango de fechas en formato DD-MM-YYY y un apartado para poder exportar en formato Excel y CSV, los reportes de producción de capacidad, tiempos o entregas generadas para dicho período.
+RF75: El sistema debe permitir al usuario seleccionar un rango de fechas en formato DD-MM-YYY y un apartado para poder exportar en formato Excel y CSV, los reportes de producción de capacidad, tiempos o entregas generadas para dicho período.
 
 4- Cálculo del tiempo de ciclo promedio
 
-RF75: El sistema debe calcular automáticamente el tiempo de ciclo promedio de los pedidos que alcancen el estado "despachado", esto calculando como la diferencia en horas entre la fecha y hora de creación de nota de ventas y la fecha y hora en que la orden cambie al estado "despachado", el resultado debe actualizarse diariamente y mostrando un gráfico de tendencia.
+RF76: El sistema debe calcular automáticamente el tiempo de ciclo promedio de los pedidos que alcancen el estado "despachado", esto calculando como la diferencia en horas entre la fecha y hora de creación de nota de ventas y la fecha y hora en que la orden cambie al estado "despachado", el resultado debe actualizarse diariamente y mostrando un gráfico de tendencia.
 
-5- Mapa de carga de producción por día de la semana <br> RF76: El sistema debe mostrar el mapa de carga de producción por día de la semana, para el rango de fechas seleccionado en formato DD-MM-YYYY, indicando el porcentaje de capacidad utilizada en cada día.
+5- Mapa de carga de producción por día de la semana <br> RF77: El sistema debe mostrar el mapa de carga de producción por día de la semana, para el rango de fechas seleccionado en formato DD-MM-YYYY, indicando el porcentaje de capacidad utilizada en cada día.
 
 6- Filtro por rango de fechas en todas las vistas de reportes
 
-RF77: El sistema debe permitir seleccionar un rango de fechas especifico en el formato DD-MM-YYY para así poder filtrar los reportes e indicadores gráficos. del módulo de analítica. El sistema debe mostrar únicamente la información correspondiente al periodo seleccionado.
+RF78: El sistema debe permitir seleccionar un rango de fechas especifico en el formato DD-MM-YYY para así poder filtrar los reportes e indicadores gráficos. del módulo de analítica. El sistema debe mostrar únicamente la información correspondiente al periodo seleccionado.
 
-7- Panel de control exclusivo para Gerencia <br> RF78: El sistema debe mostrar un panel de control gerencial accesible únicamente para usuarios con el rol Gerencia.
+7- Panel de control exclusivo para Gerencia <br> RF79: El sistema debe mostrar un panel de control gerencial accesible únicamente para usuarios con el rol Gerencia.
 
-8- Ranking de productos más solicitados <br> RF79: El sistema debe mostrar un ranking de los productos más solicitados dentro del rango de fechas en formato DD-MM-YYYY seleccionado.
+8- Ranking de productos más solicitados <br> RF80: El sistema debe mostrar un ranking de los productos más solicitados dentro del rango de fechas en formato DD-MM-YYYY seleccionado.
 
-9- Reporte de órdenes agrupadas por estado <br> RF80: El sistema debe generar un reporte que muestre la cantidad total de órdenes de producción agrupadas por estado dentro del rango de fechas en formato DD-MM-YYYY seleccionado. El reporte debe incluir obligatoriamente los estados definidos en el flujo del tablero Kanban y debe presentarse mediante una tabla resumen y una visualización gráfica.
+9- Reporte de órdenes agrupadas por estado <br> RF81: El sistema debe generar un reporte que muestre la cantidad total de órdenes de producción agrupadas por estado dentro del rango de fechas en formato DD-MM-YYYY seleccionado. El reporte debe incluir obligatoriamente los estados definidos en el flujo del tablero Kanban y debe presentarse mediante una tabla resumen y una visualización gráfica.
 
-10- Indicador de cumplimiento por usuario de rol ventas <br> RF81: El sistema debe generar un indicador de cumplimiento por vendedor para el rango de fechas en formato DD-MM-YYYY seleccionado. El indicador debe mostrar la cantidad total de Notas de Venta registradas, la cantidad total de órdenes asociadas entregadas a tiempo y la cantidad total de órdenes asociadas entregadas fuera de plazo.
+10- Indicador de cumplimiento por usuario de rol ventas <br> RF82: El sistema debe generar un indicador de cumplimiento por vendedor para el rango de fechas en formato DD-MM-YYYY seleccionado. El indicador debe mostrar la cantidad total de Notas de Venta registradas, la cantidad total de órdenes asociadas entregadas a tiempo y la cantidad total de órdenes asociadas entregadas fuera de plazo.
 
 7.2. Requerimientos No Funcionales
 
@@ -3443,59 +3443,59 @@ Figura 6.15: “Mockup RF07 y 08”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Figura 6.16: “Mockup RF14”
+Figura 6.16: “Mockup RF15”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Figura 6.17: “Mockup RF18”
+Figura 6.17: “Mockup RF19”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Figura 6.18: “Mockup RF19”
+Figura 6.18: “Mockup RF20”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Figura 6.19: “Mockup RF23”
+Figura 6.19: “Mockup RF24”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Figura 6.20: “Mockup RF28”
+Figura 6.20: “Mockup RF29”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Figura 6.21: “Mockup RF29”
+Figura 6.21: “Mockup RF30”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Figura 6.22: “Mockup RF39”
+Figura 6.22: “Mockup RF40”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Figura 6.23: “Mockup RF43”
+Figura 6.23: “Mockup RF44”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Figura 6.24: “Mockup RF44 y 45”
+Figura 6.24: “Mockup RF45 y 46”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Figura 6.25: “Mockup RF46”
+Figura 6.25: “Mockup RF47”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Figura 6.26: “Mockup RF47”
+Figura 6.26: “Mockup RF48”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Figura 6.27: “Mockup RF49”
+Figura 6.27: “Mockup RF50”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Figura 6.28: “Mockup RF66”
+Figura 6.28: “Mockup RF67”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Figura 6.29: “Mockup RF72”
+Figura 6.29: “Mockup RF73”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
