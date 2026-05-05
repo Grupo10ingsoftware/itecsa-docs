@@ -831,19 +831,21 @@ RF08: El sistema debe mostrar un listado de los últimos diez registros asociado
 
 10- Validación de credenciales y estado vinculado <br> RF10: El sistema debe validar que el correo electrónico y la contraseña ingresados correspondan a un usuario registrado.
 
+11- [FALTA TITULO]
+
 RF11: El sistema debe permitir el acceso al sistema cuando el correo electrónico y la contraseña correspondan a un usuario registrado y su estado sea “vinculado”.
 
-11- Validación de correo electrónico único <br> RF12: El sistema debe validar que el correo electrónico no esté previamente registrado en la tabla de usuarios, independientemente de si el usuario está vinculado o desvinculado. En caso de duplicado, debe mostrar el mensaje “El correo ingresado ya está asociado a una cuenta”.
+12- Validación de correo electrónico único <br> RF12: El sistema debe validar que el correo electrónico no esté previamente registrado en la tabla de usuarios, independientemente de si el usuario está vinculado o desvinculado. En caso de duplicado, debe mostrar el mensaje “El correo ingresado ya está asociado a una cuenta”.
 
-12- Restricción de acceso por rol <br> RF13: El sistema debe restringir el acceso a módulos, pantallas, botones y API según el rol del usuario autenticado.
+13- Restricción de acceso por rol <br> RF13: El sistema debe restringir el acceso a una URL protegida según el rol del usuario autenticado
 
-13- Mensaje Acceso denegado por rol
+14- Mensaje Acceso denegado por rol
 
 RF14: El sistema debe redirigir al usuario a una página de “Acceso denegado” si este intenta acceder a un recurso para el cual no tenga permisos
 
-14- Recuperación de contraseña mediante correo electrónico <br> RF15: El sistema debe proveer un flujo de “Olvidé mi contraseña” que solicite el correo electrónico. Si el correo existe en el sistema, debe enviar un enlace URL único y temporal al correo existente para establecer una nueva contraseña. Si el correo no existe, el sistema debe informar que no se encontró una cuenta asociada. El enlace debe ser de un solo uso y tener una validez limitada en el tiempo. La nueva contraseña debe cumplir el formato: mínimo 8 caracteres, con al menos una letra mayúscula, una letra minúscula, un número y un símbolo especial.
+15- Recuperación de contraseña mediante correo electrónico <br> RF15: El sistema debe proveer un flujo de “Olvidé mi contraseña” que solicite el correo electrónico. Si el correo existe en el sistema, debe enviar un enlace URL único y temporal al correo existente para establecer una nueva contraseña. Si el correo no existe, el sistema debe informar que no se encontró una cuenta asociada. El enlace debe ser de un solo uso y tener una validez limitada en el tiempo. La nueva contraseña debe cumplir el formato: mínimo 8 caracteres, con al menos una letra mayúscula, una letra minúscula, un número y un símbolo especial.
 
-15- Edición de usuarios por Administrador <br> RF16: El sistema debe permitir al usuario con rol Administrador modificar atributos de un usuario como:
+16- Edición de usuarios por Administrador <br> RF16: El sistema debe permitir al usuario con rol Administrador modificar atributos de un usuario como:
 
 Nombre
 
@@ -857,7 +859,7 @@ Estado
 
 Cada modificación se debe registrar en la bitácora
 
-16- Conservar datos de Usuario “desvinculado”
+17- Conservar datos de Usuario “desvinculado”
 
 RF17: El sistema debe mantener íntegros los registros asociados a un usuario desvinculado, incluyendo:
 
@@ -869,11 +871,31 @@ ventas
 
 Estos datos deben permanecer visibles en reportes.
 
-17- Cierre de sesión desde cualquier interfaz <br> RF18- El sistema debe permitir a cualquier usuario autenticado cerrar su sesión desde cualquier vista del sistema.
+18- Cierre de sesión desde cualquier interfaz <br> RF18- El sistema debe permitir a cualquier usuario autenticado cerrar su sesión desde cualquier vista del sistema.
 
 Módulo 2: Ingreso y validación de Nota de Venta, ficha de cliente y orden de producción
 
 1- Adjuntar Nota de Venta desde Manager <br> RF19: El sistema debe permitir al usuario adjuntar uno o más archivos correspondientes a la Nota de Venta proveniente del sistema Manager. El sistema debe restringir los formatos permitidos: PDF, JPEG y PNG. Tras la carga, el sistema debe mostrar en la interfaz el nombre del archivo y la fecha de subida estandarizada en formato DD-MM-YYYY.
+
+El sistema debe permitir al usuario adjuntar archivos al pedido correspondiente a cierta nota de venta
+
+RF##: El sistema debe proporcionar a los usuarios con rol Ventas una interfaz para generar pedidos dentro del sistema
+
+RF##: El sistema debe permitir al usuario crear un pedido en la interfaz de creación de pedidos mediante un formulario que solicite Nota de Venta en formato PDF, guardando: - Nro Nota de Venta
+
+Razón Social
+
+RUT - Cliente
+
+Descripción de Producto
+
+Cantidad
+
+Datos para Fabricación
+
+Fecha de creación del pedido en formato DD-MM-YYYY
+
+Hora de creación del pedido en formato HH:MM:SS
 
 2- Registro de campos comerciales en ficha de cliente
 
@@ -907,7 +929,7 @@ Identificación o descripción del producto: campo de texto no vacío, obligator
 
 Fecha de entrega comprometida: campo con formato DD-MM-YYY, obligatorio, y no puede ser anterior a la fecha actual.
 
-El sistema no debe exigir ningún otro campo de la Nota de venta para habilitar la creación de la orden de producción.
+El sistema debe validar que la Nota de venta adjunta o sus datos ingresados contengan los datos de fabricación correspondiente al tipo de producto, ya sea lanyard o tarjetas.
 
 Los demás campos adicionales, como datos del cliente, información comercial, detalles de fabricación, precios, totales, dirección de despacho u observaciones, deben ser opcionales y no deben bloquear el flujo productivo.
 
@@ -915,15 +937,25 @@ El sistema debe validar que todos los campos mínimos obligatorios se encuentren
 
 4- Validación de SKU contra catálogo vigente <br> RF22: El sistema debe consultar la base de datos y validar que el SKU ingresado en la NV o Ficha de Cliente exista en el catálogo de productos y posea el estado "Vigente". Si el SKU no existe o está discontinuado, el sistema debe bloquear la creación de la orden y mostrar el mensaje exacto: "SKU no válido o fuera de catálogo".
 
-5- Validación de unicidad del código único de Nota de Venta <br> RF23: El sistema debe ejecutar una validación de unicidad en la base de datos sobre el campo "Código único de Nota de Venta". Si el sistema detecta que el código ya existe, independientemente del estado de la Nota de Venta, debe bloquear el registro y mostrar el mensaje: "Ya existe una Nota de Venta con el código ingresado. No se permite duplicar"
+5- Validación de unicidad del código único de Nota de Venta
+
+RF23: El sistema debe ejecutar una validación de unicidad en la base de datos sobre el campo "Código único de Nota de Venta". Si el sistema detecta que el código ya existe, independientemente del estado de la Nota de Venta, debe bloquear el registro y mostrar el mensaje: "Ya existe una Nota de Venta con el código ingresado. No se permite duplicar"
+
+El sistema debe corroborar en la base de datos si el numero de nota de venta asociado al pedido ya existe, con el fin de evitar duplicados y errores.
+
+y mostrar el mensaje: "Ya existe una Nota de Venta con el código ingresado. No se permite duplicar"
 
 6- Adjuntar archivos de diseño al Kanban para productos específicos <br> RF24: El sistema debe permitir a los usuarios con rol "Operario" adjuntar archivos de diseño directamente sobre la tarjeta visual de una orden en el tablero Kanban. El sistema debe restringir esta funcionalidad exclusivamente a los formatos PDF, JPG y PNG, y habilitarla únicamente cuando el producto corresponda a las categorías: "lanyards", "tarjetas" o "yoyos".
 
 7- Registro de comentarios asociados a la Nota de Venta <br> RF25: El sistema debe permitir a los roles "Ventas" y "Administrador" agregar comentarios de texto a una Nota de Venta. El sistema debe registrar cada comentario, estampando automáticamente el autor, la fecha en formato DD-MM-YYYY y la hora en formato HH:MM:SS.
 
+RF##: El sistema debe permitir a los roles "Ventas" y "Administrador" agregar comentarios de texto a un pedido.
+
+RF##: El sistema debe registrar inmutablemente cada comentario asociado a un pedido, registrando automáticamente el autor, la fecha en formato DD-MM-YYYY y la hora en formato HH:MM:SS
+
 8- Registro de comentarios asociados a la Orden de Producción <br> RF26: El sistema debe permitir a los roles "Operario" y "Administrador" agregar comentarios internos a una Orden de Producción. El sistema debe registrar inmutablemente cada comentario, registrando automáticamente el autor, la fecha en formato DD-MM-YYYY y la hora en formato HH:MM:SS.
 
-9- Validación de campos obligatorios de la ficha de cliente antes de generar Orden de Producción <br> RF27: El sistema debe validar que los cinco campos obligatorios de la sección "Ficha cliente ADM" estén completos antes de permitir la generación de la Orden de Producción, ya sea manual o automático. Si falta información, el sistema debe bloquear la creación de la orden y mostrar un listado explícito de los campos pendientes.
+9- Validación de campos obligatorios de la ficha de cliente antes de generar Orden de Producción <br> RF27: El sistema debe validar que los cinco campos obligatorios de la sección "Ficha cliente" estén completos antes de permitir la generación de la Orden de Producción, ya sea manual o automático. Si falta información, el sistema debe bloquear la creación de la orden y mostrar un listado explícito de los campos pendientes.
 
 10- Validación de capacidad disponible antes de registrar Nota de Venta con fecha comprometida <br> RF28: El sistema debe consultar la capacidad de producción disponible para la "Fecha de entrega comprometida" ingresada por el rol "Ventas". Si la capacidad para dicha fecha se encuentra al cien por ciento, el sistema debe mostrar el mensaje "No hay capacidad disponible para la fecha solicitada. Se ha sugerido la fecha más cercana disponible". El sistema debe calcular la fecha hábil más cercana con capacidad y ofrecer al usuario la opción de aceptarla o modificar la NV original.
 
@@ -963,17 +995,21 @@ Observaciones.
 
 Módulo 3: Confirmación de Pago y Transición a Producción
 
-1- Restricción de la actualización del estado de pago <br> RF32: El sistema debe permitir la actualización del estado de pago de una orden de únicamente a los usuarios con rol Cobranzas. Los estados de pago son: “Confirmado”, “Pendiente” y “Rechazado”.
+1- Restricción de la actualización del estado de pago <br> RF32: El sistema debe permitir al usuario con rol Cobranzas actualizar el estado de pago en el detalle de pedido del Kanban mediante un dropdown con los estados ‘Confirmado’, ‘Rechazado’ y ‘Pendiente’
 
-2- Actualización automática de estado de orden de producción <br> RF33: El sistema debe actualizar el estado de la orden a 'Listo para producción' y notificarlo visualmente al usuario con rol Administrador tras confirmar el pago
+RF##: El sistema debe firmar digitalmente la nota de venta a la hora de que el usuario con rol cobranzas actualice el estado de pago a ‘Confirmado’
+
+2- Actualización automática de estado de orden de producción <br> RF33: El sistema debe actualizar el estado de la orden a 'Listo para producción' luego de que el usuario con rol Cobranzas actualice el estado de pago a ‘Confirmado’
 
 3- Trazabilidad de los cambios de estado de pago <br> RF34: El sistema debe registrar automáticamente la fecha en formato DD-MM-YYYY, la hora en formato HH:MM:SS y el identificador del usuario que confirma el pago al momento de realizar la acción de confirmación.
 
 4- Generación de vale de salida <br> RF35: El sistema debe generar automáticamente un vale de salida asociado a una orden de producción cuando su estado cambie a “Listo para producción”. El vale debe contener la información definida en el anexo correspondiente.
 
-5- Actualización automática de capacidad de producción <br> RF36: El sistema debe actualizar automáticamente la capacidad de producción diaria disponible al generarse el vale de salida.
+RF## El sistema debe permitir al usuario con rol de Administrador adjuntar la o las Ordenes de producción y la ficha de cliente a la entidad del pedido dentro del flujo cuando su pago haya sido confirmado
 
-6- Restricción de cambio a “Listo para producción” sin pago confirmado <br> RF37: El sistema no debe permitir cambiar manualmente el estado de una orden de producción a “Listo para producción” mientras el estado de pago asociado a dicha orden sea distinto de “Confirmado”, y debe mostrar un mensaje indicando que la confirmación de pago es obligatoria.
+5- Actualización automática de capacidad de producción <br> RF36: El sistema debe actualizar automáticamente la capacidad de producción diaria disponible al generarse el pedido.
+
+6- Restricción de cambio a “Listo para producción” sin pago confirmado <br> RF37: El sistema no debe permitir cambiar manualmente el estado de una orden de producción a “Listo para producción” mientras el estado de pago asociado a dicha orden sea distinto de “Confirmado”, y debe mostrar el mensaje ‘Pedido en espera de confirmación de pago’.
 
 Módulo 4: Gestión de capacidad instalada y reglas de negocio
 
@@ -981,9 +1017,11 @@ Módulo 4: Gestión de capacidad instalada y reglas de negocio
 
 2- Estimación de carga laboral automática <br> RF39: El sistema debe mostrar al usuario la carga de trabajo diaria, definida como la cantidad de órdenes de producción asignadas por día en relación con la capacidad productiva definida.
 
-3- Alerta por sobrecarga en producción <br> RF40: El sistema debe mostrar una alerta visual al usuario con rol Ventas a la hora de ingresar una Nota de Venta y su correspondiente ficha de cliente cuando la capacidad disponible de producción para la fecha solicitada sea mayor o igual al 90%.
+3- Alerta por sobrecarga en producción <br> RF40: El sistema debe mostrar una alerta visual al usuario con rol Ventas a la hora de ingresar una Nota de Venta cuando la capacidad disponible de producción para la fecha solicitada sea mayor o igual al 90%.
 
 4- Restricción de creación de órdenes de producción por fecha sin capacidad <br> RF41: El sistema debe impedir el registro de una Nota de Venta para una fecha específica cuando la capacidad de producción para dicha fecha sea igual al 100%, mostrando un mensaje que diga “no existe capacidad disponible para la fecha DD-MM-YYYY”.
+
+El sistema debe ingresar un pedido bajo condición de sobrecarga operativa cuando el usuario registre un pedido en una fecha cuya capacidad de producción sea igual al 100%, guardando el nombre del usuario que ingreso el pedido
 
 5- Cálculo de fecha de entrega en función de la capacidad productiva <br> RF42: El sistema debe mostrar al usuario una fecha de entrega alternativa en formato DD-MM-YYYY cuando la fecha solicitada no disponga de capacidad disponible, calculada en base a la cola actual de pedidos y a la capacidad configurada.
 
@@ -995,6 +1033,14 @@ Módulo 5: Tablero Kanban y seguimiento de estados
 
 1-Visualización del tablero Kanban <br> RF45: El sistema debe permitir a los usuarios autorizados visualizar un tablero Kanban que muestre los pedidos organizados según su estado actual dentro del flujo de trabajo.
 
+RF##: El sistema debe proporcionar el detalle del pedido al hacer clic sobre un pedido del Kanban, mostrando los estados del subproceso de producción asociado al pedido.
+
+RF##: El sistema debe permitir al usuario con rol Operario actualizar el estado del subproceso de producción mediante un Stepper interactivo según el tipo de producto.
+
+RF##: El sistema debe permitir al usuario agregar un comentario al cambiar el estado del subproceso dentro del estado de producción
+
+RF## El sistema debe agregar la firma electrónica del usuario a la ficha del cliente cuando éste actualice el estado del subproceso del estado de producción
+
 2-Estructura de columnas del tablero <br> RF46: El sistema debe mostrar en el tablero Kanban las siguientes columnas fijas, cada una asociada a una parte del flujo del proceso de producción:
 
 Confirmación de pago
@@ -1002,8 +1048,6 @@ Confirmación de pago
 Listo para producción
 
 En producción
-
-Control de calidad
 
 Listo para entrega
 
