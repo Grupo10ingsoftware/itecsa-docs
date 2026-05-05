@@ -15,8 +15,10 @@ Estas entidades no representan aun el modelo definitivo ni definen llaves, cardi
 | Orden de Produccion | Representar la OP definitiva asociada a una Nota de Venta aprobada. | numero de OP, `numero_nota_venta`, producto, SKU, cantidad, unidad de medida, fecha de creacion, fecha estimada de inicio, fecha estimada de termino, estado de OP. |
 | Producto / SKU | Mantener el catalogo de productos validos para las Notas de Venta. | SKU, nombre de producto, descripcion, categoria, unidad de medida, estado de vigencia. |
 | Material | Registrar materiales o insumos requeridos por una Orden de Produccion. | `id_material`, nombre, unidad de medida, cantidad requerida, numero de OP asociada. |
-| Tarjeta Kanban | Representar visualmente el pedido dentro del tablero de seguimiento. | `numero_nota_venta`, numero de OP, estado actual, columna actual, fecha del ultimo cambio, tiempo en estado, indicador de retraso. |
-| Subtarea Productiva | Registrar tareas internas de produccion asociadas a una OP. | `id_subtarea`, numero de OP, nombre de subtarea, estado, responsable, fecha de inicio, fecha de termino. |
+| Flujo Productivo | Definir el flujo de etapas aplicable segun el tipo de producto. | `id_flujo`, tipo de producto, nombre del flujo, descripcion, estado de vigencia. |
+| Etapa Productiva | Definir cada etapa del flujo productivo, como impresion, sublimacion, corte o armado. | `id_etapa`, `id_flujo`, nombre de etapa, orden, tiempo estimado, requiere responsable, estado de vigencia. |
+| Tarjeta Kanban | Representar visualmente el pedido dentro del tablero principal de seguimiento. | `numero_nota_venta`, numero de OP, estado general, columna actual, tipo de producto, etapa actual del subflujo, fecha del ultimo cambio, tiempo en estado, indicador de retraso. |
+| Subtarea Productiva | Registrar el avance real de cada etapa o subtarea de produccion asociada a una OP. | `id_subtarea`, numero de OP, `id_etapa`, nombre de subtarea, estado, responsable, fecha de inicio, fecha de termino, progreso porcentual. |
 | Evento de Trazabilidad | Guardar el historial de eventos relevantes del pedido. | `id_evento`, entidad afectada, identificador de entidad, tipo de evento, estado anterior, estado nuevo, usuario responsable, fecha, hora, detalle. |
 | Comentario | Registrar comentarios, observaciones o alertas escritas sobre NV u OP. | `id_comentario`, `numero_nota_venta`, numero de OP, autor, fecha, hora, contenido. |
 | Adjunto | Guardar referencias a archivos asociados a NV, OP o tarjeta Kanban. | `id_adjunto`, `numero_nota_venta`, numero de OP, tipo de adjunto, nombre de archivo, formato, fecha de carga, usuario que carga. |
@@ -33,3 +35,4 @@ Estas entidades no representan aun el modelo definitivo ni definen llaves, cardi
 - `numero_nota_venta` funciona como identificador del pedido dentro del flujo y de la tarjeta Kanban.
 - La fecha de recepcion a produccion se registra cuando la NV baja efectivamente a produccion; no es automatica.
 - El cobro debe estar confirmado por Cobranzas antes de habilitar la OP definitiva y el seguimiento productivo.
+- El Kanban contempla un tablero principal por estado general y un panel de detalle por pedido con el subflujo productivo especifico segun tipo de producto.
