@@ -4,7 +4,7 @@ Este documento define los modulos funcionales propuestos para la primera version
 
 | N | Modulo | Responsabilidades principales | Roles principales |
 | --- | --- | --- | --- |
-| 1 | Gestion de Usuarios y Roles | Crear usuarios, autenticar usuarios, controlar sesiones, validar usuarios vinculados o desvinculados, administrar permisos por rol y restringir el acceso a pantallas o acciones no autorizadas. | Administrador, todos los usuarios autenticados |
+| 1 | Gestion de Usuarios y Roles | Crear usuarios, autenticar usuarios mediante Firebase, controlar sesiones, validar usuarios vinculados o desvinculados, administrar permisos por rol y restringir el acceso a pantallas o acciones no autorizadas. | Administrador, todos los usuarios autenticados |
 | 2 | Ingreso y Validacion de Nota de Venta | Permitir que Ventas registre el codigo de la Nota de Venta, adjunte respaldos si corresponde, complete datos minimos, valide duplicidad y deje la NV en estado pendiente de confirmacion de cobro. | Ventas, Administrador |
 | 3 | Confirmacion de Cobro | Permitir que solo Cobranzas confirme o rechace el cobro de la Nota de Venta, bloquear el avance a produccion si el cobro no esta confirmado, registrar fecha, hora, usuario responsable y observaciones, y funcionar como cortafuegos antes del inicio productivo. | Cobranzas |
 | 4 | Gestion de Orden de Produccion | Crear o asociar la Orden de Produccion definitiva solo cuando la Nota de Venta tenga cobro confirmado, mantener la relacion NV-OP, guardar datos productivos principales y habilitar el seguimiento del pedido. | Administrador, Produccion |
@@ -21,7 +21,7 @@ Los siguientes datos son logicos y preliminares. No representan todavia el Model
 
 | N | Modulo | Datos que maneja |
 | --- | --- | --- |
-| 1 | Gestion de Usuarios y Roles | `id_usuario`, nombre, apellido, correo unico, contrasena, rol, estado de cuenta, firma virtual asociada al usuario, fecha de creacion, primer inicio de sesion, ultimo acceso, sesiones activas, permisos asociados al rol. |
+| 1 | Gestion de Usuarios y Roles | `id_usuario`, `uid_firebase`, nombre, apellido, correo unico, rol, estado de cuenta, firma virtual asociada al usuario, fecha de creacion, primer inicio de sesion, ultimo acceso, sesiones activas, permisos asociados al rol. La contrasena, su hash y la autenticacion se delegan a Firebase. |
 | 2 | Ingreso y Validacion de Nota de Venta | `numero_nota_venta`, archivo adjunto de NV, nombre del archivo, fecha de subida, `fecha_generacion`, `fecha_recepcion_produccion`, SKU o codigo de producto, cantidad solicitada, descripcion del producto, fecha de entrega comprometida, razon social, ejecutivo o vendedor, estado de validacion, observaciones. |
 | 3 | Confirmacion de Cobro | `numero_nota_venta`, estado de cobro, usuario de Cobranzas responsable, fecha de confirmacion o rechazo, hora de confirmacion o rechazo, firma virtual usada, observacion de rechazo, estado de bloqueo o desbloqueo para produccion. |
 | 4 | Gestion de Orden de Produccion | numero de OP, `numero_nota_venta` asociada, cliente, producto, SKU, descripcion, cantidad, unidad de medida, planta o bodega, supervisor, fecha de creacion, fecha estimada de inicio, fecha estimada de termino, materiales requeridos, observaciones, estado general de la OP. |
@@ -47,3 +47,11 @@ Pendiente de confirmacion de cobro
         +-- Cobro confirmado --> Se habilita la Orden de Produccion definitiva
                                   y comienza el seguimiento productivo
 ```
+
+## Servicios Externos Considerados
+
+| Servicio externo | Uso dentro del sistema |
+| --- | --- |
+| Firebase | Autenticacion y almacenamiento de usuarios. Se usa desde el modulo Gestion de Usuarios y Roles para crear usuarios, autenticar acceso y consultar datos base de cuenta. |
+| Manager | Fuente o respaldo externo para la Nota de Venta. No forma parte del flujo interno del sistema. |
+| Servicio de Correo | Envio de correos generados por el modulo de Notificaciones. |

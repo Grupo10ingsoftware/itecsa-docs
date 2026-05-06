@@ -6,9 +6,9 @@ Estas entidades no representan aun el modelo definitivo ni definen llaves, cardi
 
 | Entidad | Proposito | Datos principales |
 | --- | --- | --- |
-| Usuario | Representar a cada persona que accede al sistema. | `id_usuario`, nombre, apellido, correo unico, contrasena, estado de cuenta, fecha de creacion, primer inicio de sesion, ultimo acceso. |
+| Usuario | Representar a cada persona que accede al sistema, considerando que su autenticacion y almacenamiento base se realizara en Firebase. | `id_usuario`, `uid_firebase`, nombre, apellido, correo unico, rol, estado de cuenta, fecha de creacion, primer inicio de sesion, ultimo acceso. |
 | Rol | Definir el perfil funcional del usuario y sus permisos. | `id_rol`, nombre del rol, descripcion, permisos asociados. |
-| Sesion | Controlar sesiones activas, cierre de sesion, inactividad e invalidacion. | `id_sesion`, `id_usuario`, fecha de inicio, ultima actividad, estado de sesion, fecha de cierre. |
+| Sesion | Controlar sesiones activas, cierre de sesion, inactividad e invalidacion, apoyandose en la autenticacion de Firebase. | `id_sesion`, `id_usuario`, `uid_firebase`, fecha de inicio, ultima actividad, estado de sesion, fecha de cierre. |
 | Firma Virtual | Almacenar la firma asociada a un usuario autorizado para aprobaciones o confirmaciones. | `id_firma`, `id_usuario`, archivo o referencia de firma, fecha de registro, estado de vigencia. |
 | Nota de Venta | Registrar la NV ingresada por Ventas y usarla como identificador del pedido. | `numero_nota_venta`, `fecha_generacion`, `fecha_recepcion_produccion`, razon social, vendedor, SKU, cantidad, descripcion del producto, fecha de entrega comprometida, estado de validacion. |
 | Confirmacion de Cobro | Registrar la aprobacion o rechazo del cobro antes de habilitar produccion. | `numero_nota_venta`, estado de cobro, usuario de Cobranzas, fecha de confirmacion o rechazo, hora de confirmacion o rechazo, firma virtual usada, observacion. |
@@ -29,7 +29,9 @@ Estas entidades no representan aun el modelo definitivo ni definen llaves, cardi
 
 ## Criterios de Modelado Inicial
 
-- El correo del usuario es unico y se usa para iniciar sesion, pero `id_usuario` se mantiene como identificador interno estable.
+- El correo del usuario es unico y se usa para iniciar sesion, mientras que `uid_firebase` representa el identificador entregado por Firebase.
+- `id_usuario` se mantiene como identificador logico interno para el analisis del MER; en la implementacion podria mapearse directamente al `uid_firebase` si el equipo decide simplificar.
+- La contrasena, su hash y el proceso de autenticacion se delegan a Firebase; no se modelan como datos administrados por la base de datos interna del sistema.
 - Los permisos se asocian al rol, no directamente al usuario.
 - La firma virtual pertenece al usuario y puede ser referenciada en confirmaciones o aprobaciones.
 - `numero_nota_venta` funciona como identificador del pedido dentro del flujo y de la tarjeta Kanban.
