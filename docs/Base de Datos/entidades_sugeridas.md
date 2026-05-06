@@ -1,6 +1,6 @@
 # Entidades Sugeridas para el MER
 
-Este documento propone entidades preliminares para construir mas adelante el Modelo Entidad-Relacion del sistema de gestion de produccion de ITECSA. Las entidades se derivan de los modulos de la primera version, del Documento 0 y del alcance corregido del flujo desde el paso 6.
+Este documento propone entidades preliminares para construir mas adelante el Modelo Entidad-Relacion del sistema de gestion de produccion de ITECSA. Las entidades se derivan de los componentes de la primera version, del Documento 0 y del alcance corregido del flujo desde el paso 6.
 
 Estas entidades no representan aun el modelo definitivo ni definen llaves, cardinalidades o normalizacion final. Su objetivo es servir como base para discutir el MER.
 

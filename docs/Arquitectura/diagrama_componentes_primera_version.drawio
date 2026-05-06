@@ -65,7 +65,7 @@
         <mxCell id="kanban" parent="systemContainer" style="shape=component;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" value="Kanban y Seguimiento&#xa;Productivo" vertex="1">
           <mxGeometry height="78" width="190" x="280" y="372" as="geometry" />
         </mxCell>
-        <mxCell id="e_kanban_traza" edge="1" parent="systemContainer" style="endArrow=block;html=1;rounded=0;strokeColor=#d79b00;entryX=-0.001;entryY=0.262;entryDx=0;entryDy=0;entryPerimeter=0;" target="trazabilidad" value="registra cambios de estado">
+        <mxCell id="e_kanban_traza" edge="1" parent="systemContainer" source="kanban" style="endArrow=block;html=1;rounded=0;strokeColor=#d79b00;entryX=-0.001;entryY=0.262;entryDx=0;entryDy=0;entryPerimeter=0;" target="trazabilidad" value="registra cambios de estado">
           <mxGeometry relative="1" x="0.2007" as="geometry">
             <mxPoint as="offset" />
             <Array as="points">
@@ -213,7 +213,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e_manager_ingreso" edge="1" parent="1" style="endArrow=block;html=1;rounded=0;dashed=1;strokeColor=#666666;entryX=0.238;entryY=1.018;entryDx=0;entryDy=0;entryPerimeter=0;" target="ingresoNV" value="NV / respaldo">
+        <mxCell id="e_manager_ingreso" edge="1" parent="1" source="manager" style="endArrow=block;html=1;rounded=0;dashed=1;strokeColor=#666666;entryX=0.238;entryY=1.018;entryDx=0;entryDy=0;entryPerimeter=0;" target="ingresoNV" value="NV / respaldo">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="440" y="680" />
@@ -302,7 +302,7 @@
             <mxPoint x="1690" y="190" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e_kanban_db" edge="1" parent="1" source="kanban" style="endArrow=block;html=1;rounded=0;strokeColor=#82b366;exitX=0.473;exitY=-0.003;exitDx=0;exitDy=0;exitPerimeter=0;" value="estados / etapas">
+        <mxCell id="e_kanban_db" edge="1" parent="1" source="kanban" style="endArrow=block;html=1;rounded=0;strokeColor=#82b366;exitX=0.473;exitY=-0.003;exitDx=0;exitDy=0;exitPerimeter=0;" target="baseDatos" value="estados / etapas">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="980" y="420" />

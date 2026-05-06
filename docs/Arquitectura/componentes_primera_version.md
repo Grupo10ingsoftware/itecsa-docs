@@ -1,8 +1,8 @@
-# Modulos de la Primera Version
+# Componentes de la Primera Version
 
-Este documento define los modulos funcionales propuestos para la primera version del sistema de gestion de produccion de ITECSA. La propuesta toma como fuente de verdad el Documento 0 y considera que el flujo del sistema inicia en el paso 6, cuando Ventas ingresa la Nota de Venta y Cobranzas debe confirmar el cobro antes de habilitar el avance a produccion.
+Este documento define los componentes funcionales propuestos para la primera version del sistema de gestion de produccion de ITECSA. La propuesta toma como fuente de verdad el Documento 0 y considera que el flujo del sistema inicia en el paso 6, cuando Ventas ingresa la Nota de Venta y Cobranzas debe confirmar el cobro antes de habilitar el avance a produccion.
 
-| N | Modulo | Responsabilidades principales | Roles principales |
+| N | Componente | Responsabilidades principales | Roles principales |
 | --- | --- | --- | --- |
 | 1 | Gestion de Usuarios y Roles | Crear usuarios, autenticar usuarios mediante Firebase, controlar sesiones, validar usuarios vinculados o desvinculados, administrar permisos por rol y restringir el acceso a pantallas o acciones no autorizadas. | Administrador, todos los usuarios autenticados |
 | 2 | Ingreso y Validacion de Nota de Venta | Permitir que Ventas registre el codigo de la Nota de Venta, adjunte respaldos si corresponde, complete datos minimos, valide duplicidad y deje la NV en estado pendiente de confirmacion de cobro. | Ventas, Administrador |
@@ -13,13 +13,13 @@ Este documento define los modulos funcionales propuestos para la primera version
 | 7 | Capacidad, Plazos y Alertas | Configurar capacidad productiva, calcular carga diaria, validar disponibilidad segun fecha comprometida, estimar fechas de termino y mostrar alertas por sobrecarga, urgencia o atraso. | Administrador, Ventas, Produccion |
 | 8 | Notificaciones | Emitir avisos internos o por correo ante eventos relevantes, como cobro confirmado, cobro rechazado, nueva OP, pedido urgente, atraso, rechazo de NV o cambio a listo para entrega, cambios de estado. | Ventas, Produccion, Administrador, Cobranzas |
 | 9 | Reportes e Indicadores | Generar reportes de pedidos por estado, pedidos entregados a tiempo o fuera de plazo, carga de produccion, tiempos por etapa, cumplimiento por vendedor y exportaciones para analisis gerencial. | Gerencia, Administrador |
-| 10 | Administracion del Sistema | Configurar parametros generales del sistema, incluyendo estados productivos, etiquetas, capacidad diaria, tiempos estimados por etapa, reglas operativas, anuncios internos y ajustes usados por otros modulos. | Administrador |
+| 10 | Administracion del Sistema | Configurar parametros generales del sistema, incluyendo estados productivos, etiquetas, capacidad diaria, tiempos estimados por etapa, reglas operativas, anuncios internos y ajustes usados por otros componentes. | Administrador |
 
-## Datos que Maneja Cada Modulo
+## Datos que Maneja Cada Componente
 
 Los siguientes datos son logicos y preliminares. No representan todavia el Modelo Entidad-Relacion definitivo ni una estructura fisica de base de datos.
 
-| N | Modulo | Datos que maneja |
+| N | Componente | Datos que maneja |
 | --- | --- | --- |
 | 1 | Gestion de Usuarios y Roles | `id_usuario`, `uid_firebase`, nombre, apellido, correo unico, rol, estado de cuenta, firma virtual asociada al usuario, fecha de creacion, primer inicio de sesion, ultimo acceso, sesiones activas, permisos asociados al rol. La contrasena, su hash y la autenticacion se delegan a Firebase. |
 | 2 | Ingreso y Validacion de Nota de Venta | `numero_nota_venta`, archivo adjunto de NV, nombre del archivo, fecha de subida, `fecha_generacion`, `fecha_recepcion_produccion`, SKU o codigo de producto, cantidad solicitada, descripcion del producto, fecha de entrega comprometida, razon social, ejecutivo o vendedor, estado de validacion, observaciones. |
@@ -52,6 +52,6 @@ Pendiente de confirmacion de cobro
 
 | Servicio externo | Uso dentro del sistema |
 | --- | --- |
-| Firebase | Autenticacion y almacenamiento de usuarios. Se usa desde el modulo Gestion de Usuarios y Roles para crear usuarios, autenticar acceso y consultar datos base de cuenta. |
+| Firebase | Autenticacion y almacenamiento de usuarios. Se usa desde el componente Gestion de Usuarios y Roles para crear usuarios, autenticar acceso y consultar datos base de cuenta. |
 | Manager | Fuente o respaldo externo para la Nota de Venta. No forma parte del flujo interno del sistema. |
-| Servicio de Correo | Envio de correos generados por el modulo de Notificaciones. |
+| Servicio de Correo | Envio de correos generados por el componente de Notificaciones. |
