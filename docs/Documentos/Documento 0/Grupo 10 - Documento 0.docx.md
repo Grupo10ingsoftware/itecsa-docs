@@ -951,11 +951,9 @@ RFM3##: El sistema debe mostrar un formulario al usuario con rol de ventas, que 
 
 RFM3## El formulario de estimación rápida, debe tener los campos
 
-Tipo de producto: Tarjeta; Lanyerd
+Tipo de producto: Tarjeta; Lanyard
 
 Cantidad de producto: campo rellenable
-
-RFM?## El administrador tiene la capacidad de pausar la producción de pedidos asociados a clientes sin contrato, para darle prioridad a pedidos de clientes con contrato.
 
 6- Estimación de fecha de término <br> RF43: El sistema debe mostrar la fecha estimada de término en formato DD-MM-YYYY de una orden de producción al visualizar su detalle. La fecha es calculada automáticamente en función de la cantidad de productos solicitados y la estimación de días de trabajo definida por el usuario Administrador.
 
@@ -965,13 +963,7 @@ Módulo 5: Tablero Kanban y seguimiento de estados
 
 1-Visualización del tablero Kanban <br> RF45: El sistema debe permitir a los usuarios autorizados visualizar un tablero Kanban que muestre los pedidos organizados según su estado actual dentro del flujo de trabajo.
 
-RF##: El sistema debe proporcionar el detalle del pedido al hacer clic sobre un pedido del Kanban, mostrando los estados del subproceso de producción asociado al pedido.
-
-RF##: El sistema debe permitir al usuario con rol Operario actualizar el estado del subproceso de producción mediante un Stepper interactivo según el tipo de producto.
-
-RF##: El sistema debe permitir al usuario agregar un comentario al cambiar el estado del subproceso dentro del estado de producción
-
-RF## El sistema debe agregar la firma electrónica del usuario a la ficha del cliente cuando éste actualice el estado del subproceso del estado de producción
+RF##: El sistema debe proporcionar el detalle del pedido al hacer clic sobre un pedido del Kanban.
 
 2-Estructura de columnas del tablero <br> RF46: El sistema debe mostrar en el tablero Kanban las siguientes columnas fijas, cada una asociada a una parte del flujo del proceso de producción:
 
@@ -985,7 +977,9 @@ Listo para entrega
 
 3-Cambio manual de estado por arrastrar y soltar <br> RF47: El sistema debe permitir al usuario autorizado cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar hacia otra columna del tablero Kanban, siempre que el estado de destino no esté definido como automático por las reglas del sistema. (definir en el anexo que son los estados automáticos)
 
-4-Registro de subtareas de producción <br> RF48: El sistema debe permitir al usuario autorizado marcar como completadas las subtareas de producción asociadas a una orden que se encuentre en estado “En producción”. Las subtareas son.
+4-Registro de subtareas de producción <br> RF48: El sistema debe mostrar en el detalle de pedido los siguientes subprocesos según el tipo de producto:
+
+Lanyard:
 
 Impresión
 
@@ -994,6 +988,26 @@ sublimación
 corte
 
 costura
+
+Tarjeta:
+
+Revisar información
+
+Ordenar información
+
+Cargar datos
+
+[TITULO]
+
+RF##: El sistema debe permitir al usuario con rol Operario actualizar el estado del subproceso de producción mediante un Stepper interactivo según el tipo de producto.
+
+[TITULO]
+
+RF##: El sistema debe permitir al usuario agregar un comentario al cambiar el estado del subproceso dentro del estado de producción.
+
+[TITULO]
+
+RF## El sistema debe agregar la firma electrónica del usuario a la ficha del cliente cuando éste actualice el estado del subproceso del estado de producción
 
 5- Trazabilidad de estados de producción <br> RF49: El sistema debe almacenar el historial completo de cambios de estado de orden de producción de cada pedido guardando campos como LA fecha en formato “DD-MM-YYYY” la hora en formato “HH:MM:SS” y el usuario responsable de la modificación, sin sobrescribir registros previos.
 
@@ -1009,13 +1023,17 @@ Nombre del cliente
 
 Vendedor que emitió la nota de venta
 
-7- Organización de pedidos en el tablero kanban
+7- Organización de pedidos en el tablero Kanban
 
-RF51: El sistema debe permitir al usuario con rol de administrador, organizar los pedidos en el tablero kanban a voluntad. Bajo una de estas dos etiquetas.
+RF51: El sistema debe permitir al usuario con rol de administrador, organizar los pedidos en el tablero kanban a voluntad. Bajo una de estas dos etiquetas. (lo hará ella? Que etiquetas pondría?)
 
 Urgencia
 
 Atraso
+
+[TITULO]
+
+RFM?## El administrador tiene la capacidad de pausar la producción de pedidos asociados a clientes sin contrato, para darle prioridad a pedidos de clientes con contrato.
 
 8-Calcular tiempo real transcurrido por etapa <br> RF52: El sistema debe calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. Utilizando como marcadores la fecha y hora de ingreso a dicha etapa.
 
@@ -1025,19 +1043,7 @@ Atraso
 
 11- Asignación de operarios a una orden de producción
 
-RF55: El sistema debe permitir al usuario con rol Administrador asignar manualmente uno o más operarios registrados a una orden de producción específica.
-
-12- Rechazo en etapa de control de calidad <br> RF56: Cuando un pedido sea ingresado como “rechazado” en la etapa “Control de calidad”, el sistema debe exigir al usuario responsable el ingreso obligatorio del motivo del rechazo antes de confirmar la acción.
-
-13-Cambio automático tras rechazo en control de calidad <br> RF57: Una vez registrado un rechazo en la etapa “Control de calidad”, el sistema debe cambiar automáticamente el estado del pedido a “En producción”.
-
-14-Conservación del historial de rechazo <br> RF58: El sistema debe conservar el registro histórico de cada rechazo efectuado en la etapa “Control de calidad”, el registro mostrará la siguiente información.
-
-El motivo del rechazo
-
-La hora y fecha en la cual se confirmó el rechazo
-
-El número del pedido
+RF55: El sistema debe permitir al usuario con rol Administrador asignar manualmente uno o más operarios registrados a un pedido específica.
 
 Módulo 6: Gestión de muestras y aprobaciones
 
@@ -1069,29 +1075,21 @@ RF65: El sistema debe permitir a los usuarios con rol Administrador y Producció
 
 RF66: El sistema debe permitir a los usuarios con rol Administrador y Producción remover etiquetas visuales de los pedidos.
 
-6- Etiquetas visuales disponibles
-
-RF67: El sistema debe incluir las etiquetas visuales “urgente” y “retrasado” para su asignación a los pedidos.
-
 7- Indicador de urgencia
 
 RF68: Cuando se ingrese una Nota de Venta clasificada como urgente, el sistema debe generar una notificación interna visible en el panel de notificaciones del sistema para todos los usuarios con rol Producción.
 
 8. Notificación de rechazo de Nota de Venta
 
-RF69: El sistema debe enviar automáticamente una notificación por correo electrónico a la dirección de correo registrada en el sistema del vendedor creador de la Nota de Venta cada vez que esta sea rechazada durante el proceso de validación de datos.
+RF69: El sistema debe mostrar una notificación por correo electrónico a la dirección de correo registrada en el sistema del vendedor creador de la Nota de Venta cada vez que esta sea rechazada durante el proceso de validación de datos.
 
 9. Panel de anuncios internos
 
-RF70: El sistema debe contar con una pestaña independiente dedicada a un panel de anuncios internos.
+RF70: El sistema debe contar con una pestaña independiente dedicada a un panel de anuncios internos la cual es visible por un usuario de cualquier rol definido.
 
 RF71: Publicación de anuncios internos
 
 El sistema debe permitir a los usuarios con rol Administrador publicar comunicados y novedades en el panel de anuncios internos.
-
-10- Visibilidad y acceso al panel de anuncios internos
-
-RF72: El sistema debe mostrar la pestaña del panel de anuncios internos y permitir su acceso a todos los usuarios autorizados del sistema.
 
 Módulo 8: Reportes, indicadores y analítica
 
@@ -1111,25 +1109,25 @@ Pedidos no entregados a tiempo.
 
 3- Exportación de reportes de producción
 
-RF75: El sistema debe permitir al usuario seleccionar un rango de fechas en formato DD-MM-YYY y un apartado para poder exportar en formato Excel y CSV, los reportes de producción de capacidad, tiempos o entregas generadas para dicho período.
+RF75: El sistema debe permitir al usuario seleccionar un rango de fechas en formato DD-MM-YYY y un apartado para poder exportar en formato Excel y CSV, reportes de producción donde se especifiquen los tiempos o entregas generadas para dicho período.
 
 4- Cálculo del tiempo de ciclo promedio
 
-RF76: El sistema debe calcular automáticamente el tiempo de ciclo promedio de los pedidos que alcancen el estado "despachado", esto calculando como la diferencia en horas entre la fecha y hora de creación de nota de ventas y la fecha y hora en que la orden cambie al estado "despachado", el resultado debe actualizarse diariamente y mostrando un gráfico de tendencia.
+RF76: El sistema debe calcular automáticamente el tiempo de ciclo promedio de los pedidos que alcancen el estado "Listo para entrega", esto calculando como la diferencia en horas entre la fecha y hora de creación de nota de ventas y la fecha y hora en que la orden cambie al estado "Listo para entrega", el resultado debe actualizarse diariamente y mostrando un gráfico de tendencia.
 
 5- Mapa de carga de producción por día de la semana <br> RF77: El sistema debe mostrar el mapa de carga de producción por día de la semana, para el rango de fechas seleccionado en formato DD-MM-YYYY, indicando el porcentaje de capacidad utilizada en cada día.
 
 6- Filtro por rango de fechas en todas las vistas de reportes
 
-RF78: El sistema debe permitir seleccionar un rango de fechas especifico en el formato DD-MM-YYY para así poder filtrar los reportes e indicadores gráficos. del módulo de analítica. El sistema debe mostrar únicamente la información correspondiente al periodo seleccionado.
+RF78: El sistema debe permitir seleccionar un rango de fechas especifico en el formato DD-MM-YYYY para así poder filtrar los reportes e indicadores gráficos del módulo de analítica. El sistema debe mostrar únicamente la información correspondiente al periodo seleccionado.
 
-7- Panel de control exclusivo para Gerencia <br> RF79: El sistema debe mostrar un panel de control gerencial accesible únicamente para usuarios con el rol Gerencia.
+7- Panel de control exclusivo para Gerencia <br> RF79: El sistema debe mostrar un panel de control gerencial accesible únicamente para usuarios con el rol Gerencia. (Definir mejor que tiene este panel de gerencia a diferencia del de administrador)
 
 8- Ranking de productos más solicitados <br> RF80: El sistema debe mostrar un ranking de los productos más solicitados dentro del rango de fechas en formato DD-MM-YYYY seleccionado.
 
 9- Reporte de órdenes agrupadas por estado <br> RF81: El sistema debe generar un reporte que muestre la cantidad total de órdenes de producción agrupadas por estado dentro del rango de fechas en formato DD-MM-YYYY seleccionado. El reporte debe incluir obligatoriamente los estados definidos en el flujo del tablero Kanban y debe presentarse mediante una tabla resumen y una visualización gráfica.
 
-10- Indicador de cumplimiento por usuario de rol ventas <br> RF82: El sistema debe generar un indicador de cumplimiento por vendedor para el rango de fechas en formato DD-MM-YYYY seleccionado. El indicador debe mostrar la cantidad total de Notas de Venta registradas, la cantidad total de órdenes asociadas entregadas a tiempo y la cantidad total de órdenes asociadas entregadas fuera de plazo.
+10- Indicador de cumplimiento por usuario de rol ventas <br> RF82: El sistema debe generar un indicador de cumplimiento por vendedor para el rango de fechas en formato DD-MM-YYYY seleccionado. El indicador debe mostrar la cantidad total de Notas de Venta registradas, la cantidad total de órdenes asociadas entregadas a tiempo, la cantidad de órdenes ingresadas en condición de sobrecarga operativa y la cantidad total de órdenes asociadas entregadas fuera de plazo.
 
 7.2. Requerimientos No Funcionales
 
