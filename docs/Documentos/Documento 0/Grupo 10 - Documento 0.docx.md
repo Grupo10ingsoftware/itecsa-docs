@@ -831,9 +831,9 @@ RF08: El sistema debe mostrar un listado de los últimos diez registros asociado
 
 10- Validación de credenciales y estado vinculado <br> RF10: El sistema debe validar que el correo electrónico y la contraseña ingresados correspondan a un usuario registrado.
 
-11- [FALTA TITULO]
+11- Ingreso de usuario validado
 
-RF11: El sistema debe permitir el acceso al sistema cuando el correo electrónico y la contraseña correspondan a un usuario registrado y su estado sea “vinculado”.
+RF11: El sistema debe permitir el acceso cuando el correo electrónico y la contraseña correspondan a un usuario registrado y su estado sea “vinculado”.
 
 12- Validación de correo electrónico único <br> RF12: El sistema debe validar que el correo electrónico no esté previamente registrado en la tabla de usuarios, independientemente de si el usuario está vinculado o desvinculado. En caso de duplicado, debe mostrar el mensaje “El correo ingresado ya está asociado a una cuenta”.
 
@@ -909,7 +909,7 @@ RFM2##El sistema debe corroborar en la base de datos si el numero de nota de ven
 
 RFM2## Si el sistema detecta un número de Nota de venta duplicado mostrara el mensaje: "Ya existe una Nota de Venta con el código ingresado. No se permite duplicar"
 
-6- Adjuntar archivos de diseño al Kanban para productos específicos <br> RF24: El sistema debe permitir a los usuarios con rol "Operario" adjuntar archivos de diseño directamente sobre la tarjeta visual de una orden en el tablero Kanban. El sistema debe restringir esta funcionalidad exclusivamente a los formatos PDF, JPG y PNG, y habilitarla únicamente cuando el producto corresponda a las categorías: "lanyards", "tarjetas" o "yoyos".
+6- Adjuntar archivos de diseño al Kanban para productos específicos <br> RF24: El sistema debe permitir a los usuarios con rol de administrador y ventas adjuntar archivos de diseño directamente en la entidad que corresponde al pedido. los usuarios con rol "Operario" adjuntar archivos de diseño directamente sobre la tarjeta visual de una orden en el tablero Kanban. El sistema debe restringir esta funcionalidad exclusivamente a los formatos PDF, JPG y PNG, y habilitarla únicamente cuando el producto corresponda a las categorías: "lanyards", "tarjetas" o "yoyos". ( Lo que esta en amarillo creo que debería borrarse)
 
 RF##: El sistema debe permitir a los roles "Ventas" y "Administrador" agregar comentarios de texto a un pedido.
 
@@ -921,7 +921,7 @@ RF##: El sistema debe registrar inmutablemente cada comentario asociado a un ped
 
 Módulo 3: Confirmación de Pago y Transición a Producción
 
-1- Restricción de la actualización del estado de pago <br> RF32: El sistema debe permitir al usuario con rol Cobranzas actualizar el estado de pago en el detalle de pedido del Kanban mediante un dropdown con los estados ‘Confirmado’, ‘Rechazado’ y ‘Pendiente’
+1- Actualización del estado de pago del pedido <br> RF32: El sistema debe permitir al usuario con rol Cobranzas actualizar el estado de pago en el detalle de pedido del Kanban mediante un dropdown con los estados ‘Confirmado’, ‘Rechazado’ y ‘Pendiente’
 
 RF##: El sistema debe firmar digitalmente la nota de venta a la hora de que el usuario con rol cobranzas actualice el estado de pago a ‘Confirmado’
 
@@ -933,7 +933,7 @@ RF## El sistema debe permitir al usuario con rol de Administrador adjuntar la o 
 
 5- Actualización automática de capacidad de producción <br> RF36: El sistema debe actualizar automáticamente la capacidad de producción diaria disponible al generarse el pedido.
 
-6- Restricción de cambio a “Listo para producción” sin pago confirmado <br> RF37: El sistema no debe permitir cambiar manualmente el estado de una orden de producción a “Listo para producción” mientras el estado de pago asociado a dicha orden sea distinto de “Confirmado”, y debe mostrar el mensaje ‘Pedido en espera de confirmación de pago’.
+6- Restricción de cambio manual a “Listo para producción” <br> RF37: El sistema no debe permitir cambiar manualmente el estado de una orden de producción a “Listo para producción” mientras el estado de pago asociado a dicha orden sea distinto de “Confirmado”, y debe mostrar el mensaje ‘Pedido en espera de confirmación de pago’.
 
 Módulo 4: Gestión de capacidad instalada y reglas de negocio
 
@@ -945,7 +945,11 @@ Módulo 4: Gestión de capacidad instalada y reglas de negocio
 
 RFM3## : El sistema debe guardar un registro en el historial, cuando un usuario con el rol de ventas ingrese un pedido bajo condición de sobrecarga operativa.
 
-5- Cálculo de fecha de entrega en función de la capacidad productiva <br> RF42: El sistema debe mostrar al usuario una fecha de entrega alternativa en formato DD-MM-YYYY cuando la fecha solicitada no disponga de capacidad disponible, calculándola en base a la cola actual de pedidos y a la capacidad configurada.( Expandir el 42)
+5- Cálculo de fecha de entrega en función de la capacidad productiva <br> RF42: El sistema debe mostrar al usuario una fecha de entrega alternativa en formato DD-MM-YYYY cuando la fecha solicitada no disponga de capacidad disponible,
+
+RFM4## El sistema debe calcular una fecha de termino estimada del pedido en base a la cola actual de pedidos, la capacidad productiva actual, el tipo de producto y la cantidad de los mismos.
+
+RFM4## El sistema debe extraer la información del tipo de producto y la cantidad de los mismos, desde la Nota de Venta definitiva, para poder hacer el calculo en el calendario.
 
 RFM3##: El sistema debe mostrar un formulario al usuario con rol de ventas, que le permita ingresar los campos críticos para el cálculo rápido de fecha de termino estimada para una producción.
 
@@ -955,9 +959,9 @@ Tipo de producto: Tarjeta; Lanyard
 
 Cantidad de producto: campo rellenable
 
-6- Estimación de fecha de término <br> RF43: El sistema debe mostrar la fecha estimada de término en formato DD-MM-YYYY de una orden de producción al visualizar su detalle. La fecha es calculada automáticamente en función de la cantidad de productos solicitados y la estimación de días de trabajo definida por el usuario Administrador.
+6- Estimación de fecha de término <br> RF43: El sistema debe mostrar la fecha estimada de término de un pedido en formato DD-MM-YYYY. La fecha es calculada automáticamente en función el tipo de producto y la cantidad de productos solicitados, la estimación de días de trabajo definida por el usuario Administrador.
 
-7- Mostrar calendario de planificación <br> RF44: El sistema debe mostrar al usuario la fecha estimada de término en un calendario de planificación, permitiendo su reajuste por parte del usuario Administrador en caso de retrasos.
+7- Mostrar calendario de planificación <br> RF44: El sistema debe mostrar al usuario con rol de administrador la fecha estimada de término en un calendario de planificación, permitiendo su reajuste por parte del usuario con rol de Administrador.(creo que ya esta mas adelante) mmmmmmmm
 
 Módulo 5: Tablero Kanban y seguimiento de estados
 
