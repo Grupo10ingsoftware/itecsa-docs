@@ -1,0 +1,219 @@
+<mxfile host="app.diagrams.net" modified="2026-05-06T00:00:00.000Z" agent="Codex" version="24.7.17" type="device">
+  <diagram id="itecsa-componentes-v1" name="Diagrama de Componentes V1">
+    <mxGraphModel dx="1800" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="Diagrama de Componentes - Primera Version ITECSA" style="text;html=1;strokeColor=none;fillColor=none;fontSize=24;fontStyle=1;align=left;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="30" y="20" width="720" height="40" as="geometry" />
+        </mxCell>
+
+        <mxCell id="note" value="Alcance: el sistema inicia cuando Ventas ingresa la Nota de Venta y Cobranzas confirma o rechaza el cobro. No incluye negociacion previa ni gestion de muestra anterior." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;align=left;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="760" y="20" width="520" height="58" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rolesContainer" value="Roles / Vistas" style="swimlane;whiteSpace=wrap;html=1;startSize=32;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="100" width="240" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="ventas" value="Panel Ventas&#xa;Ingresa NV y revisa pedidos" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce5cd;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="50" y="155" width="200" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="cobranzas" value="Panel Cobranzas&#xa;Confirma o rechaza cobro" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eadcf8;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="50" y="230" width="200" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="produccion" value="Panel Produccion&#xa;Avanza etapas y subtareas" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="50" y="305" width="200" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="admin" value="Panel Administrador&#xa;Configura y supervisa" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="50" y="380" width="200" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="gerencia" value="Panel Gerencia&#xa;Reportes e indicadores" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="50" y="455" width="200" height="58" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ui" value="Interfaz Web por Rol&#xa;Acceso segun permisos" style="shape=component;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="280" width="220" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="systemContainer" value="Sistema Web ITECSA - Componentes internos" style="swimlane;whiteSpace=wrap;html=1;startSize=32;fillColor=#ffffff;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="100" width="760" height="610" as="geometry" />
+        </mxCell>
+
+        <mxCell id="usuariosRoles" value="Gestion de Usuarios&#xa;y Roles" style="shape=component;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="635" y="155" width="190" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="adminSistema" value="Administracion&#xa;del Sistema" style="shape=component;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="885" y="155" width="190" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="reportes" value="Reportes e&#xa;Indicadores" style="shape=component;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="1135" y="155" width="190" height="72" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ingresoNV" value="Ingreso y Validacion&#xa;de Nota de Venta" style="shape=component;whiteSpace=wrap;html=1;fillColor=#fce5cd;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="635" y="285" width="190" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="confirmacionCobro" value="Confirmacion de Cobro&#xa;Cortafuegos de produccion" style="shape=component;whiteSpace=wrap;html=1;fillColor=#eadcf8;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="885" y="285" width="190" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="gestionOP" value="Gestion de Orden&#xa;de Produccion" style="shape=component;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1135" y="285" width="190" height="78" as="geometry" />
+        </mxCell>
+
+        <mxCell id="capacidad" value="Capacidad, Plazos&#xa;y Alertas" style="shape=component;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="635" y="430" width="190" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="kanban" value="Kanban y Seguimiento&#xa;Productivo" style="shape=component;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="885" y="430" width="190" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="detallePedido" value="Detalle de Pedido&#xa;Subflujo productivo&#xa;por tipo de producto" style="shape=component;whiteSpace=wrap;html=1;fillColor=#e2f0d9;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1135" y="430" width="190" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="trazabilidad" value="Trazabilidad, Comentarios&#xa;y Adjuntos" style="shape=component;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="760" y="575" width="200" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="notificaciones" value="Notificaciones" style="shape=component;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="575" width="190" height="78" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dataContainer" value="Persistencia / Datos" style="swimlane;whiteSpace=wrap;html=1;startSize=32;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="770" width="760" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="baseDatos" value="Base de Datos&#xa;Entidades del MER futuro" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="650" y="835" width="190" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="repositorio" value="Repositorio de Adjuntos&#xa;y Firmas Virtuales" style="shape=folder;whiteSpace=wrap;html=1;tabWidth=40;tabHeight=14;tabPosition=left;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="890" y="835" width="200" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="catalogo" value="Catalogo Producto / SKU" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="835" width="190" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="externalContainer" value="Sistemas externos" style="swimlane;whiteSpace=wrap;html=1;startSize=32;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1430" y="170" width="300" height="410" as="geometry" />
+        </mxCell>
+        <mxCell id="manager" value="Manager&#xa;Fuente/adjunto NV&#xa;Exportacion futura" style="shape=component;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1485" y="250" width="190" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="correo" value="Servicio de Correo&#xa;Notificaciones externas" style="shape=component;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1485" y="430" width="190" height="90" as="geometry" />
+        </mxCell>
+
+        <mxCell id="legend" value="Convencion: componentes internos en color, sistemas externos con borde segmentado. El pedido se identifica por numero_nota_venta." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eeeeee;strokeColor=#666666;fontSize=12;align=left;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1330" y="20" width="400" height="58" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_ventas_ui" value="usa" style="endArrow=block;html=1;rounded=0;strokeColor=#666666;" edge="1" parent="1" source="ventas" target="ui">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cobranzas_ui" value="usa" style="endArrow=block;html=1;rounded=0;strokeColor=#666666;" edge="1" parent="1" source="cobranzas" target="ui">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_produccion_ui" value="usa" style="endArrow=block;html=1;rounded=0;strokeColor=#666666;" edge="1" parent="1" source="produccion" target="ui">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_admin_ui" value="usa" style="endArrow=block;html=1;rounded=0;strokeColor=#666666;" edge="1" parent="1" source="admin" target="ui">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_gerencia_ui" value="usa" style="endArrow=block;html=1;rounded=0;strokeColor=#666666;" edge="1" parent="1" source="gerencia" target="ui">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_ui_auth" value="autentica / autoriza" style="endArrow=block;html=1;rounded=0;strokeColor=#6c8ebf;" edge="1" parent="1" source="ui" target="usuariosRoles">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ui_ingreso" value="registra NV" style="endArrow=block;html=1;rounded=0;strokeColor=#d79b00;" edge="1" parent="1" source="ui" target="ingresoNV">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ui_cobro" value="confirma cobro" style="endArrow=block;html=1;rounded=0;strokeColor=#9673a6;" edge="1" parent="1" source="ui" target="confirmacionCobro">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ui_kanban" value="consulta / actualiza" style="endArrow=block;html=1;rounded=0;strokeColor=#82b366;" edge="1" parent="1" source="ui" target="kanban">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ui_reportes" value="consulta" style="endArrow=block;html=1;rounded=0;strokeColor=#9673a6;" edge="1" parent="1" source="ui" target="reportes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ui_admin" value="configura" style="endArrow=block;html=1;rounded=0;strokeColor=#6c8ebf;" edge="1" parent="1" source="ui" target="adminSistema">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_manager_ingreso" value="NV / respaldo" style="endArrow=block;html=1;rounded=0;dashed=1;strokeColor=#666666;" edge="1" parent="1" source="manager" target="ingresoNV">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ingreso_cobro" value="NV pendiente" style="endArrow=block;html=1;rounded=0;strokeColor=#d79b00;" edge="1" parent="1" source="ingresoNV" target="confirmacionCobro">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cobro_op" value="cobro confirmado" style="endArrow=block;html=1;rounded=0;strokeColor=#9673a6;" edge="1" parent="1" source="confirmacionCobro" target="gestionOP">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_op_kanban" value="OP habilitada" style="endArrow=block;html=1;rounded=0;strokeColor=#82b366;" edge="1" parent="1" source="gestionOP" target="kanban">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_kanban_detalle" value="abrir tarjeta" style="endArrow=block;html=1;rounded=0;strokeColor=#82b366;" edge="1" parent="1" source="kanban" target="detallePedido">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ingreso_capacidad" value="valida fecha / carga" style="endArrow=block;html=1;rounded=0;strokeColor=#d6b656;" edge="1" parent="1" source="ingresoNV" target="capacidad">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_capacidad_kanban" value="alertas / plazos" style="endArrow=block;html=1;rounded=0;strokeColor=#d6b656;" edge="1" parent="1" source="capacidad" target="kanban">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_kanban_traza" value="eventos" style="endArrow=block;html=1;rounded=0;strokeColor=#d79b00;" edge="1" parent="1" source="kanban" target="trazabilidad">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cobro_traza" value="aprobacion / rechazo" style="endArrow=block;html=1;rounded=0;strokeColor=#d79b00;" edge="1" parent="1" source="confirmacionCobro" target="trazabilidad">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_traza_reportes" value="historial" style="endArrow=block;html=1;rounded=0;strokeColor=#9673a6;" edge="1" parent="1" source="trazabilidad" target="reportes">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_kanban_notif" value="cambios relevantes" style="endArrow=block;html=1;rounded=0;strokeColor=#b85450;" edge="1" parent="1" source="kanban" target="notificaciones">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cobro_notif" value="resultado cobro" style="endArrow=block;html=1;rounded=0;strokeColor=#b85450;" edge="1" parent="1" source="confirmacionCobro" target="notificaciones">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_notif_correo" value="correo opcional" style="endArrow=block;html=1;rounded=0;dashed=1;strokeColor=#666666;" edge="1" parent="1" source="notificaciones" target="correo">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e_auth_db" value="usuarios / roles / sesiones" style="endArrow=block;html=1;rounded=0;strokeColor=#82b366;" edge="1" parent="1" source="usuariosRoles" target="baseDatos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ingreso_db" value="NV" style="endArrow=block;html=1;rounded=0;strokeColor=#82b366;" edge="1" parent="1" source="ingresoNV" target="baseDatos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_cobro_db" value="cobro" style="endArrow=block;html=1;rounded=0;strokeColor=#82b366;" edge="1" parent="1" source="confirmacionCobro" target="baseDatos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_op_db" value="OP" style="endArrow=block;html=1;rounded=0;strokeColor=#82b366;" edge="1" parent="1" source="gestionOP" target="baseDatos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_kanban_db" value="estados / etapas" style="endArrow=block;html=1;rounded=0;strokeColor=#82b366;" edge="1" parent="1" source="kanban" target="baseDatos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_traza_db" value="trazabilidad" style="endArrow=block;html=1;rounded=0;strokeColor=#82b366;" edge="1" parent="1" source="trazabilidad" target="baseDatos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_reportes_db" value="consulta datos" style="endArrow=block;html=1;rounded=0;strokeColor=#82b366;" edge="1" parent="1" source="reportes" target="baseDatos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_admin_db" value="parametros" style="endArrow=block;html=1;rounded=0;strokeColor=#82b366;" edge="1" parent="1" source="adminSistema" target="baseDatos">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ingreso_catalogo" value="valida SKU" style="endArrow=block;html=1;rounded=0;strokeColor=#6c8ebf;" edge="1" parent="1" source="ingresoNV" target="catalogo">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_adjuntos_repo" value="adjuntos" style="endArrow=block;html=1;rounded=0;strokeColor=#d6b656;" edge="1" parent="1" source="trazabilidad" target="repositorio">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_firma_repo" value="firmas virtuales" style="endArrow=block;html=1;rounded=0;strokeColor=#d6b656;" edge="1" parent="1" source="usuariosRoles" target="repositorio">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
