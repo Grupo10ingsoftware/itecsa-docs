@@ -881,7 +881,9 @@ El sistema debe permitir al usuario adjuntar archivos al pedido correspondiente 
 
 RF##: El sistema debe proporcionar a los usuarios con rol Ventas una interfaz para generar pedidos dentro del sistema
 
-RF##: El sistema debe permitir al usuario crear un pedido en la interfaz de creación de pedidos mediante un formulario que solicite Nota de Venta en formato PDF, guardando: - Nro Nota de Venta
+RF##: El sistema debe permitir al usuario crear un pedido por medio de una interfaz que muestre una estructura tipo formulario que solicite Nota de Venta en formato PDF( Esto terminara de definirse el jueves) guardando:
+
+- Numero de Nota de Venta
 
 Razón Social
 
@@ -897,99 +899,23 @@ Fecha de creación del pedido en formato DD-MM-YYYY
 
 Hora de creación del pedido en formato HH:MM:SS
 
-2- Registro de campos comerciales en ficha de cliente
+RFM2## Identificación de productos
 
-RF20: El sistema debe permitir que el usuario con rol Ventas complete una ficha de cliente con los siguientes campos mínimos obligatorios para habilitar el inicio del proceso productivo:
-
-Número de Nota de Venta: campo numérico, obligatorio.
-
-Razón social: campo de texto, obligatorio.
-
-Ejecutivo: campo de texto que se completa automáticamente con el nombre del usuario de rol Ventas que crea la ficha.
-
-Fecha de entrega a bodega: campo con formato DD-MM-YYYY, obligatorio.
-
-El sistema no debe exigir ningún otro campo para considerar la ficha de cliente como completa. La fecha de recepción de la nota de ventas debe ser registrada automáticamente por el sistema al momento de crear la ficha, en formato DD-MM-YYY, y no debe corresponder a un campo de ingreso manual obligatorio.
-
-Todos los demás campos, como datos de diseñador, calandra, armado, doble control, merma, stock, firmas, temperaturas, velocidades, plotter, programa y colores, deben ser opcionales y no deben bloquear la transición a producción.
-
-El sistema debe validar que los cuatro campos enumerados estén completos antes de permitir cambiar el estado de la orden a “Listo para producción”. Si falta alguno, debe mostrar un mensaje con el listado de los campos pendientes y no permitir avanzar.
-
-3- Validación de campos mínimos de la Nota de Venta para producción
-
-RF21: El sistema debe validar que la Nota de venta adjunta o sus datos ingresados manualmente contengan los siguientes campos mínimos obligatorios para poder iniciar el proceso productivo:
-
-Código único de Nota de Venta: campo numérico, obligatorio.
-
-SKU o código de producto: campo de texto numérico, obligatorio.
-
-Cantidad solicitada: número entero mayor que cero, obligatorio.
-
-Identificación o descripción del producto: campo de texto no vacío, obligatorio.
-
-Fecha de entrega comprometida: campo con formato DD-MM-YYY, obligatorio, y no puede ser anterior a la fecha actual.
-
-El sistema debe validar que la Nota de venta adjunta o sus datos ingresados contengan los datos de fabricación correspondiente al tipo de producto, ya sea lanyard o tarjetas.
-
-Los demás campos adicionales, como datos del cliente, información comercial, detalles de fabricación, precios, totales, dirección de despacho u observaciones, deben ser opcionales y no deben bloquear el flujo productivo.
-
-El sistema debe validar que todos los campos mínimos obligatorios se encuentren completos y cumplan con el formato definido antes de permitir avanzar. Si falta alguno o alguno no cumple con el formato requerido, el sistema debe mostrar un mensaje indicando el campo faltante o inválido y no permitir continuar.
-
-4- Validación de SKU contra catálogo vigente <br> RF22: El sistema debe consultar la base de datos y validar que el SKU ingresado en la NV o Ficha de Cliente exista en el catálogo de productos y posea el estado "Vigente". Si el SKU no existe o está discontinuado, el sistema debe bloquear la creación de la orden y mostrar el mensaje exacto: "SKU no válido o fuera de catálogo".
+El sistema debe identificar el producto de la nota de venta, sea este lanyard o tarjeta
 
 5- Validación de unicidad del código único de Nota de Venta
 
-RF23: El sistema debe ejecutar una validación de unicidad en la base de datos sobre el campo "Código único de Nota de Venta". Si el sistema detecta que el código ya existe, independientemente del estado de la Nota de Venta, debe bloquear el registro y mostrar el mensaje: "Ya existe una Nota de Venta con el código ingresado. No se permite duplicar"
+RFM2##El sistema debe corroborar en la base de datos si el numero de nota de venta asociado al pedido ya existe, con el fin de evitar duplicados y errores.
 
-El sistema debe corroborar en la base de datos si el numero de nota de venta asociado al pedido ya existe, con el fin de evitar duplicados y errores.
-
-y mostrar el mensaje: "Ya existe una Nota de Venta con el código ingresado. No se permite duplicar"
+RFM2## Si el sistema detecta un número de Nota de venta duplicado mostrara el mensaje: "Ya existe una Nota de Venta con el código ingresado. No se permite duplicar"
 
 6- Adjuntar archivos de diseño al Kanban para productos específicos <br> RF24: El sistema debe permitir a los usuarios con rol "Operario" adjuntar archivos de diseño directamente sobre la tarjeta visual de una orden en el tablero Kanban. El sistema debe restringir esta funcionalidad exclusivamente a los formatos PDF, JPG y PNG, y habilitarla únicamente cuando el producto corresponda a las categorías: "lanyards", "tarjetas" o "yoyos".
-
-7- Registro de comentarios asociados a la Nota de Venta <br> RF25: El sistema debe permitir a los roles "Ventas" y "Administrador" agregar comentarios de texto a una Nota de Venta. El sistema debe registrar cada comentario, estampando automáticamente el autor, la fecha en formato DD-MM-YYYY y la hora en formato HH:MM:SS.
 
 RF##: El sistema debe permitir a los roles "Ventas" y "Administrador" agregar comentarios de texto a un pedido.
 
 RF##: El sistema debe registrar inmutablemente cada comentario asociado a un pedido, registrando automáticamente el autor, la fecha en formato DD-MM-YYYY y la hora en formato HH:MM:SS
 
-8- Registro de comentarios asociados a la Orden de Producción <br> RF26: El sistema debe permitir a los roles "Operario" y "Administrador" agregar comentarios internos a una Orden de Producción. El sistema debe registrar inmutablemente cada comentario, registrando automáticamente el autor, la fecha en formato DD-MM-YYYY y la hora en formato HH:MM:SS.
-
-9- Validación de campos obligatorios de la ficha de cliente antes de generar Orden de Producción <br> RF27: El sistema debe validar que los cinco campos obligatorios de la sección "Ficha cliente" estén completos antes de permitir la generación de la Orden de Producción, ya sea manual o automático. Si falta información, el sistema debe bloquear la creación de la orden y mostrar un listado explícito de los campos pendientes.
-
-10- Validación de capacidad disponible antes de registrar Nota de Venta con fecha comprometida <br> RF28: El sistema debe consultar la capacidad de producción disponible para la "Fecha de entrega comprometida" ingresada por el rol "Ventas". Si la capacidad para dicha fecha se encuentra al cien por ciento, el sistema debe mostrar el mensaje "No hay capacidad disponible para la fecha solicitada. Se ha sugerido la fecha más cercana disponible". El sistema debe calcular la fecha hábil más cercana con capacidad y ofrecer al usuario la opción de aceptarla o modificar la NV original.
-
 11- Visualización del estado actual de un pedido desde el Kanban <br> RF29: El sistema debe proporcionar un tablero Kanban accesible para cualquier usuario con rol asignado, mostrando las tarjetas de pedido en columnas según su estado. Al hacer clic sobre una tarjeta, el sistema debe desplegar un panel lateral que muestre: el estado actual, la fecha del último cambio DD-MM-YYYY, el tiempo transcurrido en el estado actual y el historial cronológico de estados anteriores.
-
-12- Generación automática de Orden de Producción tras validación exitosa <br> RF30: El sistema debe generar automáticamente una Orden de Producción cuando se cumplan simultáneamente tres condiciones:
-
-1) Nota de Venta registrada y validada
-
-2) Ficha de cliente con campos completos
-
-3) Capacidad disponible confirmada. El sistema debe poblar la orden con:
-
-Número de orden de producción, autogenerado
-
-Cliente, desde ficha
-
-Planta/bodega
-
-Supervisor
-
-Fecha de creación, DD-MM-YYYY
-
-Fechas de inicio/término estimadas, DD-MM-YYYY
-
-Producto, SKU y descripción
-
-Cantidad, entero
-
-Unidad de medida, texto
-
-Listado de materiales, Nombre, unidad, cantidad
-
-Observaciones.
 
 13- Generación de información de Nota de Venta compatible con importación a Manager <br> RF31: El sistema debe permitir la exportación de los datos de cualquier Nota de Venta en un archivo estructurado de texto plano, utilizando el punto y coma como separador de valores. El sistema debe incluir en el archivo las columnas: Número de Nota de Venta, SKU, Cantidad, Identificación del producto, Fecha de entrega comprometida en formato DD-MM-YYYY, Nombre del proyecto, Razón social y Vendedor.
 
@@ -999,11 +925,9 @@ Módulo 3: Confirmación de Pago y Transición a Producción
 
 RF##: El sistema debe firmar digitalmente la nota de venta a la hora de que el usuario con rol cobranzas actualice el estado de pago a ‘Confirmado’
 
-2- Actualización automática de estado de orden de producción <br> RF33: El sistema debe actualizar el estado de la orden a 'Listo para producción' luego de que el usuario con rol Cobranzas actualice el estado de pago a ‘Confirmado’
+2- Actualización automática de estado de orden de producción <br> RF33: El sistema debe actualizar el estado de la orden a 'Listo para producción' de forma automatica luego de que el usuario con rol Cobranzas actualice el estado de pago a ‘Confirmado’
 
 3- Trazabilidad de los cambios de estado de pago <br> RF34: El sistema debe registrar automáticamente la fecha en formato DD-MM-YYYY, la hora en formato HH:MM:SS y el identificador del usuario que confirma el pago al momento de realizar la acción de confirmación.
-
-4- Generación de vale de salida <br> RF35: El sistema debe generar automáticamente un vale de salida asociado a una orden de producción cuando su estado cambie a “Listo para producción”. El vale debe contener la información definida en el anexo correspondiente.
 
 RF## El sistema debe permitir al usuario con rol de Administrador adjuntar la o las Ordenes de producción y la ficha de cliente a la entidad del pedido dentro del flujo cuando su pago haya sido confirmado
 
@@ -1017,13 +941,21 @@ Módulo 4: Gestión de capacidad instalada y reglas de negocio
 
 2- Estimación de carga laboral automática <br> RF39: El sistema debe mostrar al usuario la carga de trabajo diaria, definida como la cantidad de órdenes de producción asignadas por día en relación con la capacidad productiva definida.
 
-3- Alerta por sobrecarga en producción <br> RF40: El sistema debe mostrar una alerta visual al usuario con rol Ventas a la hora de ingresar una Nota de Venta cuando la capacidad disponible de producción para la fecha solicitada sea mayor o igual al 90%.
+3- Alerta por sobrecarga en producción <br> RF40: El sistema debe mostrar una alerta visual al usuario con rol Ventas a la hora de ingresar una Nota de venta cuando la capacidad disponible de producción para la fecha solicitada sea mayor o igual al 90%.
 
-4- Restricción de creación de órdenes de producción por fecha sin capacidad <br> RF41: El sistema debe impedir el registro de una Nota de Venta para una fecha específica cuando la capacidad de producción para dicha fecha sea igual al 100%, mostrando un mensaje que diga “no existe capacidad disponible para la fecha DD-MM-YYYY”.
+RFM3## : El sistema debe guardar un registro en el historial, cuando un usuario con el rol de ventas ingrese un pedido bajo condición de sobrecarga operativa.
 
-El sistema debe ingresar un pedido bajo condición de sobrecarga operativa cuando el usuario registre un pedido en una fecha cuya capacidad de producción sea igual al 100%, guardando el nombre del usuario que ingreso el pedido
+5- Cálculo de fecha de entrega en función de la capacidad productiva <br> RF42: El sistema debe mostrar al usuario una fecha de entrega alternativa en formato DD-MM-YYYY cuando la fecha solicitada no disponga de capacidad disponible, calculándola en base a la cola actual de pedidos y a la capacidad configurada.( Expandir el 42)
 
-5- Cálculo de fecha de entrega en función de la capacidad productiva <br> RF42: El sistema debe mostrar al usuario una fecha de entrega alternativa en formato DD-MM-YYYY cuando la fecha solicitada no disponga de capacidad disponible, calculada en base a la cola actual de pedidos y a la capacidad configurada.
+RFM3##: El sistema debe mostrar un formulario al usuario con rol de ventas, que le permita ingresar los campos críticos para el cálculo rápido de fecha de termino estimada para una producción.
+
+RFM3## El formulario de estimación rápida, debe tener los campos
+
+Tipo de producto: Tarjeta; Lanyerd
+
+Cantidad de producto: campo rellenable
+
+RFM?## El administrador tiene la capacidad de pausar la producción de pedidos asociados a clientes sin contrato, para darle prioridad a pedidos de clientes con contrato.
 
 6- Estimación de fecha de término <br> RF43: El sistema debe mostrar la fecha estimada de término en formato DD-MM-YYYY de una orden de producción al visualizar su detalle. La fecha es calculada automáticamente en función de la cantidad de productos solicitados y la estimación de días de trabajo definida por el usuario Administrador.
 
