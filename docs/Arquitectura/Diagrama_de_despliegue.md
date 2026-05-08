@@ -1,4 +1,4 @@
-# Diagrama de Despliegue
+# Vista de despliegue físico-operacional de la solución
 
 Este documento define una primera version de la arquitectura fisica de despliegue para el sistema de gestion de produccion de ITECSA. La descripcion se basa en el Documento 0 y se organiza como una descripcion arquitectonica alineada con ISO/IEC/IEEE 42010: identifica el sistema de interes, los interesados, sus preocupaciones, el punto de vista usado, la vista de despliegue, las correspondencias y la justificacion de las decisiones tecnicas.
 
