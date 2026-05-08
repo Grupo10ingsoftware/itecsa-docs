@@ -3589,15 +3589,21 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Herramienta de Interfaz de Usuario: React + Vite.
 
-Herramienta de Diseño: Bootstrap 5, CSS
+Herramienta de Diseño: Bootstrap 5, CSS.
 
 13.9.2. Capa de controladores
 
-Express: .Herramienta utilizada para la administración de rutas y manejo de solicitudes HTTP.
+NodeJS con Express: .Herramienta utilizada para la administración de rutas y manejo de solicitudes HTTP.
 
 Axios: librería utilizada para la comunicación entre componentes del sistema mediante solicitudes HTTP.
 
 POSTMAN: Herramienta utilizada para pruebas, validación y monitoreo de servicios API durante el desarrollo.
+
+HTTPS: Protocolo de Transferencia de Hipertexto Seguro.
+
+Caddy: Servidor Web y proxy inverso de código abierto para publicar la interfaz del sistema. Se distingue por tener HTTPS automático por defecto, puede generar y renovar certificados de seguridad sin intervención manual, lo que facilita el despliegue de sitios web seguros.
+
+HTTP interno: Protocolo de Transferencia de Hipertexto.
 
 13.9.3. Capa de Lógica y de negocio
 
