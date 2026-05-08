@@ -2,19 +2,24 @@
 
 set -eu
 
+repo_root="$(git rev-parse --show-toplevel)"
+cd "$repo_root"
+
 # Prefer the repo-local virtualenv so every contributor runs the same tooling.
-if [ -x ".venv/Scripts/python.exe" ]; then
-  ".venv/Scripts/python.exe" "tools/docx_sidecar.py" sync-staged
+python_script="$repo_root/tools/docx_sidecar.py"
+
+if [ -x "$repo_root/.venv/Scripts/python.exe" ]; then
+  "$repo_root/.venv/Scripts/python.exe" "$python_script" sync-staged
   exit $?
 fi
 
 if command -v python >/dev/null 2>&1; then
-  python "tools/docx_sidecar.py" sync-staged
+  python "$python_script" sync-staged
   exit $?
 fi
 
 if command -v py >/dev/null 2>&1; then
-  py -3 "tools/docx_sidecar.py" sync-staged
+  py -3 "$python_script" sync-staged
   exit $?
 fi
 

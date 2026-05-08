@@ -40,7 +40,7 @@ def run_git(args: list[str], cwd: Path, check: bool = True) -> subprocess.Comple
 
 def repo_root() -> Path:
     result = run_git(["rev-parse", "--show-toplevel"], Path.cwd())
-    return Path(result.stdout.strip())
+    return Path(result.stdout.strip()).resolve()
 
 
 def sidecar_path_for(docx_path: Path, output_format: str) -> Path:
@@ -70,6 +70,7 @@ def build_normalized_text(docx_path: Path, output_format: str) -> str:
 def sync_one_file(docx_path: Path, output_format: str) -> Path:
     # Always rebuild the sidecar from the DOCX instead of trying to patch the
     # existing file. That keeps manual sidecar edits from becoming authoritative.
+    docx_path = docx_path.resolve()
     sidecar_path = sidecar_path_for(docx_path, output_format)
     text = build_normalized_text(docx_path, output_format)
     write_text(sidecar_path, text)
@@ -77,16 +78,19 @@ def sync_one_file(docx_path: Path, output_format: str) -> Path:
 
 
 def stage_path(repo: Path, path: Path) -> None:
-    relative = path.relative_to(repo)
+    repo = repo.resolve()
+    relative = path.resolve().relative_to(repo)
     run_git(["add", "--", str(relative)], repo)
 
 
 def stage_removal(repo: Path, path: Path) -> None:
-    relative = path.relative_to(repo)
+    repo = repo.resolve()
+    relative = path.resolve().relative_to(repo)
     run_git(["add", "-u", "--", str(relative)], repo, check=False)
 
 
 def remove_sidecar(repo: Path, docx_path: Path, output_format: str, *, dry_run: bool) -> None:
+    docx_path = docx_path.resolve()
     sidecar_path = sidecar_path_for(docx_path, output_format)
     if dry_run:
         print(f"remove {display_path(sidecar_path, repo)}")
@@ -105,6 +109,7 @@ def update_sidecar(
     stage: bool,
     dry_run: bool,
 ) -> None:
+    docx_path = docx_path.resolve()
     sidecar_path = sidecar_path_for(docx_path, output_format)
     if dry_run:
         print(f"update {display_path(sidecar_path, repo)}")
