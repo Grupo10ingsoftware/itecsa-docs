@@ -1,0 +1,184 @@
+<mxfile host="app.diagrams.net" modified="2026-05-08T00:00:00.000Z" agent="Codex" version="24.7.17" type="device">
+  <diagram id="arquitectura-itecsa" name="Arquitectura ITECSA">
+    <mxGraphModel dx="2200" dy="1400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2200" pageHeight="1800" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="Vista" value="Capa de Vista" style="swimlane;whiteSpace=wrap;html=1;startSize=32;rounded=1;arcSize=8;fillColor=#E3F2FD;strokeColor=#1565C0;fontColor=#0D47A1;fontStyle=1;container=1;collapsible=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="1720" height="170" as="geometry"/>
+        </mxCell>
+        <mxCell id="Controladores" value="Capa de Controladores" style="swimlane;whiteSpace=wrap;html=1;startSize=32;rounded=1;arcSize=8;fillColor=#E8F5E9;strokeColor=#2E7D32;fontColor=#1B5E20;fontStyle=1;container=1;collapsible=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="250" width="1720" height="170" as="geometry"/>
+        </mxCell>
+        <mxCell id="Logica" value="Capa de Logica de Negocio" style="swimlane;whiteSpace=wrap;html=1;startSize=32;rounded=1;arcSize=8;fillColor=#FFF3E0;strokeColor=#EF6C00;fontColor=#E65100;fontStyle=1;container=1;collapsible=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="460" width="1720" height="510" as="geometry"/>
+        </mxCell>
+        <mxCell id="Datos" value="Capa de Datos" style="swimlane;whiteSpace=wrap;html=1;startSize=32;rounded=1;arcSize=8;fillColor=#F3E5F5;strokeColor=#7B1FA2;fontColor=#4A148C;fontStyle=1;container=1;collapsible=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1010" width="1000" height="170" as="geometry"/>
+        </mxCell>
+        <mxCell id="Externos" value="Servicios Externos" style="swimlane;whiteSpace=wrap;html=1;startSize=32;rounded=1;arcSize=8;fillColor=#ECEFF1;strokeColor=#455A64;fontColor=#263238;fontStyle=1;container=1;collapsible=1;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="1010" width="660" height="170" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="React" value="React" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#BBDEFB;strokeColor=#1565C0;fontColor=#0D47A1;" vertex="1" parent="Vista">
+          <mxGeometry x="40" y="60" width="150" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="Vite" value="Vite" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#BBDEFB;strokeColor=#1565C0;fontColor=#0D47A1;" vertex="1" parent="Vista">
+          <mxGeometry x="240" y="60" width="150" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="Bootstrap" value="Bootstrap 5" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#BBDEFB;strokeColor=#1565C0;fontColor=#0D47A1;" vertex="1" parent="Vista">
+          <mxGeometry x="440" y="60" width="150" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="CSS" value="CSS Modular" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#BBDEFB;strokeColor=#1565C0;fontColor=#0D47A1;" vertex="1" parent="Vista">
+          <mxGeometry x="640" y="60" width="150" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="UI" value="Interfaz de Usuario" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#90CAF9;strokeColor=#1565C0;fontColor=#0D47A1;fontStyle=1;" vertex="1" parent="Vista">
+          <mxGeometry x="980" y="58" width="190" height="54" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="Axios" value="Axios" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#C8E6C9;strokeColor=#2E7D32;fontColor=#1B5E20;" vertex="1" parent="Controladores">
+          <mxGeometry x="80" y="62" width="160" height="48" as="geometry"/>
+        </mxCell>
+        <mxCell id="Express" value="Express API REST" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#A5D6A7;strokeColor=#2E7D32;fontColor=#1B5E20;fontStyle=1;" vertex="1" parent="Controladores">
+          <mxGeometry x="420" y="58" width="190" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="Postman" value="Postman" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#C8E6C9;strokeColor=#2E7D32;fontColor=#1B5E20;" vertex="1" parent="Controladores">
+          <mxGeometry x="420" y="110" width="160" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="Endpoints" value="Rutas, endpoints y validaciones" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#C8E6C9;strokeColor=#2E7D32;fontColor=#1B5E20;" vertex="1" parent="Controladores">
+          <mxGeometry x="840" y="58" width="250" height="54" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="Node" value="Node.js" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFE0B2;strokeColor=#EF6C00;fontColor=#E65100;" vertex="1" parent="Logica">
+          <mxGeometry x="40" y="58" width="150" height="46" as="geometry"/>
+        </mxCell>
+        <mxCell id="JS" value="JavaScript" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFE0B2;strokeColor=#EF6C00;fontColor=#E65100;" vertex="1" parent="Logica">
+          <mxGeometry x="40" y="124" width="150" height="46" as="geometry"/>
+        </mxCell>
+        <mxCell id="Usuarios" value="Gestion de Usuarios y Roles" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFCC80;strokeColor=#EF6C00;fontColor=#E65100;fontStyle=1;" vertex="1" parent="Logica">
+          <mxGeometry x="270" y="80" width="220" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="Pedidos" value="Gestion de Pedidos y Nota de Venta" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFE0B2;strokeColor=#EF6C00;fontColor=#E65100;" vertex="1" parent="Logica">
+          <mxGeometry x="580" y="50" width="250" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="Cobro" value="Confirmacion de Cobro" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFE0B2;strokeColor=#EF6C00;fontColor=#E65100;" vertex="1" parent="Logica">
+          <mxGeometry x="580" y="140" width="220" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="OPFicha" value="Asociacion de OP y Ficha Cliente" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFE0B2;strokeColor=#EF6C00;fontColor=#E65100;" vertex="1" parent="Logica">
+          <mxGeometry x="900" y="140" width="250" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="Kanban" value="Kanban y Seguimiento Productivo" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFE0B2;strokeColor=#EF6C00;fontColor=#E65100;" vertex="1" parent="Logica">
+          <mxGeometry x="900" y="240" width="250" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="Trazabilidad" value="Trazabilidad, Comentarios y Adjuntos" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFE0B2;strokeColor=#EF6C00;fontColor=#E65100;" vertex="1" parent="Logica">
+          <mxGeometry x="1210" y="145" width="270" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="Capacidad" value="Capacidad, Plazos y Alertas" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFE0B2;strokeColor=#EF6C00;fontColor=#E65100;" vertex="1" parent="Logica">
+          <mxGeometry x="580" y="240" width="240" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="Firma" value="Firma Electronica y Documentos Firmados" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFE0B2;strokeColor=#EF6C00;fontColor=#E65100;" vertex="1" parent="Logica">
+          <mxGeometry x="900" y="50" width="280" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="Prioridad" value="Gestion de Prioridad y Sobrecarga Operativa" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFE0B2;strokeColor=#EF6C00;fontColor=#E65100;" vertex="1" parent="Logica">
+          <mxGeometry x="1210" y="240" width="300" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="Notificaciones" value="Notificaciones" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFE0B2;strokeColor=#EF6C00;fontColor=#E65100;" vertex="1" parent="Logica">
+          <mxGeometry x="900" y="340" width="200" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="Reportes" value="Reportes e Indicadores" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFE0B2;strokeColor=#EF6C00;fontColor=#E65100;" vertex="1" parent="Logica">
+          <mxGeometry x="1210" y="340" width="240" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="Admin" value="Administracion del Sistema" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFE0B2;strokeColor=#EF6C00;fontColor=#E65100;" vertex="1" parent="Logica">
+          <mxGeometry x="270" y="310" width="230" height="54" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="Prisma" value="Prisma ORM" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#CE93D8;strokeColor=#7B1FA2;fontColor=#4A148C;fontStyle=1;" vertex="1" parent="Datos">
+          <mxGeometry x="90" y="58" width="180" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="MySQL" value="MySQL" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#E1BEE7;strokeColor=#7B1FA2;fontColor=#4A148C;" vertex="1" parent="Datos">
+          <mxGeometry x="470" y="58" width="180" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="Workbench" value="MySQL Workbench" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#E1BEE7;strokeColor=#7B1FA2;fontColor=#4A148C;" vertex="1" parent="Datos">
+          <mxGeometry x="760" y="58" width="190" height="54" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="Auth0" value="Auth0" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#CFD8DC;strokeColor=#455A64;fontColor=#263238;" vertex="1" parent="Externos">
+          <mxGeometry x="40" y="58" width="160" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="Manager" value="Manager" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#CFD8DC;strokeColor=#455A64;fontColor=#263238;" vertex="1" parent="Externos">
+          <mxGeometry x="250" y="58" width="160" height="54" as="geometry"/>
+        </mxCell>
+        <mxCell id="Correo" value="Servicio de Correo" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#CFD8DC;strokeColor=#455A64;fontColor=#263238;" vertex="1" parent="Externos">
+          <mxGeometry x="460" y="58" width="160" height="54" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="eReactUI" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#1565C0;" edge="1" parent="1" source="React" target="UI"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eViteUI" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#1565C0;" edge="1" parent="1" source="Vite" target="UI"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eBootstrapUI" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#1565C0;" edge="1" parent="1" source="Bootstrap" target="UI"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eCSSUI" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#1565C0;" edge="1" parent="1" source="CSS" target="UI"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eAxiosExpress" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#2E7D32;" edge="1" parent="1" source="Axios" target="Express"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ePostmanExpress" value="pruebas" style="endArrow=block;html=1;rounded=0;dashed=1;dashPattern=8 4;strokeColor=#2E7D32;fontColor=#1B5E20;" edge="1" parent="1" source="Postman" target="Express"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eExpressEndpoints" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#2E7D32;" edge="1" parent="1" source="Express" target="Endpoints"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eNodeUsuarios" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;" edge="1" parent="1" source="Node" target="Usuarios"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eJSUsuarios" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;" edge="1" parent="1" source="JS" target="Usuarios"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ePrismaMySQL" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#7B1FA2;" edge="1" parent="1" source="Prisma" target="MySQL"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eWorkbenchMySQL" value="administra y modela" style="endArrow=block;html=1;rounded=0;dashed=1;dashPattern=8 4;strokeColor=#7B1FA2;fontColor=#4A148C;" edge="1" parent="1" source="Workbench" target="MySQL"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="eUIAxios" value="consume API REST" style="endArrow=block;html=1;rounded=0;strokeColor=#37474F;fontColor=#37474F;" edge="1" parent="1" source="UI" target="Axios"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eEndpointsUsuarios" value="valida JWT y entrada" style="endArrow=block;html=1;rounded=0;strokeColor=#37474F;fontColor=#37474F;" edge="1" parent="1" source="Endpoints" target="Usuarios"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eAuth0Express" value="emite JWTs" style="endArrow=block;html=1;rounded=0;strokeColor=#455A64;fontColor=#263238;" edge="1" parent="1" source="Auth0" target="Express"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eExpressAuth0" value="valida token" style="endArrow=block;html=1;rounded=0;strokeColor=#455A64;fontColor=#263238;" edge="1" parent="1" source="Express" target="Auth0"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eUsuariosPedidos" value="autoriza por rol" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Usuarios" target="Pedidos"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eUsuariosCobro" value="autoriza por rol" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Usuarios" target="Cobro"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eUsuariosKanban" value="autoriza por rol" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Usuarios" target="Kanban"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eUsuariosFirma" value="firma asociada" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Usuarios" target="Firma"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="ePedidosManager" value="consulta codigo NV" style="endArrow=block;html=1;rounded=0;strokeColor=#455A64;fontColor=#263238;" edge="1" parent="1" source="Pedidos" target="Manager"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eManagerPedidos" value="exporta datos relevantes de NV" style="endArrow=block;html=1;rounded=0;strokeColor=#455A64;fontColor=#263238;" edge="1" parent="1" source="Manager" target="Pedidos"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ePedidosPrisma" value="persiste pedido importado" style="endArrow=block;html=1;rounded=0;strokeColor=#7B1FA2;fontColor=#4A148C;" edge="1" parent="1" source="Pedidos" target="Prisma"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ePedidosCobro" value="pedido pendiente de pago" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Pedidos" target="Cobro"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ePedidosCapacidad" value="datos de producto y cantidad" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Pedidos" target="Capacidad"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="eCobroFirma" value="firma NV confirmada" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Cobro" target="Firma"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eCobroOPFicha" value="habilita avance" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Cobro" target="OPFicha"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eCobroTrazabilidad" value="evento de pago" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Cobro" target="Trazabilidad"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="eOPFichaKanban" value="adjunta OP y ficha cliente" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="OPFicha" target="Kanban"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eOPFichaTrazabilidad" value="documentos asociados" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="OPFicha" target="Trazabilidad"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="eKanbanTrazabilidad" value="cambios de estado y subprocesos" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Kanban" target="Trazabilidad"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eKanbanPrioridad" value="usa etiquetas y prioridad" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Kanban" target="Prioridad"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eKanbanFirma" value="solicita firma en subproceso" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Kanban" target="Firma"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eKanbanNotificaciones" value="eventos de seguimiento" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Kanban" target="Notificaciones"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eKanbanReportes" value="estado de pedidos" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Kanban" target="Reportes"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="eCapacidadKanban" value="alertas y fechas estimadas" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Capacidad" target="Kanban"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eCapacidadTrazabilidad" value="sobrecarga registrada" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Capacidad" target="Trazabilidad"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eCapacidadReportes" value="carga productiva" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Capacidad" target="Reportes"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="ePrioridadKanban" value="prioridad y etiquetas" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Prioridad" target="Kanban"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ePrioridadReportes" value="datos de prioridad" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Prioridad" target="Reportes"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="eTrazabilidadReportes" value="historial consolidado" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Trazabilidad" target="Reportes"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eNotificacionesCorreo" value="envia correos" style="endArrow=block;html=1;rounded=0;strokeColor=#455A64;fontColor=#263238;" edge="1" parent="1" source="Notificaciones" target="Correo"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eAdminUsuarios" value="configura reglas y parametros" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Admin" target="Usuarios"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eAdminCapacidad" value="configura capacidad" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Admin" target="Capacidad"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eAdminPrioridad" value="configura etiquetas" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Admin" target="Prioridad"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eAdminKanban" value="configura estados" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#E65100;" edge="1" parent="1" source="Admin" target="Kanban"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="eUsuariosPrisma" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#7B1FA2;" edge="1" parent="1" source="Usuarios" target="Prisma"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eCobroPrisma" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#7B1FA2;" edge="1" parent="1" source="Cobro" target="Prisma"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eOPFichaPrisma" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#7B1FA2;" edge="1" parent="1" source="OPFicha" target="Prisma"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eKanbanPrisma" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#7B1FA2;" edge="1" parent="1" source="Kanban" target="Prisma"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eTrazabilidadPrisma" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#7B1FA2;" edge="1" parent="1" source="Trazabilidad" target="Prisma"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eCapacidadPrisma" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#7B1FA2;" edge="1" parent="1" source="Capacidad" target="Prisma"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eFirmaPrisma" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#7B1FA2;" edge="1" parent="1" source="Firma" target="Prisma"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ePrioridadPrisma" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#7B1FA2;" edge="1" parent="1" source="Prioridad" target="Prisma"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eNotificacionesPrisma" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#7B1FA2;" edge="1" parent="1" source="Notificaciones" target="Prisma"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eReportesPrisma" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#7B1FA2;" edge="1" parent="1" source="Reportes" target="Prisma"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="eAdminPrisma" value="" style="endArrow=block;html=1;rounded=0;strokeColor=#7B1FA2;" edge="1" parent="1" source="Admin" target="Prisma"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
