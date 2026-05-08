@@ -35,8 +35,8 @@ El sistema de interes es el sistema de gestion de produccion de ITECSA, utilizad
 | 1 | Dispositivos cliente de usuarios internos | Ejecutar el navegador usado por Ventas, Cobranzas, Operario, Administrador y Gerencia para acceder al sistema. | Windows, macOS, Android o iOS, segun RNF10 |
 | 2 | Navegador web del usuario | Cargar el artefacto web estatico, iniciar autenticacion con Auth0 y consumir los servicios HTTP publicados por el sistema. | Google Chrome, Mozilla Firefox, Brave, Opera o Safari, segun RNF09 |
 | 3 | Red corporativa / Internet | Transportar trafico HTTPS entre usuarios, servidor de aplicacion y servicios externos. | LAN corporativa, internet, HTTPS |
-| 4 | Nodo servidor de aplicacion ITECSA | Alojar el primer despliegue centralizado del sistema: proxy inverso, artefacto web estatico, proceso Node.js, MySQL, repositorio de archivos, registros locales y tareas programadas de respaldo. | Maquina virtual o servidor institucional con Intel Core i5 o AMD Ryzen 5 equivalente, 16 GB de RAM y 500 GB disponibles como referencia minima del Documento 0 |
-| 5 | Proceso proxy inverso HTTPS | Terminar HTTPS, servir el artefacto web estatico y enrutar solicitudes de servicios HTTP hacia el proceso Node.js. | Nginx o Caddy ejecutado como proceso o contenedor |
+| 4 | Nodo servidor de aplicacion ITECSA | Alojar el primer despliegue centralizado del sistema: Caddy como proxy inverso, artefacto web estatico, proceso Node.js, MySQL, repositorio de archivos, registros locales y tareas programadas de respaldo. | Maquina virtual o servidor institucional con Intel Core i5 o AMD Ryzen 5 equivalente, 16 GB de RAM y 500 GB disponibles como referencia minima del Documento 0 |
+| 5 | Caddy / Proxy inverso HTTPS | Terminar HTTPS, gestionar certificados TLS, servir el artefacto web estatico y enrutar solicitudes de servicios HTTP hacia el proceso Node.js mediante HTTP interno. | Caddy ejecutado como proceso o contenedor |
 | 6 | Artefacto web estatico | Entregar la interfaz compilada que se ejecuta en el navegador del usuario. | Artefacto compilado de React + Vite, Bootstrap 5 y CSS |
 | 7 | Proceso de aplicacion Node.js | Exponer rutas HTTP, validar solicitudes, validar JWTs, coordinar reglas de negocio, persistencia, documentos, auditoria, integraciones y notificaciones. | Node.js, Express, JavaScript/TypeScript, Prisma ORM como dependencia de acceso a datos |
 | 8 | Tenant de identidad externo | Autenticar usuarios, emitir credenciales de acceso e identificacion y publicar metadatos/JWKS para validacion de JWT. | Auth0, JWT |
@@ -52,7 +52,7 @@ El sistema de interes es el sistema de gestion de produccion de ITECSA, utilizad
 
 | Herramienta | Ubicacion operacional | Uso | Relacion con componentes |
 | --- | --- | --- | --- |
-| Postman | Estacion de desarrollo/soporte o equipo autorizado | Validar puntos de acceso HTTP, contratos, autenticacion con JWT y respuestas de integracion. | Prueba la interfaz de servicios HTTP publicada por el proxy hacia Node.js; no es proceso productivo del sistema. |
+| Postman | Estacion de desarrollo/soporte o equipo autorizado | Validar puntos de acceso HTTP, contratos, autenticacion con JWT y respuestas de integracion. | Prueba la interfaz de servicios HTTP publicada por Caddy hacia Node.js; no es proceso productivo del sistema. |
 | MySQL Workbench | Estacion de administracion tecnica | Modelar, inspeccionar y administrar MySQL cuando la operacion lo requiera. | Se conecta a la instancia MySQL con permisos restringidos. |
 | Monitoreo basico / registros | Servidor o maquina virtual y consola de soporte | Revisar errores, eventos, espacio disponible, estado de tareas programadas y salud operativa. | Observa Node.js, MySQL, repositorio de archivos y respaldos. |
 | Mecanismo de respaldo | Servidor, maquina virtual o servicio administrado | Respaldar MySQL y archivos, y permitir restauracion verificable. | Cubre Repositorio Relacional y Repositorio Documental. |
@@ -61,8 +61,8 @@ El sistema de interes es el sistema de gestion de produccion de ITECSA, utilizad
 
 | Relacion | Protocolo / puerto | Observacion |
 | --- | --- | --- |
-| Navegador -> Proxy inverso | HTTPS / 443 | Canal principal para interfaz y servicios HTTP. |
-| Proxy inverso -> Proceso Node.js | HTTP interno / puerto configurado | No se expone directamente a usuarios finales. |
+| Navegador -> Caddy | HTTPS / 443 | Canal externo principal para interfaz y servicios HTTP; Caddy termina HTTPS y gestiona certificados TLS. |
+| Caddy -> Proceso Node.js | HTTP interno / puerto configurado | Comunicacion interna dentro del entorno controlado del servidor; no se expone directamente a usuarios finales. |
 | Proceso Node.js -> MySQL | MySQL / 3306 o puerto configurado | Acceso mediante Prisma ORM. |
 | Navegador -> Auth0 | HTTPS / 443 | Inicio de sesion y recepcion de JWT. |
 | Proceso Node.js -> Auth0 | HTTPS / 443 | Consulta de metadatos/JWKS para validar JWT. |
@@ -70,7 +70,7 @@ El sistema de interes es el sistema de gestion de produccion de ITECSA, utilizad
 | Proceso Node.js -> Servicio de correo | SMTP, SMTPS o interfaz transaccional | Envio de notificaciones. |
 | Proceso Node.js -> Repositorio de archivos | Lectura/escritura local o interfaz de almacenamiento | Lectura/escritura de NV, OP, fichas, firmas y adjuntos. |
 | Mecanismo de respaldo -> MySQL/Archivos | Tarea programada o copia de seguridad | Debe cubrir base de datos y repositorio documental. |
-| Postman -> Proxy/servicios HTTP | HTTPS / 443 | Validacion controlada de puntos de acceso HTTP. |
+| Postman -> Caddy/servicios HTTP | HTTPS / 443 | Validacion controlada de puntos de acceso HTTP. |
 | MySQL Workbench -> MySQL | MySQL / 3306 o tunel seguro | Uso administrativo restringido. |
 | Monitoreo/registros -> Node.js/MySQL/Archivos/Respaldos | Lectura de registros, metricas o procedimientos automatizados | No modifica datos funcionales; apoya diagnostico. |
 
@@ -92,12 +92,12 @@ flowchart TD
     end
 
     subgraph NodoApp["Nodo servidor de aplicacion ITECSA"]
-        ProxyInverso["Proceso proxy inverso HTTPS"]
+        ProxyInverso["Caddy / Proxy inverso HTTPS"]
         ArtefactoWeb["Artefacto web estatico\nReact + Vite compilado"]
         NodeApp["Proceso de aplicacion Node.js\nExpress + Prisma ORM"]
         MySQL["Instancia MySQL"]
         Archivos["Repositorio persistente de archivos\nNV, OP, fichas, firmas, adjuntos y disenos"]
-        Respaldos["Mecanismo de respaldo\nBD + archivos"]
+        Respaldos["Mecanismo de respaldo\nbase de datos + archivos"]
         Registros["Monitoreo basico / registros"]
     end
 
@@ -149,7 +149,7 @@ flowchart TD
 | Elemento de esta vista | Correspondencia con la arquitectura de componentes |
 | --- | --- |
 | Navegador y artefacto web estatico | Interfaz Web. |
-| Proceso proxy inverso HTTPS | Punto de entrada operacional para Interfaz Web e Interfaz de Servicios HTTP. |
+| Caddy / Proxy inverso HTTPS | Punto de entrada operacional para Interfaz Web e Interfaz de Servicios HTTP. Termina HTTPS, gestiona certificados TLS y enruta HTTP interno hacia Node.js. |
 | Proceso de aplicacion Node.js | Interfaz de Servicios HTTP y Controladores; componentes funcionales; autorizacion interna; auditoria; integraciones; notificaciones. |
 | Prisma ORM como dependencia del proceso Node.js | Acceso a Datos. |
 | Instancia MySQL | Repositorio Relacional. |
@@ -166,8 +166,8 @@ flowchart TD
 
 | Componente logico | Nodo/Artefacto de despliegue | Justificacion |
 | --- | --- | --- |
-| Interfaz Web | Navegador web moderno; Artefacto web estatico React + Vite; Proxy inverso HTTPS | La interfaz se sirve como archivos estaticos y se ejecuta en Chrome, Firefox, Brave, Opera o Safari sobre Windows, macOS, Android o iOS. |
-| Interfaz de Servicios HTTP y Controladores | Proceso de aplicacion Node.js; Proxy inverso HTTPS | El proxy recibe solicitudes HTTPS y las enruta al proceso de aplicacion Express. |
+| Interfaz Web | Navegador web moderno; Artefacto web estatico React + Vite; Caddy / Proxy inverso HTTPS | La interfaz se sirve como archivos estaticos por Caddy y se ejecuta en Chrome, Firefox, Brave, Opera o Safari sobre Windows, macOS, Android o iOS. |
+| Interfaz de Servicios HTTP y Controladores | Proceso de aplicacion Node.js; Caddy / Proxy inverso HTTPS | Caddy recibe solicitudes HTTPS y las enruta por HTTP interno al proceso de aplicacion Express. |
 | Gestion de Usuarios y Roles | Proceso Node.js; Tenant Auth0; Instancia MySQL | Auth0 autentica y emite JWT; Node.js valida JWKS y autoriza roles internos persistidos en MySQL. |
 | Gestion de Pedidos y Nota de Venta | Proceso Node.js; Manager/ERP; MySQL; Repositorio persistente de archivos | Node.js ejecuta la logica de pedidos, consume Manager, persiste datos relacionales y adjunta NV/archivos de diseno. |
 | Confirmacion de Cobro | Proceso Node.js; MySQL; Repositorio persistente de archivos | Ejecuta cambios de estado de pago, bloqueo/desbloqueo, firma electronica de NV y registro historico. |
@@ -191,7 +191,7 @@ flowchart TD
 
 | Regla | Criterio de consistencia |
 | --- | --- |
-| Acceso web | Toda solicitud de usuario hacia el sistema debe ingresar por el canal HTTPS y el proceso proxy inverso. |
+| Acceso web | Toda solicitud de usuario hacia el sistema debe ingresar por HTTPS a traves de Caddy. |
 | Ejecucion de reglas de negocio | Las reglas de negocio y validaciones protegidas se ejecutan en el proceso Node.js, no en el navegador ni directamente en la base de datos. |
 | Seguridad | Toda solicitud protegida hacia los servicios HTTP debe transportar un JWT emitido por Auth0 y validado por el proceso Node.js antes de aplicar autorizacion interna. |
 | Roles | Los actores de sistema deben usar los roles RF04: Administrador, Gerencia, Operario, Ventas y Cobranzas. |
@@ -206,7 +206,7 @@ flowchart TD
 ## Supuestos de Despliegue
 
 - La topologia inicial usa un servidor o maquina virtual institucional centralizado, de acuerdo con la infraestructura minima disponible para el proyecto.
-- El proxy inverso debe terminar HTTPS, servir el artefacto web estatico y enrutar las solicitudes de servicios HTTP al proceso Node.js; Nginx o Caddy satisfacen estas responsabilidades.
+- Caddy debe terminar HTTPS, gestionar certificados TLS, servir el artefacto web estatico y enrutar solicitudes de servicios HTTP al proceso Node.js mediante HTTP interno.
 - MySQL y el repositorio de archivos se alojan inicialmente en el nodo servidor de aplicacion para simplificar la primera operacion; podran separarse si la carga o crecimiento lo requiere.
 - El servicio de correo puede operar mediante SMTP corporativo o proveedor transaccional, siempre que soporte las notificaciones del sistema.
 - El mecanismo de respaldo debe cubrir base de datos y archivos, independiente de la herramienta especifica disponible.
@@ -220,7 +220,7 @@ flowchart TD
 - Prisma ORM funciona como dependencia del proceso Node.js, no como nodo fisico independiente, porque intermedia consultas, migraciones y manipulacion de datos hacia MySQL.
 - El despliegue inicial centralizado reduce complejidad operativa y mantiene correspondencia clara entre aplicacion, persistencia y archivos durante el primer incremento.
 - Los archivos adjuntos se almacenan fuera de MySQL para evitar sobrecargar la base relacional con binarios y facilitar respaldo, crecimiento y restauracion.
-- HTTPS es el canal de entrada para proteger el acceso de usuarios internos y la comunicacion con servicios externos de identidad e integracion.
+- HTTPS es el canal externo para proteger el acceso de usuarios internos hasta Caddy. Desde Caddy hacia Node.js se usa HTTP interno dentro del entorno controlado del servidor.
 - La compatibilidad cliente sigue RNF09 y RNF10: navegadores Chrome, Firefox, Brave, Opera y Safari sobre Windows, macOS, Android e iOS.
 - Los respaldos programados protegen informacion operativa, trazabilidad historica, auditoria y documentos productivos necesarios para la continuidad del servicio.
 - Postman, MySQL Workbench y monitoreo/registros son soporte operacional para validacion, administracion, diagnostico y continuidad. No implementan reglas funcionales del sistema.

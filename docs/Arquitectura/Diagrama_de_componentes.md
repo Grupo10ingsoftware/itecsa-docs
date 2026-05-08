@@ -404,8 +404,8 @@ flowchart TD
 
 | Elemento logico | Nodo/artefacto esperado en despliegue | Criterio |
 | --- | --- | --- |
-| Interfaz Web | Navegador web moderno + artefacto web estatico React/Vite | La interfaz se sirve como artefacto web estatico y se ejecuta en dispositivos cliente. |
-| Interfaz de Servicios HTTP y Controladores | Proceso de aplicacion Node.js detras del proxy HTTPS | Expone servicios HTTP, valida solicitudes y coordina componentes funcionales. |
+| Interfaz Web | Navegador web moderno + artefacto web estatico React/Vite servido por Caddy | La interfaz se sirve como artefacto web estatico y se ejecuta en dispositivos cliente. Caddy corresponde a despliegue, no a responsabilidad logica. |
+| Interfaz de Servicios HTTP y Controladores | Proceso de aplicacion Node.js detras de Caddy / proxy HTTPS | Expone servicios HTTP, valida solicitudes y coordina componentes funcionales. Caddy enruta la entrada HTTPS hacia Node.js. |
 | Componentes funcionales 1-13 | Proceso de aplicacion Node.js | Ejecuta reglas de negocio, autorizacion, auditoria, trazabilidad, reportes e integraciones. |
 | Acceso a Datos | Prisma ORM dentro del proceso Node.js | Centraliza consultas, migraciones y transacciones. |
 | Repositorio Relacional | Instancia MySQL | Persiste datos estructurados y bitacoras. |
