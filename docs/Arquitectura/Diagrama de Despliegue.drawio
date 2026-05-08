@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <mxfile host="app.diagrams.net">
   <diagram name="Despliegue ITECSA" id="aUSR-lAC-r_wMbVV5g5d">
     <mxGraphModel dx="1754" dy="843" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
@@ -95,7 +95,7 @@
         <mxCell id="5zeXqmmHsvUtcxRH3gg4-11" parent="5zeXqmmHsvUtcxRH3gg4-10" style="shape=component;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;fontColor=#1B5E20;fontStyle=1;" value="Proceso proxy inverso HTTPS" vertex="1">
           <mxGeometry height="58" width="260" x="90" y="70" as="geometry" />
         </mxCell>
-        <mxCell id="5zeXqmmHsvUtcxRH3gg4-12" parent="5zeXqmmHsvUtcxRH3gg4-10" style="shape=component;whiteSpace=wrap;html=1;fillColor=#A5D6A7;strokeColor=#2E7D32;fontColor=#1B5E20;" value="Artefacto web estatico&lt;br&gt;Build React + Vite" vertex="1">
+        <mxCell id="5zeXqmmHsvUtcxRH3gg4-12" parent="5zeXqmmHsvUtcxRH3gg4-10" style="shape=component;whiteSpace=wrap;html=1;fillColor=#A5D6A7;strokeColor=#2E7D32;fontColor=#1B5E20;" value="Artefacto web estatico&lt;br&gt;React + Vite compilado" vertex="1">
           <mxGeometry height="68" width="280" x="620" y="55" as="geometry" />
         </mxCell>
         <mxCell id="5zeXqmmHsvUtcxRH3gg4-13" parent="5zeXqmmHsvUtcxRH3gg4-10" style="shape=component;whiteSpace=wrap;html=1;fillColor=#A5D6A7;strokeColor=#2E7D32;fontColor=#1B5E20;fontStyle=1;" value="Proceso de aplicacion Node.js&lt;br&gt;Express + Prisma ORM" vertex="1">
@@ -116,7 +116,7 @@
         <mxCell id="5zeXqmmHsvUtcxRH3gg4-16" parent="5zeXqmmHsvUtcxRH3gg4-14" style="shape=component;whiteSpace=wrap;html=1;fillColor=#FFE0B2;strokeColor=#EF6C00;fontColor=#E65100;" value="Repositorio persistente de archivos&lt;br&gt;adjuntos, firmas y disenos" vertex="1">
           <mxGeometry height="78" width="290" x="380" y="45" as="geometry" />
         </mxCell>
-        <mxCell id="5zeXqmmHsvUtcxRH3gg4-17" parent="5zeXqmmHsvUtcxRH3gg4-14" style="shape=component;whiteSpace=wrap;html=1;fillColor=#FFCC80;strokeColor=#EF6C00;fontColor=#E65100;" value="Mecanismo de respaldo&lt;br&gt;BD + archivos" vertex="1">
+        <mxCell id="5zeXqmmHsvUtcxRH3gg4-17" parent="5zeXqmmHsvUtcxRH3gg4-14" style="shape=component;whiteSpace=wrap;html=1;fillColor=#FFCC80;strokeColor=#EF6C00;fontColor=#E65100;" value="Mecanismo de respaldo&lt;br&gt;base de datos + archivos" vertex="1">
           <mxGeometry height="60" width="210" x="750" y="58" as="geometry" />
         </mxCell>
         <mxCell id="5zeXqmmHsvUtcxRH3gg4-18" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=32;rounded=1;arcSize=8;fillColor=#F3E5F5;strokeColor=#7B1FA2;fontColor=#4A148C;fontStyle=1;container=1;collapsible=1;" value="Servicios externos" vertex="1">
@@ -158,7 +158,7 @@
             <mxPoint x="260.24" y="509.53599999999994" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="5zeXqmmHsvUtcxRH3gg4-31" edge="1" parent="1" source="5zeXqmmHsvUtcxRH3gg4-7" style="endArrow=block;html=1;rounded=0;strokeColor=#37474F;fontColor=#37474F;exitX=0.332;exitY=1.026;exitDx=0;exitDy=0;exitPerimeter=0;" target="5zeXqmmHsvUtcxRH3gg4-11" value="API REST /api con JWT">
+        <mxCell id="5zeXqmmHsvUtcxRH3gg4-31" edge="1" parent="1" source="5zeXqmmHsvUtcxRH3gg4-7" style="endArrow=block;html=1;rounded=0;strokeColor=#37474F;fontColor=#37474F;exitX=0.332;exitY=1.026;exitDx=0;exitDy=0;exitPerimeter=0;" target="5zeXqmmHsvUtcxRH3gg4-11" value="servicios HTTP con JWT">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1370" y="250" />
@@ -229,6 +229,48 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="5zeXqmmHsvUtcxRH3gg4-41" edge="1" parent="1" source="5zeXqmmHsvUtcxRH3gg4-17" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#EF6C00;dashed=1;dashPattern=8 4;exitX=0;exitY=0.367;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1.002;entryY=0.445;entryDx=0;entryDy=0;entryPerimeter=0;" target="5zeXqmmHsvUtcxRH3gg4-16" value="respalda">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5zeXqmmHsvUtcxRH3gg4-42" value="Operacion y soporte" style="swimlane;whiteSpace=wrap;html=1;startSize=32;rounded=1;arcSize=8;fillColor=#FFFDE7;strokeColor=#FBC02D;fontColor=#5D4037;fontStyle=1;container=1;collapsible=1;" vertex="1" parent="1">
+          <mxGeometry x="-340" y="440" width="310" height="460" as="geometry" />
+        </mxCell>
+        <mxCell id="5zeXqmmHsvUtcxRH3gg4-43" value="Postman&lt;br&gt;pruebas servicios HTTP" style="shape=component;whiteSpace=wrap;html=1;fillColor=#FFE082;strokeColor=#F9A825;fontColor=#5D4037;fontStyle=1;" vertex="1" parent="5zeXqmmHsvUtcxRH3gg4-42">
+          <mxGeometry x="35" y="60" width="230" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="5zeXqmmHsvUtcxRH3gg4-44" value="MySQL Workbench&lt;br&gt;administracion base de datos" style="shape=component;whiteSpace=wrap;html=1;fillColor=#FFE082;strokeColor=#F9A825;fontColor=#5D4037;fontStyle=1;" vertex="1" parent="5zeXqmmHsvUtcxRH3gg4-42">
+          <mxGeometry x="35" y="150" width="230" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="5zeXqmmHsvUtcxRH3gg4-45" value="Monitoreo basico / registros" style="shape=component;whiteSpace=wrap;html=1;fillColor=#FFF9C4;strokeColor=#F9A825;fontColor=#5D4037;fontStyle=1;" vertex="1" parent="5zeXqmmHsvUtcxRH3gg4-42">
+          <mxGeometry x="35" y="240" width="230" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="5zeXqmmHsvUtcxRH3gg4-46" value="Respaldos verificables&lt;br&gt;base de datos + archivos" style="shape=component;whiteSpace=wrap;html=1;fillColor=#FFF9C4;strokeColor=#F9A825;fontColor=#5D4037;" vertex="1" parent="5zeXqmmHsvUtcxRH3gg4-42">
+          <mxGeometry x="35" y="330" width="230" height="58" as="geometry" />
+        </mxCell>
+        <mxCell id="5zeXqmmHsvUtcxRH3gg4-47" value="valida servicios HTTP" style="endArrow=block;html=1;rounded=0;strokeColor=#F9A825;fontColor=#5D4037;dashed=1;dashPattern=8 4;" edge="1" parent="1" source="5zeXqmmHsvUtcxRH3gg4-43" target="5zeXqmmHsvUtcxRH3gg4-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5zeXqmmHsvUtcxRH3gg4-48" value="administra base de datos" style="endArrow=block;html=1;rounded=0;strokeColor=#F9A825;fontColor=#5D4037;dashed=1;dashPattern=8 4;" edge="1" parent="1" source="5zeXqmmHsvUtcxRH3gg4-44" target="5zeXqmmHsvUtcxRH3gg4-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5zeXqmmHsvUtcxRH3gg4-49" value="observa proceso" style="endArrow=block;html=1;rounded=0;strokeColor=#F9A825;fontColor=#5D4037;dashed=1;dashPattern=8 4;" edge="1" parent="1" source="5zeXqmmHsvUtcxRH3gg4-45" target="5zeXqmmHsvUtcxRH3gg4-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5zeXqmmHsvUtcxRH3gg4-50" value="observa base de datos" style="endArrow=block;html=1;rounded=0;strokeColor=#F9A825;fontColor=#5D4037;dashed=1;dashPattern=8 4;" edge="1" parent="1" source="5zeXqmmHsvUtcxRH3gg4-45" target="5zeXqmmHsvUtcxRH3gg4-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5zeXqmmHsvUtcxRH3gg4-51" value="observa archivos" style="endArrow=block;html=1;rounded=0;strokeColor=#F9A825;fontColor=#5D4037;dashed=1;dashPattern=8 4;" edge="1" parent="1" source="5zeXqmmHsvUtcxRH3gg4-45" target="5zeXqmmHsvUtcxRH3gg4-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5zeXqmmHsvUtcxRH3gg4-52" value="verifica respaldos" style="endArrow=block;html=1;rounded=0;strokeColor=#F9A825;fontColor=#5D4037;dashed=1;dashPattern=8 4;" edge="1" parent="1" source="5zeXqmmHsvUtcxRH3gg4-45" target="5zeXqmmHsvUtcxRH3gg4-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5zeXqmmHsvUtcxRH3gg4-53" value="programa/verifica" style="endArrow=block;html=1;rounded=0;strokeColor=#F9A825;fontColor=#5D4037;dashed=1;dashPattern=8 4;" edge="1" parent="1" source="5zeXqmmHsvUtcxRH3gg4-46" target="5zeXqmmHsvUtcxRH3gg4-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5zeXqmmHsvUtcxRH3gg4-54" value="cubre base de datos" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#EF6C00;dashed=1;dashPattern=8 4;" edge="1" parent="1" source="5zeXqmmHsvUtcxRH3gg4-46" target="5zeXqmmHsvUtcxRH3gg4-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5zeXqmmHsvUtcxRH3gg4-55" value="cubre archivos" style="endArrow=block;html=1;rounded=0;strokeColor=#EF6C00;fontColor=#EF6C00;dashed=1;dashPattern=8 4;" edge="1" parent="1" source="5zeXqmmHsvUtcxRH3gg4-46" target="5zeXqmmHsvUtcxRH3gg4-16">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
