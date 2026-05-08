@@ -1,13 +1,40 @@
 # Diagrama de Componentes
 
-Este documento define la version definitiva del diagrama textual de componentes para el sistema de gestion de produccion de ITECSA. El flujo funcional se organiza alrededor de la entidad Pedido, desde el ingreso de la Nota de Venta hasta el seguimiento productivo, notificaciones, trazabilidad, reportes y administracion del sistema.
+Este documento define la vista logica de componentes para el sistema de gestion de produccion de ITECSA. La descripcion se organiza como una descripcion arquitectonica alineada con ISO/IEC/IEEE 42010: identifica el sistema de interes, los interesados, sus preocupaciones, el punto de vista usado, la vista de componentes, las correspondencias y la justificacion de las decisiones tecnicas.
 
-La arquitectura tecnica se compone de una capa de vista construida con React, Vite, Bootstrap 5 y CSS Modular; una capa de controladores basada en Express, Axios y Postman; una capa de logica de negocio con Node.js, JavaScript y Auth0; y una capa de datos con MySQL, Prisma ORM y MySQL Workbench.
+La vista se centra en responsabilidades logicas e interfaces entre componentes. No representa nodos fisicos, procesos, contenedores ni ubicaciones de ejecucion; esos aspectos quedan cubiertos por el Diagrama de Despliegue.
+
+## Sistema de Interes
+
+El sistema de interes es el sistema de gestion de produccion de ITECSA, usado para centralizar el ingreso de pedidos desde Nota de Venta, validacion de pago, preparacion documental, seguimiento productivo, trazabilidad, notificaciones, reportes y administracion.
+
+## Interesados y Preocupaciones
+
+| Interesado | Preocupaciones abordadas por esta vista |
+| --- | --- |
+| Administrador | Configuracion del sistema, roles, permisos, parametros productivos, estados, trazabilidad y control de acceso. |
+| Ventas | Ingreso de pedidos, datos de Nota de Venta, adjuntos y visibilidad del avance productivo. |
+| Cobranzas | Confirmacion o rechazo de pago, bloqueo de avance y trazabilidad de decisiones. |
+| Produccion / Operarios | Seguimiento por Kanban, actualizacion de estados y subprocesos, comentarios y documentos asociados. |
+| Gerencia | Reportes, indicadores, cumplimiento, carga productiva y visibilidad del proceso. |
+| Equipo de desarrollo | Separacion de responsabilidades logicas, dependencias entre componentes y correspondencia con tecnologias de implementacion. |
+
+## Punto de Vista de Componentes
+
+| Elemento | Definicion |
+| --- | --- |
+| Nombre del punto de vista | Punto de vista logico de componentes. |
+| Proposito | Describir los componentes funcionales del sistema, sus responsabilidades, datos principales, colaboraciones y dependencias externas. |
+| Tipos de modelo usados | Tabla de componentes, tabla de datos manejados, modelo de flujo funcional, tabla de correspondencias y diagrama Mermaid de relaciones logicas. |
+| Convenciones | Los nodos del diagrama representan componentes logicos o servicios externos; las tecnologias se documentan como correspondencias de implementacion, no como componentes funcionales. |
+| Alcance excluido | No describe despliegue fisico, topologia de red, procesos runtime, servidores, contenedores ni herramientas de prueba/administracion como componentes del sistema. |
+
+## Vista de Componentes
 
 | N | Componente | Responsabilidades principales | Roles principales |
 | --- | --- | --- | --- |
 | 1 | Gestion de Usuarios y Roles | Mantener usuarios internos, roles y permisos; relacionar cada usuario interno con `auth0_user_id`; validar JWTs emitidos por Auth0 antes de autorizar modulos, pantallas, botones y endpoints; controlar acceso segun rol; administrar estado vinculado/desvinculado y firma electronica asociada al usuario. El sistema no almacena contrasenas localmente. | Administrador, todos los usuarios autenticados |
-| 2 | Gestion de Pedidos y Nota de Venta | Permitir que Ventas genere pedidos, registre numero de Nota de Venta, consulte Manager por codigo de NV, importe a MySQL los datos relevantes mediante Prisma ORM, adjunte la NV en formato PDF, valide duplicidad e identifique si el producto corresponde a lanyard o tarjeta. | Ventas, Administrador |
+| 2 | Gestion de Pedidos y Nota de Venta | Permitir que Ventas genere pedidos, registre numero de Nota de Venta, consulte Manager por codigo de NV, importe a la persistencia relacional los datos relevantes mediante la capa de acceso a datos, adjunte la NV en formato PDF, valide duplicidad e identifique si el producto corresponde a lanyard o tarjeta. | Ventas, Administrador |
 | 3 | Confirmacion de Cobro | Permitir que Cobranzas actualice el estado de pago del pedido desde el detalle del Kanban usando los estados Confirmado, Rechazado y Pendiente; bloquear el avance a produccion si el pago no esta confirmado; registrar fecha, hora y usuario; solicitar firma digital de la NV cuando el pago se confirme. | Cobranzas |
 | 4 | Asociacion de Orden de Produccion y Ficha Cliente | Permitir que Administrador adjunte la o las Ordenes de Produccion y la ficha cliente a la entidad Pedido cuando el pago este confirmado. Mantiene la relacion Pedido-NV-OP-ficha cliente. | Administrador |
 | 5 | Kanban y Seguimiento Productivo | Mostrar pedidos en columnas fijas segun estado, abrir detalle del pedido, permitir cambios manuales autorizados por arrastrar y soltar, mostrar subprocesos segun tipo de producto, actualizar subprocesos mediante Stepper, registrar comentarios al cambiar subproceso, aplicar firma electronica en ficha cliente y mostrar etiquetas visuales. | Produccion/Operario, Administrador, Ventas, Cobranzas, Gerencia |
@@ -21,7 +48,7 @@ La arquitectura tecnica se compone de una capa de vista construida con React, Vi
 
 ## Datos que Maneja Cada Componente
 
-Los siguientes datos son logicos y preliminares. No representan todavia el Modelo Entidad-Relacion definitivo ni una estructura fisica de base de datos. La persistencia principal se realiza en MySQL mediante Prisma ORM.
+Los siguientes datos son logicos y preliminares. No representan todavia el Modelo Entidad-Relacion definitivo ni una estructura fisica de base de datos. La persistencia principal se realiza en el repositorio relacional mediante la capa de acceso a datos.
 
 | N | Componente | Datos que maneja |
 | --- | --- | --- |
@@ -38,7 +65,7 @@ Los siguientes datos son logicos y preliminares. No representan todavia el Model
 | 11 | Reportes e Indicadores | rango de fechas, pedidos por estado, pedidos entregados a tiempo, pedidos fuera de plazo, pedidos bajo sobrecarga, tiempos promedio/ciclo, carga de produccion, ranking de productos, cumplimiento por vendedor, formato de exportacion. |
 | 12 | Administracion del Sistema | roles, permisos, estados productivos, reglas de transicion, etiquetas, parametros de prioridad, capacidad por tipo de producto, parametros de estimacion por rango, parametros de alertas, anuncios internos, configuracion de firmas, parametros de integracion con Auth0. |
 
-## Regla de Inicio y Avance del Flujo
+## Modelo de Flujo Funcional de Referencia
 
 El sistema no administra la negociacion previa con el cliente. En esta version, el flujo inicia cuando Ventas genera un pedido desde una Nota de Venta y este queda disponible para validacion de pago y seguimiento productivo.
 
@@ -98,21 +125,17 @@ Cada subproceso se actualiza mediante Stepper interactivo por usuario autorizado
 ## Relaciones entre Componentes
 
 ```text
-React/Vite/Bootstrap/CSS Modular
-        -> renderiza la interfaz de usuario y consume la API REST mediante Axios
+Interfaz Web
+        -> presenta vistas y formularios del sistema
+        -> consume la API REST mediante solicitudes HTTP
 
-Express
-        -> expone rutas y endpoints
-        -> valida entradas
-        -> exige JWT valido antes de invocar logica protegida
-
-Auth0
-        -> autentica usuarios
-        -> emite JWTs
-        -> permite validar identidad y sesion
+API REST y Controladores HTTP
+        -> recibe solicitudes de la Interfaz Web
+        -> valida entradas y JWT antes de invocar componentes protegidos
+        -> expone operaciones para los componentes funcionales
 
 Gestion de Usuarios y Roles
-        -> valida el JWT recibido desde la capa de controladores
+        -> valida el JWT recibido desde API REST y Controladores HTTP
         -> relaciona auth0_user_id con el usuario interno
         -> entrega permisos por rol para todos los componentes
         -> entrega firma electronica a Firma Electronica y Documentos Firmados
@@ -120,7 +143,7 @@ Gestion de Usuarios y Roles
 Gestion de Pedidos y Nota de Venta
         -> crea Pedido
         -> consulta Manager usando el codigo de NV ingresado por Ventas
-        -> importa a MySQL los datos relevantes de la NV mediante Prisma ORM
+        -> importa a la persistencia relacional los datos relevantes de la NV mediante Acceso a Datos
         -> valida duplicidad de numero de NV
         -> envia Pedido a Confirmacion de Cobro
         -> entrega datos a Capacidad, Plazos y Alertas
@@ -166,29 +189,26 @@ Reportes e Indicadores
 Administracion del Sistema
         -> configura roles, permisos, estados, capacidad, parametros de estimacion, etiquetas y anuncios
 
-Prisma ORM
-        -> mapea modelos de aplicacion a MySQL
-        -> centraliza consultas y transacciones de persistencia
+Acceso a Datos
+        -> centraliza consultas, modelos y transacciones hacia el repositorio relacional
 
-MySQL
+Repositorio Relacional
         -> almacena usuarios internos, pedidos, pagos, documentos, trazabilidad, capacidad, notificaciones, reportes y configuracion
 ```
 
-## Capas Tecnicas del Sistema
+## Correspondencias de Implementacion
 
-| Capa | Descripcion | Tecnologias | Funciones |
-| --- | --- | --- | --- |
-| Capa de Vista | Interfaz de Usuario | React, Vite, Bootstrap 5, CSS Modular | Interfaz de usuario, componentes dinamicos, estilos modulares |
-| Capa de Controladores | Gestion de solicitudes y comunicacion | Express, Axios, Postman | Rutas/endpoints, validaciones de entrada, comunicacion API REST |
-| Capa de Logica de Negocio | Procesamiento de reglas, autenticacion y control de acceso | Node.js, JavaScript, Auth0 | Autenticacion con Auth0, validacion de JWTs, control de acceso por roles, reglas de negocio, manejo de sesiones |
-| Capa de Datos | Almacenamiento y gestion de informacion | MySQL, Prisma ORM, MySQL Workbench | Consultas y transacciones, modelado de datos, administracion de base de datos |
-
-Notas:
-
-- Postman se considera herramienta de soporte para pruebas de endpoints, no componente runtime central.
-- MySQL Workbench se considera herramienta de administracion/modelado de base de datos, no componente runtime central.
-- Prisma ORM se considera dependencia transversal de persistencia, no componente funcional de negocio.
-- La autenticacion no guarda contrasenas localmente; se delega a Auth0. El sistema consume y valida JWTs para decidir autorizacion interna segun roles y permisos.
+| Elemento logico | Tecnologia o soporte asociado | Criterio de correspondencia |
+| --- | --- | --- |
+| Interfaz Web | React, Vite, Bootstrap 5, CSS Modular | Implementa la presentacion y consume la API REST. |
+| API REST y Controladores HTTP | Express, Axios en el cliente, JavaScript/TypeScript | Gestiona solicitudes HTTP, validaciones de entrada y comunicacion entre vista y componentes funcionales. |
+| Componentes funcionales | Node.js, JavaScript/TypeScript | Ejecutan reglas de negocio, autorizacion interna, trazabilidad y coordinacion de casos de uso. |
+| Gestion de Usuarios y Roles | Auth0, JWT, claims, `auth0_user_id` | Delega autenticacion a Auth0 y mantiene autorizacion interna por roles y permisos. |
+| Acceso a Datos | Prisma ORM | Mapea modelos de aplicacion y centraliza consultas/transacciones hacia MySQL. |
+| Repositorio Relacional | MySQL | Persistencia relacional principal del sistema. |
+| Administracion tecnica de datos | MySQL Workbench | Herramienta de modelado y administracion; no es componente runtime del sistema. |
+| Pruebas de API | Postman | Herramienta de pruebas, validacion y monitoreo durante desarrollo; no es componente runtime del sistema. |
+| Servicios externos | Auth0, Manager, Servicio de Correo | Servicios fuera del limite funcional del sistema propio, consumidos por componentes internos. |
 
 ## Tecnologia de Soporte y Servicios Considerados
 
@@ -198,38 +218,38 @@ Notas:
 | MySQL | Base de datos relacional principal para usuarios internos, pedidos, pagos, documentos, Kanban, trazabilidad, capacidad, notificaciones, reportes y configuracion. |
 | Prisma ORM | Capa de acceso a datos y mapeo entre la aplicacion Node.js/JavaScript y MySQL. Centraliza consultas, modelos y transacciones. |
 | Servicio de Correo | Envio de correos generados por Notificaciones y recuperacion de contrasena si no queda cubierta por Auth0. |
-| Manager | Fuente externa de datos de Nota de Venta. Cuando Ventas ingresa el codigo de NV, el sistema ejecuta una consulta para obtener/exportar los datos relevantes de esa NV y luego los importa a la base de datos propia en MySQL mediante Prisma ORM. |
+| Manager | Fuente externa de datos de Nota de Venta. Cuando Ventas ingresa el codigo de NV, el sistema ejecuta una consulta para obtener/exportar los datos relevantes de esa NV y luego los importa a la persistencia propia mediante Acceso a Datos. |
+| Postman | Herramienta de soporte para pruebas de endpoints; no forma parte de la arquitectura runtime. |
+| MySQL Workbench | Herramienta de administracion/modelado de base de datos; no forma parte de la arquitectura runtime. |
+
+## Reglas de Correspondencia y Consistencia
+
+| Regla | Criterio de consistencia |
+| --- | --- |
+| Separacion de responsabilidades | Cada componente funcional debe mantener una responsabilidad principal identificable y no asumir responsabilidades de otro componente de la tabla principal. |
+| Acceso protegido | Toda operacion protegida debe pasar por API REST y Controladores HTTP, validar JWT y consultar Gestion de Usuarios y Roles para autorizacion interna. |
+| Persistencia | Los componentes funcionales no acceden directamente al repositorio relacional; usan Acceso a Datos como dependencia transversal. |
+| Servicios externos | Auth0, Manager y Servicio de Correo se modelan como servicios externos, no como componentes funcionales propios de ITECSA. |
+| Herramientas de soporte | Postman y MySQL Workbench no deben aparecer como componentes en el diagrama Mermaid porque no ejecutan responsabilidades funcionales del sistema. |
+| Consistencia con despliegue | Esta vista logica debe corresponder con el Diagrama de Despliegue: Interfaz Web se despliega como artefacto web estatico, componentes funcionales y API REST se ejecutan en el proceso de aplicacion Node.js, y el repositorio relacional corresponde a la instancia MySQL. |
 
 ## Diagrama Mermaid
 
 ```mermaid
 flowchart TD
-    subgraph Vista["Capa de Vista"]
-        React["React"]
-        Vite["Vite"]
-        Bootstrap["Bootstrap 5"]
-        CSS["CSS Modular"]
-        UI["Interfaz de Usuario"]
-        React --> UI
-        Vite --> UI
-        Bootstrap --> UI
-        CSS --> UI
+    subgraph Presentacion["Vista de Interaccion"]
+        UI["Interfaz Web"]
     end
 
-    subgraph Controladores["Capa de Controladores"]
-        Axios["Axios"]
-        Express["Express API REST"]
-        Postman["Postman"]
-        Endpoints["Rutas, endpoints y validaciones"]
-        Axios --> Express
-        Postman -. pruebas .-> Express
-        Express --> Endpoints
+    subgraph Entrada["Interfaces de Aplicacion"]
+        API["API REST y Controladores HTTP"]
     end
 
-    subgraph Logica["Capa de Logica de Negocio"]
-        Node["Node.js"]
-        JS["JavaScript"]
+    subgraph Seguridad["Seguridad y Acceso"]
         Usuarios["Gestion de Usuarios y Roles"]
+    end
+
+    subgraph Funcionales["Componentes Funcionales"]
         Pedidos["Gestion de Pedidos y Nota de Venta"]
         Cobro["Confirmacion de Cobro"]
         OPFicha["Asociacion de OP y Ficha Cliente"]
@@ -241,16 +261,11 @@ flowchart TD
         Notificaciones["Notificaciones"]
         Reportes["Reportes e Indicadores"]
         Admin["Administracion del Sistema"]
-        Node --> Usuarios
-        JS --> Usuarios
     end
 
-    subgraph Datos["Capa de Datos"]
-        Prisma["Prisma ORM"]
-        MySQL["MySQL"]
-        Workbench["MySQL Workbench"]
-        Prisma --> MySQL
-        Workbench -. administra y modela .-> MySQL
+    subgraph Persistencia["Persistencia Logica"]
+        AccesoDatos["Acceso a Datos"]
+        Repositorio["Repositorio Relacional"]
     end
 
     subgraph Externos["Servicios Externos"]
@@ -259,18 +274,24 @@ flowchart TD
         Correo["Servicio de Correo"]
     end
 
-    UI -->|"consume API REST"| Axios
-    Endpoints -->|"valida JWT y entrada"| Usuarios
-    Auth0 -->|"emite JWTs"| Express
-    Express -->|"valida token"| Auth0
+    UI -->|"consume operaciones"| API
+    API -->|"valida entrada y token"| Usuarios
+    Auth0 -->|"emite JWTs"| UI
+    API -->|"valida identidad con proveedor"| Auth0
+
     Usuarios -->|"autoriza por rol"| Pedidos
     Usuarios -->|"autoriza por rol"| Cobro
     Usuarios -->|"autoriza por rol"| Kanban
     Usuarios -->|"firma asociada"| Firma
 
+    API -->|"invoca casos de uso"| Pedidos
+    API -->|"invoca casos de uso"| Cobro
+    API -->|"invoca casos de uso"| Kanban
+    API -->|"invoca casos de uso"| Reportes
+    API -->|"invoca configuracion"| Admin
+
     Pedidos -->|"consulta codigo NV"| Manager
-    Manager -->|"exporta datos relevantes de NV"| Pedidos
-    Pedidos -->|"persiste pedido importado"| Prisma
+    Manager -->|"entrega datos relevantes de NV"| Pedidos
     Pedidos -->|"pedido pendiente de pago"| Cobro
     Pedidos -->|"datos de producto y cantidad"| Capacidad
 
@@ -301,15 +322,25 @@ flowchart TD
     Admin -->|"configura etiquetas"| Prioridad
     Admin -->|"configura estados"| Kanban
 
-    Usuarios --> Prisma
-    Cobro --> Prisma
-    OPFicha --> Prisma
-    Kanban --> Prisma
-    Trazabilidad --> Prisma
-    Capacidad --> Prisma
-    Firma --> Prisma
-    Prioridad --> Prisma
-    Notificaciones --> Prisma
-    Reportes --> Prisma
-    Admin --> Prisma
+    Usuarios --> AccesoDatos
+    Pedidos --> AccesoDatos
+    Cobro --> AccesoDatos
+    OPFicha --> AccesoDatos
+    Kanban --> AccesoDatos
+    Trazabilidad --> AccesoDatos
+    Capacidad --> AccesoDatos
+    Firma --> AccesoDatos
+    Prioridad --> AccesoDatos
+    Notificaciones --> AccesoDatos
+    Reportes --> AccesoDatos
+    Admin --> AccesoDatos
+    AccesoDatos --> Repositorio
 ```
+
+## Justificacion Arquitectonica
+
+- Se separan componentes funcionales, interfaces de aplicacion, seguridad, persistencia logica y servicios externos para que la vista describa responsabilidades del sistema sin mezclar herramientas ni nodos fisicos.
+- Las tecnologias React, Vite, Express, Node.js, Prisma ORM y MySQL se mantienen como correspondencias de implementacion porque estan definidas en el Documento 0, pero no se dibujan como componentes funcionales.
+- Auth0 se modela como servicio externo de identidad porque autentica usuarios y emite JWTs; Gestion de Usuarios y Roles conserva la responsabilidad interna de autorizacion por rol y relacion con `auth0_user_id`.
+- Acceso a Datos se representa como elemento logico transversal para evitar que los componentes funcionales dependan directamente del repositorio relacional.
+- Postman y MySQL Workbench quedan explicitamente como herramientas de soporte porque no ejecutan responsabilidades funcionales del sistema.
