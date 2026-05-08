@@ -8,6 +8,7 @@ El documento tambien incorpora el stack tecnico definido para la arquitectura de
 
 - Se cambio el foco del flujo desde Nota de Venta y Orden de Produccion hacia una entidad central de Pedido.
 - Se agrego RF19-RF26 en v2 para generacion y registro de pedidos, carga de Nota de Venta en PDF, autocompletado de datos por numero de NV, identificacion de producto y adjuntos de diseno sobre el pedido por Administrador/Ventas.
+- Se confirma la integracion con Manager como fuente de datos de la Nota de Venta: Ventas ingresa el codigo de NV, el sistema consulta/exporta los datos relevantes desde Manager y los importa a la base de datos propia.
 - Se modifico la confirmacion de pago: Cobranzas actualiza el estado de pago desde el detalle del pedido en Kanban y el sistema firma digitalmente la Nota de Venta al confirmar el pago.
 - Se reemplazo la generacion automatica de Orden de Produccion de v1 por asociacion documental de Orden de Produccion y ficha cliente al pedido despues del pago confirmado.
 - Se redujo el Kanban actualizado a las columnas Confirmacion de pago, Listo para produccion, En produccion y Listo para entrega.
@@ -35,13 +36,12 @@ El documento tambien incorpora el stack tecnico definido para la arquitectura de
 - [DEL] Proveedor anterior de autenticacion: se elimina como servicio externo de autenticacion y almacenamiento de usuarios. La autenticacion vigente se delega a Auth0 y la persistencia interna se resuelve con MySQL mediante Prisma ORM.
 - [DEL] Flujo de revision/calidad como columna Kanban: se elimina como columna y regla de transicion porque v2 ya no incluye esa columna ni los requisitos de rechazo, retorno automatico a produccion e historial de rechazo de v1.
 - [DEL] Generacion automatica de OP y vale de salida como responsabilidad principal: v2 indica asociacion documental de OP y ficha cliente al pedido despues del pago confirmado, no generacion automatica completa como nucleo del flujo.
-- [DEL] Exportacion de Nota de Venta compatible con Manager: RF31 de v1 no aparece en v2. Cualquier integracion con Manager queda pendiente de confirmacion.
 - [DEL] Adjuntos de diseno exclusivos del Operario en Kanban para lanyards, tarjetas o yoyos: v2 mueve esta responsabilidad al pedido y la asigna a Administrador/Ventas.
 
 ### MOD
 
 - [MOD] Gestion de Usuarios y Roles: incorpora Auth0 como proveedor de identidad, usa JWTs para validar sesiones, relaciona el usuario Auth0 con el usuario interno mediante `auth0_user_id`, mantiene permisos por rol dentro del sistema e incorpora firma electronica de usuario en formato XML, CMS o PDF.
-- [MOD] Ingreso y Validacion de Nota de Venta: se renombra a Gestion de Pedidos y Nota de Venta. Ahora permite generar pedidos, registrar numero de NV, adjuntar NV en PDF, autocompletar datos por busqueda asociada al numero de NV, identificar producto y validar duplicidad.
+- [MOD] Ingreso y Validacion de Nota de Venta: se renombra a Gestion de Pedidos y Nota de Venta. Ahora permite generar pedidos, registrar numero de NV, consultar Manager por codigo de NV, importar los datos relevantes a MySQL mediante Prisma ORM, adjuntar NV en PDF, identificar producto y validar duplicidad.
 - [MOD] Confirmacion de Cobro: opera sobre el detalle del pedido en Kanban, actualiza estado de pago mediante menu desplegable, registra trazabilidad y solicita firma digital de la NV cuando el pago cambia a Confirmado.
 - [MOD] Gestion de Orden de Produccion: se renombra a Asociacion de Orden de Produccion y Ficha Cliente. Su responsabilidad es asociar OP y ficha cliente al pedido cuando el pago este confirmado.
 - [MOD] Kanban y Seguimiento Productivo: actualiza columnas, detalle del pedido, subprocesos por tipo de producto, Stepper, comentarios por subproceso, firma electronica en produccion, etiquetas y prioridad.
@@ -67,7 +67,7 @@ El documento tambien incorpora el stack tecnico definido para la arquitectura de
 | N | Componente | Responsabilidades principales | Roles principales |
 | --- | --- | --- | --- |
 | 1 | Gestion de Usuarios y Roles | Mantener usuarios internos, roles y permisos; relacionar cada usuario interno con `auth0_user_id`; validar JWTs emitidos por Auth0 antes de autorizar modulos, pantallas, botones y endpoints; controlar acceso segun rol; administrar estado vinculado/desvinculado y firma electronica asociada al usuario. El sistema no almacena contrasenas localmente. | Administrador, todos los usuarios autenticados |
-| 2 | Gestion de Pedidos y Nota de Venta | Permitir que Ventas genere pedidos, registre numero de Nota de Venta, adjunte la NV en formato PDF, valide duplicidad, complete o reciba automaticamente datos del pedido mediante busqueda asociada al numero de NV e identifique si el producto corresponde a lanyard o tarjeta. | Ventas, Administrador |
+| 2 | Gestion de Pedidos y Nota de Venta | Permitir que Ventas genere pedidos, registre numero de Nota de Venta, consulte Manager por codigo de NV, importe a MySQL los datos relevantes mediante Prisma ORM, adjunte la NV en formato PDF, valide duplicidad e identifique si el producto corresponde a lanyard o tarjeta. | Ventas, Administrador |
 | 3 | Confirmacion de Cobro | Permitir que Cobranzas actualice el estado de pago del pedido desde el detalle del Kanban usando los estados Confirmado, Rechazado y Pendiente; bloquear el avance a produccion si el pago no esta confirmado; registrar fecha, hora y usuario; solicitar firma digital de la NV cuando el pago se confirme. | Cobranzas |
 | 4 | Asociacion de Orden de Produccion y Ficha Cliente | Permitir que Administrador adjunte la o las Ordenes de Produccion y la ficha cliente a la entidad Pedido cuando el pago este confirmado. Mantiene la relacion Pedido-NV-OP-ficha cliente. | Administrador |
 | 5 | Kanban y Seguimiento Productivo | Mostrar pedidos en columnas fijas segun estado, abrir detalle del pedido, permitir cambios manuales autorizados por arrastrar y soltar, mostrar subprocesos segun tipo de producto, actualizar subprocesos mediante Stepper, registrar comentarios al cambiar subproceso, aplicar firma electronica en ficha cliente y mostrar etiquetas visuales. | Produccion/Operario, Administrador, Ventas, Cobranzas, Gerencia |
@@ -75,7 +75,7 @@ El documento tambien incorpora el stack tecnico definido para la arquitectura de
 | 7 | Capacidad, Plazos y Alertas | Configurar capacidad productiva, calcular carga diaria, alertar sobrecarga desde 90%, calcular fecha estimada de termino por tipo de producto y cantidad, permitir parametros configurables por tipo/rango y registrar pedidos ingresados bajo sobrecarga operativa. | Administrador, Ventas, Produccion |
 | 8 | Firma Electronica y Documentos Firmados | Almacenar y exponer firma electronica de usuarios, firmar digitalmente la Nota de Venta al confirmar pago y agregar la firma electronica del usuario a la ficha cliente cuando se actualice el estado de un subproceso productivo. | Administrador, Cobranzas, Operario |
 | 9 | Gestion de Prioridad y Sobrecarga Operativa | Administrar etiquetas Urgencia, Atraso y Prioridad, permitir asignacion/remocion de etiquetas, permitir ajuste de prioridad por Administrador y entregar datos de prioridad/sobrecarga a Kanban, Trazabilidad y Reportes. | Administrador, Operario, Produccion |
-| 10 | Notificaciones | Emitir avisos internos o por correo ante eventos relevantes: nuevo pedido, pago confirmado, pedido urgente, disponibilidad para despacho cuando el pedido llegue a Listo para entrega y comunicaciones internas. [PENDIENTE: confirmar si el rechazo de Nota de Venta sigue vigente en v2, porque no aparece como RF actualizado.] | Ventas, Produccion, Administrador, Cobranzas |
+| 10 | Notificaciones | Emitir avisos internos o por correo ante eventos relevantes: nuevo pedido, pago confirmado, pedido urgente, disponibilidad para despacho cuando el pedido llegue a Listo para entrega y comunicaciones internas. | Ventas, Produccion, Administrador, Cobranzas |
 | 11 | Reportes e Indicadores | Generar reportes de pedidos por estado, entregas a tiempo/fuera de plazo, carga de produccion, tiempos de ciclo hasta Listo para entrega, ranking de productos, cumplimiento por vendedor incluyendo pedidos bajo sobrecarga y exportaciones Excel/CSV. | Gerencia, Administrador |
 | 12 | Administracion del Sistema | Configurar parametros generales: roles, permisos, estados productivos, etiquetas, prioridad, capacidad diaria, rangos de estimacion por tipo de producto/cantidad, reglas de transicion, anuncios internos, parametros de Auth0/JWT que correspondan al sistema y parametros usados por los demas componentes. | Administrador |
 
@@ -86,7 +86,7 @@ Los siguientes datos son logicos y preliminares. No representan todavia el Model
 | N | Componente | Datos que maneja |
 | --- | --- | --- |
 | 1 | Gestion de Usuarios y Roles | `id_usuario`, `auth0_user_id`, nombre, apellido, RUT, correo unico, rol, estado de cuenta, firma electronica, formato de firma, fecha de creacion, primer inicio de sesion, ultimo acceso, sesiones activas, permisos asociados al rol, claims relevantes del JWT. |
-| 2 | Gestion de Pedidos y Nota de Venta | `id_pedido`, `numero_nota_venta`, archivo PDF de NV, fecha de creacion, hora de creacion, razon social, RUT cliente, descripcion de producto, cantidad, datos para fabricacion, tipo de producto, estado del pedido, vendedor responsable. |
+| 2 | Gestion de Pedidos y Nota de Venta | `id_pedido`, `numero_nota_venta`, datos importados desde Manager, archivo PDF de NV, fecha de creacion, hora de creacion, razon social, RUT cliente, descripcion de producto, cantidad, datos para fabricacion, tipo de producto, estado del pedido, vendedor responsable. |
 | 3 | Confirmacion de Cobro | `id_pedido`, `numero_nota_venta`, estado de pago, usuario de Cobranzas responsable, fecha y hora de confirmacion o rechazo, firma digital aplicada, observacion o motivo si corresponde, bloqueo/desbloqueo para produccion. |
 | 4 | Asociacion de Orden de Produccion y Ficha Cliente | `id_pedido`, numero de OP, documentos de OP, ficha cliente, fecha de adjunto, usuario que adjunta, relacion Pedido-NV-OP-ficha, estado documental. |
 | 5 | Kanban y Seguimiento Productivo | `id_pedido`, estado actual, columna actual, tipo de producto, detalle del pedido, subprocesos por tipo de producto, estado de subproceso, comentarios de subproceso, fecha y hora del ultimo cambio, tiempo en estado actual, etiquetas, prioridad, indicador visual de retraso. |
@@ -173,6 +173,8 @@ Gestion de Usuarios y Roles
 
 Gestion de Pedidos y Nota de Venta
         -> crea Pedido
+        -> consulta Manager usando el codigo de NV ingresado por Ventas
+        -> importa a MySQL los datos relevantes de la NV mediante Prisma ORM
         -> valida duplicidad de numero de NV
         -> envia Pedido a Confirmacion de Cobro
         -> entrega datos a Capacidad, Plazos y Alertas
@@ -250,4 +252,4 @@ Notas:
 | MySQL | Base de datos relacional principal para usuarios internos, pedidos, pagos, documentos, Kanban, trazabilidad, capacidad, notificaciones, reportes y configuracion. |
 | Prisma ORM | Capa de acceso a datos y mapeo entre la aplicacion Node.js/JavaScript y MySQL. Centraliza consultas, modelos y transacciones. |
 | Servicio de Correo | Envio de correos generados por Notificaciones y recuperacion de contrasena si no queda cubierta por Auth0. |
-| Manager | [PENDIENTE: confirmar si sigue siendo fuente de datos de Nota de Venta, porque v2 indica busqueda asociada al numero de NV pero no explicita la integracion.] |
+| Manager | Fuente externa de datos de Nota de Venta. Cuando Ventas ingresa el codigo de NV, el sistema ejecuta una consulta para obtener/exportar los datos relevantes de esa NV y luego los importa a la base de datos propia en MySQL mediante Prisma ORM. |
