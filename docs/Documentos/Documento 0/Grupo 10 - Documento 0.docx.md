@@ -3583,35 +3583,57 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 13.9. Anexo I: Dimensión Técnica del proyecto
 
-13.9.1. Lenguajes y Frameworks utilizados
+13.9.1. Capa de Vista
 
-lenguaje de programación: JavaScript/TypeScript
+Herramienta de Interfaz de Usuario: React + Vite.
 
-Framework de Interfaz de Usuario: React.
+Herramienta de Diseño: Bootstrap 5, CSS.
 
-Framework de Lógica del Sistema: Node.js
+13.9.2. Capa de controladores
 
-Base de datos: MySQL
+NodeJS con Express: Herramienta utilizada para la administración de rutas y manejo de solicitudes HTTP.
 
-13.9.1.1. Seguridad y respaldo de datos
+Axios: librería utilizada para la comunicación entre componentes del sistema mediante solicitudes HTTP.
 
-Validación mediante correo electrónico y contraseña, uso de HTTPS en caso de acceso remoto.
+POSTMAN: Herramienta utilizada para pruebas, validación y monitoreo de servicios API durante el desarrollo.
 
-Control de acceso por roles como, Administrador, Gerencia, Operario, Ventas y Cobranza.
+HTTPS: Protocolo de Transferencia de Hipertexto Seguro.
 
-13.9.1.2. Infraestructura mínima recomendada
+Caddy: Servidor Web y proxy inverso de código abierto para publicar la interfaz del sistema. Se distingue por tener HTTPS automático por defecto, puede generar y renovar certificados de seguridad sin intervención manual, lo que facilita el despliegue de sitios web seguros.
 
-Procesador: Intel Core i3 o AMD Ryzen 3 equivalente.
+HTTP interno: Protocolo de Transferencia de Hipertexto.
 
-Memoria RAM: 4GB.
+13.9.3. Capa de Lógica y de negocio
 
-Almacenamiento disponible: 20 GB libres en disco duro o SSD.
+JavaScript: Lenguaje de programación que será utilizado para el sistema.
 
-Sistema operativo: Windows 10 o superior.
+NodeJS: Entorno de ejecución basado en JavaScript, utilizado para implementar procesos internos, validaciones y regla de negocio.
+
+13.9.4: Capa de seguridad y Autenticación
+
+Auth0: Proveedor de identidad y autenticación de usuarios, emite credenciales de acceso y de Identificación, por defecto utiliza JWT como formato para representar credenciales de acceso y autenticación. Contiene información codificada y se firma digitalmente para garantizar su integridad.
+
+13.9.5: Capa de Datos:
+
+MySQL: Sistema gestor de bases de datos relacional utilizado para almacenar la información.
+
+MySQL Workbench: Herramienta utilizada para modelado y administración de la base de datos.
+
+Prisma ORM: utilizado como intermediario para facilitar consultas, migraciones y manipulación de datos.
+
+13.9.6. Infraestructura mínima recomendada
+
+Procesador: Intel Core i5 o AMD Ryzen 5 equivalente.
+
+Memoria RAM: 16GB.
+
+Almacenamiento disponible: 500 GB libres en disco duro o SSD.
+
+Sistema operativo: Windows 10 o superior y macOS 26 o superior.
 
 Conectividad: Acceso estable a internet o red local para sincronización y uso compartido del sistema.
 
-13.9.1.3. Escalabilidad y mejoras futuras
+13.9.7. Escalabilidad y mejoras futuras
 
 Escalabilidad: El sistema propuesto podrá ampliarse gradualmente según las necesidades de la empresa y el crecimiento de su operación.
 
