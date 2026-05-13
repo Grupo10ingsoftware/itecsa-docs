@@ -1,12 +1,12 @@
 # Diagrama de Componentes
 
-Este documento define la vista logica de componentes del sistema de gestion de produccion para Inversiones Tecnologicas S.A. (ITECSA). La vista considera los roles RF04, el flujo Kanban con Control de calidad, las reglas de auditoria RNF07/RNF08, Auth0/JWT, Prisma ORM, MySQL, Manager, Postman y MySQL Workbench.
+Este documento define la vista logica de componentes del sistema de gestion de produccion para Inversiones Tecnologicas S.A. (ITECSA). La vista considera los roles RF04, el flujo Kanban definido por RF45, las reglas de auditoria RNF07/RNF08, Auth0/JWT, Prisma ORM, MySQL, Manager, Postman y MySQL Workbench.
 
 La vista se centra en responsabilidades logicas e interfaces entre componentes. No representa nodos fisicos, procesos en ejecucion, servidores, contenedores ni ubicaciones de ejecucion; esos aspectos se cubren en la vista de despliegue fisico-operacional.
 
 ## Sistema de Interes
 
-El sistema de interes es el sistema de gestion de produccion de ITECSA, usado para centralizar el ingreso de pedidos desde Nota de Venta, validacion de pago, preparacion documental, seguimiento productivo, control de calidad, trazabilidad, auditoria, notificaciones, reportes y administracion.
+El sistema de interes es el sistema de gestion de produccion de ITECSA, usado para centralizar el ingreso de pedidos desde Nota de Venta, validacion de pago, preparacion documental, seguimiento productivo, trazabilidad, auditoria, notificaciones, reportes y administracion.
 
 ## Interesados y Preocupaciones
 
@@ -15,7 +15,7 @@ El sistema de interes es el sistema de gestion de produccion de ITECSA, usado pa
 | Administrador | Configuracion del sistema, roles, permisos, parametros productivos, estados, trazabilidad, auditoria, control de acceso y administracion de usuarios. |
 | Ventas | Ingreso de pedidos, datos de Nota de Venta, adjuntos, alertas de sobrecarga y visibilidad del avance productivo. |
 | Cobranzas | Confirmacion o rechazo de pago, bloqueo de avance a produccion y trazabilidad de decisiones. |
-| Operario | Seguimiento por Kanban, actualizacion de estados y subprocesos, comentarios, control de calidad, adjuntos y documentos asociados. |
+| Operario | Seguimiento por Kanban, actualizacion de estados y subprocesos, comentarios, adjuntos y documentos asociados. |
 | Gerencia | Reportes, indicadores, cumplimiento, carga productiva y visibilidad del proceso. |
 | Equipo de desarrollo | Separacion de responsabilidades logicas, dependencias entre componentes, interfaces y correspondencia con tecnologias de implementacion. |
 | Administracion tecnica / soporte | Persistencia, auditoria, integraciones externas, datos para operacion, respaldo y herramientas de soporte sin confundirlas con componentes funcionales. |
@@ -40,11 +40,11 @@ El sistema de interes es el sistema de gestion de produccion de ITECSA, usado pa
 | 3 | Confirmacion de Cobro | Permitir que Cobranzas actualice el estado de pago desde el detalle del Kanban usando Confirmado, Rechazado y Pendiente; bloquear avance a produccion si el pago no esta confirmado; registrar fecha/hora de servidor y usuario; incorporar la firma electronica registrada del usuario a la NV cuando el pago se confirme. | Cobranzas |
 | 4 | Asociacion de Orden de Produccion y Ficha Cliente | Permitir que Administrador adjunte una o mas Ordenes de Produccion y la ficha cliente a la entidad Pedido cuando el pago este confirmado. Mantiene la relacion Pedido-NV-OP-ficha cliente. | Administrador |
 | 5 | Kanban y Seguimiento Productivo | Mostrar pedidos en columnas fijas segun estado, abrir detalle del pedido, permitir cambios manuales autorizados por arrastrar y soltar, mostrar subprocesos segun tipo de producto, actualizar subprocesos mediante Stepper, registrar comentarios al cambiar subproceso, aplicar firma electronica en ficha cliente y mostrar etiquetas visuales. | Operario, Administrador, Ventas, Cobranzas, Gerencia |
-| 6 | Trazabilidad, Comentarios y Adjuntos | Registrar historial completo de eventos por pedido: cambios de estado, confirmaciones o rechazos de pago, rechazos de control de calidad, comentarios, alertas, adjuntos, firmas electronicas, ingreso bajo sobrecarga, fecha, hora y usuario responsable, sin sobrescribir registros previos. | Todos segun permisos |
+| 6 | Trazabilidad, Comentarios y Adjuntos | Registrar historial completo de eventos por pedido: cambios de estado, confirmaciones o rechazos de pago, comentarios, alertas, adjuntos, firmas electronicas, ingreso bajo sobrecarga, fecha, hora y usuario responsable, sin sobrescribir registros previos. | Todos segun permisos |
 | 7 | Capacidad, Plazos y Alertas | Configurar capacidad productiva, calcular carga diaria, alertar sobrecarga desde 90%, calcular fecha estimada de termino por tipo de producto y cantidad, permitir parametros configurables por tipo/rango y registrar pedidos ingresados bajo sobrecarga operativa. | Administrador, Ventas, Operario |
 | 8 | Firma Electronica y Documentos Firmados | Almacenar y exponer firma electronica registrada de usuarios; incorporarla a la Nota de Venta al confirmar pago y a la ficha cliente cuando se actualice el estado de un subproceso productivo. Los JWT de Auth0 siguen siendo credenciales firmadas criptograficamente independientes de esta firma electronica de usuario. | Administrador, Cobranzas, Operario |
 | 9 | Gestion de Prioridad y Etiquetas Visuales | Administrar etiquetas Urgencia, Atraso y Prioridad; permitir asignacion/remocion de etiquetas; permitir ajuste de prioridad por Administrador u Operario autorizado; entregar datos de prioridad y etiquetas a Kanban, Trazabilidad y Reportes. El calculo de sobrecarga queda en Capacidad, Plazos y Alertas. | Administrador, Operario |
-| 10 | Notificaciones | Emitir avisos internos o por correo ante eventos relevantes: nuevo pedido, pago confirmado, pedido urgente, disponibilidad para despacho cuando el pedido llegue a Listo para entrega, rechazo de Nota de Venta y comunicaciones internas. | Ventas, Operario, Administrador, Cobranzas |
+| 10 | Notificaciones | Emitir avisos internos o por correo ante eventos respaldados por RF: nuevo pedido a Administrador, pedido urgente a Operario, disponibilidad para despacho a Ventas, panel de anuncios internos visible para usuarios autorizados y publicaciones de comunicados por Administrador. | Ventas, Operario, Administrador, todos los usuarios autorizados |
 | 11 | Reportes e Indicadores | Generar reportes de pedidos por estado, entregas a tiempo/fuera de plazo, carga de produccion, tiempos de ciclo hasta Listo para entrega, ranking de productos, cumplimiento por vendedor incluyendo pedidos bajo sobrecarga y exportaciones Excel/CSV. | Gerencia, Administrador |
 | 12 | Administracion del Sistema | Configurar parametros generales: roles, permisos, estados productivos, etiquetas, prioridad, capacidad diaria, rangos de estimacion por tipo de producto/cantidad, reglas de transicion, anuncios internos, parametros de Auth0/JWT que correspondan al sistema y parametros usados por los demas componentes. | Administrador |
 | 13 | Auditoria y Bitacora de Seguridad | Registrar eventos auditables con fecha y hora del servidor: intentos de acceso, uso de servicios HTTP protegidos, cambios de estado, confirmaciones de pago, cambios sobre usuarios desactivados, errores relevantes de integracion y eventos operativos que deben conservarse. Mantiene historial inmutable y consultable para cumplimiento RNF07/RNF08. | Administrador, soporte autorizado |
@@ -72,8 +72,8 @@ Los siguientes datos son logicos y preliminares. No representan todavia el Model
 | 2 | Gestion de Pedidos y Nota de Venta | `id_pedido`, `numero_nota_venta`, datos importados desde Manager, archivo PDF de NV, archivos de diseno, fecha de creacion, hora de creacion, razon social, RUT cliente, descripcion de producto, cantidad, datos para fabricacion, tipo de producto, estado del pedido, vendedor responsable. |
 | 3 | Confirmacion de Cobro | `id_pedido`, `numero_nota_venta`, estado de pago, usuario de Cobranzas responsable, fecha y hora de servidor de confirmacion o rechazo, firma electronica aplicada al documento, observacion o motivo si corresponde, bloqueo/desbloqueo para produccion. |
 | 4 | Asociacion de Orden de Produccion y Ficha Cliente | `id_pedido`, numero de OP, documentos de OP, ficha cliente, fecha de adjunto, usuario que adjunta, relacion Pedido-NV-OP-ficha, estado documental. |
-| 5 | Kanban y Seguimiento Productivo | `id_pedido`, estado actual, columna actual, tipo de producto, detalle del pedido, subprocesos por tipo de producto, estado de subproceso, comentarios de subproceso, fecha y hora del ultimo cambio, tiempo en estado actual, etiquetas, prioridad, indicador visual de retraso, motivo de rechazo en control de calidad. |
-| 6 | Trazabilidad, Comentarios y Adjuntos | ID de evento, pedido asociado, tipo de evento, estado anterior, estado nuevo, usuario responsable, fecha, hora, comentario, alerta, adjunto, firma electronica, condicion de sobrecarga, metadatos del documento, rechazo de control de calidad. |
+| 5 | Kanban y Seguimiento Productivo | `id_pedido`, estado actual, columna actual, tipo de producto, detalle del pedido, subprocesos por tipo de producto, estado de subproceso, comentarios de subproceso, fecha y hora del ultimo cambio, tiempo en estado actual, etiquetas, prioridad, indicador visual de retraso. |
+| 6 | Trazabilidad, Comentarios y Adjuntos | ID de evento, pedido asociado, tipo de evento, estado anterior, estado nuevo, usuario responsable, fecha, hora, comentario, alerta, adjunto, firma electronica, condicion de sobrecarga, metadatos del documento. |
 | 7 | Capacidad, Plazos y Alertas | tipo de producto, rango de cantidad, capacidad maxima diaria, capacidad utilizada, capacidad disponible, fecha solicitada, fecha estimada de termino, parametros de estimacion, porcentaje de carga, nivel de alerta, indicador de sobrecarga. |
 | 8 | Firma Electronica y Documentos Firmados | ID de firma, usuario titular, formato de firma, documento firmado, tipo de documento, fecha y hora de firma, accion que origina la firma, validacion de disponibilidad de firma. |
 | 9 | Gestion de Prioridad y Etiquetas Visuales | etiquetas disponibles, etiquetas asignadas, prioridad del pedido, usuario que asigna o remueve, fecha y hora de cambio, condicion de urgencia, condicion de atraso. |
@@ -115,11 +115,7 @@ Confirmacion de pago en detalle del pedido dentro del Kanban
                           Seguimiento productivo por Kanban y subprocesos
                                 |
                                 v
-                          Control de calidad
-                                |
-                                +-- Rechazado --> vuelve a En produccion con motivo registrado
-                                |
-                                +-- Aprobado --> Listo para entrega
+                          Pedido pasa a Listo para entrega
 ```
 
 ## Columnas Vigentes del Kanban
@@ -134,9 +130,6 @@ Listo para produccion
 En produccion
         |
         v
-Control de calidad
-        |
-        v
 Listo para entrega
 ```
 
@@ -144,10 +137,10 @@ Listo para entrega
 
 | Tipo de producto | Subprocesos |
 | --- | --- |
-| Lanyard | Impresion, sublimacion, corte, costura, control de calidad |
-| Tarjeta | Revisar informacion, ordenar informacion, cargar datos, control de calidad |
+| Lanyard | Impresion, sublimacion, corte, costura |
+| Tarjeta | Revisar informacion, ordenar informacion, cargar datos |
 
-Cada subproceso se actualiza mediante Stepper interactivo por usuario autorizado. Al cambiar un subproceso, el sistema debe permitir comentario y agregar la firma electronica del usuario a la ficha cliente. Si un pedido es rechazado en Control de calidad, debe registrarse motivo, fecha, hora y usuario, y el pedido vuelve a En produccion.
+Cada subproceso se actualiza mediante Stepper interactivo por usuario autorizado. Al cambiar un subproceso, el sistema debe permitir comentario y agregar la firma electronica del usuario a la ficha cliente.
 
 ## Relaciones entre Componentes
 
@@ -193,7 +186,7 @@ Asociacion de Orden de Produccion y Ficha Cliente
 Kanban y Seguimiento Productivo
         -> muestra Pedido por estado
         -> actualiza estados y subprocesos
-        -> gestiona Control de calidad y reproceso por rechazo
+        -> calcula tiempos por etapa e indicador visual de retraso
         -> usa Gestion de Prioridad y Etiquetas Visuales para etiquetas/prioridad
         -> usa Firma Electronica y Documentos Firmados al actualizar subprocesos
         -> registra eventos en Trazabilidad y Auditoria
@@ -211,8 +204,9 @@ Gestion de Prioridad y Etiquetas Visuales
         -> alimenta Reportes e Indicadores
 
 Notificaciones
-        -> recibe eventos desde Pedido, Pago, Kanban y Capacidad
+        -> recibe eventos desde Pedidos, Kanban y Administracion del Sistema
         -> envia avisos internos o por correo
+        -> gestiona panel de notificaciones y anuncios internos
 
 Reportes e Indicadores
         -> consume datos desde Trazabilidad, Auditoria, Kanban, Capacidad y Prioridad
@@ -274,6 +268,7 @@ Repositorio Documental
 | Regla | Criterio de consistencia |
 | --- | --- |
 | Separacion de responsabilidades | Cada componente funcional debe mantener una responsabilidad principal identificable y no asumir responsabilidades de otro componente de la tabla principal. |
+| Precedencia RF/UR | Cuando casos de uso, glosario o anexos contradicen RF/UR vigentes, esta vista usa RF/UR como fuente normativa. |
 | Acceso protegido | Toda operacion protegida debe pasar por la Interfaz de Servicios HTTP y Controladores, validar JWT y consultar Gestion de Usuarios y Roles para autorizacion interna. |
 | Roles formales | Los roles de sistema son Administrador, Gerencia, Operario, Ventas y Cobranzas. Diseno se trata como area organizacional/documental, no como rol formal del sistema. |
 | Persistencia relacional | Los componentes funcionales no acceden directamente al repositorio relacional; usan Acceso a Datos como dependencia transversal. |
@@ -359,10 +354,11 @@ flowchart TD
     OPFicha -->|"documentos asociados"| Trazabilidad
     OPFicha -->|"OP y ficha cliente"| RepoDocs
 
-    Kanban -->|"cambios de estado, subprocesos y control de calidad"| Trazabilidad
+    Kanban -->|"cambios de estado y subprocesos"| Trazabilidad
     Kanban -->|"usa etiquetas y prioridad"| Prioridad
     Kanban -->|"solicita firma en subproceso"| Firma
-    Kanban -->|"eventos de seguimiento"| Notificaciones
+    Pedidos -->|"nuevo pedido y condicion urgente"| Notificaciones
+    Kanban -->|"estado Listo para entrega"| Notificaciones
     Kanban -->|"estado de pedidos"| Reportes
     Kanban -->|"eventos auditables"| Auditoria
 
@@ -377,10 +373,12 @@ flowchart TD
     Trazabilidad -->|"eventos auditables"| Auditoria
     Firma -->|"documentos firmados"| RepoDocs
     Notificaciones -->|"envia correos"| Correo
+    Notificaciones -->|"panel interno y anuncios"| Web
     Admin -->|"configura reglas y parametros"| Usuarios
     Admin -->|"configura capacidad"| Capacidad
     Admin -->|"configura etiquetas"| Prioridad
     Admin -->|"configura estados"| Kanban
+    Admin -->|"publica comunicados"| Notificaciones
     Admin -->|"cambios administrativos"| Auditoria
     Auditoria -->|"datos auditables"| Reportes
 
@@ -422,7 +420,7 @@ flowchart TD
 - Auth0 se modela como servicio externo de identidad porque autentica usuarios y emite JWTs; Gestion de Usuarios y Roles conserva la responsabilidad interna de autorizacion por rol y relacion con `auth0_user_id`.
 - Auditoria y Bitacora de Seguridad es un componente logico porque RNF07 y RNF08 requieren conservar eventos con fecha/hora de servidor e historial de acciones asociadas a usuarios desactivados.
 - Repositorio Documental concentra archivos binarios, firmas, NV, OP, fichas y archivos de diseno para mantenerlos separados del modelo relacional principal.
-- Control de calidad forma parte del flujo Kanban porque el Documento 0 lo define como estado del proceso e incluye casos de uso de rechazo, reproceso e historial.
+- El flujo Kanban se limita a las columnas definidas por RF45. Las menciones antiguas a estados o casos de uso sin respaldo en RF/UR vigentes no se incorporan a esta vista.
 - Postman, MySQL Workbench, monitoreo y respaldos corresponden a soporte tecnico-operativo. No ejecutan responsabilidades funcionales, por lo que se tratan como herramientas de soporte.
 
 ## Justificacion de Herramientas Operativas
