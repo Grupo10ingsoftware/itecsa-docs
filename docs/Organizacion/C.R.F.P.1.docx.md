@@ -46,7 +46,7 @@ Que siga el estándar que esta en el mockup
 
 RF14: Mensaje de acceso denegado por rol
 
--Estructura tipo alerta (ligado al 13 estrictamente)
+Estructura tipo alerta (ligado al 13 estrictamente)
 
 Itecsa | Sección Ventas: (Todos los que vayan terminando se ponen a desarrollar aquí)
 
