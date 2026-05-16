@@ -373,32 +373,106 @@ RF48: El sistema debe permitir al usuario con rol Operario actualizar el estado 
 
 ### Table 15
 
-| Caso de uso N° 1 | Ingresando credenciales de inicio de sesión |
+| Caso de uso N° 29 | Actualizando automáticamente el estado del pedido |
 | --- | --- |
-| Actores | Usuario de cualquier rol |
-| Propósito | La autenticación de los usuarios mediante el ingreso de correo y contraseña en el formulario |
-| Precondiciones | El usuario debe tener una cuenta previamente registrada <br> El estado de la cuenta debe ser ‘Vinculado’ |
-| Resumen | El Usuario ingresa su correo y contraseña en el formulario de ingreso, para posteriormente el sistema valide ambos campos antes de procesar el envío |
-| Postcondiciones | El usuario está correctamente autenticado |
+| Actores | Usuario con rol de Cobranzas |
+| Propósito | Cambiar el estado de pago de un pedido para que entre en el flujo principal del Kanban |
+| Precondiciones | Un pedido generado en base a la nota de ventas con estado de “pago pendiente” <br> El pedido debe tener adjuntado el PDF de la Nota de Venta |
+| Resumen | El usuario con rol de cobranza cambia el estado de pago de un pedido, haciendo que este pase automáticamente al flujo de estados del Kanban. |
+| Postcondiciones | Un pedido con pago confirmado en la etapa “listo para producción” |
 | Tipos | Principal |
 | Curso normal de eventos | Curso normal de eventos |
 | Acciones de los actores | Respuesta del sistema |
-| 1. El usuario accede a la pantalla de inicio de sesión | 2. El sistema muestra el formulario con los campos ‘Correo electrónico’ y ‘Contraseña’ |
-| 3. El usuario ingresa su correo electrónico y contraseña | 4. El sistema valida que el correo cumpla el formato texto@dominio.extension y la contraseña cumpla: mínimo 8 caracteres, al menos una letra mayúscula, al menos una letra minúscula, al menos un número, al menos un símbolo especial |
-| 5. El usuario envía el formulario | 6. El sistema procesa las credenciales y continúa con la autenticación |
+| 1. El usuario ve la lista de pedidos. | 2. El sistema muestra el estado de pago de los pedidos. |
+| 3. El usuario cambia el estado de pago de uno de los pedidos. | 4. El sistema registra el cambio en el pedido. |
+| [EMPTY] | 6. El sistema cambia el estado del pedido de forma automática a “listo para producción”. |
 
 ### Table 16
 
-| Caso de uso N° 5 | Visualizando error de autenticación |
+| Caso de uso N° 33 | Restringiendo el cambio manual |
 | --- | --- |
-| Actores | Usuario de cualquier rol |
-| Propósito | Notificar al usuario un error a la hora de ingresar: <br> Correo inexistente en la base de datos <br> Contraseña incorrecta para el correo registrado |
-| Precondiciones | El usuario debe estar registrado previamente en el sistema |
-| Resumen | Al enviar un formulario de inicio de sesión con correo o contraseña incorrecta, el sistema va a notificar mostrando el mensaje ‘Correo o contraseña incorrecta’ |
-| Postcondiciones | El usuario es notificado de que las credenciales ingresadas son incorrectas y permanece en la pantalla de inicio de sesión con la posibilidad de reintentar |
-| Tipos | Secundario. |
+| Actores | Usuario con rol de cobranza |
+| Propósito | Impedir que el usuario con rol de cobranza cambie de forma manual el estado de un pedido sin la debida confirmación de pago. |
+| Precondiciones | Un pedido generado en base a la nota de ventas con estado de “pago pendiente” <br> El pedido debe tener adjuntado el PDF de la Nota de Venta |
+| Resumen | El sistema impide el cambio de estado de forma manual |
+| Postcondiciones | Un pedido con estado de pago “pendiente” o “rechazado” |
+| Tipos | Principal |
 | Curso normal de eventos | Curso normal de eventos |
 | Acciones de los actores | Respuesta del sistema |
-| 1. El usuario envía el formulario de ingreso con su correo y contraseña ingresados. | 2. El sistema valida el formato de los campos. |
-| 3. El usuario espera la respuesta del sistema. | 4. El sistema no encuentra coincidencia debido a un correo ingresado inexistente o una contraseña ingresada incorrecta, mostrando el mensaje ‘Correo o contraseña incorrecta’. |
-| 5. El usuario visualiza el mensaje de error. | 6. El sistema mantiene el formulario disponible para nuevo intento. |
+| 1. El usuario intenta cambiar manualmente el estado del pedido | 2. El sistema detecta los esfuerzos del usuario y no permite la acción |
+| 3. El usuario ve frustrada su acción | 4. El sistema registra el cambio en el pedido. |
+
+### Table 17
+
+| Caso de uso N° 43 | Visualizando el tablero de Kanban |
+| --- | --- |
+| Actores | Usuarios de cualquier rol |
+| Propósito | Que los usuarios tengan una referencia visual del Kanban |
+| Precondiciones | Pedidos con estado de pago confirmado |
+| Resumen | El sistema debe permitir a los usuarios visualizar el tablero Kanban |
+| Postcondiciones | Pedidos visibles dentro del flujo productivo |
+| Tipos | Principal |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario ve la interfaz del Kanban. | 2. El sistema muestra el Kanban con los pedidos en tiempo real. |
+
+### Table 18
+
+| Caso de uso N° 44 | Visualizando el detalle del pedido |
+| --- | --- |
+| Actores | Usuarios con cualquier rol |
+| Propósito | Visualizar a detalle el estado del pedido |
+| Precondiciones | Un pedido con estado de pago confirmado dentro del flujo |
+| Resumen | El sistema debe permitir visualizar el detalle del pedido |
+| Postcondiciones | Un pedido con su información detallada visible para el usuario |
+| Tipos | Principal |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario ve la lista de pedidos. | 2. El sistema el permite hacer click al usuario sobre el pedido |
+| 3. El usuario es capaz de ver el detalle del pedido | 4. El sistema muestra el detalle del pedido |
+
+### Table 19
+
+| Caso de uso N° 46 | Cambiando manualmente el estado del pedido |
+| --- | --- |
+| Actores | Usuario autorizado |
+| Propósito | Permitir al usuario autorizado cambiar manualmente el estado del pedido |
+| Precondiciones | Un pedido dentro del flujo de producción <br> Un usuario autorizado |
+| Resumen | El sistema debe permitir a los usuarios autorizados cambiar manualmente el estado del pedido |
+| Postcondiciones | Un pedido en una etapa distinta del flujo Kanban |
+| Tipos | Principal |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario autorizado termina de trabajar el pedido en su etapa del proceso | 2. El sistema le da la posibilidad de arrastrar el pedido hacia el estado siguiente. |
+| 3. El usuario arrastra el pedido hasta el siguiente estado | 4. El sistema ancla el pedido al siguiente estado |
+
+### Table 20
+
+| Caso de uso N° 48 | Actualizando el estado del sub-proceso de producción |
+| --- | --- |
+| Actores | Usuario con rol de operario de producción |
+| Propósito | Permitir a los operarios actualizar el estado de los subprocesos de un pedido |
+| Precondiciones | Debe existir un pedido dentro del flujo de producción, en el estado de “En producción” |
+| Resumen | El sistema le permite al usuario con rol de operario cambiar el estado del subproceso del pedido |
+| Postcondiciones | El estado del subproceso dentro del pedido queda actualizado |
+| Tipos | Principal |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario con rol de operario interactúa con un pedido en estado “en producción” . | 2.El sistema muestra el detalle de estado del subproceso en el que se encuentra este. |
+| 3. El usuario con rol de operario, cambia el estado del subproceso del pedido. | 4. El sistema detecta el intento de cambio y cambia el estado. |
+
+### Table 21
+
+| Caso de uso N° 29 | [EMPTY] |
+| --- | --- |
+| Actores | Usuario con rol de Cobranzas |
+| Propósito | Cambiar el estado de pago de un pedido para que entre en el flujo principal del Kanban |
+| Precondiciones | Un pedido generado en base a la nota de ventas con estado de “pago pendiente” <br> El pedido debe tener adjuntado el PDF de la Nota de Venta |
+| Resumen | El usuario con rol de cobranza cambia el estado de pago de un pedido, haciendo que este pase automáticamente al flujo de estados del Kanban. |
+| Postcondiciones | Un pedido con pago confirmado en la etapa “listo para producción” |
+| Tipos | Principal |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario ve la lista de pedidos. | 2. El sistema muestra el estado de pago de los pedidos. |
+| 3. El usuario cambia el estado de pago de uno de los pedidos. | 4. El sistema registra el cambio en el pedido. |
+| [EMPTY] | 6. El sistema cambia el estado del pedido de forma automática a “listo para producción”. |
