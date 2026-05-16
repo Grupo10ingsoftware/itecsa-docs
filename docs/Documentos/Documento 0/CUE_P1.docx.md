@@ -20,6 +20,22 @@ al menos un símbolo especial
 
 Si el formato no es válido, el sistema debe impedir el envío del formulario.
 
+### Table 1
+
+| Caso de uso N°1 | Ingresando credenciales de inicio de sesión |
+| --- | --- |
+| Actores | Usuario de cualquier rol |
+| Propósito | La autenticación de los usuarios mediante el ingreso de correo y contraseña en el formulario |
+| Precondiciones | El usuario debe tener una cuenta previamente registrada <br> El estado de la cuenta debe ser ‘Vinculado’ |
+| Resumen | El Usuario ingresa su correo y contraseña en el formulario de ingreso, para posteriormente el sistema valide ambos campos antes de procesar el envío |
+| Postcondiciones | El usuario está correctamente autenticado |
+| Tipos | Principal |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario accede a la pantalla de inicio de sesión | 2. El sistema muestra el formulario con los campos ‘Correo electrónico’ y ‘Contraseña’ |
+| 3. El usuario ingresa su correo electrónico y contraseña | 4. El sistema valida que el correo cumpla el formato texto@dominio.extension y la contraseña cumpla: mínimo 8 caracteres, al menos una letra mayúscula, al menos una letra minúscula, al menos un número, al menos un símbolo especial |
+| 5. El usuario envía el formulario | 6. El sistema procesa las credenciales y continúa con la autenticación |
+
 3- Alerta de error en autenticación
 
 RF03: El sistema debe mostrar al usuario autorizado el mensaje “Correo o contraseña incorrectos” cuando:
@@ -28,13 +44,74 @@ El correo ingresado no corresponda a un usuario registrado
 
 La contraseña no coincida con la almacenada
 
+### Table 2
+
+| Caso de uso N° 5 | Visualizando error de autenticación |
+| --- | --- |
+| Actores | Usuario de cualquier rol |
+| Propósito | Notificar al usuario un error a la hora de ingresar: <br> Correo inexistente en la base de datos <br> Contraseña incorrecta para el correo registrado |
+| Precondiciones | El usuario debe estar registrado previamente en el sistema |
+| Resumen | Al enviar un formulario de inicio de sesión con correo o contraseña incorrecta, el sistema va a notificar mostrando el mensaje ‘Correo o contraseña incorrecta’ |
+| Postcondiciones | El usuario es notificado de que las credenciales ingresadas son incorrectas y permanece en la pantalla de inicio de sesión con la posibilidad de reintentar |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario envía el formulario de ingreso con su correo y contraseña ingresados. | 2. El sistema valida el formato de los campos. |
+| 3. El usuario espera la respuesta del sistema. | 4. El sistema no encuentra coincidencia debido a un correo ingresado inexistente o una contraseña ingresada incorrecta, mostrando el mensaje ‘Correo o contraseña incorrecta’. |
+| 5. El usuario visualiza el mensaje de error. | 6. El sistema mantiene el formulario disponible para nuevo intento. |
+
 4. Lógica de roles mínimos.
 
 RF04: El sistema debe definir los roles: Administrador, Gerencia, Operario, Ventas y Cobranzas. Cada rol debe tener un conjunto de permisos asociados según la matriz definida en el anexo correspondiente.
 
+### Table 3
+
+| Caso de uso N° 6 | Consultando matriz de permisos por rol |
+| --- | --- |
+| Actores | Administrador |
+| Propósito | Permitir al Administrador revisar los permisos asignados a cada rol del sistema |
+| Precondiciones | El Administrador se encuentra autenticado con estado 'Vinculado'. <br> Los roles del sistema están configurados: Administrador, Gerencia, Operario, Ventas y Cobranzas. |
+| Resumen | El Administrador accede a la sección de gestión de roles y selecciona un rol para revisar los permisos que tiene asociados según la matriz definida en el sistema. |
+| Postcondiciones | El administrador obtiene acceso a la visualización de permisos asociados al rol consultado |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El Administrador accede a la sección de gestión de roles. | 2. El sistema muestra el listado de roles disponibles: Administrador, Gerencia, Operario, Ventas y Cobranzas. |
+| 3. El Administrador selecciona un rol de la lista. | 4. El sistema despliega los permisos asociados al rol seleccionado según la matriz de permisos definida. |
+| 5. El Administrador revisa los permisos del rol consultado. | 6. El sistema mantiene la información visible mientras el Administrador permanezca en la vista. |
+
 7. Visualización del perfil de usuario
 
 RF07: El sistema debe mostrar al usuario autenticado la información de la sección “Mi perfil” desde cualquier vista, mostrando primer nombre, apellido paterno, correo y rol
+
+### Table 4
+
+| Caso de uso N° 9 | Visualizando perfil de usuario. |
+| --- | --- |
+| Actores | Usuario de cualquier rol. |
+| Propósito | Permitir al usuario consultar su información de perfil y sus registros recientes según sus permisos. |
+| Precondiciones | -El usuario debe haber iniciado sesión en el sistema. |
+| Resumen | El usuario accede a la sección “Mi perfil”, donde puede visualizar su primer nombre, apellido paterno, correo electrónico y rol. |
+| Postcondiciones | -El usuario visualiza correctamente su información personal y registros recientes. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario accede a la opción “Mi perfil”. | 2. El sistema abre la pantalla de perfil del usuario. |
+| 3. El usuario revisa la información mostrada. | 4. El sistema presenta primer nombre, apellido paterno, correo electrónico y rol. |
+
+### Table 5
+
+| Caso de uso N° 10 | Visualizando historial en perfil de usuario. |
+| --- | --- |
+| Actores | Usuario de cualquier rol. |
+| Propósito | Permitir al usuario revisar los últimos registros de actividad asociados a su cuenta teniendo en cuenta sus permisos |
+| Precondiciones | El usuario debe encontrarse registrado en el sistema con estado ‘Vinculado’ <br> El usuario se encuentra en la vista ‘Mi perfil’ |
+| Resumen | El usuario accede a la sección “Mi perfil”, donde puede visualizar su historial de actividad mostrando los últimos 10 registros asociados según sus permisos. |
+| Postcondiciones | El usuario visualiza correctamente su actividad en el sistema. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario accede a la opción “Mi perfil”. <br> 3. El usuario revisa la información mostrada. <br> 5. El usuario consulta sus registros recientes. | 2. El sistema abre la pantalla de perfil del usuario. <br> 4. El sistema muestra su información de perfil <br> 6. El sistema muestra los últimos 10 registros asociados según sus permisos. |
 
 10. Validación de credenciales y estado vinculado.
 
@@ -44,15 +121,47 @@ RF10: El sistema debe validar que el correo electrónico y la contraseña ingres
 
 RF11: El sistema debe permitir el acceso cuando el correo electrónico y la contraseña correspondan a un usuario registrado y su estado sea “vinculado”.
 
+### Table 6
+
+| Caso de uso N° ## | Iniciando sesión de manera exitosa |
+| --- | --- |
+| Actores | Usuario de cualquier rol |
+| Propósito | Permitir que un usuario registrado acceda al sistema y sea redirigido a la vista principal del sistema |
+| Precondiciones | El usuario debe estar registrado previamente en el sistema <br> El estado del usuario debe ser “vinculado” <br> El usuario debe encontrarse en la vista de inicio de sesión |
+| Resumen | El usuario envía el formulario de inicio de sesión con sus credenciales. El sistema valida las credenciales y el estado del usuario, iniciando la sesión y mostrando la vista principal del sistema |
+| Postcondiciones | El usuario queda autenticado en el sistema |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario envía el formulario de inicio de sesión | 2. El sistema valida que el correo electrónico y la contraseña correspondan a un usuario registrado |
+| 3. El usuario espera el resultado de la autenticación | 4. El sistema verifica que el estado del usuario sea “vinculado” |
+| 5. El usuario accede al sistema autenticado | 6. El sistema inicia la sesión y redirige al usuario hacia la vista principal del sistema |
+
 12. Validación de correo electrónico único.
 
 RF12: El sistema debe validar que el correo electrónico no esté previamente registrado en la tabla de usuarios, independientemente de si el usuario está vinculado o desvinculado. En caso de duplicado, debe mostrar el mensaje “El correo ingresado ya está asociado a una cuenta”.
+
+### Table 7
+
+| Caso de uso N° ## | Registrando usuario con correo anteriormente registrado |
+| --- | --- |
+| Actores | Usuario con rol Administrador |
+| Propósito | Informar al actor que el correo ingresado para el registro de un usuario ha sido registrado anteriormente |
+| Precondiciones | El administrador se encuentra autenticado con rol Administrador y estado “Vinculado”. |
+| Resumen | El administrador intenta registrar un usuario utilizando un correo electrónico existente dentro de la base de datos. El sistema detecta la duplicidad e impide el registro de usuario, notificando la duplicidad del correo |
+| Postcondiciones | El sistema no crea ningún registro nuevo de usuario en la base de datos <br> El sistema mantiene el formulario visible, destacando la necesidad de ingresar otro correo |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| El usuario accede al módulo de gestión de usuarios | 2. El sistema muestra el formulario de creación de usuario. |
+| 3. El administrador ingresa dentro de los campos solicitados un correo existente en el sistema y envía el formulario | 4. El sistema detecta el correo duplicado y muestra el mensaje “El correo ingresado ya está asociado a una cuenta” |
+| 5. El administrador observa el mensaje en pantalla. | 6. El sistema impide registrar el nuevo usuario. |
 
 13. Restricción de acceso por rol.
 
 RF13: El sistema debe restringir el acceso a una URL protegida según el rol del usuario autenticado
 
-### Table 1
+### Table 8
 
 | Caso de uso N°13 | Accediendo a una URL protegida según rol |
 | --- | --- |
@@ -73,7 +182,7 @@ RF13: El sistema debe restringir el acceso a una URL protegida según el rol del
 
 RF14: El sistema debe redirigir al usuario a una página de “Acceso denegado” si este intenta acceder a un recurso para el cual no tenga permisos
 
-### Table 2
+### Table 9
 
 | Caso de uso N°14 | Visualizando acceso denegado por permisos insuficientes |
 | --- | --- |
@@ -94,7 +203,7 @@ RF14: El sistema debe redirigir al usuario a una página de “Acceso denegado�
 
 RF15: El sistema debe proveer un flujo de “Olvidé mi contraseña” que solicité el correo electrónico. Si el correo existe en el sistema, debe enviar un enlace URL único y temporal al correo existente para establecer una nueva contraseña. Si el correo no existe, el sistema debe informar que no se encontró una cuenta asociada. El enlace debe ser de un solo uso y tener una validez limitada en el tiempo. La nueva contraseña debe cumplir el formato: mínimo 8 caracteres, con al menos una letra mayúscula, una letra minúscula, un número y un símbolo especial.
 
-### Table 3
+### Table 10
 
 | Caso de uso N°15 | Recuperando la contraseña mediante correo electrónico |
 | --- | --- |
@@ -118,7 +227,7 @@ RF15: El sistema debe proveer un flujo de “Olvidé mi contraseña” que solic
 
 RF18: El sistema debe permitir a cualquier usuario autenticado cerrar su sesión desde cualquier vista del sistema.
 
-### Table 4
+### Table 11
 
 | Caso de uso N°18 | Cerrando sesión desde cualquier interfaz de usuario |
 | --- | --- |
@@ -140,7 +249,7 @@ RF18: El sistema debe permitir a cualquier usuario autenticado cerrar su sesión
 
 RF19: El sistema debe proporcionar a los usuarios con rol Ventas una interfaz para generar pedidos dentro del sistema
 
-### Table 5
+### Table 12
 
 | Caso de uso N°19 | Generando pedido desde el módulo de ventas |
 | --- | --- |
@@ -162,7 +271,7 @@ RF19: El sistema debe proporcionar a los usuarios con rol Ventas una interfaz pa
 
 RF20: El sistema debe permitir al usuario crear un pedido por medio de una interfaz que muestre una estructura tipo formulario que solicite Número de nota de Venta y archivo correspondiente a la Nota de Venta en formato PDF.
 
-### Table 6
+### Table 13
 
 | Caso de uso N°20 | Registrando pedido mediante formulario de Nota de Venta |
 | --- | --- |
@@ -185,7 +294,7 @@ RF20: El sistema debe permitir al usuario crear un pedido por medio de una inter
 
 RF27: El sistema debe permitir al usuario con rol Cobranzas actualizar el estado de pago en el detalle de pedido del Kanban mediante un menú desplegable con los estados ‘Confirmado’, ‘Rechazado’ y ‘Pendiente’
 
-### Table 7
+### Table 14
 
 | Caso de uso N°27 | Actualizando el estado de pago del pedido |
 | --- | --- |
@@ -262,7 +371,7 @@ Cargar datos
 
 RF48: El sistema debe permitir al usuario con rol Operario actualizar el estado del subproceso de producción mediante un Stepper interactivo según el tipo de producto.
 
-### Table 8
+### Table 15
 
 | Caso de uso N° 1 | Ingresando credenciales de inicio de sesión |
 | --- | --- |
@@ -278,7 +387,7 @@ RF48: El sistema debe permitir al usuario con rol Operario actualizar el estado 
 | 3. El usuario ingresa su correo electrónico y contraseña | 4. El sistema valida que el correo cumpla el formato texto@dominio.extension y la contraseña cumpla: mínimo 8 caracteres, al menos una letra mayúscula, al menos una letra minúscula, al menos un número, al menos un símbolo especial |
 | 5. El usuario envía el formulario | 6. El sistema procesa las credenciales y continúa con la autenticación |
 
-### Table 9
+### Table 16
 
 | Caso de uso N° 5 | Visualizando error de autenticación |
 | --- | --- |
