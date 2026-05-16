@@ -113,29 +113,25 @@ RF07: El sistema debe mostrar al usuario autenticado la información de la secci
 | Acciones de los actores | Respuesta del sistema |
 | 1. El usuario accede a la opción “Mi perfil”. <br> 3. El usuario revisa la información mostrada. <br> 5. El usuario consulta sus registros recientes. | 2. El sistema abre la pantalla de perfil del usuario. <br> 4. El sistema muestra su información de perfil <br> 6. El sistema muestra los últimos 10 registros asociados según sus permisos. |
 
-10. Validación de credenciales y estado vinculado.
+10. Ingreso de usuario validado.
 
-RF10: El sistema debe validar que el correo electrónico y la contraseña ingresados correspondan a un usuario registrado.
-
-11. Ingreso de usuario validado.
-
-RF11: El sistema debe permitir el acceso cuando el correo electrónico y la contraseña correspondan a un usuario registrado y su estado sea “vinculado”.
+RF10: El sistema debe permitir el acceso y redirigir al usuario a la vista de principal del tablero Kanban del sistema cuando el correo electrónico y la contraseña correspondan a un usuario registrado y su estado sea “vinculado”.
 
 ### Table 6
 
 | Caso de uso N° ## | Iniciando sesión de manera exitosa |
 | --- | --- |
 | Actores | Usuario de cualquier rol |
-| Propósito | Permitir que un usuario registrado acceda al sistema y sea redirigido a la vista principal del sistema |
+| Propósito | Permitir que un usuario registrado acceda al sistema y sea redirigido a la vista principal del tablero Kanban |
 | Precondiciones | El usuario debe estar registrado previamente en el sistema <br> El estado del usuario debe ser “vinculado” <br> El usuario debe encontrarse en la vista de inicio de sesión |
-| Resumen | El usuario envía el formulario de inicio de sesión con sus credenciales. El sistema valida las credenciales y el estado del usuario, iniciando la sesión y mostrando la vista principal del sistema |
+| Resumen | El usuario envía el formulario de inicio de sesión con sus credenciales. El sistema valida las credenciales y el estado del usuario, iniciando la sesión y mostrando la vista principal del tablero Kanban |
 | Postcondiciones | El usuario queda autenticado en el sistema |
 | Tipos | Principal. |
 | Curso normal de eventos | Curso normal de eventos |
 | Acciones de los actores | Respuesta del sistema |
 | 1. El usuario envía el formulario de inicio de sesión | 2. El sistema valida que el correo electrónico y la contraseña correspondan a un usuario registrado |
 | 3. El usuario espera el resultado de la autenticación | 4. El sistema verifica que el estado del usuario sea “vinculado” |
-| 5. El usuario accede al sistema autenticado | 6. El sistema inicia la sesión y redirige al usuario hacia la vista principal del sistema |
+| 5. El usuario accede al sistema autenticado | 6. El sistema inicia la sesión y redirige al usuario hacia la vista principal del tablero Kanban |
 
 12. Validación de correo electrónico único.
 
