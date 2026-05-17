@@ -133,9 +133,9 @@ RF10: El sistema debe permitir el acceso y redirigir al usuario a la vista de pr
 | 3. El usuario espera el resultado de la autenticación | 4. El sistema verifica que el estado del usuario sea “vinculado” |
 | 5. El usuario accede al sistema autenticado | 6. El sistema inicia la sesión y redirige al usuario hacia la vista principal del tablero Kanban |
 
-12. Validación de correo electrónico único.
+11. Validación de correo electrónico único.
 
-RF12: El sistema debe validar que el correo electrónico no esté previamente registrado en la tabla de usuarios, independientemente de si el usuario está vinculado o desvinculado. En caso de duplicado, debe mostrar el mensaje “El correo ingresado ya está asociado a una cuenta”.
+RF11: El sistema debe validar que el correo electrónico no esté previamente registrado en la tabla de usuarios, independientemente de si el usuario está vinculado o desvinculado. En caso de duplicado, debe mostrar el mensaje “El correo ingresado ya está asociado a una cuenta”.
 
 ### Table 7
 
@@ -153,9 +153,9 @@ RF12: El sistema debe validar que el correo electrónico no esté previamente re
 | 3. El administrador ingresa dentro de los campos solicitados un correo existente en el sistema y envía el formulario | 4. El sistema detecta el correo duplicado y muestra el mensaje “El correo ingresado ya está asociado a una cuenta” |
 | 5. El administrador observa el mensaje en pantalla. | 6. El sistema impide registrar el nuevo usuario. |
 
-13. Restricción de acceso por rol.
+12. Restricción de acceso por rol.
 
-RF13: El sistema debe restringir el acceso a una URL protegida según el rol del usuario autenticado
+RF12: El sistema debe restringir el acceso a una URL protegida según el rol del usuario autenticado
 
 ### Table 8
 
@@ -174,9 +174,9 @@ RF13: El sistema debe restringir el acceso a una URL protegida según el rol del
 | 5. El usuario mantiene la solicitud de acceso al recurso. | 6. El sistema determina que el rol del usuario posee permisos para acceder a la URL protegida. |
 | 7. El usuario visualiza el contenido del módulo o recurso solicitado. | 8. El sistema carga la vista correspondiente y permite la interacción con las funcionalidades autorizadas. |
 
-14. Mensaje Acceso denegado por rol
+13. Mensaje Acceso denegado por rol
 
-RF14: El sistema debe redirigir al usuario a una página de “Acceso denegado” si este intenta acceder a un recurso para el cual no tenga permisos
+RF13: El sistema debe redirigir al usuario a una página de “Acceso denegado” si este intenta acceder a un recurso para el cual no tenga permisos
 
 ### Table 9
 
@@ -195,9 +195,9 @@ RF14: El sistema debe redirigir al usuario a una página de “Acceso denegado�
 | 5. El usuario permanece en espera de la carga del recurso. | 6. El sistema bloquea el acceso al recurso solicitado. |
 | 7. El usuario visualiza la respuesta del sistema. | 8. El sistema redirige al usuario a la página de “Acceso denegado”. |
 
-15. Recuperación de contraseña mediante correo electrónico
+14. Recuperación de contraseña mediante correo electrónico
 
-RF15: El sistema debe proveer un flujo de “Olvidé mi contraseña” que solicité el correo electrónico. Si el correo existe en el sistema, debe enviar un enlace URL único y temporal al correo existente para establecer una nueva contraseña. Si el correo no existe, el sistema debe informar que no se encontró una cuenta asociada. El enlace debe ser de un solo uso y tener una validez limitada en el tiempo. La nueva contraseña debe cumplir el formato: mínimo 8 caracteres, con al menos una letra mayúscula, una letra minúscula, un número y un símbolo especial.
+RF14: El sistema debe proveer un flujo de “Olvidé mi contraseña” que solicité el correo electrónico. Si el correo existe en el sistema, debe enviar un enlace URL único y temporal al correo existente para establecer una nueva contraseña. Si el correo no existe, el sistema debe informar que no se encontró una cuenta asociada. El enlace debe ser de un solo uso y tener una validez limitada en el tiempo. La nueva contraseña debe cumplir el formato: mínimo 8 caracteres, con al menos una letra mayúscula, una letra minúscula, un número y un símbolo especial.
 
 ### Table 10
 
@@ -219,9 +219,9 @@ RF15: El sistema debe proveer un flujo de “Olvidé mi contraseña” que solic
 | 11. El usuario ingresa una nueva contraseña y la confirma. | 12. El sistema valida que la nueva contraseña tenga mínimo 8 caracteres, al menos una letra mayúscula, una letra minúscula, un número y un símbolo especial. |
 | 13. El usuario confirma el cambio de contraseña. | 14. El sistema actualiza la contraseña, invalida el enlace utilizado y muestra un mensaje de confirmación. |
 
-18. Cierre de sesión desde cualquier interfaz
+17. Cierre de sesión desde cualquier interfaz
 
-RF18: El sistema debe permitir a cualquier usuario autenticado cerrar su sesión desde cualquier vista del sistema.
+RF17: El sistema debe permitir a cualquier usuario autenticado cerrar su sesión desde cualquier vista del sistema.
 
 ### Table 11
 
@@ -241,9 +241,9 @@ RF18: El sistema debe permitir a cualquier usuario autenticado cerrar su sesión
 | 7. El usuario es retirado de la interfaz interna. | 8. El sistema redirige al usuario al formulario de inicio de sesión. |
 | 9. El usuario intenta acceder nuevamente a una vista interna sin autenticarse. | 10. El sistema bloquea el acceso y mantiene al usuario en la pantalla de inicio de sesión. |
 
-1. Generación de pedidos.
+18. Generación de pedidos.
 
-RF19: El sistema debe proporcionar a los usuarios con rol Ventas una interfaz para generar pedidos dentro del sistema
+RF18: El sistema debe proporcionar a los usuarios con rol Ventas una interfaz para generar pedidos dentro del sistema
 
 ### Table 12
 
@@ -265,7 +265,7 @@ RF19: El sistema debe proporcionar a los usuarios con rol Ventas una interfaz pa
 
 2. Registro de pedidos.
 
-RF20: El sistema debe permitir al usuario crear un pedido por medio de una interfaz que muestre una estructura tipo formulario que solicite Número de nota de Venta y archivo correspondiente a la Nota de Venta en formato PDF.
+RF19: El sistema debe permitir al usuario crear un pedido por medio de una interfaz que muestre una estructura tipo formulario que solicite Número de nota de Venta y archivo correspondiente a la Nota de Venta en formato PDF.
 
 ### Table 13
 
@@ -288,11 +288,11 @@ RF20: El sistema debe permitir al usuario crear un pedido por medio de una inter
 
 1. Actualización del estado de pago del pedido.
 
-RF27: El sistema debe permitir al usuario con rol Cobranzas actualizar el estado de pago en el detalle de pedido del Kanban mediante un menú desplegable con los estados ‘Confirmado’, ‘Rechazado’ y ‘Pendiente’
+RF26: El sistema debe permitir al usuario con rol Cobranzas actualizar el estado de pago en el detalle de pedido del Kanban mediante un menú desplegable con los estados ‘Confirmado’, ‘Rechazado’ y ‘Pendiente’
 
 ### Table 14
 
-| Caso de uso N°27 | Actualizando el estado de pago del pedido |
+| Caso de uso N°26 | Actualizando el estado de pago del pedido |
 | --- | --- |
 | Actores | Usuario con rol Cobranzas |
 | Propósito | Permitir que el usuario con rol Cobranzas actualice el estado de pago de un pedido desde el detalle del pedido en el tablero Kanban. |
@@ -311,23 +311,23 @@ RF27: El sistema debe permitir al usuario con rol Cobranzas actualizar el estado
 
 3. Actualización automática de estado pedido.
 
-RF29: El sistema debe actualizar el estado del pedido a 'Listo para producción' de forma automática luego de que el usuario con rol Cobranzas actualice el estado de pago a ‘Confirmado’
+RF28: El sistema debe actualizar el estado del pedido a 'Listo para producción' de forma automática luego de que el usuario con rol Cobranzas actualice el estado de pago a ‘Confirmado’
 
 7. Restricción de cambio manual a “Listo para producción”.
 
-RF33: El sistema no debe permitir cambiar manualmente el estado de una orden de producción a “Listo para producción” mientras el estado de pago asociado a dicha orden sea distinto de “Confirmado”, y debe mostrar el mensaje ‘Pedido en espera de confirmación de pago’.
+RF32: El sistema no debe permitir cambiar manualmente el estado de una orden de producción a “Listo para producción” mientras el estado de pago asociado a dicha orden sea distinto de “Confirmado”, y debe mostrar el mensaje ‘Pedido en espera de confirmación de pago’.
 
 1. Visualización del tablero Kanban.
 
-RF43: El sistema debe permitir a los usuarios autorizados visualizar un tablero Kanban que muestre los pedidos organizados según su estado actual dentro del flujo de trabajo.
+RF42: El sistema debe permitir a los usuarios autorizados visualizar un tablero Kanban que muestre los pedidos organizados según su estado actual dentro del flujo de trabajo.
 
 2. Visualización del detalle del pedido.
 
-RF44: El sistema debe proporcionar el detalle del pedido al hacer clic sobre un pedido del Kanban.
+RF43: El sistema debe proporcionar el detalle del pedido al hacer clic sobre un pedido del Kanban.
 
 3. Estructura de columnas del tablero.
 
-RF45: El sistema debe mostrar en el tablero Kanban las siguientes columnas fijas, cada una asociada a una parte del flujo del proceso de producción:
+RF44: El sistema debe mostrar en el tablero Kanban las siguientes columnas fijas, cada una asociada a una parte del flujo del proceso de producción:
 
 Confirmación de pago
 
@@ -337,13 +337,28 @@ En producción
 
 Listo para entrega
 
+### Table 15
+
+| Caso de uso N° 44 | Observando el flujo general de un pedido |
+| --- | --- |
+| Actores | Usuario de cualquier rol autenticado |
+| Propósito | Permitir al usuario visualizar la etapa en la que se encuentran los pedidos mediante la distribución de columnas del tablero Kanban |
+| Precondiciones | Debe existir un pedido dentro del sistema <br> El usuario debe estar previamente autenticado |
+| Resumen | El usuario ingresa al tablero Kanban y visualiza este organizado en columnas fijas que representan las etapas del flujo general de producción de los pedidos |
+| Postcondiciones | El usuario visualiza correctamente en qué estado están los pedidos dentro del flujo general de producción |
+| Tipos | Principal |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario aacede al tablero Kanban | 2. El sistema muestra las columnas asociadas al flujo general de producción |
+| 3. El usuario visualiza las columnas del tablero según las etapas definidas | 4. El sistema organiza los pedidos según el estado correspondiente |
+
 4. Cambio manual de estado de pedido por arrastrar y soltar.
 
-RF46: El sistema debe permitir al usuario autorizado cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar hacia otra columna del tablero Kanban, siempre que el estado de destino no esté definido como automático por las reglas del sistema.
+RF45: El sistema debe permitir al usuario autorizado cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar hacia otra columna del tablero Kanban, siempre que el estado de destino no esté definido como automático por las reglas del sistema.
 
 5. Registro de subtareas de producción.
 
-RF47: El sistema debe mostrar en el detalle de pedido los siguientes subprocesos según el tipo de producto:
+RF46: El sistema debe mostrar en el detalle de pedido los siguientes subprocesos según el tipo de producto:
 
 Lanyard:
 
@@ -363,11 +378,27 @@ Ordenar información
 
 Cargar datos
 
+### Table 16
+
+| Caso de uso N° 46 | Visualizando subproceso productivo en stepper |
+| --- | --- |
+| Actores | Usuario de cualquier rol autenticado |
+| Propósito | Permitir al usuario visualizar el estado del subproceso productivo en el que se encuentra el pedido |
+| Precondiciones | Un pedido dentro del flujo de producción <br> El usuario debe estar previamente autenticado |
+| Resumen | El sistema debe permitir a los usuarios autorizados visualizar dentro del detalle del pedido el estado del subproceso productivo en el que se encuentra el pedido dependiendo del producto que se esté produciendo |
+| Postcondiciones | Un pedido en una etapa distinta del flujo Kanban |
+| Tipos | Principal |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario selecciona un pedido dentro del tablero Kanban | 2. El sistema muestra al cliente el detalle del pedido seleccionado |
+| 3. El usuario visualiza la sección de subprocesos productivos | 4. El sistema identifica el tipo de producto asociado al pedido |
+| 5. El usuario espera la carga de la información | 6. El sistema muestra el Stepper respecto al tipo de producto resaltando el estado actual del subproceso productivo |
+
 6. Actualización de estado de subproceso de producción.
 
-RF48: El sistema debe permitir al usuario con rol Operario actualizar el estado del subproceso de producción mediante un Stepper interactivo según el tipo de producto.
+RF47: El sistema debe permitir al usuario con rol Operario actualizar el estado del subproceso de producción mediante un Stepper interactivo según el tipo de producto.
 
-### Table 15
+### Table 17
 
 | Caso de uso N° 29 | Actualizando automáticamente el estado del pedido |
 | --- | --- |
@@ -383,7 +414,7 @@ RF48: El sistema debe permitir al usuario con rol Operario actualizar el estado 
 | 3. El usuario cambia el estado de pago de uno de los pedidos. | 4. El sistema registra el cambio en el pedido. |
 | [EMPTY] | 6. El sistema cambia el estado del pedido de forma automática a “listo para producción”. |
 
-### Table 16
+### Table 18
 
 | Caso de uso N° 33 | Restringiendo el cambio manual |
 | --- | --- |
@@ -398,7 +429,7 @@ RF48: El sistema debe permitir al usuario con rol Operario actualizar el estado 
 | 1. El usuario intenta cambiar manualmente el estado del pedido | 2. El sistema detecta los esfuerzos del usuario y no permite la acción |
 | 3. El usuario ve frustrada su acción | 4. El sistema registra el cambio en el pedido. |
 
-### Table 17
+### Table 19
 
 | Caso de uso N° 43 | Visualizando el tablero de Kanban |
 | --- | --- |
@@ -412,7 +443,7 @@ RF48: El sistema debe permitir al usuario con rol Operario actualizar el estado 
 | Acciones de los actores | Respuesta del sistema |
 | 1. El usuario ve la interfaz del Kanban. | 2. El sistema muestra el Kanban con los pedidos en tiempo real. |
 
-### Table 18
+### Table 20
 
 | Caso de uso N° 44 | Visualizando el detalle del pedido |
 | --- | --- |
@@ -427,7 +458,7 @@ RF48: El sistema debe permitir al usuario con rol Operario actualizar el estado 
 | 1. El usuario ve la lista de pedidos. | 2. El sistema el permite hacer click al usuario sobre el pedido |
 | 3. El usuario es capaz de ver el detalle del pedido | 4. El sistema muestra el detalle del pedido |
 
-### Table 19
+### Table 21
 
 | Caso de uso N° 46 | Cambiando manualmente el estado del pedido |
 | --- | --- |
@@ -442,7 +473,7 @@ RF48: El sistema debe permitir al usuario con rol Operario actualizar el estado 
 | 1. El usuario autorizado termina de trabajar el pedido en su etapa del proceso | 2. El sistema le da la posibilidad de arrastrar el pedido hacia el estado siguiente. |
 | 3. El usuario arrastra el pedido hasta el siguiente estado | 4. El sistema ancla el pedido al siguiente estado |
 
-### Table 20
+### Table 22
 
 | Caso de uso N° 48 | Actualizando el estado del sub-proceso de producción |
 | --- | --- |
@@ -457,7 +488,7 @@ RF48: El sistema debe permitir al usuario con rol Operario actualizar el estado 
 | 1. El usuario con rol de operario interactúa con un pedido en estado “en producción” . | 2.El sistema muestra el detalle de estado del subproceso en el que se encuentra este. |
 | 3. El usuario con rol de operario, cambia el estado del subproceso del pedido. | 4. El sistema detecta el intento de cambio y cambia el estado. |
 
-### Table 21
+### Table 23
 
 | Caso de uso N° 29 | [EMPTY] |
 | --- | --- |
