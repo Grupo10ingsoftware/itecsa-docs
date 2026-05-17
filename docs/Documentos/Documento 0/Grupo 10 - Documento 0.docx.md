@@ -1153,11 +1153,11 @@ RF64: El sistema debe registrar, para cada comentario, observación o alerta aso
 
 4. Remoción de etiquetas visuales de pedidos
 
-RF65: El sistema debe permitir a los usuarios con rol Administrador y Producción remover etiquetas visuales de los pedidos.
+RF65: El sistema debe permitir a los usuarios con rol Administrador y Operario remover etiquetas visuales de los pedidos.
 
 5. Indicador de urgencia
 
-RF66: Cuando se ingrese una Nota de Venta clasificada como urgente, el sistema debe generar una notificación interna visible en el panel de notificaciones del sistema para todos los usuarios con rol Producción.
+RF66: Cuando se ingrese una Nota de Venta clasificada como urgente, el sistema debe generar una notificación interna visible en el panel de notificaciones del sistema para todos los usuarios con rol Operario.
 
 6. Panel de anuncios internos
 
