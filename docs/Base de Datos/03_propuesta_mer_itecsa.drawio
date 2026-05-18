@@ -1,0 +1,1632 @@
+<mxfile host="app.diagrams.net" modified="2026-05-18T00:00:00.000Z" agent="Codex" version="24.7.17" type="device">
+  <diagram id="mer-itecsa-propuesta" name="MER propuesta ITECSA">
+    <mxGraphModel dx="6200" dy="4400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="5200" pageHeight="3800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="MER conceptual propuesto - ITECSA&lt;br&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;Notacion Chen: entidades, atributos y relaciones separados&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1;fontColor=#111827;" vertex="1" parent="1">
+          <mxGeometry x="60" y="40" width="760" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="entity_rol" value="Rol" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="385" y="360" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="entity_usuario" value="Usuario" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1485" y="360" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="entity_anuncio" value="Anuncio interno" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="2585" y="360" width="240" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="entity_pedido" value="Pedido" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#eef6ff;strokeColor=#2563eb;fontColor=#111827;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1485" y="1060" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="entity_nota_venta" value="Nota de Venta" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="385" y="1060" width="240" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="entity_orden_produccion" value="Orden de Produccion" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="385" y="1760" width="260" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="entity_ficha_cliente" value="Ficha de cliente" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="385" y="2460" width="240" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="entity_documento" value="Documento o archivo asociado" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1485" y="1760" width="300" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="entity_estado_pago" value="Estado de pago" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="2585" y="1060" width="240" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="entity_estado_kanban" value="Estado Kanban" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="2585" y="1760" width="240" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="entity_subproceso" value="Subproceso de produccion" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="2585" y="2460" width="285" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="entity_capacidad" value="Capacidad" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="3685" y="1060" width="220" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="entity_parametro_estimacion" value="Parametro de estimacion" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="3685" y="1760" width="280" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="entity_comentario" value="Comentario observacion alerta" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1485" y="2460" width="310" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="entity_evento_trazabilidad" value="Evento de trazabilidad" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="385" y="3160" width="285" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="entity_bitacora" value="Bitacora de auditoria" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1485" y="3160" width="270" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="entity_notificacion" value="Notificacion" style="rounded=0;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#ffffff;strokeColor=#111827;fontColor=#111827;fontSize=13;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="2585" y="3160" width="230" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_rol_nombre" value="nombre de rol" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;fontStyle=4;" vertex="1" parent="1">
+          <mxGeometry x="80" y="140" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_rol_descripcion" value="descripcion operativa" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="380" y="140" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_rol_capacidades" value="capacidades asociadas" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="680" y="140" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_usuario_rut" value="RUT" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;fontStyle=4;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="140" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_usuario_correo" value="correo electronico" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;fontStyle=4;" vertex="1" parent="1">
+          <mxGeometry x="1480" y="140" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_usuario_primer_nombre" value="primer nombre" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1780" y="140" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_usuario_apellido" value="apellido paterno" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="250" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_usuario_rol" value="rol" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1480" y="250" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_usuario_estado" value="estado de cuenta" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1780" y="250" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_usuario_firma" value="referencia de firma" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="470" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_usuario_cambio_contrasena" value="cambio obligatorio de contrasena" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1480" y="470" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_anuncio_contenido" value="contenido" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2280" y="140" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_anuncio_autor" value="autor" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2580" y="140" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_anuncio_visibilidad" value="visibilidad" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2880" y="140" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_nota_numero" value="numero de Nota de Venta" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;fontStyle=4;" vertex="1" parent="1">
+          <mxGeometry x="80" y="840" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_nota_pdf" value="archivo PDF" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="380" y="840" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_nota_razon_social" value="razon social" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="680" y="840" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_nota_rut_cliente" value="RUT cliente" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="80" y="950" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_nota_descripcion_producto" value="descripcion de producto" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="380" y="950" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_nota_cantidad" value="cantidad" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="680" y="950" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_nota_fabricacion" value="datos para fabricacion" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1170" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_nota_tipo_producto" value="tipo de producto" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="380" y="1170" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_nota_urgente" value="clasificacion urgente" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="680" y="1170" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_pedido_identificador" value="identificador conceptual del pedido" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;fontStyle=4;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="840" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_pedido_fecha_creacion" value="fecha de creacion" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1480" y="840" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_pedido_hora_creacion" value="hora de creacion" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1780" y="840" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_pedido_estado_actual" value="estado actual" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="950" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_pedido_estado_pago" value="estado de pago" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1480" y="950" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_pedido_usuario_ventas" value="usuario de ventas asociado" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1780" y="950" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_pedido_sobrecarga" value="condicion de sobrecarga" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="1170" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_pedido_fecha_estimada" value="fecha estimada de termino" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1480" y="1170" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_pedido_etiqueta" value="etiqueta visual" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1780" y="1170" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_pedido_prioridad" value="prioridad" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="1280" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_orden_documento" value="documento OP" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1540" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_orden_numero" value="numero OP pendiente" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;fontStyle=4;" vertex="1" parent="1">
+          <mxGeometry x="380" y="1540" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_orden_estado" value="estado asociado" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="680" y="1540" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_orden_dia" value="dia asignado" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1650" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_ficha_documento" value="documento de ficha" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="80" y="2240" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_ficha_firma" value="firma aplicada" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="380" y="2240" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_ficha_numero_nv" value="numero de Nota de Venta" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="680" y="2240" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_ficha_razon_social" value="razon social" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="80" y="2350" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_ficha_ejecutivo" value="ejecutivo" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="380" y="2350" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_ficha_fecha_bodega" value="fecha de entrega a bodega" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="680" y="2350" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_documento_tipo" value="tipo de documento" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="1540" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_documento_referencia" value="referencia documental" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1480" y="1540" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_documento_usuario" value="usuario que adjunta o aplica" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1780" y="1540" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_documento_pedido" value="pedido asociado" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="1650" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_estado_pago_valor" value="valor de estado" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2280" y="840" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_estado_pago_usuario" value="usuario responsable" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2580" y="840" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_estado_pago_momento" value="momento de actualizacion" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2880" y="840" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_kanban_valor" value="valor de estado" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2280" y="1540" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_kanban_ingreso" value="ingreso a etapa" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2580" y="1540" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_kanban_salida" value="salida de etapa" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2880" y="1540" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_kanban_tiempo_real" value="tiempo real de etapa" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2280" y="1650" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_kanban_diferencia" value="diferencia estimado real" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2580" y="1650" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_kanban_retraso" value="nivel de retraso" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2880" y="1650" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_subproceso_tipo" value="tipo de producto aplicable" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2280" y="2240" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_subproceso_nombre" value="nombre de subproceso" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2580" y="2240" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_subproceso_estado" value="estado" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2880" y="2240" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_subproceso_comentario" value="comentario" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2280" y="2350" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_subproceso_usuario" value="usuario responsable" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2580" y="2350" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_subproceso_momento" value="momento del cambio" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2880" y="2350" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_capacidad_fecha" value="fecha" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="3380" y="840" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_capacidad_tipo" value="tipo de producto" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="3680" y="840" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_capacidad_maxima" value="capacidad maxima diaria" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="3980" y="840" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_capacidad_utilizada" value="capacidad utilizada" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="3380" y="950" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_capacidad_disponible" value="capacidad disponible" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="3680" y="950" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_capacidad_sobrecarga" value="condicion de sobrecarga" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="3980" y="950" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_parametro_tipo" value="tipo de producto" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="3380" y="1540" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_parametro_rango" value="rango de unidades" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="3680" y="1540" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_parametro_dias" value="dias habiles estimados" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="3980" y="1540" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_parametro_etapa" value="etapa productiva" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="3380" y="1650" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_comentario_tipo" value="tipo de registro" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="2240" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_comentario_contenido" value="contenido" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1480" y="2240" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_comentario_pedido" value="pedido asociado" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1780" y="2240" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_comentario_autor" value="autor" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="2350" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_comentario_fecha_hora" value="fecha y hora" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1480" y="2350" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_evento_pedido" value="pedido asociado" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="80" y="2940" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_evento_tipo" value="tipo de evento" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="380" y="2940" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_evento_estado" value="estado registrado" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="680" y="2940" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_evento_fecha" value="fecha" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="80" y="3050" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_evento_hora" value="hora" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="380" y="3050" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_evento_usuario" value="usuario ejecutor" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="680" y="3050" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_evento_descripcion" value="descripcion o comentario" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="80" y="3270" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_bitacora_evento" value="evento auditado" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="2940" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_bitacora_usuario" value="usuario afectado o ejecutor" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1480" y="2940" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_bitacora_fecha_hora" value="fecha y hora de servidor" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1780" y="2940" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_bitacora_recurso" value="recurso afectado" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="3050" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_notificacion_evento" value="evento origen" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2280" y="2940" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_notificacion_destinatario" value="destinatario" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2580" y="2940" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_notificacion_canal" value="canal" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2880" y="2940" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="attr_notificacion_pedido" value="pedido asociado" style="ellipse;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#f8fafc;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2280" y="3050" width="230" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_usuario_rol" value="tiene" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff7ed;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="975" y="355" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_usuario_pedido" value="crea o gestiona" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff7ed;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1485" y="690" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_usuario_documento" value="adjunta o aplica" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff7ed;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1765" y="690" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_pedido_nota_venta" value="se origina en" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff7ed;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="975" y="1055" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_pedido_orden" value="tiene" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff7ed;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="975" y="1415" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_pedido_ficha" value="tiene" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff7ed;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="975" y="2115" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_pedido_documento" value="agrupa" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff7ed;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1485" y="1415" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_pedido_estado_pago" value="usa" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff7ed;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2075" y="1055" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_pedido_estado_kanban" value="usa" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff7ed;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2075" y="1415" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_pedido_subproceso" value="contiene" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff7ed;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2075" y="2115" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_pedido_evento" value="genera" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff7ed;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="975" y="2815" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_usuario_evento" value="ejecuta" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff7ed;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1425" y="2815" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_usuario_bitacora" value="genera" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff7ed;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1625" y="2815" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_pedido_comentario" value="recibe" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff7ed;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1425" y="2115" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_usuario_comentario" value="registra" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff7ed;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1625" y="2115" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_pedido_parametro" value="usa" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff7ed;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="3175" y="1415" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_pedido_capacidad" value="consume valida" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff7ed;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="3175" y="1055" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_pedido_notificacion" value="origina" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff7ed;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2075" y="2815" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_usuario_anuncio" value="publica" style="rhombus;whiteSpace=wrap;html=1;align=center;verticalAlign=middle;fillColor=#fff7ed;strokeColor=#111827;fontColor=#111827;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="2075" y="355" width="140" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="note_supuestos" value="&lt;b&gt;Supuestos&lt;/b&gt;&lt;br&gt;- Las relaciones punteadas tienen cardinalidad pendiente de validar.&lt;br&gt;- Pedido y Nota de Venta se muestran como 1 a 1, pendiente de validar con datos reales.&lt;br&gt;- Pedido puede tener 0..N Orden de Produccion por la expresion la o las ordenes.&lt;br&gt;- Pedido puede tener 0..1 Ficha de cliente, pendiente de validar.&lt;br&gt;- Pedido y Capacidad se muestran como 0..N a 0..1 para representar consumo o validacion de capacidad.&lt;br&gt;- Llaves primarias no cerradas se muestran como identificadores conceptuales o pendientes." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=20;align=left;verticalAlign=top;spacing=8;fillColor=#fff7ed;strokeColor=#c2410c;fontColor=#111827;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="3380" y="2940" width="850" height="195" as="geometry" />
+        </mxCell>
+        <mxCell id="note_valores" value="&lt;b&gt;Valores controlados&lt;/b&gt;&lt;br&gt;- Tipo de producto: Lanyard, Tarjeta. No se modela como entidad.&lt;br&gt;- Estado de pago: Confirmado, Rechazado, Pendiente.&lt;br&gt;- Estado Kanban: Confirmacion de pago, Listo para produccion, En produccion, Listo para entrega.&lt;br&gt;- Etiquetas: Urgencia, Atraso.&lt;br&gt;- Canales: Aplicacion, correo electronico, panel interno.&lt;br&gt;- Subprocesos Lanyard: Impresion, sublimacion, corte, costura.&lt;br&gt;- Subprocesos Tarjeta: Revisar informacion, Ordenar informacion, Cargar datos." style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;size=20;align=left;verticalAlign=top;spacing=8;fillColor=#fefce8;strokeColor=#a16207;fontColor=#111827;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="3380" y="3200" width="900" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_attr_rol_nombre" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_rol" target="attr_rol_nombre">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="495" y="338" />
+              <mxPoint x="195" y="338" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_rol_descripcion" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_rol" target="attr_rol_descripcion">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_attr_rol_capacidades" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_rol" target="attr_rol_capacidades">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="495" y="315" />
+              <mxPoint x="650" y="315" />
+              <mxPoint x="650" y="200" />
+              <mxPoint x="795" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_usuario_rut" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_usuario" target="attr_usuario_rut">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="338" />
+              <mxPoint x="1440" y="338" />
+              <mxPoint x="1440" y="200" />
+              <mxPoint x="1295" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_usuario_correo" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_usuario" target="attr_usuario_correo">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="315" />
+              <mxPoint x="1725" y="315" />
+              <mxPoint x="1725" y="228" />
+              <mxPoint x="1595" y="228" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_usuario_primer_nombre" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_usuario" target="attr_usuario_primer_nombre">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="315" />
+              <mxPoint x="1750" y="315" />
+              <mxPoint x="1750" y="200" />
+              <mxPoint x="1895" y="200" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_usuario_apellido" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_usuario" target="attr_usuario_apellido">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="338" />
+              <mxPoint x="1440" y="338" />
+              <mxPoint x="1440" y="315" />
+              <mxPoint x="1295" y="315" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_usuario_rol" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_usuario" target="attr_usuario_rol">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_attr_usuario_estado" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_usuario" target="attr_usuario_estado">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="315" />
+              <mxPoint x="1895" y="315" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_usuario_firma" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_usuario" target="attr_usuario_firma">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1440" y="390" />
+              <mxPoint x="1440" y="494" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_usuario_cambio_contrasena" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_usuario" target="attr_usuario_cambio_contrasena">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_attr_anuncio_contenido" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_anuncio" target="attr_anuncio_contenido">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2705" y="338" />
+              <mxPoint x="2540" y="338" />
+              <mxPoint x="2540" y="164" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_anuncio_autor" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_anuncio" target="attr_anuncio_autor">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2705" y="338" />
+              <mxPoint x="2695" y="338" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_anuncio_visibilidad" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_anuncio" target="attr_anuncio_visibilidad">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2705" y="315" />
+              <mxPoint x="2865" y="315" />
+              <mxPoint x="2865" y="164" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_nota_numero" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_nota_venta" target="attr_nota_numero">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="505" y="1038" />
+              <mxPoint x="340" y="1038" />
+              <mxPoint x="340" y="928" />
+              <mxPoint x="195" y="928" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_nota_pdf" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_nota_venta" target="attr_nota_pdf">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="505" y="1015" />
+              <mxPoint x="620" y="1015" />
+              <mxPoint x="620" y="928" />
+              <mxPoint x="495" y="928" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_nota_razon_social" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_nota_venta" target="attr_nota_razon_social">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="505" y="1015" />
+              <mxPoint x="650" y="1015" />
+              <mxPoint x="650" y="900" />
+              <mxPoint x="795" y="900" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_nota_rut_cliente" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_nota_venta" target="attr_nota_rut_cliente">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="505" y="1038" />
+              <mxPoint x="195" y="1038" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_nota_descripcion_producto" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_nota_venta" target="attr_nota_descripcion_producto">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="505" y="1015" />
+              <mxPoint x="495" y="1015" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_nota_cantidad" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_nota_venta" target="attr_nota_cantidad">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="505" y="1015" />
+              <mxPoint x="795" y="1015" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_nota_fabricacion" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_nota_venta" target="attr_nota_fabricacion">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="195" y="1090" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_nota_tipo_producto" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_nota_venta" target="attr_nota_tipo_producto">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="505" y="1180" />
+              <mxPoint x="495" y="1180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_nota_urgente" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_nota_venta" target="attr_nota_urgente">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="505" y="1095" />
+              <mxPoint x="527.5" y="1095" />
+              <mxPoint x="527.5" y="1160" />
+              <mxPoint x="620" y="1160" />
+              <mxPoint x="620" y="1180" />
+              <mxPoint x="650" y="1180" />
+              <mxPoint x="650" y="1194" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_pedido_identificador" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_pedido" target="attr_pedido_identificador">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="1038" />
+              <mxPoint x="1440" y="1038" />
+              <mxPoint x="1440" y="900" />
+              <mxPoint x="1295" y="900" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_pedido_fecha_creacion" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_pedido" target="attr_pedido_fecha_creacion">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="1015" />
+              <mxPoint x="1725" y="1015" />
+              <mxPoint x="1725" y="928" />
+              <mxPoint x="1595" y="928" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_pedido_hora_creacion" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_pedido" target="attr_pedido_hora_creacion">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="1015" />
+              <mxPoint x="1750" y="1015" />
+              <mxPoint x="1750" y="900" />
+              <mxPoint x="1895" y="900" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_pedido_estado_actual" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_pedido" target="attr_pedido_estado_actual">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="1038" />
+              <mxPoint x="1440" y="1038" />
+              <mxPoint x="1440" y="1015" />
+              <mxPoint x="1295" y="1015" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_pedido_estado_pago" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_pedido" target="attr_pedido_estado_pago">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_attr_pedido_usuario_ventas" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_pedido" target="attr_pedido_usuario_ventas">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="1015" />
+              <mxPoint x="1895" y="1015" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_pedido_sobrecarga" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_pedido" target="attr_pedido_sobrecarga">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1440" y="1090" />
+              <mxPoint x="1440" y="1194" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_pedido_fecha_estimada" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_pedido" target="attr_pedido_fecha_estimada">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_attr_pedido_etiqueta" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_pedido" target="attr_pedido_etiqueta">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="1095" />
+              <mxPoint x="1665" y="1095" />
+              <mxPoint x="1665" y="1160" />
+              <mxPoint x="1725" y="1160" />
+              <mxPoint x="1725" y="1180" />
+              <mxPoint x="1835" y="1180" />
+              <mxPoint x="1835" y="1194" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_pedido_prioridad" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_pedido" target="attr_pedido_prioridad">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1440" y="1090" />
+              <mxPoint x="1440" y="1258" />
+              <mxPoint x="1295" y="1258" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_orden_documento" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_orden_produccion" target="attr_orden_documento">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="515" y="1738" />
+              <mxPoint x="340" y="1738" />
+              <mxPoint x="340" y="1628" />
+              <mxPoint x="195" y="1628" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_orden_numero" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_orden_produccion" target="attr_orden_numero">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="515" y="1738" />
+              <mxPoint x="495" y="1738" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_orden_estado" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_orden_produccion" target="attr_orden_estado">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="515" y="1738" />
+              <mxPoint x="650" y="1738" />
+              <mxPoint x="650" y="1600" />
+              <mxPoint x="795" y="1600" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_orden_dia" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_orden_produccion" target="attr_orden_dia">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="515" y="1738" />
+              <mxPoint x="195" y="1738" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_ficha_documento" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_ficha_cliente" target="attr_ficha_documento">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="505" y="2438" />
+              <mxPoint x="340" y="2438" />
+              <mxPoint x="340" y="2328" />
+              <mxPoint x="195" y="2328" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_ficha_firma" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_ficha_cliente" target="attr_ficha_firma">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="505" y="2420" />
+              <mxPoint x="620" y="2420" />
+              <mxPoint x="620" y="2328" />
+              <mxPoint x="495" y="2328" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_ficha_numero_nv" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_ficha_cliente" target="attr_ficha_numero_nv">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="505" y="2438" />
+              <mxPoint x="650" y="2438" />
+              <mxPoint x="650" y="2300" />
+              <mxPoint x="795" y="2300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_ficha_razon_social" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_ficha_cliente" target="attr_ficha_razon_social">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="505" y="2438" />
+              <mxPoint x="195" y="2438" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_ficha_ejecutivo" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_ficha_cliente" target="attr_ficha_ejecutivo">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="505" y="2438" />
+              <mxPoint x="495" y="2438" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_ficha_fecha_bodega" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_ficha_cliente" target="attr_ficha_fecha_bodega">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="505" y="2438" />
+              <mxPoint x="665" y="2438" />
+              <mxPoint x="665" y="2420" />
+              <mxPoint x="795" y="2420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_documento_tipo" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_documento" target="attr_documento_tipo">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1635" y="1738" />
+              <mxPoint x="1440" y="1738" />
+              <mxPoint x="1440" y="1600" />
+              <mxPoint x="1295" y="1600" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_documento_referencia" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_documento" target="attr_documento_referencia">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1635" y="1738" />
+              <mxPoint x="1595" y="1738" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_documento_usuario" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_documento" target="attr_documento_usuario">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1635" y="1738" />
+              <mxPoint x="1750" y="1738" />
+              <mxPoint x="1750" y="1600" />
+              <mxPoint x="1895" y="1600" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_documento_pedido" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_documento" target="attr_documento_pedido">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1635" y="1738" />
+              <mxPoint x="1440" y="1738" />
+              <mxPoint x="1440" y="1720" />
+              <mxPoint x="1295" y="1720" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_estado_pago_valor" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_estado_pago" target="attr_estado_pago_valor">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2705" y="1038" />
+              <mxPoint x="2540" y="1038" />
+              <mxPoint x="2540" y="864" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_estado_pago_usuario" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_estado_pago" target="attr_estado_pago_usuario">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2705" y="1038" />
+              <mxPoint x="2695" y="1038" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_estado_pago_momento" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_estado_pago" target="attr_estado_pago_momento">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2705" y="1015" />
+              <mxPoint x="2865" y="1015" />
+              <mxPoint x="2865" y="864" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_kanban_valor" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_estado_kanban" target="attr_kanban_valor">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2705" y="1738" />
+              <mxPoint x="2540" y="1738" />
+              <mxPoint x="2540" y="1564" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_kanban_ingreso" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_estado_kanban" target="attr_kanban_ingreso">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2705" y="1720" />
+              <mxPoint x="2840" y="1720" />
+              <mxPoint x="2840" y="1628" />
+              <mxPoint x="2695" y="1628" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_kanban_salida" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_estado_kanban" target="attr_kanban_salida">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2705" y="1738" />
+              <mxPoint x="2865" y="1738" />
+              <mxPoint x="2865" y="1564" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_kanban_tiempo_real" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_estado_kanban" target="attr_kanban_tiempo_real">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2705" y="1738" />
+              <mxPoint x="2540" y="1738" />
+              <mxPoint x="2540" y="1720" />
+              <mxPoint x="2395" y="1720" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_kanban_diferencia" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_estado_kanban" target="attr_kanban_diferencia">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2705" y="1738" />
+              <mxPoint x="2695" y="1738" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_kanban_retraso" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_estado_kanban" target="attr_kanban_retraso">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2705" y="1738" />
+              <mxPoint x="2865" y="1738" />
+              <mxPoint x="2865" y="1720" />
+              <mxPoint x="2910" y="1720" />
+              <mxPoint x="2910" y="1674" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_subproceso_tipo" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_subproceso" target="attr_subproceso_tipo">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2727.5" y="2438" />
+              <mxPoint x="2540" y="2438" />
+              <mxPoint x="2540" y="2264" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_subproceso_nombre" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_subproceso" target="attr_subproceso_nombre">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2727.5" y="2420" />
+              <mxPoint x="2840" y="2420" />
+              <mxPoint x="2840" y="2328" />
+              <mxPoint x="2695" y="2328" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_subproceso_estado" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_subproceso" target="attr_subproceso_estado">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2727.5" y="2438" />
+              <mxPoint x="2865" y="2438" />
+              <mxPoint x="2865" y="2264" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_subproceso_comentario" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_subproceso" target="attr_subproceso_comentario">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2727.5" y="2438" />
+              <mxPoint x="2540" y="2438" />
+              <mxPoint x="2540" y="2420" />
+              <mxPoint x="2395" y="2420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_subproceso_usuario" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_subproceso" target="attr_subproceso_usuario">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2727.5" y="2438" />
+              <mxPoint x="2695" y="2438" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_subproceso_momento" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_subproceso" target="attr_subproceso_momento">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2727.5" y="2438" />
+              <mxPoint x="2865" y="2438" />
+              <mxPoint x="2865" y="2420" />
+              <mxPoint x="2910" y="2420" />
+              <mxPoint x="2910" y="2374" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_capacidad_fecha" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_capacidad" target="attr_capacidad_fecha">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3795" y="1038" />
+              <mxPoint x="3640" y="1038" />
+              <mxPoint x="3640" y="864" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_capacidad_tipo" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_capacidad" target="attr_capacidad_tipo">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3795" y="1015" />
+              <mxPoint x="3650" y="1015" />
+              <mxPoint x="3650" y="864" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_capacidad_maxima" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_capacidad" target="attr_capacidad_maxima">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3795" y="1015" />
+              <mxPoint x="3950" y="1015" />
+              <mxPoint x="3950" y="900" />
+              <mxPoint x="4005" y="900" />
+              <mxPoint x="4005" y="864" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_capacidad_utilizada" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_capacidad" target="attr_capacidad_utilizada">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3795" y="1038" />
+              <mxPoint x="3640" y="1038" />
+              <mxPoint x="3640" y="974" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_capacidad_disponible" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_capacidad" target="attr_capacidad_disponible">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge_attr_capacidad_sobrecarga" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_capacidad" target="attr_capacidad_sobrecarga">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3795" y="1015" />
+              <mxPoint x="4005" y="1015" />
+              <mxPoint x="4005" y="974" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_parametro_tipo" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_parametro_estimacion" target="attr_parametro_tipo">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3825" y="1738" />
+              <mxPoint x="3640" y="1738" />
+              <mxPoint x="3640" y="1564" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_parametro_rango" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_parametro_estimacion" target="attr_parametro_rango">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3825" y="1738" />
+              <mxPoint x="3795" y="1738" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_parametro_dias" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_parametro_estimacion" target="attr_parametro_dias">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3825" y="1738" />
+              <mxPoint x="3950" y="1738" />
+              <mxPoint x="3950" y="1600" />
+              <mxPoint x="4005" y="1600" />
+              <mxPoint x="4005" y="1564" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_parametro_etapa" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_parametro_estimacion" target="attr_parametro_etapa">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3825" y="1738" />
+              <mxPoint x="3640" y="1738" />
+              <mxPoint x="3640" y="1674" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_comentario_tipo" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_comentario" target="attr_comentario_tipo">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1640" y="2438" />
+              <mxPoint x="1440" y="2438" />
+              <mxPoint x="1440" y="2300" />
+              <mxPoint x="1295" y="2300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_comentario_contenido" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_comentario" target="attr_comentario_contenido">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1640" y="2420" />
+              <mxPoint x="1725" y="2420" />
+              <mxPoint x="1725" y="2328" />
+              <mxPoint x="1595" y="2328" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_comentario_pedido" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_comentario" target="attr_comentario_pedido">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1640" y="2438" />
+              <mxPoint x="1750" y="2438" />
+              <mxPoint x="1750" y="2300" />
+              <mxPoint x="1895" y="2300" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_comentario_autor" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_comentario" target="attr_comentario_autor">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1640" y="2438" />
+              <mxPoint x="1440" y="2438" />
+              <mxPoint x="1440" y="2420" />
+              <mxPoint x="1295" y="2420" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_comentario_fecha_hora" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_comentario" target="attr_comentario_fecha_hora">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1640" y="2438" />
+              <mxPoint x="1595" y="2438" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_evento_pedido" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_evento_trazabilidad" target="attr_evento_pedido">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="527.5" y="3138" />
+              <mxPoint x="340" y="3138" />
+              <mxPoint x="340" y="3037.5" />
+              <mxPoint x="195" y="3037.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_evento_tipo" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_evento_trazabilidad" target="attr_evento_tipo">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="527.5" y="3120" />
+              <mxPoint x="620" y="3120" />
+              <mxPoint x="620" y="3028" />
+              <mxPoint x="495" y="3028" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_evento_estado" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_evento_trazabilidad" target="attr_evento_estado">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="527.5" y="3138" />
+              <mxPoint x="650" y="3138" />
+              <mxPoint x="650" y="3000" />
+              <mxPoint x="795" y="3000" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_evento_fecha" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_evento_trazabilidad" target="attr_evento_fecha">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="527.5" y="3138" />
+              <mxPoint x="195" y="3138" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_evento_hora" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_evento_trazabilidad" target="attr_evento_hora">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="527.5" y="3138" />
+              <mxPoint x="495" y="3138" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_evento_usuario" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_evento_trazabilidad" target="attr_evento_usuario">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="527.5" y="3138" />
+              <mxPoint x="665" y="3138" />
+              <mxPoint x="665" y="3120" />
+              <mxPoint x="795" y="3120" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_evento_descripcion" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_evento_trazabilidad" target="attr_evento_descripcion">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="195" y="3190" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_bitacora_evento" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_bitacora" target="attr_bitacora_evento">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1620" y="3138" />
+              <mxPoint x="1440" y="3138" />
+              <mxPoint x="1440" y="3000" />
+              <mxPoint x="1295" y="3000" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_bitacora_usuario" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_bitacora" target="attr_bitacora_usuario">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1620" y="3138" />
+              <mxPoint x="1595" y="3138" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_bitacora_fecha_hora" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_bitacora" target="attr_bitacora_fecha_hora">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1620" y="3138" />
+              <mxPoint x="1750" y="3138" />
+              <mxPoint x="1750" y="3000" />
+              <mxPoint x="1895" y="3000" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_bitacora_recurso" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_bitacora" target="attr_bitacora_recurso">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1620" y="3138" />
+              <mxPoint x="1440" y="3138" />
+              <mxPoint x="1440" y="3120" />
+              <mxPoint x="1295" y="3120" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_notificacion_evento" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_notificacion" target="attr_notificacion_evento">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2700" y="3138" />
+              <mxPoint x="2540" y="3138" />
+              <mxPoint x="2540" y="2964" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_notificacion_destinatario" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_notificacion" target="attr_notificacion_destinatario">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2700" y="3138" />
+              <mxPoint x="2695" y="3138" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_notificacion_canal" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_notificacion" target="attr_notificacion_canal">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2700" y="3138" />
+              <mxPoint x="2865" y="3138" />
+              <mxPoint x="2865" y="2964" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_attr_notificacion_pedido" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#6b7280;" edge="1" parent="1" source="entity_notificacion" target="attr_notificacion_pedido">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2700" y="3138" />
+              <mxPoint x="2540" y="3138" />
+              <mxPoint x="2540" y="3120" />
+              <mxPoint x="2395" y="3120" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_rol_rel_usuario" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="entity_rol" target="rel_usuario_rol">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="495" y="395" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_rel_usuario_usuario" value="0..N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="rel_usuario_rol" target="entity_usuario">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1045" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_usuario_rel_pedido" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="entity_usuario" target="rel_usuario_pedido">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="395" />
+              <mxPoint x="1555" y="395" />
+              <mxPoint x="1555" y="460" />
+              <mxPoint x="1460" y="460" />
+              <mxPoint x="1460" y="650" />
+              <mxPoint x="1555" y="650" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_rel_usuario_pedido_pedido" value="0..N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="rel_usuario_pedido" target="entity_pedido">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1555" y="810" />
+              <mxPoint x="1460" y="810" />
+              <mxPoint x="1460" y="1040" />
+              <mxPoint x="1595" y="1040" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_usuario_rel_documento" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="entity_usuario" target="rel_usuario_documento">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="395" />
+              <mxPoint x="1665" y="395" />
+              <mxPoint x="1665" y="460" />
+              <mxPoint x="1725" y="460" />
+              <mxPoint x="1725" y="480" />
+              <mxPoint x="1835" y="480" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_rel_usuario_documento_documento" value="0..N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="rel_usuario_documento" target="entity_documento">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1795" y="730" />
+              <mxPoint x="1795" y="810" />
+              <mxPoint x="1750" y="810" />
+              <mxPoint x="1750" y="1740" />
+              <mxPoint x="1635" y="1740" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_pedido_rel_nota" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;dashed=1;" edge="1" parent="1" source="entity_pedido" target="rel_pedido_nota_venta">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1440" y="1090" />
+              <mxPoint x="1440" y="1095" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_rel_nota_nota" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;dashed=1;" edge="1" parent="1" source="rel_pedido_nota_venta" target="entity_nota_venta">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="640" y="1095" />
+              <mxPoint x="640" y="1090" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_pedido_rel_orden" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;dashed=1;" edge="1" parent="1" source="entity_pedido" target="rel_pedido_orden">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1440" y="1090" />
+              <mxPoint x="1440" y="1375" />
+              <mxPoint x="1140" y="1375" />
+              <mxPoint x="1140" y="1455" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_rel_orden_orden" value="0..N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;dashed=1;" edge="1" parent="1" source="rel_pedido_orden" target="entity_orden_produccion">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1045" y="1740" />
+              <mxPoint x="515" y="1740" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_pedido_rel_ficha" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;dashed=1;" edge="1" parent="1" source="entity_pedido" target="rel_pedido_ficha">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="1095" />
+              <mxPoint x="1555" y="1095" />
+              <mxPoint x="1555" y="1160" />
+              <mxPoint x="1460" y="1160" />
+              <mxPoint x="1460" y="1740" />
+              <mxPoint x="1140" y="1740" />
+              <mxPoint x="1140" y="2155" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_rel_ficha_ficha" value="0..1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;dashed=1;" edge="1" parent="1" source="rel_pedido_ficha" target="entity_ficha_cliente">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1045" y="2440" />
+              <mxPoint x="505" y="2440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_pedido_rel_documento" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="entity_pedido" target="rel_pedido_documento">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="1095" />
+              <mxPoint x="1555" y="1095" />
+              <mxPoint x="1555" y="1160" />
+              <mxPoint x="1460" y="1160" />
+              <mxPoint x="1460" y="1375" />
+              <mxPoint x="1555" y="1375" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_rel_documento_documento" value="0..N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="rel_pedido_documento" target="entity_documento">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1555" y="1460" />
+              <mxPoint x="1635" y="1460" />
+              <mxPoint x="1635" y="1535" />
+              <mxPoint x="1725" y="1535" />
+              <mxPoint x="1725" y="1740" />
+              <mxPoint x="1635" y="1740" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_pedido_rel_estado_pago" value="0..N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="entity_pedido" target="rel_pedido_estado_pago">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="1095" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_rel_estado_pago_estado" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="rel_pedido_estado_pago" target="entity_estado_pago">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2145" y="1090" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_pedido_rel_estado_kanban" value="0..N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="entity_pedido" target="rel_pedido_estado_kanban">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="1095" />
+              <mxPoint x="1665" y="1095" />
+              <mxPoint x="1665" y="1160" />
+              <mxPoint x="1725" y="1160" />
+              <mxPoint x="1725" y="1180" />
+              <mxPoint x="1750" y="1180" />
+              <mxPoint x="1750" y="1375" />
+              <mxPoint x="2050" y="1375" />
+              <mxPoint x="2050" y="1455" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_rel_estado_kanban_estado" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="rel_pedido_estado_kanban" target="entity_estado_kanban">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2145" y="1740" />
+              <mxPoint x="2705" y="1740" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_pedido_rel_subproceso" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="entity_pedido" target="rel_pedido_subproceso">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="1095" />
+              <mxPoint x="1665" y="1095" />
+              <mxPoint x="1665" y="1160" />
+              <mxPoint x="1725" y="1160" />
+              <mxPoint x="1725" y="1740" />
+              <mxPoint x="2050" y="1740" />
+              <mxPoint x="2050" y="2155" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_rel_subproceso_subproceso" value="0..N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="rel_pedido_subproceso" target="entity_subproceso">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2145" y="2440" />
+              <mxPoint x="2727.5" y="2440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_pedido_rel_evento" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="entity_pedido" target="rel_pedido_evento">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="1095" />
+              <mxPoint x="1555" y="1095" />
+              <mxPoint x="1555" y="1160" />
+              <mxPoint x="1460" y="1160" />
+              <mxPoint x="1460" y="1740" />
+              <mxPoint x="1440" y="1740" />
+              <mxPoint x="1440" y="1880" />
+              <mxPoint x="1385" y="1880" />
+              <mxPoint x="1385" y="2160" />
+              <mxPoint x="1155" y="2160" />
+              <mxPoint x="1155" y="2440" />
+              <mxPoint x="1140" y="2440" />
+              <mxPoint x="1140" y="2855" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_rel_evento_evento" value="0..N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="rel_pedido_evento" target="entity_evento_trazabilidad">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1045" y="3140" />
+              <mxPoint x="640" y="3140" />
+              <mxPoint x="640" y="3190" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_usuario_rel_evento" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="entity_usuario" target="rel_usuario_evento">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="395" />
+              <mxPoint x="1555" y="395" />
+              <mxPoint x="1555" y="460" />
+              <mxPoint x="1460" y="460" />
+              <mxPoint x="1460" y="2075" />
+              <mxPoint x="1385" y="2075" />
+              <mxPoint x="1385" y="2235" />
+              <mxPoint x="1440" y="2235" />
+              <mxPoint x="1440" y="2440" />
+              <mxPoint x="1460" y="2440" />
+              <mxPoint x="1460" y="2580" />
+              <mxPoint x="1495" y="2580" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_rel_usuario_evento_evento" value="0..N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="rel_usuario_evento" target="entity_evento_trazabilidad">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1495" y="2860" />
+              <mxPoint x="1460" y="2860" />
+              <mxPoint x="1460" y="3140" />
+              <mxPoint x="640" y="3140" />
+              <mxPoint x="640" y="3190" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_usuario_rel_bitacora" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="entity_usuario" target="rel_usuario_bitacora">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="395" />
+              <mxPoint x="1665" y="395" />
+              <mxPoint x="1665" y="460" />
+              <mxPoint x="1725" y="460" />
+              <mxPoint x="1725" y="1740" />
+              <mxPoint x="1795" y="1740" />
+              <mxPoint x="1795" y="2235" />
+              <mxPoint x="1750" y="2235" />
+              <mxPoint x="1750" y="2440" />
+              <mxPoint x="1805" y="2440" />
+              <mxPoint x="1805" y="2560" />
+              <mxPoint x="1725" y="2560" />
+              <mxPoint x="1725" y="2580" />
+              <mxPoint x="1695" y="2580" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_rel_bitacora_bitacora" value="0..N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="rel_usuario_bitacora" target="entity_bitacora">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1695" y="2935" />
+              <mxPoint x="1725" y="2935" />
+              <mxPoint x="1725" y="3140" />
+              <mxPoint x="1620" y="3140" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_pedido_rel_comentario" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="entity_pedido" target="rel_pedido_comentario">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="1095" />
+              <mxPoint x="1555" y="1095" />
+              <mxPoint x="1555" y="1160" />
+              <mxPoint x="1460" y="1160" />
+              <mxPoint x="1460" y="1880" />
+              <mxPoint x="1495" y="1880" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_rel_comentario_comentario" value="0..N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="rel_pedido_comentario" target="entity_comentario">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1495" y="2235" />
+              <mxPoint x="1460" y="2235" />
+              <mxPoint x="1460" y="2440" />
+              <mxPoint x="1640" y="2440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_usuario_rel_comentario" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="entity_usuario" target="rel_usuario_comentario">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="395" />
+              <mxPoint x="1665" y="395" />
+              <mxPoint x="1665" y="460" />
+              <mxPoint x="1725" y="460" />
+              <mxPoint x="1725" y="1740" />
+              <mxPoint x="1795" y="1740" />
+              <mxPoint x="1795" y="1860" />
+              <mxPoint x="1725" y="1860" />
+              <mxPoint x="1725" y="1880" />
+              <mxPoint x="1695" y="1880" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_rel_usuario_comentario_comentario" value="0..N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="rel_usuario_comentario" target="entity_comentario">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1695" y="2235" />
+              <mxPoint x="1725" y="2235" />
+              <mxPoint x="1725" y="2440" />
+              <mxPoint x="1640" y="2440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_pedido_rel_parametro" value="0..N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="entity_pedido" target="rel_pedido_parametro">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="1095" />
+              <mxPoint x="1895" y="1095" />
+              <mxPoint x="1895" y="1160" />
+              <mxPoint x="2020" y="1160" />
+              <mxPoint x="2020" y="1180" />
+              <mxPoint x="3140" y="1180" />
+              <mxPoint x="3140" y="1375" />
+              <mxPoint x="3150" y="1375" />
+              <mxPoint x="3150" y="1455" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_rel_parametro_parametro" value="0..1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="rel_pedido_parametro" target="entity_parametro_estimacion">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3245" y="1740" />
+              <mxPoint x="3825" y="1740" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_pedido_rel_capacidad" value="0..N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;dashed=1;" edge="1" parent="1" source="entity_pedido" target="rel_pedido_capacidad">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2050" y="1090" />
+              <mxPoint x="2050" y="1040" />
+              <mxPoint x="2840" y="1040" />
+              <mxPoint x="2840" y="1095" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_rel_capacidad_capacidad" value="0..1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;dashed=1;" edge="1" parent="1" source="rel_pedido_capacidad" target="entity_capacidad">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3245" y="1090" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_pedido_rel_notificacion" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="entity_pedido" target="rel_pedido_notificacion">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="1095" />
+              <mxPoint x="1665" y="1095" />
+              <mxPoint x="1665" y="1160" />
+              <mxPoint x="1725" y="1160" />
+              <mxPoint x="1725" y="1740" />
+              <mxPoint x="1795" y="1740" />
+              <mxPoint x="1795" y="2160" />
+              <mxPoint x="1895" y="2160" />
+              <mxPoint x="1895" y="2235" />
+              <mxPoint x="2020" y="2235" />
+              <mxPoint x="2020" y="2440" />
+              <mxPoint x="2050" y="2440" />
+              <mxPoint x="2050" y="2855" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_rel_notificacion_notificacion" value="0..N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="rel_pedido_notificacion" target="entity_notificacion">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2145" y="3140" />
+              <mxPoint x="2700" y="3140" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_usuario_rel_anuncio" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="entity_usuario" target="rel_usuario_anuncio">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1595" y="395" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge_rel_anuncio_anuncio" value="0..N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=none;strokeColor=#111827;fontSize=11;fontColor=#111827;" edge="1" parent="1" source="rel_usuario_anuncio" target="entity_anuncio">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2145" y="390" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
