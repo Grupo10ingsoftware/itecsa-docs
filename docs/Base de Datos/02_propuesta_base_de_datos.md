@@ -39,12 +39,12 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | RF09 | Bloqueo de acceso a usuarios desvinculados | Modulo 1: Gestion de usuario | Impide acceso web, API y operaciones internas. | Estado de usuario y reglas de autorizacion. | Impacta control de acceso. |
 | RF10 | Ingreso de usuario validado | Modulo 1: Gestion de usuario | Permite acceso si usuario esta registrado y vinculado. | Usuario, correo, estado vinculado. | Relacion con autenticacion. |
 | RF11 | Validacion de correo electronico unico | Modulo 1: Gestion de usuario | Impide correos duplicados sin importar estado. | Correo unico conceptual en usuarios. | No se toma la mencion fisica del requisito como diseno fisico. |
-| RF12 | Restriccion de acceso por rol | Modulo 1: Gestion de usuario | Restringe URL protegidas segun rol. | Rol, permiso, recurso protegido. | Permisos detallados pendientes. |
-| RF13 | Acceso denegado por rol | Modulo 1: Gestion de usuario | Redirige ante permisos insuficientes. | Rol, permiso, recurso solicitado, evento de acceso. | Puede alimentar bitacora/auditoria. |
-| RF14 | Recuperacion de contrasena por correo | Modulo 1: Gestion de usuario | Envia enlace unico y temporal para nueva contrasena. | Correo, enlace temporal, uso unico, vigencia. | Puede estar en Auth0 o componente propio; pendiente de decision tecnica. |
+| RF12 | Restriccion de acceso por rol | Modulo 1: Gestion de usuario | Restringe URL protegidas segun rol. | Rol, capacidades o reglas de autorizacion, recurso protegido. | No se modela Permiso como entidad independiente. |
+| RF13 | Acceso denegado por rol | Modulo 1: Gestion de usuario | Redirige ante permisos insuficientes. | Rol, regla de autorizacion, recurso solicitado, evento de acceso. | Puede alimentar bitacora/auditoria. |
+| RF14 | Recuperacion de contrasena por correo | Modulo 1: Gestion de usuario | Envia enlace unico y temporal para nueva contrasena. | Correo y flujo tecnico de recuperacion. | Puede estar en Auth0/correo; no se modela como entidad propia. |
 | RF15 | Edicion de usuarios por Administrador | Modulo 1: Gestion de usuario | Modifica datos de usuario y registra bitacora. | Nombre, apellido, correo, rol, estado, firma electronica, bitacora. | Respaldado para usuario y auditoria. |
 | RF16 | Conservacion de datos de usuario desvinculado | Modulo 1: Gestion de usuario | Mantiene registros asociados visibles en reportes. | Bitacoras, ordenes de produccion, ventas asociadas a usuario. | Requiere preservar trazabilidad historica. |
-| RF17 | Cierre de sesion desde cualquier interfaz | Modulo 1: Gestion de usuario | Permite cierre de sesion. | Sesion de usuario y evento de cierre. | Complementado por RNF01 y RNF05. |
+| RF17 | Cierre de sesion desde cualquier interfaz | Modulo 1: Gestion de usuario | Permite cierre de sesion. | Evento tecnico de cierre o auditoria de autenticacion. | Con JWT/Auth0 no se asume sesion persistida en BD propia. |
 | RF18 | Generacion de pedidos | Modulo 2: Ingreso y validacion de Nota de Venta, ficha de cliente y orden de produccion | Ventas genera pedidos. | Pedido, usuario de Ventas. | Pedido emerge como concepto central. |
 | RF19 | Registro de pedidos | Modulo 2 | Crea pedido con numero de Nota de Venta y PDF. | Numero de Nota de Venta, archivo PDF de Nota de Venta, pedido. | Atributos reales de la NV quedan pendientes. |
 | RF20 | Creacion de pedido | Modulo 2 | Completa datos por busqueda asociada al numero de Nota de Venta. | Razon social, RUT cliente, descripcion de producto, cantidad, datos para fabricacion. | Depende de fuente real/Manager: Pendiente de validacion con datos reales. |
@@ -54,11 +54,11 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | RF24 | Mensaje por duplicacion de Nota de Venta | Modulo 2 | Bloquea duplicado de Nota de Venta. | Regla de unicidad de Nota de Venta. | Refuerza RF23. |
 | RF25 | Adjuntar archivos de diseno | Modulo 2 | Administrador y Ventas adjuntan archivos de diseno al pedido. | Archivo de diseno asociado al pedido. | Contenido/formato real pendiente. |
 | RF26 | Estado de pago del pedido | Modulo 3: Confirmacion de Pago y Transicion a Produccion | Cobranzas actualiza pago: Confirmado, Rechazado, Pendiente. | Estado de pago, usuario cobranzas. | Catalogo respaldado. |
-| RF27 | Firma digital al confirmar pago | Modulo 3 | Firma digitalmente la Nota de Venta al confirmar pago. | Firma, Nota de Venta, evento de confirmacion. | Archivo/documento firmado pendiente de implementacion documental. |
+| RF27 | Firma digital al confirmar pago | Modulo 3 | Firma digitalmente la Nota de Venta al confirmar pago. | Referencia/metadato de firma, Nota de Venta, evento de confirmacion. | La firma se trata como archivo/metadato documental, no como entidad fuerte. |
 | RF28 | Estado automatico del pedido | Modulo 3 | Cambia pedido a Listo para produccion al confirmar pago. | Estado de pedido/Kanban, condicion de pago. | Regla automatica. |
 | RF29 | Trazabilidad de cambios de pago | Modulo 3 | Registra fecha, hora e identificador del usuario que confirma. | Evento de pago, fecha, hora, usuario responsable. | Historial/auditoria respaldado. |
 | RF30 | Asociacion de documentos al pedido | Modulo 3 | Administrador adjunta OP y ficha cliente cuando pago confirmado. | Orden de Produccion, ficha de cliente, pedido, documentos. | Atributos reales de OP/ficha: Pendiente de validacion con datos reales. |
-| RF31 | Capacidad de produccion diaria | Modulo 3 | Actualiza capacidad disponible al generarse el pedido. | Capacidad diaria disponible, pedido. | Relacion temporal/productiva. |
+| RF31 | Actualizacion de capacidad disponible | Modulo 3 | Actualiza capacidad disponible al generarse el pedido. | Capacidad productiva disponible, pedido. | Capacidad se mantiene como concepto propio de configuracion/metrica. |
 | RF32 | Restriccion manual a Listo para produccion | Modulo 3 | Bloquea cambio si pago no esta confirmado. | Estado de pago, estado de orden/pedido, regla de transicion. | Terminos pedido/orden requieren validacion conceptual. |
 | RF33 | Configuracion de capacidad de produccion | Modulo 4: Gestion de capacidad instalada y reglas de negocio | Administrador configura capacidad maxima diaria por tipo. | Capacidad maxima diaria, tipo de producto. | Catalogo por tarjetas/lanyards. |
 | RF34 | Carga laboral diaria | Modulo 4 | Muestra ordenes asignadas por dia respecto de capacidad. | Fecha, ordenes asignadas, capacidad definida. | Orden/pedido asignado por dia pendiente de precision. |
@@ -76,7 +76,7 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | RF46 | Subtareas de produccion | Modulo 5 | Muestra subprocesos por tipo de producto. | Subprocesos Lanyard y Tarjeta. | Catalogos iniciales respaldados. |
 | RF47 | Estado de subproceso | Modulo 5 | Operario actualiza estado mediante Stepper. | Estado de subproceso, usuario Operario. | Valores internos del Stepper no estan definidos. |
 | RF48 | Comentarios en subproceso | Modulo 5 | Permite comentario al cambiar estado de subproceso. | Comentario, subproceso, pedido. | Complementado por RF63. |
-| RF49 | Firma electronica en produccion | Modulo 5 | Agrega firma a ficha cliente al actualizar subproceso. | Firma electronica, ficha cliente, subproceso, usuario. | Ficha real pendiente de revision visual. |
+| RF49 | Firma electronica en produccion | Modulo 5 | Agrega firma a ficha cliente al actualizar subproceso. | Referencia/metadato de firma, ficha cliente, subproceso, usuario. | Ficha real pendiente de revision visual. |
 | RF50 | Historial de estados de produccion | Modulo 5 | Guarda historial completo sin sobrescribir. | Fecha, hora, usuario responsable, cambio de subproceso. | Historial respaldado. |
 | RF51 | Filtrado de pedidos | Modulo 5 | Filtra por NV, OP, cliente y vendedor. | Numero de NV, numero de OP, nombre cliente, vendedor. | Numero OP y nombre cliente dependen de datos reales/documentos. |
 | RF52 | Etiquetas visuales | Modulo 5 | Administrador y Operario asignan etiquetas. | Etiquetas Urgencia y Atraso. | Respaldado. |
@@ -96,13 +96,13 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | RF66 | Panel de anuncios internos | Modulo 7 | Pestaña de anuncios visible para cualquier rol. | Anuncio interno, visibilidad por rol. | Respaldado. |
 | RF67 | Publicacion de anuncios | Modulo 7 | Administrador publica comunicados y novedades. | Comunicado/novedad, autor Administrador. | Respaldado. |
 | RF68 | Reporte de cumplimiento de entregas | Modulo 8: Reportes, indicadores y analitica | Gerencia genera reporte por rango de fechas. | Pedidos a tiempo/fuera de plazo, porcentajes, grafico. | Reporte puede calcularse desde eventos. |
-| RF69 | Exportacion de reporte a Excel | Modulo 8 | Exporta pedidos a tiempo y no a tiempo. | Exportacion, filtros de cumplimiento. | Archivo exportado puede ser generado bajo demanda. |
-| RF70 | Exportacion de reportes de produccion | Modulo 8 | Exporta tiempos o entregas en Excel/CSV por periodo. | Rango de fechas, tiempos, entregas, formato de exportacion. | No define retencion de archivos exportados. |
+| RF69 | Salida de reporte a Excel | Modulo 8 | Exporta pedidos a tiempo y no a tiempo. | Salida generada bajo demanda, filtros de cumplimiento. | Archivo exportado puede ser generado bajo demanda. |
+| RF70 | Salida de reportes de produccion | Modulo 8 | Exporta tiempos o entregas en Excel/CSV por periodo. | Rango de fechas, tiempos, entregas y formato como parametro de ejecucion. | No se modela historial persistente de exportaciones. |
 | RF71 | Tiempo de ciclo promedio | Modulo 8 | Calcula horas entre creacion de NV y Listo para entrega. | Fecha/hora de creacion, fecha/hora de estado final, promedio diario. | Depende de eventos historicos confiables. |
 | RF72 | Mapa de carga de produccion | Modulo 8 | Muestra porcentaje de capacidad usada por dia. | Fecha, capacidad utilizada, porcentaje. | Derivable de capacidad y pedidos/ordenes. |
 | RF73 | Filtro por rango de fechas | Modulo 8 | Filtra reportes e indicadores por periodo. | Rango de fechas. | Respaldado. |
 | RF74 | Panel gerencial | Modulo 8 | Panel exclusivo para Gerencia. | Rol Gerencia, indicadores. | Control de acceso. |
-| RF75 | Ranking de productos solicitados | Modulo 8 | Ranking por rango de fechas. | Producto, cantidad solicitada, periodo. | Depende de producto/cantidad de NV o pedido. |
+| RF75 | Ranking de productos solicitados | Modulo 8 | Ranking por rango de fechas. | Datos de producto importados desde NV, cantidad solicitada, periodo. | Producto no se modela como entidad independiente. |
 | RF76 | Ordenes agrupadas por estado | Modulo 8 | Reporta cantidad de ordenes por estado Kanban. | Orden/pedido, estado, rango de fechas. | Termino orden/pedido debe alinearse. |
 | RF77 | Cumplimiento por vendedor | Modulo 8 | Indicador por Ventas con NV, entregas a tiempo, sobrecarga y fuera de plazo. | Vendedor, NV registradas, ordenes asociadas, sobrecarga, cumplimiento. | Requiere asociar usuario Ventas con pedidos/NV. |
 
@@ -114,44 +114,38 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Atributo conceptual | Dato mencionado explicitamente en requisitos o apoyo permitido. Si depende de documentos reales, Manager, planillas o registros existentes, se marca como Pendiente de validacion con datos reales. |
 | Relacion | Vinculo necesario para explicar procesos respaldados por requisitos, sin cerrar cardinalidad definitiva si el requisito no la precisa. |
 | Catalogo o estado | Conjunto de valores controlados nombrados en requisitos vigentes. Los valores de glosario se usan solo si no contradicen RF. |
+| Dato de dominio | Informacion propia del negocio o proceso de ITECSA, como pedidos, notas de venta, estados, capacidad, documentos o informacion operacional, diferenciada de datos puramente tecnicos o de implementacion. |
 | Historial y auditoria | Evento o cambio que debe preservarse por trazabilidad, bitacora, conservacion historica o reportabilidad. |
-| Documento o archivo asociado | Evidencia documental o archivo adjunto que debe vincularse al flujo, sin asumir que todo su contenido sera estructurado. |
-| Sistema externo | Dependencia fuera del limite del sistema propio, usada para autenticacion, datos comerciales, correo o almacenamiento documental. |
+| Documento o archivo asociado | Evidencia documental o archivo adjunto que debe vincularse al flujo mediante metadatos y referencia/ruta logica; el archivo real vive en repositorio documental interno. |
+| Sistema externo | Dependencia fuera del limite del sistema propio, usada para autenticacion, datos comerciales, correo o integracion documental. |
 
 ## 5. Entidades candidatas propuestas
 
 | Entidad candidata | Tipo conceptual | Justificacion | Requisitos que la respaldan | Nivel de confianza | Estado |
 | --- | --- | --- | --- | --- | --- |
-| Usuario | Actor interno / dato maestro | Gestiona autenticacion, perfil, estado, firma, roles, acciones y trazabilidad. | RF01-RF17, RNF01-RNF08, UR 1.x | Alto | respaldada por requisitos |
-| Rol | Catalogo de autorizacion | Los permisos y accesos dependen del rol. | RF04, RF12, RF13, RF26, RF33, RF58, RF67, RF74 | Alto | respaldada por requisitos |
-| Permiso | Configuracion de autorizacion | RF04 exige permisos asociados a roles y RF12/RF13 restringen recursos. | RF04, RF12, RF13 | Medio | pendiente de validacion |
-| Sesion de usuario | Control de acceso / evento | Cierre, invalidacion e inactividad requieren seguimiento. | RF17, RNF01, RNF05 | Medio | tentativa |
-| Solicitud de recuperacion de contrasena | Seguridad / evento temporal | El enlace debe ser unico, temporal y de un solo uso. | RF14 | Medio | tentativa |
-| Firma electronica | Documento/archivo de usuario | Se registra para usuarios y se aplica a NV o ficha cliente. | RF05, RF15, RF27, RF49 | Alto | respaldada por requisitos |
+| Usuario | Actor interno / dato maestro | Gestiona autenticacion, perfil, estado, referencia de firma, roles, acciones y trazabilidad. | RF01-RF17, RNF01-RNF08, UR 1.x | Alto | respaldada por requisitos |
+| Rol | Catalogo/configuracion de autorizacion | Los accesos y capacidades dependen del rol. | RF04, RF12, RF13, RF26, RF33, RF58, RF67, RF74 | Alto | respaldada por requisitos |
 | Pedido | Proceso transaccional | Centraliza el flujo comercial-productivo, estados, documentos y reportes. | RF18-RF32, RF42-RF77 | Alto | respaldada por requisitos |
-| Nota de Venta | Documento/registro comercial | Origina el pedido y alimenta datos de producto, cliente, cantidad y pago. | RF19-RF24, RF27, RF38, RF51, RF65, RF77, glosario | Alto | Pendiente de validacion con datos reales |
-| Cliente | Dato de dominio | Razon social, RUT y nombre de cliente aparecen asociados al pedido/NV. | RF20, RF51, glosario | Medio | Pendiente de validacion con datos reales |
-| Producto | Dato de dominio / catalogo | El flujo distingue lanyard y tarjeta y calcula fechas por tipo/cantidad. | RF22, RF38-RF40, RF46, RF75 | Alto | respaldada por requisitos |
+| Nota de Venta | Documento/registro comercial | Origina el pedido y alimenta datos importados de cliente, producto, cantidad y pago. | RF19-RF24, RF27, RF38, RF51, RF65, RF77, glosario | Alto | Pendiente de validacion con datos reales |
+| Tipo de producto | Catalogo / valor controlado | El flujo distingue lanyard y tarjeta para capacidad, estimacion y subprocesos. | RF22, RF33, RF38-RF40, RF46, RF75 | Alto | respaldada por requisitos |
 | Orden de Produccion | Documento/registro productivo | Se adjunta al pedido, se filtra por numero y se reporta por estado. | RF30, RF32, RF34, RF51, RF76, glosario | Alto | Pendiente de validacion con datos reales |
 | Ficha de cliente | Documento asociado | Se adjunta al pedido y recibe firma en produccion. | RF30, RF49, anexo C, glosario | Medio | Pendiente de validacion con datos reales |
-| Documento o archivo asociado | Archivo / repositorio documental | NV PDF, OP, ficha cliente, archivos de diseno y firmas deben asociarse al flujo. | RF19, RF25, RF27, RF30, RF49, anexos C-E | Alto | pendiente de validacion con datos reales |
+| Documento o archivo asociado | Metadatos / referencia documental | NV PDF, OP, ficha cliente, archivos de diseno y firmas deben asociarse al flujo sin guardar binarios en BD. | RF19, RF25, RF27, RF30, RF49, anexos C-E | Alto | pendiente de validacion con datos reales |
 | Estado de pago | Estado controlado | Cobranzas actualiza Confirmado, Rechazado o Pendiente. | RF26-RF29, RF32 | Alto | respaldada por requisitos |
 | Estado Kanban o etapa productiva | Estado controlado | Ordena pedidos en el tablero y sustenta tiempos/reportes. | RF28, RF32, RF42-RF45, RF55-RF57, RF61, RF76 | Alto | respaldada por requisitos |
 | Subproceso de produccion | Proceso / estado parcial | Depende del tipo de producto y es actualizado por Operario. | RF46-RF50 | Alto | respaldada por requisitos |
 | Evento de trazabilidad | Historial | Conserva cambios cronologicos por pedido, pago, produccion, comentarios y sobrecarga. | RF29, RF37, RF50, RF55, RF59, RF60, RF63, RNF07, RNF08 | Alto | respaldada por requisitos |
 | Bitacora de auditoria | Auditoria / historial | Registra modificaciones de usuario y eventos de seguridad/conservacion. | RF15, RF16, RNF07, RNF08, glosario | Alto | respaldada por requisitos |
 | Comentario, observacion o alerta | Comunicacion operativa | Debe asociarse a pedido y tener fecha, hora y autor. | RF48, RF62, RF63 | Alto | respaldada por requisitos |
-| Etiqueta visual y prioridad | Clasificacion / regla operativa | Urgencia, atraso y prioridad organizan pedidos. | RF52-RF54, RF64, RF65 | Medio | respaldada por requisitos con pendiente |
-| Capacidad de produccion diaria | Configuracion / metrica operativa | Se configura y actualiza por tipo de producto y fecha. | RF31, RF33-RF37, RF72 | Alto | respaldada por requisitos |
+| Capacidad | Configuracion / metrica productiva | Representa capacidad productiva, posiblemente diaria, asociada a tipo de producto, fecha o planificacion segun requisitos vigentes. | RF31, RF33-RF37, RF72 | Alto | respaldada por requisitos |
 | Parametro de estimacion | Configuracion de negocio | Define dias/rangos para calcular fecha estimada. | RF39, RF40, RNF06 | Alto | respaldada por requisitos |
 | Calendario de planificacion | Vista/configuracion operativa | Permite visualizar y reajustar fecha estimada. | RF41 | Medio | tentativa |
 | Notificacion | Comunicacion del sistema | Se emite por eventos de pedido, urgencia y entrega. | RF58, RF61, RF65 | Alto | respaldada por requisitos |
 | Anuncio interno | Comunicacion interna | Panel visible por rol y publicaciones de Administrador. | RF66, RF67 | Alto | respaldada por requisitos |
 | Reporte o indicador | Analitica / salida calculada | Reportes de cumplimiento, carga, ciclo, ranking y vendedor. | RF68-RF77 | Medio | inferida |
-| Exportacion de reporte | Archivo de salida | Se generan archivos Excel/CSV para reportes. | RF69, RF70 | Medio | tentativa |
-| Sistema externo | Sistema externo | Auth0, Manager y correo aparecen como dependencias tecnicas. | RF14, RF58, RF61, RF65, Anexo I, arquitectura | Medio | pendiente de validacion |
+| Sistema externo | Sistema externo / mecanismo tecnico | Auth0/JWT, Manager y correo aparecen como dependencias tecnicas. | RF14, RF58, RF61, RF65, Anexo I, arquitectura | Medio | pendiente de validacion |
 
-## 6. Detalle de entidades y atributos conceptuales
+## 6. Detalle de entidades, conceptos y atributos conceptuales
 
 ### Usuario
 
@@ -173,7 +167,7 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Correo electronico | Correo usado para autenticacion, perfil y recuperacion. | Dato de contacto/acceso | respaldado por requisitos | RF01, RF05, RF07, RF11, RF14 | Debe ser unico incluso si el usuario esta desvinculado. |
 | Rol | Rol asignado al usuario. | Catalogo | respaldado por requisitos | RF04, RF05, RF07, RF12 | Valores conocidos en RF04. |
 | Estado de cuenta | Vinculado o desvinculado. | Estado | respaldado por requisitos | RF02, RF09, RF10, RF15, RF16 | Controla acceso y conservacion historica. |
-| Firma electronica asociada | Archivo o referencia de firma del usuario. | Documento/archivo | respaldado por requisitos | RF05, RF15, RF27, RF49 | Formatos XML, CMS o PDF segun RF05. |
+| Referencia de firma electronica | Metadato o referencia documental de la firma del usuario. | Referencia documental | respaldado por requisitos | RF05, RF15, RF27, RF49 | El archivo real vive en repositorio documental; formatos XML, CMS o PDF segun RF05. |
 | Cambio obligatorio de contrasena | Condicion para primer inicio. | Regla/estado de seguridad | tentativa | RF06 | Debe validarse con Auth0 o mecanismo interno. |
 | Contrasena | Credencial usada en autenticacion. | Credencial | pendiente de validacion | RF01, RF05, RF06, RF14, RNF03 | No se define almacenamiento; Anexo I menciona Auth0. |
 
@@ -183,9 +177,9 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 
 ### Rol
 
-**Descripcion:** Clasificacion de usuario que determina acceso, permisos y acciones disponibles.
+**Descripcion:** Clasificacion de usuario que determina acceso, capacidades de uso y acciones disponibles.
 
-**Tipo conceptual:** Catalogo de autorizacion.
+**Tipo conceptual:** Catalogo/configuracion de autorizacion.
 
 **Requisitos que la respaldan:** RF04, RF05, RF12, RF13, RF26, RF33, RF58, RF67, RF74.
 
@@ -196,80 +190,39 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
 | --- | --- | --- | --- | --- | --- |
 | Nombre de rol | Valor del rol asignable. | Catalogo | respaldado por requisitos | RF04, RF05 | Administrador, Gerencia, Operario, Ventas, Cobranzas. |
-| Descripcion operativa | Responsabilidad general del rol. | Texto descriptivo | respaldado por apoyo secundario | Anexo B roles | No reemplaza permisos formales. |
+| Descripcion operativa | Responsabilidad general del rol. | Texto descriptivo | respaldado por apoyo secundario | Anexo B roles | No reemplaza reglas formales de autorizacion. |
+| Capacidades asociadas | Conjunto de acciones, vistas o recursos permitidos por rol. | Configuracion | pendiente de validacion | RF04, RF12, RF13 | No se modela como entidad independiente salvo que requisitos futuros indiquen administracion dinamica. |
 
 **Pendientes de validacion:**
-- Confirmar permisos granulares sin usar matrices RF/CU.
+- Confirmar capacidades granulares por rol a partir de RF vigentes y pantallas reales, sin usar matrices RF/CU.
 
-### Permiso
+### Autenticacion y eventos tecnicos de acceso
 
-**Descripcion:** Capacidad de acceso o accion asociada a un rol.
+**Descripcion:** Concepto tecnico externo al nucleo del modelo de negocio. Incluye autenticacion con JWT/Auth0, cierre de acceso, invalidacion, inactividad y recuperacion de contrasena.
 
-**Tipo conceptual:** Configuracion de autorizacion.
+**Tipo conceptual:** Sistema externo / auditoria tecnica.
 
-**Requisitos que la respaldan:** RF04, RF12, RF13.
+**Requisitos que la respaldan:** RF14, RF17, RNF01, RNF05, Anexo I.
 
 **Nivel de confianza:** Medio.
 
-**Atributos conceptuales:**
+**Tratamiento conceptual:**
 
-| Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
-| --- | --- | --- | --- | --- | --- |
-| Recurso protegido | Vista, URL, accion o punto de acceso protegido. | Configuracion | inferido | RF12, RF13 | RF no enumera recursos. |
-| Accion permitida | Operacion autorizada para un rol. | Configuracion | inferido | RF04, RF12 | Debe derivarse de RF vigentes, no de casos de uso. |
-| Rol asociado | Rol al que aplica el permiso. | Relacion conceptual | respaldado por requisitos | RF04 | Detalle pendiente. |
-
-**Pendientes de validacion:**
-- Definir permisos a partir de RF y pantallas reales, sin matrices RF/CU.
-
-### Sesion de usuario
-
-**Descripcion:** Estado de acceso activo o finalizado de un usuario autenticado.
-
-**Tipo conceptual:** Control de acceso / evento.
-
-**Requisitos que la respaldan:** RF17, RNF01, RNF05.
-
-**Nivel de confianza:** Medio.
-
-**Atributos conceptuales:**
-
-| Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
-| --- | --- | --- | --- | --- | --- |
-| Usuario asociado | Usuario que mantiene o cierra sesion. | Relacion conceptual | respaldado por requisitos | RF17, RNF01 | Puede depender de Auth0. |
-| Estado de sesion | Activa, cerrada o invalidada. | Estado | inferido | RF17, RNF01, RNF05 | Valores definitivos pendientes. |
-| Momento de invalidacion | Fecha/hora de cierre o invalidacion. | Evento temporal | inferido | RNF01, RNF05 | RNF01 exige plazo maximo. |
+| Aspecto | Tratamiento | Fuente / requisito | Observaciones |
+| --- | --- | --- | --- |
+| Autenticacion JWT/Auth0 | Mecanismo externo o tecnico relacionado con acceso de usuarios. | Anexo I, RF01, RF10 | No implica guardar sesiones tradicionales en la BD propia. |
+| Cierre o invalidacion de acceso | Evento tecnico registrable en bitacora si se requiere auditoria. | RF17, RNF01, RNF05 | No se modela una entidad persistente de sesion. |
+| Recuperacion de contrasena | Flujo tecnico de autenticacion/correo. | RF14 | No se modela una entidad propia; solo volveria al modelo si se implementan tokens internos persistidos. |
+| Eventos de acceso o fallos | Registros de auditoria cuando el sistema decida conservarlos. | RF03, RF13, RNF07 | Deben asociarse a Bitacora de auditoria o Evento de trazabilidad tecnica, no a una sesion persistida. |
 
 **Pendientes de validacion:**
-- Confirmar si se persistiran sesiones propias o solo eventos de auditoria.
+- Confirmar alcance exacto de Auth0/JWT y si el sistema conservara eventos de acceso, cierre o recuperacion en bitacora.
 
-### Solicitud de recuperacion de contrasena
+### Referencia de firma electronica
 
-**Descripcion:** Solicitud temporal para restablecer contrasena mediante correo.
+**Descripcion:** Metadato o referencia documental asociada al usuario y a documentos firmados. La firma real se mantiene en repositorio documental interno, no como binario en la BD.
 
-**Tipo conceptual:** Seguridad / evento temporal.
-
-**Requisitos que la respaldan:** RF14.
-
-**Nivel de confianza:** Medio.
-
-**Atributos conceptuales:**
-
-| Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
-| --- | --- | --- | --- | --- | --- |
-| Correo solicitado | Correo usado para buscar cuenta asociada. | Dato de contacto | respaldado por requisitos | RF14 | No confirma existencia en mensajes indebidos mas alla de RF. |
-| Enlace unico | URL temporal enviada al correo. | Token conceptual | respaldado por requisitos | RF14 | No se define estructura interna. |
-| Vigencia | Limite temporal del enlace. | Regla temporal | respaldado por requisitos | RF14 | Duracion exacta no definida. |
-| Uso del enlace | Marca de enlace usado o disponible. | Estado | respaldado por requisitos | RF14 | De un solo uso. |
-
-**Pendientes de validacion:**
-- Confirmar si Auth0 cubre este flujo o si el sistema conserva solicitudes propias.
-
-### Firma electronica
-
-**Descripcion:** Archivo o referencia de firma asociada a usuario y usada para firmar documentos del flujo.
-
-**Tipo conceptual:** Documento/archivo de usuario.
+**Tipo conceptual:** Metadato documental asociado a Usuario y Documento o archivo asociado.
 
 **Requisitos que la respaldan:** RF05, RF15, RF27, RF49.
 
@@ -279,13 +232,12 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 
 | Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
 | --- | --- | --- | --- | --- | --- |
-| Usuario titular | Usuario al que pertenece la firma. | Relacion conceptual | respaldado por requisitos | RF05, RF15 | Aplica a Cobranzas y Operario segun acciones. |
-| Formato | XML, CMS o PDF. | Valor controlado | respaldado por requisitos | RF05 | No implica estructura interna del archivo. |
-| Archivo o referencia | Firma almacenada o vinculada. | Archivo | pendiente de validacion con datos reales | RF05, RF15 | Requiere definir repositorio documental. |
-| Documento firmado | NV o ficha cliente donde se aplica. | Relacion documental | respaldado por requisitos | RF27, RF49 | Contenido firmado pendiente. |
+| Formato de firma | XML, CMS o PDF. | Valor controlado | respaldado por requisitos | RF05 | No implica estructura interna ni binario en BD. |
+| Referencia documental de firma | Ruta logica, identificador documental o metadato de ubicacion. | Referencia documental | pendiente de validacion con datos reales | RF05, RF15 | El archivo real queda en repositorio documental. |
+| Aplicacion de firma en documento | Evidencia de que la firma se aplico a NV o ficha cliente. | Metadato/evento documental | respaldado por requisitos | RF27, RF49 | La accion debe quedar trazada mediante evento o bitacora. |
 
 **Pendientes de validacion:**
-- Confirmar formato operativo real, almacenamiento y validacion de firma.
+- Confirmar formato operativo real, almacenamiento documental y versionado si existiera mas de una firma por usuario.
 
 ### Pedido
 
@@ -309,6 +261,7 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Usuario de Ventas asociado | Vendedor que registra o esta asignado al pedido. | Relacion conceptual | respaldado por requisitos | RF18, RF61, RF77 | RF51 usa vendedor que emitio la NV. |
 | Condicion de sobrecarga | Indica ingreso bajo sobrecarga operativa. | Regla/evento | respaldado por requisitos | RF37, RF77 | Debe quedar en historial. |
 | Fecha estimada de termino | Fecha calculada o reajustada. | Fecha calculada | respaldado por requisitos | RF39, RF41 | Puede cambiar por calendario. |
+| Etiqueta visual | Urgencia o Atraso como clasificacion visual asociada al pedido. | Clasificacion | respaldado por requisitos | RF52, RF64 | RF53 menciona tres etiquetas pero lista dos. |
 | Prioridad | Nivel o criterio de atencion. | Clasificacion | respaldado por requisitos | RF54 | Valores no definidos. |
 
 **Pendientes de validacion:**
@@ -365,11 +318,11 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 - Confirmar que datos de RF20 y RF38 se obtienen de Manager, de documento PDF o de otro origen.
 - Confirmar como se determina la clasificacion urgente de RF65.
 
-### Cliente
+### Datos de cliente importados en Nota de Venta
 
-**Descripcion:** Persona juridica o cliente comercial asociado a la Nota de Venta y al pedido.
+**Descripcion:** Grupo de datos comerciales del cliente que viene desde la Nota de Venta, Manager o documentos reales, y que puede usarse para caracterizar el pedido.
 
-**Tipo conceptual:** Dato de dominio.
+**Tipo conceptual:** Grupo de datos de dominio importados; no entidad independiente.
 
 **Requisitos que la respaldan:** RF20, RF51, glosario.
 
@@ -384,13 +337,14 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Nombre del cliente | Criterio de busqueda en Kanban. | Dato comercial | Pendiente de validacion con datos reales | RF51 | Puede derivar de razon social u otro campo real. |
 
 **Pendientes de validacion:**
-- Confirmar si cliente se modela como registro propio o como datos importados de NV/Manager.
+- Confirmar estructura real de los datos de cliente en NV/Manager.
+- No modelar Cliente como registro propio mientras no exista requisito de gestion de clientes.
 
-### Producto
+### Datos de producto importados y tipo de producto
 
-**Descripcion:** Producto asociado a una Nota de Venta o pedido, con tipo relevante para flujo, subprocesos y estimacion.
+**Descripcion:** Grupo de datos de producto que viene desde la Nota de Venta y se usa para caracterizar el pedido. Solo `Tipo de producto` se mantiene como catalogo/valor controlado porque impacta capacidad, planificacion, estimacion y subprocesos.
 
-**Tipo conceptual:** Dato de dominio / catalogo.
+**Tipo conceptual:** Grupo de datos importados y catalogo controlado para tipo de producto; no entidad Producto independiente.
 
 **Requisitos que la respaldan:** RF22, RF38-RF40, RF46, RF75.
 
@@ -405,7 +359,8 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Descripcion de producto | Descripcion obtenida en la creacion del pedido. | Texto comercial | Pendiente de validacion con datos reales | RF20 | Depende de Manager/NV real. |
 
 **Pendientes de validacion:**
-- Confirmar si existe catalogo operacional de productos, SKU vigente o solo tipo de producto.
+- Confirmar si existe catalogo operacional de productos o SKU vigente en Manager/NV.
+- No modelar Producto como entidad propia mientras los RF solo respalden tipo de producto y datos importados.
 
 ### Orden de Produccion
 
@@ -431,7 +386,7 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
 | --- | --- | --- | --- | --- | --- |
 | Pedido asociado | Pedido al que se adjunta la OP. | Relacion conceptual | inferido | RF30 | RF30 permite una o mas OP por pedido. |
-| Tipo de producto asociado | Producto que orienta subprocesos y capacidad. | Relacion conceptual | inferido | RF34, RF46, RF76 | Puede derivar del pedido/NV. |
+| Tipo de producto asociado | Tipo de producto que orienta subprocesos y capacidad. | Relacion conceptual | inferido | RF34, RF46, RF76 | Puede derivar del pedido/NV. |
 
 **Atributos tentativos:**
 
@@ -476,9 +431,9 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 
 ### Documento o archivo asociado
 
-**Descripcion:** Archivo vinculado a pedido, usuario, Nota de Venta, Orden de Produccion o ficha de cliente.
+**Descripcion:** Metadatos y referencia logica de un archivo vinculado a pedido, usuario, Nota de Venta, Orden de Produccion o ficha de cliente.
 
-**Tipo conceptual:** Archivo / repositorio documental.
+**Tipo conceptual:** Metadatos / referencia documental.
 
 **Requisitos que la respaldan:** RF19, RF25, RF27, RF30, RF49, anexos C-E.
 
@@ -489,12 +444,12 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
 | --- | --- | --- | --- | --- | --- |
 | Tipo de documento | NV, OP, ficha cliente, archivo de diseno, firma u otro adjunto. | Catalogo documental | respaldado por requisitos | RF19, RF25, RF30, RF49 | Valores iniciales respaldados. |
-| Archivo o referencia documental | Ubicacion logica del archivo. | Archivo | pendiente de validacion con datos reales | RF19, RF25, RF30 | No se define repositorio definitivo. |
+| Referencia documental | Ruta logica, identificador documental o ubicacion controlada en repositorio documental interno. | Referencia | pendiente de validacion con datos reales | RF19, RF25, RF30 | La BD no almacena binarios; conserva metadatos y referencia. |
 | Usuario que adjunta o aplica | Usuario responsable de carga o firma. | Relacion conceptual | inferido | RF25, RF27, RF30, RF49 | RF29/RF50 refuerzan trazabilidad de acciones. |
 | Pedido asociado | Pedido donde se adjunta documento. | Relacion conceptual | respaldado por requisitos | RF25, RF30 | Respaldado. |
 
 **Pendientes de validacion:**
-- Definir almacenamiento documental, versionado y metadatos minimos reales.
+- Definir repositorio documental interno, versionado y metadatos minimos reales.
 
 ### Estado de pago
 
@@ -636,11 +591,11 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 **Pendientes de validacion:**
 - Confirmar si alertas visuales automaticas y alertas manuales comparten estructura.
 
-### Etiqueta visual y prioridad
+### Clasificacion visual y prioridad del pedido
 
-**Descripcion:** Clasificaciones visuales u operativas para categorizar y priorizar pedidos.
+**Descripcion:** Atributos o valores controlados asociados a Pedido para categorizar, marcar urgencia/atraso y ajustar prioridad operativa.
 
-**Tipo conceptual:** Clasificacion / regla operativa.
+**Tipo conceptual:** Atributos/categorias simples asociados a Pedido; no entidad independiente.
 
 **Requisitos que la respaldan:** RF52-RF54, RF64, RF65.
 
@@ -651,7 +606,6 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
 | --- | --- | --- | --- | --- | --- |
 | Etiqueta | Urgencia o Atraso. | Catalogo | respaldado por requisitos | RF52, RF64 | RF53 menciona tres etiquetas pero lista dos. |
-| Pedido asociado | Pedido que recibe etiqueta. | Relacion conceptual | respaldado por requisitos | RF52-RF54 | Respaldado. |
 | Usuario que asigna/remueve | Administrador u Operario. | Relacion conceptual | respaldado por requisitos | RF52, RF64 | RF53 restringe organizacion a Administrador. |
 | Prioridad de atencion | Criterio de atencion modificado por Administrador. | Clasificacion | pendiente de validacion | RF54 | Valores no definidos. |
 
@@ -659,9 +613,9 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 - Resolver inconsistencia de RF53: menciona tres etiquetas pero solo enumera Urgencia y Atraso.
 - Definir valores de prioridad.
 
-### Capacidad de produccion diaria
+### Capacidad
 
-**Descripcion:** Configuracion y medicion de capacidad maxima, utilizada y disponible para planificar pedidos.
+**Descripcion:** Concepto propio de configuracion y metrica productiva. Representa capacidad productiva, posiblemente diaria, asociada a tipo de producto, fecha o planificacion segun requisitos vigentes.
 
 **Tipo conceptual:** Configuracion / metrica operativa.
 
@@ -791,30 +745,30 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 **Pendientes de validacion:**
 - Confirmar si se conservaran ejecuciones historicas de reportes o solo resultados calculados bajo demanda.
 
-### Exportacion de reporte
+### Salida de reportes no persistente
 
-**Descripcion:** Archivo generado desde reportes para uso externo.
+**Descripcion:** Salida generada bajo demanda desde reportes para uso externo. No se modela como entidad persistente mientras no exista requisito de conservar historial de exportaciones.
 
-**Tipo conceptual:** Archivo de salida.
+**Tipo conceptual:** Proceso/salida no persistente.
 
 **Requisitos que la respaldan:** RF69, RF70.
 
 **Nivel de confianza:** Medio.
 
-**Atributos conceptuales:**
+**Parametros de ejecucion no persistentes:**
 
-| Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
+| Parametro | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
 | --- | --- | --- | --- | --- | --- |
-| Formato de exportacion | Excel o CSV. | Valor controlado | respaldado por requisitos | RF69, RF70 | RF69 solo menciona Excel. |
-| Tipo de reporte exportado | Cumplimiento o produccion. | Relacion conceptual | respaldado por requisitos | RF69, RF70 | Respaldado. |
-| Rango de fechas | Periodo usado para generar exportacion. | Filtro | respaldado por requisitos | RF70 | RF69 usa reporte ya filtrado. |
+| Formato solicitado | Excel o CSV, segun el reporte. | Parametro tecnico de ejecucion | respaldado por requisitos | RF69, RF70 | No se persiste como atributo ni catalogo. |
+| Tipo de reporte a exportar | Cumplimiento o produccion. | Parametro de ejecucion | respaldado por requisitos | RF69, RF70 | Se deriva del reporte solicitado. |
+| Rango de fechas | Periodo usado para generar salida. | Filtro | respaldado por requisitos | RF70 | RF69 usa reporte ya filtrado. |
 
 **Pendientes de validacion:**
-- Confirmar si el archivo exportado se almacena o solo se descarga.
+- Si en el futuro se exige conservar historial de exportaciones, reevaluar si corresponde modelar un registro persistente.
 
 ### Sistema externo
 
-**Descripcion:** Servicio fuera del sistema propio usado para identidad, datos comerciales o correo.
+**Descripcion:** Servicio o mecanismo fuera del nucleo de datos del negocio usado para identidad, JWT/Auth0, datos comerciales o correo.
 
 **Tipo conceptual:** Sistema externo.
 
@@ -826,9 +780,10 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 
 | Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
 | --- | --- | --- | --- | --- | --- |
-| Nombre del sistema externo | Auth0, Manager o servicio de correo. | Sistema externo | respaldado por apoyo secundario | Anexo I, arquitectura | Manager tambien aparece en glosario. |
+| Nombre del sistema externo | Auth0/JWT, Manager o servicio de correo. | Sistema externo | respaldado por apoyo secundario | Anexo I, arquitectura | Manager tambien aparece en glosario. |
 | Funcion en el sistema | Autenticacion, datos de NV o envio de mensajes. | Responsabilidad externa | respaldado por apoyo secundario | Anexo I, arquitectura | No define contrato de integracion. |
-| Datos intercambiados | Credenciales/JWT, datos de NV o notificaciones. | Integracion | pendiente de validacion con datos reales | RF14, RF20, RF58, RF61, RF65, Anexo I | Estructuras reales pendientes. |
+| Datos intercambiados | Identidad/JWT, datos de NV o notificaciones. | Integracion | pendiente de validacion con datos reales | RF14, RF20, RF58, RF61, RF65, Anexo I | No guardar tokens JWT completos, secretos ni datos sensibles en el modelo conceptual. |
+| Eventos de acceso auditables | Cierres, invalidaciones, fallos o accesos denegados si se decide registrarlos. | Auditoria tecnica | pendiente de validacion | RF03, RF13, RF17, RNF01, RNF05, RNF07 | Se registrarian en Bitacora de auditoria, no como sesion persistida. |
 
 **Pendientes de validacion:**
 - Confirmar contratos reales de Manager, Auth0 y correo.
@@ -838,33 +793,28 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Relacion | Entidad A | Entidad B | Cardinalidad tentativa | Opcionalidad | Justificacion | Requisitos que la respaldan | Nivel de confianza | Pendientes |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Usuario tiene Rol | Usuario | Rol | Muchos a uno | Obligatoria para usuario operativo | RF05 exige seleccionar rol. | RF04, RF05, RF07, RF12 | Alto | Detalle de permisos pendiente. |
-| Rol agrupa Permisos | Rol | Permiso | Uno a muchos | Pendiente | RF04 habla de permisos asociados a roles. | RF04, RF12, RF13 | Medio | No usar matriz RF/CU para completarlo. |
-| Usuario mantiene Sesion | Usuario | Sesion de usuario | Uno a muchos | Opcional historica | Cierre, invalidacion e inactividad. | RF17, RNF01, RNF05 | Medio | Validar con Auth0. |
-| Usuario solicita recuperacion | Usuario | Solicitud de recuperacion de contrasena | Uno a muchos | Opcional | Recuperacion por correo. | RF14 | Medio | Validar implementacion con Auth0. |
-| Usuario posee Firma electronica | Usuario | Firma electronica | Uno a una o muchas | Obligatoria para usuarios que firman; pendiente para todos | RF05 exige firma al registrar usuario. | RF05, RF15, RF27, RF49 | Alto | Validar si puede existir mas de una firma vigente. |
+| Rol define capacidades de autorizacion | Rol | Recursos o acciones protegidas | Configuracion conceptual | Pendiente | RF04 habla de permisos asociados a roles, pero no justifica entidad independiente. | RF04, RF12, RF13 | Medio | Definir capacidades desde RF y pantallas reales, sin matriz RF/CU. |
+| Usuario referencia firma documental | Usuario | Documento o archivo asociado | Uno a una o muchas referencias tentativas | Obligatoria para usuarios que firman; pendiente para todos | RF05 exige firma al registrar usuario; RF27/RF49 usan firma en documentos. | RF05, RF15, RF27, RF49 | Alto | Validar si puede existir mas de una firma vigente y su versionado. |
 | Usuario crea o gestiona Pedido | Usuario | Pedido | Uno a muchos | Obligatoria para eventos; pedido requiere responsable | Ventas genera pedidos; otros roles actualizan. | RF18, RF26, RF29, RF47, RF58, RF77 | Alto | Distinguir creador, asignado y ejecutor. |
 | Pedido se origina en Nota de Venta | Pedido | Nota de Venta | Tentativa: uno a una | Obligatoria para pedido creado por RF19 | Pedido solicita numero y PDF de NV. | RF19-RF24 | Alto | Confirmar si una NV puede originar varios pedidos. |
-| Nota de Venta refiere Cliente | Nota de Venta | Cliente | Muchas a uno | Pendiente | RF20 obtiene razon social/RUT cliente desde NV. | RF20, RF51 | Medio | Depende de Manager/datos reales. |
 | Pedido puede tener Orden de Produccion | Pedido | Orden de Produccion | Uno a una o muchas | Condicionada a pago confirmado | RF30 dice la o las ordenes. | RF30, RF32, RF51, RF76 | Alto | Cardinalidad real pendiente. |
 | Pedido puede tener Ficha de cliente | Pedido | Ficha de cliente | Tentativa: uno a una | Condicionada a pago confirmado | RF30 adjunta ficha al pedido. | RF30, RF49 | Medio | Validar estructura/documento real. |
 | Pedido agrupa Documentos asociados | Pedido | Documento o archivo asociado | Uno a muchos | Opcional segun etapa | NV PDF, disenos, OP y ficha. | RF19, RF25, RF30, RF49 | Alto | Validar repositorio documental. |
 | Pedido tiene Estado de pago | Pedido | Estado de pago | Muchos a uno, con historial de cambios | Obligatoria para avance | Cobranzas actualiza estado. | RF26-RF29, RF32 | Alto | Confirmar estado inicial. |
 | Pedido tiene Estado Kanban | Pedido | Estado Kanban o etapa productiva | Muchos a uno, con historial de cambios | Obligatoria para tablero | Kanban organiza por estado. | RF28, RF42-RF45, RF55 | Alto | Reglas de transicion pendientes. |
 | Pedido contiene Subprocesos | Pedido | Subproceso de produccion | Uno a muchos | Segun tipo de producto | RF46 muestra subprocesos por producto. | RF46-RF50 | Alto | Confirmar si se materializan al entrar en produccion. |
-| Producto determina Subprocesos | Producto | Subproceso de produccion | Uno a muchos | Obligatoria para produccion | Subprocesos dependen de lanyard/tarjeta. | RF46 | Alto | Validar variaciones reales. |
+| Tipo de producto determina Subprocesos | Tipo de producto | Subproceso de produccion | Uno a muchos | Obligatoria para produccion | Subprocesos dependen de lanyard/tarjeta. | RF46 | Alto | Validar variaciones reales. |
 | Pedido genera Eventos de trazabilidad | Pedido | Evento de trazabilidad | Uno a muchos | Obligatoria para acciones trazables | Historial cronologico por pedido. | RF29, RF37, RF50, RF59, RF60, RF63 | Alto | Catalogo final de eventos. |
 | Usuario ejecuta Evento de trazabilidad | Usuario | Evento de trazabilidad | Uno a muchos | Obligatoria cuando hay accion humana | RF exige usuario/autor/responsable. | RF29, RF50, RF59, RF63 | Alto | Eventos automaticos deben definirse. |
 | Usuario genera Bitacora | Usuario | Bitacora de auditoria | Uno a muchos | Opcional segun evento | Modificaciones y usuarios desvinculados conservan historial. | RF15, RF16, RNF07, RNF08 | Alto | Alcance completo pendiente. |
 | Pedido recibe Comentarios/alertas | Pedido | Comentario, observacion o alerta | Uno a muchos | Opcional | Todos los usuarios pueden registrar. | RF48, RF62, RF63 | Alto | Distinguir alertas automaticas/manuales. |
-| Pedido usa Etiquetas/prioridad | Pedido | Etiqueta visual y prioridad | Muchos a muchos o uno a muchos | Opcional | Etiquetas asignables/removibles. | RF52-RF54, RF64, RF65 | Medio | Resolver etiquetas y prioridad. |
-| Capacidad se calcula por Producto y fecha | Capacidad de produccion diaria | Producto | Muchas a uno | Obligatoria para capacidad configurada | Capacidad diferenciada por tarjetas/lanyards. | RF31, RF33, RF34, RF72 | Alto | Fuente real de capacidad pendiente. |
-| Parametro de estimacion aplica a Producto | Parametro de estimacion | Producto | Muchos a uno | Obligatoria | Calculo por tipo y rango. | RF39, RF40 | Alto | Validar rangos configurables. |
+| Capacidad aplica a tipo de producto y fecha | Capacidad | Tipo de producto | Muchas configuraciones por tipo/fecha | Obligatoria para capacidad configurada | Capacidad diferenciada por tarjetas/lanyards. | RF31, RF33, RF34, RF72 | Alto | Fuente real de capacidad pendiente. |
+| Parametro de estimacion aplica a tipo de producto | Parametro de estimacion | Tipo de producto | Muchos parametros por tipo/rango | Obligatoria | Calculo por tipo y rango. | RF39, RF40 | Alto | Validar rangos configurables. |
 | Pedido usa Parametro de estimacion | Pedido | Parametro de estimacion | Muchos a uno | Condicional | Fecha estimada depende de tipo/cantidad. | RF38-RF40 | Medio | Depende de datos reales de NV. |
 | Calendario ajusta Pedido | Calendario de planificacion | Pedido | Uno a muchos | Opcional | Admin reajusta fecha estimada. | RF41 | Medio | Guardar o no motivo pendiente. |
 | Pedido origina Notificaciones | Pedido | Notificacion | Uno a muchos | Condicional | Nuevo pedido, urgencia, listo para entrega. | RF58, RF61, RF65 | Alto | Estado de lectura pendiente. |
 | Usuario publica Anuncio interno | Usuario | Anuncio interno | Uno a muchos | Opcional | Administrador publica comunicados. | RF66, RF67 | Alto | Vigencia pendiente. |
 | Reporte se calcula desde Pedido/Eventos | Reporte o indicador | Pedido / Evento de trazabilidad | Muchos a muchos conceptual | Bajo demanda | Reportes usan pedidos, estados, tiempos y entregas. | RF68-RF77 | Medio | Confirmar si se persisten ejecuciones. |
-| Exportacion deriva de Reporte | Exportacion de reporte | Reporte o indicador | Muchas a uno | Opcional | Exporta reportes a Excel/CSV. | RF69, RF70 | Medio | Confirmar almacenamiento de exportaciones. |
 | Sistema externo entrega datos de NV | Sistema externo | Nota de Venta | Uno externo a muchos registros | Pendiente | Manager es fuente de datos de NV. | RF20, RF38, glosario, Anexo I | Medio | Contrato real de Manager pendiente. |
 
 ## 8. Catalogos, estados y valores controlados
@@ -875,14 +825,13 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Estado de usuario | vinculado, desvinculado | Usuario | RF02, RF09, RF10, RF15, RF16 | Alto | Glosario respalda definiciones. |
 | Estado de pago | Confirmado, Rechazado, Pendiente | Pedido/Estado de pago | RF26 | Alto | Controla avance a produccion. |
 | Estado Kanban vigente | Confirmacion de pago, Listo para produccion, En produccion, Listo para entrega | Pedido/Estado Kanban | RF44 | Alto | Control de calidad aparece en glosario, pero no en RF44; no se incorpora como vigente. |
-| Tipo de producto | Lanyard, Tarjeta | Producto | RF22, RF33, RF39, RF46 | Alto | Puede requerir normalizar singular/plural. |
+| Tipo de producto | Lanyard, Tarjeta | Nota de Venta, Pedido, Capacidad, Parametro de estimacion, Subproceso | RF22, RF33, RF39, RF46 | Alto | Catalogo/valor controlado; no entidad Producto. |
 | Subprocesos Lanyard | Impresion, sublimacion, corte, costura | Subproceso de produccion | RF46 | Alto | Respaldados explicitamente. |
 | Subprocesos Tarjeta | Revisar informacion, Ordenar informacion, Cargar datos | Subproceso de produccion | RF46 | Alto | Respaldados explicitamente. |
-| Etiquetas visuales | Urgencia, Atraso | Etiqueta visual | RF52, RF64 | Medio | RF53 menciona tres etiquetas pero enumera dos; pendiente. |
-| Estado/valor de prioridad | No encontrado | Etiqueta visual y prioridad | RF54 | Bajo | Pendiente de validacion. |
-| Formato de firma electronica | XML, CMS, PDF | Firma electronica | RF05 | Alto | No define estructura ni validacion criptografica. |
+| Etiquetas visuales | Urgencia, Atraso | Pedido | RF52, RF64 | Medio | Valores controlados asociados a Pedido; RF53 menciona tres etiquetas pero enumera dos. |
+| Estado/valor de prioridad | No encontrado | Pedido | RF54 | Bajo | Atributo/clasificacion de Pedido pendiente de validacion. |
+| Formato de firma electronica | XML, CMS, PDF | Usuario, Documento o archivo asociado | RF05 | Alto | Metadato de referencia documental; no entidad independiente. |
 | Formato de Nota de Venta adjunta | PDF | Documento o archivo asociado | RF19 | Alto | Contenido del PDF pendiente. |
-| Formato de exportacion | Excel, CSV | Exportacion de reporte | RF69, RF70 | Alto | RF69 solo indica Excel. |
 | Canales de notificacion | Aplicacion, correo electronico, panel interno | Notificacion | RF58, RF61, RF65 | Medio | Canal exacto depende del evento. |
 | Rangos Lanyard por defecto | 0 a 100: 5 dias habiles; 100 a 500: 10 dias habiles; 500 a 1000: 15 dias habiles | Parametro de estimacion | RF39 | Alto | Requiere definir limites inclusivos/exclusivos. |
 | Parametro tarjeta por defecto | 7 dias habiles para cualquier tipo de tarjeta y lote | Parametro de estimacion | RF39 | Alto | "Cualquier tipo" no enumera subtipos. |
@@ -893,12 +842,12 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | --- | --- | --- | --- | --- |
 | Modificacion de usuario por Administrador | Usuario modificado, atributos modificados, registro en bitacora. | RF15 | Usuario, Bitacora de auditoria | Fecha/hora se respalda por RNF07 para auditoria. |
 | Conservacion de usuario desvinculado | Bitacoras, ordenes de produccion y ventas asociadas. | RF16, RNF08 | Usuario, Bitacora, Pedido/OP | No eliminar ni modificar historicos por desvinculacion. |
-| Cierre o invalidacion de sesion | Usuario, momento de cierre/invalidacion. | RF17, RNF01, RNF05 | Usuario, Sesion | Validar si se conserva como evento propio o auditoria. |
+| Cierre o invalidacion de acceso | Usuario, momento de cierre/invalidacion si se audita. | RF17, RNF01, RNF05 | Usuario, Bitacora de auditoria, Sistema externo | Con JWT/Auth0 no se asume sesion persistida en BD propia. |
 | Confirmacion de pago | Fecha, hora, identificador del usuario. | RF29, RNF07 | Pedido, Estado de pago, Evento de trazabilidad | RF29 enfatiza confirmacion; rechazo/pendiente requieren validacion. |
-| Firma de Nota de Venta | Usuario Cobranzas, NV, momento de cambio a Confirmado. | RF27, RF29 | Firma, Nota de Venta, Estado de pago | Documento firmado pendiente de validacion real. |
+| Firma de Nota de Venta | Usuario Cobranzas, NV, momento de cambio a Confirmado. | RF27, RF29 | Referencia de firma, Nota de Venta, Documento asociado, Estado de pago | Documento firmado pendiente de validacion real. |
 | Pedido bajo sobrecarga operativa | Pedido, usuario Ventas, condicion de sobrecarga. | RF37 | Pedido, Capacidad, Evento de trazabilidad | Necesario para indicador RF77. |
 | Cambio de subproceso de produccion | Fecha, hora, usuario responsable, comentario si aplica. | RF48, RF50 | Subproceso, Evento de trazabilidad | No sobrescribir registros previos. |
-| Firma en ficha cliente | Usuario, ficha cliente, subproceso actualizado. | RF49 | Firma, Ficha de cliente, Subproceso | Ficha real pendiente. |
+| Firma en ficha cliente | Usuario, ficha cliente, subproceso actualizado. | RF49 | Referencia de firma, Ficha de cliente, Subproceso | Ficha real pendiente. |
 | Entrada y salida de etapa | Fecha/hora de ingreso y salida, tiempo real transcurrido. | RF55 | Estado Kanban, Pedido, Evento | Base para RF56/RF71. |
 | Comentario, observacion o alerta | Fecha, hora, autor, contenido. | RF62, RF63 | Comentario/alerta, Pedido | Trazabilidad de comunicacion. |
 | Historial cronologico del pedido | Identificador de pedido, estado, fecha, hora, usuario. | RF59, RF60 | Pedido, Evento de trazabilidad | Debe mostrarse del mas reciente al mas antiguo segun RF60. |
@@ -913,8 +862,8 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Orden de Produccion | Documento/registro productivo | RF30, RF51, RF76, Anexo E | Se adjunta al pedido y se usa en filtros/reportes. | Numero OP mencionado como filtro; estados para reporte. | Pendiente de revision visual y validacion con datos reales. |
 | Ficha de cliente | Documento asociado | RF30, RF49, Anexo C | Se adjunta al pedido y recibe firma durante produccion. | Existe como figura; glosario lista datos minimos. | Pendiente de revision visual y validacion con datos reales. |
 | Archivos de diseno | Archivo adjunto | RF25 | Administrador y Ventas los adjuntan al pedido. | Asociados al pedido. | Formato, contenido y versionado pendientes. |
-| Firma electronica | Archivo/referencia | RF05, RF15, RF27, RF49 | Se registra con usuario y se aplica a documentos. | Formatos XML, CMS, PDF. | Validacion de firma y almacenamiento pendientes. |
-| Exportaciones de reporte | Archivo generado | RF69, RF70 | Salida de reportes para uso externo. | Excel y CSV. | Confirmar si se guardan o solo se descargan. |
+| Referencia de firma electronica | Metadato/referencia documental | RF05, RF15, RF27, RF49 | Se registra con usuario y se aplica a documentos. | Formatos XML, CMS, PDF. | Validacion de firma, ruta logica y almacenamiento documental pendientes. |
+| Salida de reporte | Archivo generado bajo demanda | RF69, RF70 | Salida de reportes para uso externo. | Excel y CSV como parametros de ejecucion. | No se persiste historial de salidas salvo requisito futuro. |
 | Manager | Sistema externo / fuente de datos | Glosario, Anexo I, arquitectura | Fuente de datos de Nota de Venta; posible integracion futura directa. | Entrega informacion asociada a NV. | Contrato, campos reales y disponibilidad pendientes. |
 | Auth0 | Sistema externo de identidad | Anexo I, arquitectura | Autenticacion y credenciales/JWT. | Proveedor de identidad indicado. | Confirmar alcance frente a contrasenas y recuperacion. |
 | Servicio de correo | Sistema externo | RF14, RF58, RF61, arquitectura | Envia recuperacion y notificaciones. | Canal correo requerido por RF. | Proveedor, plantilla y registros pendientes. |
@@ -926,20 +875,20 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Regla | Descripcion | Requisito fuente | Entidades o conceptos afectados | Impacto en el modelo |
 | --- | --- | --- | --- | --- |
 | Correo unico | No se permite registrar o actualizar un correo ya asociado a una cuenta, sin importar estado. | RF11, RF15 | Usuario | Requiere restriccion conceptual de unicidad. |
-| Usuario desvinculado sin acceso | Estado desvinculado bloquea interfaz, API y operaciones internas. | RF02, RF09, RF10 | Usuario, Sesion, Permiso | Estado de cuenta impacta autorizacion. |
+| Usuario desvinculado sin acceso | Estado desvinculado bloquea interfaz, API y operaciones internas. | RF02, RF09, RF10 | Usuario, Rol, capacidades de autorizacion, Bitacora | Estado de cuenta impacta autorizacion; no requiere entidad de sesion. |
 | Conservacion historica de desvinculados | Registros asociados a usuarios desvinculados se mantienen visibles en reportes. | RF16, RNF08 | Usuario, Bitacora, Pedido, OP | No eliminar historia por cambio de estado. |
-| Acceso por rol | Recursos protegidos dependen del rol autenticado. | RF04, RF12, RF13 | Usuario, Rol, Permiso | Requiere relacion rol-permiso. |
-| Politica de contrasenas | Contrasenas deben cumplir longitud y composicion minima. | RF01, RF05, RF06, RF14, RNF03 | Usuario, Solicitud recuperacion | No define almacenamiento; validar con Auth0. |
-| Enlace de recuperacion temporal | Enlace de restablecimiento debe ser unico, temporal y de un solo uso. | RF14 | Solicitud de recuperacion | Requiere controlar vigencia y uso si es propio. |
+| Acceso por rol | Recursos protegidos dependen del rol autenticado. | RF04, RF12, RF13 | Usuario, Rol, capacidades de autorizacion | Las capacidades quedan como configuracion del rol, no como entidad independiente. |
+| Politica de contrasenas | Contrasenas deben cumplir longitud y composicion minima. | RF01, RF05, RF06, RF14, RNF03 | Usuario, Sistema externo de autenticacion | No define almacenamiento; validar con Auth0. |
+| Recuperacion temporal de contrasena | Enlace de restablecimiento debe ser unico, temporal y de un solo uso. | RF14 | Sistema externo de autenticacion, Servicio de correo, Bitacora si aplica | Flujo tecnico; no se modela como entidad conceptual persistente. |
 | Nota de Venta no duplicada | Numero de NV no puede duplicarse. | RF23, RF24 | Nota de Venta, Pedido | Requiere validacion antes de crear pedido. |
 | Pago confirmado habilita produccion | Al confirmar pago, pedido pasa automaticamente a Listo para produccion. | RF26-RF28 | Pedido, Estado de pago, Estado Kanban | Transicion automatica respaldada. |
 | Pago no confirmado bloquea Listo para produccion | No se puede cambiar manualmente si pago no es Confirmado. | RF32 | Pedido/OP, Estado de pago, Estado Kanban | Regla de transicion obligatoria. |
-| Capacidad diferenciada por producto | Capacidad maxima diaria se configura al menos por tarjetas y lanyards. | RF33 | Capacidad, Producto | Requiere capacidad por fecha/tipo. |
+| Capacidad diferenciada por tipo de producto | Capacidad maxima diaria se configura al menos por tarjetas y lanyards. | RF33 | Capacidad, Tipo de producto | Requiere capacidad por fecha/tipo. |
 | Sobrecarga al 90% | Al ingresar NV se alerta si la capacidad alcanza el umbral indicado. | RF35 | Capacidad, Pedido, Notificacion/Alerta | La redaccion debe validarse por posible ambiguedad. |
 | Registro bajo sobrecarga | Pedido ingresado bajo sobrecarga queda en historial. | RF37 | Pedido, Evento de trazabilidad | Necesario para reportes por vendedor. |
 | Fecha alternativa si no hay capacidad | Se muestra fecha alternativa cuando la fecha solicitada no tiene capacidad. | RF36 | Pedido, Capacidad, Calendario | Fecha solicitada requiere definicion real. |
-| Estimacion por tipo y cantidad | Fecha de termino depende de tipo de producto y cantidad con parametros por defecto. | RF38-RF40 | Nota de Venta, Producto, Parametro de estimacion | Cantidad/tipo dependen de NV real. |
-| Subprocesos por tipo de producto | Lanyard y tarjeta tienen subprocesos diferentes. | RF46 | Producto, Subproceso | Catalogos de subproceso por producto. |
+| Estimacion por tipo y cantidad | Fecha de termino depende de tipo de producto y cantidad con parametros por defecto. | RF38-RF40 | Nota de Venta, Tipo de producto, Parametro de estimacion | Cantidad/tipo dependen de NV real. |
+| Subprocesos por tipo de producto | Lanyard y tarjeta tienen subprocesos diferentes. | RF46 | Tipo de producto, Subproceso | Catalogos de subproceso por tipo. |
 | Historial sin sobrescritura | Cambios de subproceso deben conservar historial completo. | RF50 | Subproceso, Evento de trazabilidad | No sobrescribir eventos previos. |
 | Tiempo por etapa | Debe calcular y guardar tiempo real por etapa. | RF55, RF56, RNF06 | Estado Kanban, Evento, Parametro de etapa | Requiere marcadores de ingreso/salida. |
 | Notificaciones por evento | Nuevo pedido, pedido urgente y Listo para entrega generan avisos. | RF58, RF61, RF65 | Notificacion, Pedido, Usuario | Requiere destinatarios por rol/asignacion. |
@@ -969,7 +918,7 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 ### Otros pendientes
 
 - Confirmar estructura real de datos provenientes de Manager.
-- Confirmar si Cliente es entidad propia o datos importados desde Nota de Venta/Manager.
+- Confirmar estructura real de datos de cliente y producto importados desde Nota de Venta/Manager.
 - Revisar visualmente Anexo C Ficha de cliente, Anexo D Nota de Venta ITECSA y Anexo E Orden de Produccion.
 - Confirmar formato, versionado y metadatos de archivos de diseno.
 - Confirmar si las planillas `PRODUCCION 2026.xlsx` y `Tabla tiempos de proceso.xlsx` son fuente vigente para capacidades o tiempos.
@@ -983,36 +932,29 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 
 ## 14. Resumen de la propuesta
 
-| Entidad candidata | Atributos principales conceptuales | Relaciones principales | Requisitos fuente | Confianza | Pendientes |
+| Entidad candidata o concepto persistente | Atributos principales conceptuales | Relaciones principales | Requisitos fuente | Confianza | Pendientes |
 | --- | --- | --- | --- | --- | --- |
-| Usuario | Nombre, apellido, RUT, correo, rol, estado, firma, cambio inicial de contrasena. | Rol, sesion, pedido, eventos, bitacora, firma. | RF01-RF17, RNF01-RNF08 | Alta | Credenciales/Auth0 y permisos detallados. |
-| Rol | Nombre de rol, descripcion operativa. | Usuarios y permisos. | RF04, RF12, RF13 | Alta | Permisos granulares sin matrices RF/CU. |
-| Permiso | Recurso protegido, accion permitida, rol asociado. | Rol y acceso. | RF04, RF12, RF13 | Media | Catalogo final de permisos. |
-| Sesion de usuario | Usuario, estado, momento de invalidacion. | Usuario y auditoria. | RF17, RNF01, RNF05 | Media | Confirmar persistencia propia. |
-| Solicitud de recuperacion | Correo, enlace unico, vigencia, uso. | Usuario/correo. | RF14 | Media | Confirmar si lo cubre Auth0. |
-| Firma electronica | Usuario titular, formato, archivo/referencia, documento firmado. | Usuario, NV, ficha cliente. | RF05, RF15, RF27, RF49 | Alta | Archivo real y validacion de firma. |
-| Pedido | Fecha/hora creacion, estado, pago, vendedor, sobrecarga, fecha estimada, prioridad. | NV, OP, ficha, documentos, eventos, capacidad, notificaciones. | RF18-RF77 | Alta | Alineacion con OP y cardinalidades. |
-| Nota de Venta | Numero NV y PDF respaldados; razon social, RUT cliente, producto, cantidad y datos para fabricacion como datos pendientes. | Pedido, cliente, producto, documentos, Manager. | RF19-RF24, RF27, RF38, RF51, RF65, RF77 | Alta para concepto | Pendiente de validacion con datos reales. |
-| Cliente | Razon social, RUT cliente, nombre cliente. | NV y pedido. | RF20, RF51 | Media | Pendiente de validacion con datos reales. |
-| Producto | Tipo, cantidad, descripcion. | NV, pedido, capacidad, parametros, subprocesos. | RF22, RF38-RF40, RF46, RF75 | Alta | Cantidad/descripcion dependen de NV real. |
+| Usuario | Nombre, apellido, RUT, correo, rol, estado, referencia de firma, cambio inicial de contrasena. | Rol, pedido, eventos, bitacora, documento/referencia de firma. | RF01-RF17, RNF01-RNF08 | Alta | Credenciales/Auth0 y capacidades por rol. |
+| Rol | Nombre de rol, descripcion operativa, capacidades asociadas. | Usuarios y reglas de autorizacion. | RF04, RF12, RF13 | Alta | Capacidades granulares sin matrices RF/CU. |
+| Pedido | Fecha/hora creacion, estado, pago, vendedor, sobrecarga, fecha estimada, etiqueta/prioridad. | NV, OP, ficha, documentos, eventos, capacidad, notificaciones. | RF18-RF77 | Alta | Alineacion con OP y cardinalidades. |
+| Nota de Venta | Numero NV y PDF respaldados; datos de cliente, tipo/datos de producto, cantidad y datos para fabricacion como datos pendientes. | Pedido, documentos, Manager, tipo de producto. | RF19-RF24, RF27, RF38, RF51, RF65, RF77 | Alta para concepto | Pendiente de validacion con datos reales. |
+| Tipo de producto | Lanyard, tarjeta; usado para capacidad, estimacion y subprocesos. | Nota de Venta, Pedido, Capacidad, Parametro de estimacion, Subproceso. | RF22, RF33, RF38-RF40, RF46, RF75 | Alta | Normalizacion de valores y datos reales de producto. |
 | Orden de Produccion | Documento OP, numero OP, estado asociado, dia asignado. | Pedido, estados, reportes, documentos. | RF30, RF32, RF34, RF51, RF76 | Alta para concepto | Pendiente de validacion con datos reales. |
-| Ficha de cliente | Documento, firma aplicada, datos de glosario pendientes. | Pedido, firma, documentos. | RF30, RF49, glosario | Media | Pendiente de revision visual y datos reales. |
-| Documento o archivo asociado | Tipo documental, archivo/referencia, usuario, pedido. | Pedido, NV, OP, ficha, firma. | RF19, RF25, RF30, RF49 | Alta | Repositorio y metadatos reales. |
+| Ficha de cliente | Documento, referencia/metadato de firma aplicada, datos de glosario pendientes. | Pedido, documento asociado. | RF30, RF49, glosario | Media | Pendiente de revision visual y datos reales. |
+| Documento o archivo asociado | Tipo documental, referencia/ruta logica, usuario, pedido. | Pedido, NV, OP, ficha, firma como metadato. | RF19, RF25, RF30, RF49 | Alta | Repositorio documental y metadatos reales. |
 | Estado de pago | Confirmado, Rechazado, Pendiente, usuario, momento. | Pedido y trazabilidad. | RF26-RF29, RF32 | Alta | Estado inicial y rechazo/pendiente. |
 | Estado Kanban | Estados RF44, ingreso/salida etapa, tiempo real, retraso. | Pedido y eventos. | RF42-RF57, RF61, RF76 | Alta | Reglas de transicion e indicador visual. |
-| Subproceso de produccion | Producto aplicable, nombre, estado, comentario, responsable, momento. | Pedido, producto, eventos, firma. | RF46-RF50 | Alta | Valores del Stepper. |
+| Subproceso de produccion | Tipo de producto aplicable, nombre, estado, comentario, responsable, momento. | Pedido, tipo de producto, eventos, referencia de firma. | RF46-RF50 | Alta | Valores del Stepper. |
 | Evento de trazabilidad | Pedido, tipo, estado, fecha, hora, usuario, descripcion. | Pedido, usuario, estados, comentarios. | RF29, RF37, RF50, RF59, RF60, RF63, RNF07 | Alta | Catalogo de eventos. |
 | Bitacora de auditoria | Evento auditado, usuario, fecha/hora servidor, recurso afectado. | Usuario y conceptos auditados. | RF15, RF16, RNF07, RNF08 | Alta | Alcance completo. |
 | Comentario/observacion/alerta | Tipo, contenido, pedido, autor, fecha/hora. | Pedido, usuario, evento. | RF48, RF62, RF63 | Alta | Alertas automaticas vs manuales. |
-| Etiqueta visual/prioridad | Etiqueta, pedido, usuario, prioridad. | Pedido y usuario. | RF52-RF54, RF64, RF65 | Media | Tercera etiqueta y valores de prioridad. |
-| Capacidad de produccion diaria | Fecha, tipo producto, maxima, utilizada, disponible, sobrecarga. | Producto, pedido, calendario, reportes. | RF31, RF33-RF37, RF72 | Alta | Fuente real de capacidad. |
-| Parametro de estimacion | Tipo producto, rango, dias habiles, etapa. | Producto, pedido, capacidad. | RF39, RF40, RNF06 | Alta | Carga inicial y limites de rangos. |
+| Capacidad | Fecha, tipo producto, maxima, utilizada, disponible, sobrecarga. | Tipo de producto, pedido, calendario, reportes. | RF31, RF33-RF37, RF72 | Alta | Fuente real de capacidad. |
+| Parametro de estimacion | Tipo producto, rango, dias habiles, etapa. | Tipo de producto, pedido, capacidad. | RF39, RF40, RNF06 | Alta | Carga inicial y limites de rangos. |
 | Calendario de planificacion | Fecha estimada, usuario que reajusta, reajuste. | Pedido y capacidad. | RF41 | Media | Motivo y trazabilidad del reajuste. |
 | Notificacion | Evento origen, destinatario, canal, pedido. | Pedido, usuario/rol, correo. | RF58, RF61, RF65 | Alta | Estado de lectura. |
 | Anuncio interno | Contenido, autor, visibilidad. | Usuario Administrador y roles. | RF66, RF67 | Alta | Vigencia/estado. |
-| Reporte o indicador | Tipo, rango, resultado calculado, rol autorizado. | Pedidos, eventos, capacidad, productos, vendedores. | RF68-RF77 | Media | Persistencia o calculo bajo demanda. |
-| Exportacion de reporte | Formato, tipo reporte, rango fechas. | Reporte y archivo generado. | RF69, RF70 | Media | Almacenamiento de exportaciones. |
-| Sistema externo | Nombre, funcion, datos intercambiados. | Manager, Auth0, correo. | RF14, RF58, RF61, RF65, Anexo I | Media | Contratos reales. |
+| Reporte o indicador | Tipo, rango, resultado calculado, rol autorizado. | Pedidos, eventos, capacidad, datos de producto importados, vendedores. | RF68-RF77 | Media | Persistencia o calculo bajo demanda. |
+| Sistema externo | Nombre, funcion, datos intercambiados, eventos auditables si aplica. | Manager, Auth0/JWT, correo, bitacora. | RF14, RF58, RF61, RF65, Anexo I | Media | Contratos reales y alcance de auditoria tecnica. |
 
 ## 15. Diagrama textual opcional
 
