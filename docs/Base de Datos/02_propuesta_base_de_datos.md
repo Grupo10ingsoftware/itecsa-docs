@@ -49,7 +49,7 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | RF19 | Registro de pedidos | Modulo 2 | Crea pedido con numero de Nota de Venta y PDF. | Numero de Nota de Venta, archivo PDF de Nota de Venta, pedido. | Atributos reales de la NV quedan pendientes. |
 | RF20 | Creacion de pedido | Modulo 2 | Completa datos por busqueda asociada al numero de Nota de Venta. | Razon social, RUT cliente, descripcion de producto, cantidad, datos para fabricacion. | Depende de fuente real/Manager: Pendiente de validacion con datos reales. |
 | RF21 | Fecha y hora de creacion de pedido | Modulo 2 | Registra fecha y hora de creacion. | Fecha DD-MM-YYYY y hora HH:MM:SS del pedido. | Respaldado directamente. |
-| RF22 | Identificacion de productos asociados | Modulo 2 | Identifica si el producto es lanyard o tarjeta. | Tipo de producto. | Catalogo inicial respaldado. |
+| RF22 | Identificacion de productos asociados | Modulo 2 | Identifica si el producto es lanyard o tarjeta. | Tipo de producto. | Valor controlado respaldado. |
 | RF23 | Unicidad de Nota de Venta | Modulo 2 | Verifica si el numero de Nota de Venta ya existe. | Numero de Nota de Venta unico en pedidos/notas. | No define formato real del numero. |
 | RF24 | Mensaje por duplicacion de Nota de Venta | Modulo 2 | Bloquea duplicado de Nota de Venta. | Regla de unicidad de Nota de Venta. | Refuerza RF23. |
 | RF25 | Adjuntar archivos de diseno | Modulo 2 | Administrador y Ventas adjuntan archivos de diseno al pedido. | Archivo de diseno asociado al pedido. | Contenido/formato real pendiente. |
@@ -60,7 +60,7 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | RF30 | Asociacion de documentos al pedido | Modulo 3 | Administrador adjunta OP y ficha cliente cuando pago confirmado. | Orden de Produccion, ficha de cliente, pedido, documentos. | Atributos reales de OP/ficha: Pendiente de validacion con datos reales. |
 | RF31 | Actualizacion de capacidad disponible | Modulo 3 | Actualiza capacidad disponible al generarse el pedido. | Capacidad productiva disponible, pedido. | Capacidad se mantiene como concepto propio de configuracion/metrica. |
 | RF32 | Restriccion manual a Listo para produccion | Modulo 3 | Bloquea cambio si pago no esta confirmado. | Estado de pago, estado de orden/pedido, regla de transicion. | Terminos pedido/orden requieren validacion conceptual. |
-| RF33 | Configuracion de capacidad de produccion | Modulo 4: Gestion de capacidad instalada y reglas de negocio | Administrador configura capacidad maxima diaria por tipo. | Capacidad maxima diaria, tipo de producto. | Catalogo por tarjetas/lanyards. |
+| RF33 | Configuracion de capacidad de produccion | Modulo 4: Gestion de capacidad instalada y reglas de negocio | Administrador configura capacidad maxima diaria por tipo. | Capacidad maxima diaria, tipo de producto. | Valor controlado por tarjetas/lanyards. |
 | RF34 | Carga laboral diaria | Modulo 4 | Muestra ordenes asignadas por dia respecto de capacidad. | Fecha, ordenes asignadas, capacidad definida. | Orden/pedido asignado por dia pendiente de precision. |
 | RF35 | Alerta por sobrecarga | Modulo 4 | Alerta a Ventas al ingresar NV con capacidad igual o superior al 90%. | Porcentaje de capacidad usada/disponible, alerta. | La redaccion mezcla disponible y sobrecarga; validar regla exacta. |
 | RF36 | Fecha alternativa de entrega | Modulo 4 | Muestra fecha alternativa cuando no hay capacidad. | Fecha solicitada, fecha alternativa. | Fecha solicitada no esta definida como atributo cerrado. |
@@ -127,17 +127,16 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Rol | Catalogo/configuracion de autorizacion | Los accesos y capacidades dependen del rol. | RF04, RF12, RF13, RF26, RF33, RF58, RF67, RF74 | Alto | respaldada por requisitos |
 | Pedido | Proceso transaccional | Centraliza el flujo comercial-productivo, estados, documentos y reportes. | RF18-RF32, RF42-RF77 | Alto | respaldada por requisitos |
 | Nota de Venta | Documento/registro comercial | Origina el pedido y alimenta datos importados de cliente, producto, cantidad y pago. | RF19-RF24, RF27, RF38, RF51, RF65, RF77, glosario | Alto | Pendiente de validacion con datos reales |
-| Tipo de producto | Catalogo / valor controlado | El flujo distingue lanyard y tarjeta para capacidad, estimacion y subprocesos. | RF22, RF33, RF38-RF40, RF46, RF75 | Alto | respaldada por requisitos |
 | Orden de Produccion | Documento/registro productivo | Se adjunta al pedido, se filtra por numero y se reporta por estado. | RF30, RF32, RF34, RF51, RF76, glosario | Alto | Pendiente de validacion con datos reales |
 | Ficha de cliente | Documento vinculado al pedido | Se adjunta al pedido y recibe firma en produccion. | RF30, RF49, anexo C, glosario | Medio | Pendiente de validacion con datos reales |
 | Documento o archivo asociado | Metadatos / referencia documental | NV PDF, OP, ficha cliente, archivos de diseno y firmas deben asociarse al flujo sin guardar binarios en BD. | RF19, RF25, RF27, RF30, RF49, anexos C-E | Alto | pendiente de validacion con datos reales |
 | Estado de pago | Estado controlado | Cobranzas actualiza Confirmado, Rechazado o Pendiente. | RF26-RF29, RF32 | Alto | respaldada por requisitos |
 | Estado Kanban o etapa productiva | Estado controlado | Ordena pedidos en el tablero y sustenta tiempos/reportes. | RF28, RF32, RF42-RF45, RF55-RF57, RF61, RF76 | Alto | respaldada por requisitos |
-| Subproceso de produccion | Proceso / estado parcial | Depende del tipo de producto y es actualizado por Operario. | RF46-RF50 | Alto | respaldada por requisitos |
+| Subproceso de produccion | Proceso / estado parcial | Depende del valor de tipo de producto importado desde la Nota de Venta y es actualizado por Operario. | RF46-RF50 | Alto | respaldada por requisitos |
 | Evento de trazabilidad | Historial | Conserva cambios cronologicos por pedido, pago, produccion, comentarios y sobrecarga. | RF29, RF37, RF50, RF55, RF59, RF60, RF63, RNF07, RNF08 | Alto | respaldada por requisitos |
 | Bitacora de auditoria | Auditoria / historial | Registra modificaciones de usuario y eventos de seguridad/conservacion. | RF15, RF16, RNF07, RNF08, glosario | Alto | respaldada por requisitos |
 | Comentario, observacion o alerta | Comunicacion operativa | Debe asociarse a pedido y tener fecha, hora y autor. | RF48, RF62, RF63 | Alto | respaldada por requisitos |
-| Capacidad | Configuracion / metrica productiva | Representa capacidad productiva, posiblemente diaria, asociada a tipo de producto, fecha o planificacion segun requisitos vigentes. | RF31, RF33-RF37, RF72 | Alto | respaldada por requisitos |
+| Capacidad | Configuracion / metrica productiva | Representa capacidad productiva, posiblemente diaria, asociada al valor de tipo de producto, fecha o planificacion segun requisitos vigentes. | RF31, RF33-RF37, RF72 | Alto | respaldada por requisitos |
 | Parametro de estimacion | Configuracion de negocio | Define dias/rangos para calcular fecha estimada. | RF39, RF40, RNF06 | Alto | respaldada por requisitos |
 | Calendario de planificacion | Vista/proceso operativo no persistente | Permite visualizar y reajustar fecha estimada; la persistencia queda en pedido, fechas y eventos si corresponde. | RF41 | Medio | tentativa |
 | Notificacion | Comunicacion del sistema | Se emite por eventos de pedido, urgencia y entrega. | RF58, RF61, RF65 | Alto | respaldada por requisitos |
@@ -289,7 +288,7 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Descripcion de producto | Dato completado por busqueda asociada a NV. | Dato de producto | Pendiente de validacion con datos reales | RF20 | Depende de NV real/Manager. |
 | Cantidad | Dato completado y extraido para estimacion. | Cantidad conceptual | Pendiente de validacion con datos reales | RF20, RF38 | Se usa en reglas, pero origen real pendiente. |
 | Datos para fabricacion | Informacion completada desde busqueda asociada a NV. | Dato operacional | Pendiente de validacion con datos reales | RF20 | No se detalla estructura. |
-| Tipo de producto | Lanyard o tarjeta identificado desde NV. | Catalogo | Pendiente de validacion con datos reales | RF22, RF38 | Valores respaldados; extraccion real pendiente. |
+| Tipo de producto | Lanyard o tarjeta identificado desde NV. | Atributo / valor controlado de Nota de Venta | Pendiente de validacion con datos reales | RF22, RF38 | Valores respaldados; extraccion real pendiente. |
 | Clasificacion urgente | Condicion que dispara notificacion interna. | Clasificacion | tentativa | RF65 | No se define como viene ni donde se registra. |
 
 **Atributos inferidos:**
@@ -340,11 +339,11 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 - Confirmar estructura real de los datos de cliente en NV/Manager.
 - No modelar Cliente como registro propio mientras no exista requisito de gestion de clientes.
 
-### Datos de producto importados y tipo de producto
+### Datos de producto importados desde Nota de Venta
 
-**Descripcion:** Grupo de datos de producto que viene desde la Nota de Venta y se usa para caracterizar el pedido. Solo `Tipo de producto` se mantiene como catalogo/valor controlado porque impacta capacidad, planificacion, estimacion y subprocesos.
+**Descripcion:** Grupo de datos de producto que viene desde la Nota de Venta y se usa para caracterizar el pedido. `Tipo de producto` se mantiene como atributo/valor controlado de la Nota de Venta, no como entidad independiente, porque impacta capacidad, planificacion, estimacion y subprocesos.
 
-**Tipo conceptual:** Grupo de datos importados y catalogo controlado para tipo de producto; no entidad Producto independiente.
+**Tipo conceptual:** Grupo de datos importados desde Nota de Venta; no entidad Producto ni entidad Tipo de producto independiente.
 
 **Requisitos que la respaldan:** RF22, RF38-RF40, RF46, RF75.
 
@@ -354,13 +353,13 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 
 | Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
 | --- | --- | --- | --- | --- | --- |
-| Tipo de producto | Lanyard o tarjeta. | Catalogo | respaldado por requisitos | RF22, RF33, RF38, RF39, RF46 | Valores iniciales respaldados. |
+| Tipo de producto | Lanyard o tarjeta, importado o extraido desde la Nota de Venta. | Atributo / valor controlado de Nota de Venta | Pendiente de validacion con datos reales | RF22, RF33, RF38, RF39, RF46 | Valores iniciales respaldados; origen real NV/Manager pendiente. |
 | Cantidad solicitada | Cantidad de productos usada para estimacion y ranking. | Cantidad | Pendiente de validacion con datos reales | RF20, RF38, RF39, RF75 | Dato extraido desde NV. |
 | Descripcion de producto | Descripcion obtenida en la creacion del pedido. | Texto comercial | Pendiente de validacion con datos reales | RF20 | Depende de Manager/NV real. |
 
 **Pendientes de validacion:**
 - Confirmar si existe catalogo operacional de productos o SKU vigente en Manager/NV.
-- No modelar Producto como entidad propia mientras los RF solo respalden tipo de producto y datos importados.
+- No modelar Producto ni Tipo de producto como entidad propia mientras los RF solo respalden valores y datos importados desde Nota de Venta/Manager.
 
 ### Orden de Produccion
 
@@ -386,7 +385,7 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
 | --- | --- | --- | --- | --- | --- |
 | Pedido asociado | Pedido al que se adjunta la OP. | Relacion conceptual | inferido | RF30 | RF30 permite una o mas OP por pedido. |
-| Tipo de producto asociado | Tipo de producto que orienta subprocesos y capacidad. | Relacion conceptual | inferido | RF34, RF46, RF76 | Puede derivar del pedido/NV. |
+| Valor de tipo de producto asociado | Valor importado desde NV que orienta subprocesos y capacidad. | Atributo derivado/importado | inferido | RF34, RF46, RF76 | Puede derivar del pedido/NV; no implica entidad Tipo de producto. |
 
 **Atributos tentativos:**
 
@@ -511,7 +510,7 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 
 | Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
 | --- | --- | --- | --- | --- | --- |
-| Tipo de producto aplicable | Lanyard o tarjeta. | Catalogo | respaldado por requisitos | RF46 | Determina lista de subprocesos. |
+| Valor de tipo de producto aplicable | Lanyard o tarjeta, segun el valor importado desde la Nota de Venta. | Atributo / valor controlado | respaldado por requisitos | RF46 | Determina lista de subprocesos; no implica entidad Tipo de producto. |
 | Nombre de subproceso | Paso productivo especifico. | Catalogo | respaldado por requisitos | RF46 | Valores definidos por producto. |
 | Estado de subproceso | Avance actualizado mediante Stepper. | Estado | pendiente de validacion | RF47 | Valores del Stepper no definidos. |
 | Comentario de cambio | Comentario al cambiar estado. | Texto operativo | respaldado por requisitos | RF48 | Tambien puede registrarse como comentario/alerta. |
@@ -615,7 +614,7 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 
 ### Capacidad
 
-**Descripcion:** Concepto propio de configuracion y metrica productiva. Representa capacidad productiva, posiblemente diaria, asociada a tipo de producto, fecha o planificacion segun requisitos vigentes.
+**Descripcion:** Concepto propio de configuracion y metrica productiva. Representa capacidad productiva, posiblemente diaria, asociada al valor de tipo de producto importado desde Nota de Venta, fecha o planificacion segun requisitos vigentes.
 
 **Tipo conceptual:** Configuracion / metrica operativa.
 
@@ -628,7 +627,7 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
 | --- | --- | --- | --- | --- | --- |
 | Fecha | Dia al que aplica la capacidad. | Fecha | inferido | RF31, RF33, RF34, RF72 | RF habla de diaria. |
-| Tipo de producto | Tarjetas o lanyards. | Catalogo | respaldado por requisitos | RF33 | Minimo diferenciado por tipo. |
+| Valor de tipo de producto | Tarjetas o lanyards. | Atributo / valor controlado | respaldado por requisitos | RF33 | Minimo diferenciado por tipo; no implica entidad Tipo de producto. |
 | Capacidad maxima diaria | Limite configurado por Administrador. | Metrica configurable | respaldado por requisitos | RF33 | Valores reales pendientes. |
 | Capacidad utilizada | Carga o uso por dia. | Metrica calculada | respaldado por requisitos | RF34, RF72 | Puede derivarse de pedidos/ordenes. |
 | Capacidad disponible | Capacidad restante para fecha solicitada. | Metrica calculada | respaldado por requisitos | RF31, RF35, RF36 | Redaccion de RF35 debe validarse. |
@@ -651,7 +650,7 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 
 | Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
 | --- | --- | --- | --- | --- | --- |
-| Tipo de producto | Lanyard o tarjeta. | Catalogo | respaldado por requisitos | RF39, RF40 | Valores iniciales. |
+| Valor de tipo de producto | Lanyard o tarjeta. | Atributo / valor controlado | respaldado por requisitos | RF39, RF40 | Valores iniciales; corresponde al valor extraido desde la Nota de Venta. |
 | Rango de unidades | Rango usado para estimacion. | Regla | respaldado por requisitos | RF39, RF40 | Para tarjeta no se define rango diferenciado. |
 | Dias habiles estimados | Duracion estimada por regla. | Metrica/regla | respaldado por requisitos | RF39 | Lanyards: 5/10/15; tarjetas: 7. |
 | Etapa productiva | Etapa con tiempo estimado predefinido. | Relacion conceptual | respaldado por requisitos | RNF06, RF56 | Tiempos por etapa no enumerados. |
@@ -802,13 +801,10 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Pedido tiene Estado de pago | Pedido | Estado de pago | Muchos a uno, con historial de cambios | Obligatoria para avance | Cobranzas actualiza estado. | RF26-RF29, RF32 | Alto | Confirmar estado inicial. |
 | Pedido tiene Estado Kanban | Pedido | Estado Kanban o etapa productiva | Muchos a uno, con historial de cambios | Obligatoria para tablero | Kanban organiza por estado. | RF28, RF42-RF45, RF55 | Alto | Reglas de transicion pendientes. |
 | Pedido contiene Subprocesos de produccion | Pedido | Subproceso de produccion | Uno a muchos | Segun tipo de producto | RF46 muestra subprocesos por producto. | RF46-RF50 | Alto | Confirmar si se materializan al entrar en produccion. |
-| Tipo de producto determina Subprocesos de produccion | Tipo de producto | Subproceso de produccion | Uno a muchos | Obligatoria para produccion | Subprocesos dependen de lanyard/tarjeta. | RF46 | Alto | Validar variaciones reales. |
 | Pedido genera Evento de trazabilidad | Pedido | Evento de trazabilidad | Uno a muchos | Obligatoria para acciones trazables | Historial cronologico por pedido. | RF29, RF37, RF50, RF59, RF60, RF63 | Alto | Catalogo final de eventos. |
 | Usuario ejecuta Evento de trazabilidad | Usuario | Evento de trazabilidad | Uno a muchos | Obligatoria cuando hay accion humana | RF exige usuario/autor/responsable. | RF29, RF50, RF59, RF63 | Alto | Eventos automaticos deben definirse. |
 | Usuario genera Bitacora de auditoria | Usuario | Bitacora de auditoria | Uno a muchos | Opcional segun evento | Modificaciones y usuarios desvinculados conservan historial. | RF15, RF16, RNF07, RNF08 | Alto | Alcance completo pendiente. |
 | Pedido recibe Comentarios/alertas | Pedido | Comentario, observacion o alerta | Uno a muchos | Opcional | Todos los usuarios pueden registrar. | RF48, RF62, RF63 | Alto | Distinguir alertas automaticas/manuales. |
-| Capacidad aplica a tipo de producto y fecha | Capacidad | Tipo de producto | Muchas configuraciones por tipo/fecha | Obligatoria para capacidad configurada | Capacidad diferenciada por tarjetas/lanyards. | RF31, RF33, RF34, RF72 | Alto | Fuente real de capacidad pendiente. |
-| Parametro de estimacion aplica a tipo de producto | Parametro de estimacion | Tipo de producto | Muchos parametros por tipo/rango | Obligatoria | Calculo por tipo y rango. | RF39, RF40 | Alto | Validar rangos configurables. |
 | Pedido usa Parametro de estimacion | Pedido | Parametro de estimacion | Muchos a uno | Condicional | Fecha estimada depende de tipo/cantidad. | RF38-RF40 | Medio | Depende de datos reales de NV. |
 | Pedido origina Notificaciones | Pedido | Notificacion | Uno a muchos | Condicional | Nuevo pedido, urgencia, listo para entrega. | RF58, RF61, RF65 | Alto | Estado de lectura pendiente. |
 | Usuario publica Anuncio interno | Usuario | Anuncio interno | Uno a muchos | Opcional | Administrador publica comunicados. | RF66, RF67 | Alto | Vigencia pendiente. |
@@ -822,7 +818,7 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Estado de usuario | vinculado, desvinculado | Usuario | RF02, RF09, RF10, RF15, RF16 | Alto | Glosario respalda definiciones. |
 | Estado de pago | Confirmado, Rechazado, Pendiente | Pedido/Estado de pago | RF26 | Alto | Controla avance a produccion. |
 | Estado Kanban vigente | Confirmacion de pago, Listo para produccion, En produccion, Listo para entrega | Pedido/Estado Kanban | RF44 | Alto | Control de calidad aparece en glosario, pero no en RF44; no se incorpora como vigente. |
-| Tipo de producto | Lanyard, Tarjeta | Nota de Venta, Pedido, Capacidad, Parametro de estimacion, Subproceso de produccion | RF22, RF33, RF39, RF46 | Alto | Catalogo/valor controlado; no entidad Producto. |
+| Tipo de producto | Lanyard, Tarjeta | Atributo de Nota de Venta usado por Pedido, Capacidad, Parametro de estimacion y Subproceso de produccion | RF22, RF33, RF39, RF46 | Alto | Valor controlado importado desde NV/Manager; no entidad Producto ni entidad Tipo de producto. |
 | Subprocesos Lanyard | Impresion, sublimacion, corte, costura | Subproceso de produccion | RF46 | Alto | Respaldados explicitamente. |
 | Subprocesos Tarjeta | Revisar informacion, Ordenar informacion, Cargar datos | Subproceso de produccion | RF46 | Alto | Respaldados explicitamente. |
 | Etiquetas visuales | Urgencia, Atraso | Pedido | RF52, RF64 | Medio | Valores controlados asociados a Pedido; RF53 menciona tres etiquetas pero enumera dos. |
@@ -880,12 +876,12 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Nota de Venta no duplicada | Numero de NV no puede duplicarse. | RF23, RF24 | Nota de Venta, Pedido | Requiere validacion antes de crear pedido. |
 | Pago confirmado habilita produccion | Al confirmar pago, pedido pasa automaticamente a Listo para produccion. | RF26-RF28 | Pedido, Estado de pago, Estado Kanban | Transicion automatica respaldada. |
 | Pago no confirmado bloquea Listo para produccion | No se puede cambiar manualmente si pago no es Confirmado. | RF32 | Pedido, Orden de Produccion, Estado de pago, Estado Kanban o etapa productiva | Regla de transicion obligatoria. |
-| Capacidad diferenciada por tipo de producto | Capacidad maxima diaria se configura al menos por tarjetas y lanyards. | RF33 | Capacidad, Tipo de producto | Requiere capacidad por fecha/tipo. |
+| Capacidad diferenciada por tipo de producto | Capacidad maxima diaria se configura al menos por valores tarjetas y lanyards. | RF33 | Capacidad, atributo tipo de producto de Nota de Venta | Requiere capacidad por fecha y valor de tipo de producto, sin modelar Tipo de producto como entidad. |
 | Sobrecarga al 90% | Al ingresar NV se alerta si la capacidad alcanza el umbral indicado. | RF35 | Capacidad, Pedido, Notificacion, Comentario, observacion o alerta | La redaccion debe validarse por posible ambiguedad. |
 | Registro bajo sobrecarga | Pedido ingresado bajo sobrecarga queda en historial. | RF37 | Pedido, Evento de trazabilidad | Necesario para reportes por vendedor. |
 | Fecha alternativa si no hay capacidad | Se muestra fecha alternativa cuando la fecha solicitada no tiene capacidad. | RF36 | Pedido, Capacidad, Calendario de planificacion | Fecha solicitada requiere definicion real. |
-| Estimacion por tipo y cantidad | Fecha de termino depende de tipo de producto y cantidad con parametros por defecto. | RF38-RF40 | Nota de Venta, Tipo de producto, Parametro de estimacion | Cantidad/tipo dependen de NV real. |
-| Subprocesos por tipo de producto | Lanyard y tarjeta tienen subprocesos diferentes. | RF46 | Tipo de producto, Subproceso de produccion | Catalogos de subproceso por tipo. |
+| Estimacion por tipo y cantidad | Fecha de termino depende del valor de tipo de producto y cantidad con parametros por defecto. | RF38-RF40 | Nota de Venta, Parametro de estimacion | Cantidad/tipo dependen de NV real. |
+| Subprocesos por tipo de producto | Lanyard y tarjeta tienen subprocesos diferentes. | RF46 | Atributo tipo de producto de Nota de Venta, Subproceso de produccion | Catalogos de subproceso segun valor de tipo de producto. |
 | Historial sin sobrescritura | Cambios de subproceso deben conservar historial completo. | RF50 | Subproceso de produccion, Evento de trazabilidad | No sobrescribir eventos previos. |
 | Tiempo por etapa | Debe calcular y guardar tiempo real por etapa. | RF55, RF56, RNF06 | Estado Kanban o etapa productiva, Evento de trazabilidad, Parametro de estimacion | Requiere marcadores de ingreso/salida. |
 | Notificaciones por evento | Nuevo pedido, pedido urgente y Listo para entrega generan avisos. | RF58, RF61, RF65 | Notificacion, Pedido, Usuario | Requiere destinatarios por rol/asignacion. |
@@ -934,19 +930,18 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Usuario | Nombre, apellido, RUT, correo, rol, estado, referencia de firma, cambio inicial de contrasena. | Rol, Pedido, Evento de trazabilidad, Bitacora de auditoria, Documento o archivo asociado. | RF01-RF17, RNF01-RNF08 | Alta | Credenciales/Auth0 y capacidades por rol. |
 | Rol | Nombre de rol, descripcion operativa, capacidades asociadas. | Usuarios y reglas de autorizacion. | RF04, RF12, RF13 | Alta | Capacidades granulares sin matrices RF/CU. |
 | Pedido | Fecha/hora creacion, estado, pago, vendedor, sobrecarga, fecha estimada, etiqueta/prioridad. | Nota de Venta, Orden de Produccion, Ficha de cliente, Documento o archivo asociado, Evento de trazabilidad, Capacidad, Notificacion. | RF18-RF77 | Alta | Alineacion con Orden de Produccion y cardinalidades. |
-| Nota de Venta | Numero NV y PDF respaldados; datos de cliente, tipo/datos de producto, cantidad y datos para fabricacion como datos pendientes. | Pedido, documentos, Manager, tipo de producto. | RF19-RF24, RF27, RF38, RF51, RF65, RF77 | Alta para concepto | Pendiente de validacion con datos reales. |
-| Tipo de producto | Lanyard, tarjeta; usado para capacidad, estimacion y subprocesos. | Nota de Venta, Pedido, Capacidad, Parametro de estimacion, Subproceso de produccion. | RF22, RF33, RF38-RF40, RF46, RF75 | Alta | Normalizacion de valores y datos reales de producto. |
+| Nota de Venta | Numero NV y PDF respaldados; datos de cliente, tipo/datos de producto, cantidad y datos para fabricacion como datos pendientes. | Pedido, documentos, Manager; tipo de producto como atributo/valor controlado de la NV. | RF19-RF24, RF27, RF38, RF51, RF65, RF77 | Alta para concepto | Pendiente de validacion con datos reales. |
 | Orden de Produccion | Documento OP, numero OP, estado asociado, dia asignado. | Pedido, Estado Kanban o etapa productiva, Reporte o indicador, Documento o archivo asociado. | RF30, RF32, RF34, RF51, RF76 | Alta para concepto | Pendiente de validacion con datos reales. |
 | Ficha de cliente | Documento, referencia/metadato de firma aplicada, datos de glosario pendientes. | Pedido, Documento o archivo asociado. | RF30, RF49, glosario | Media | Pendiente de revision visual y datos reales. |
 | Documento o archivo asociado | Tipo documental, referencia/ruta logica, usuario, pedido. | Pedido, Nota de Venta, Orden de Produccion, Ficha de cliente, firma como metadato. | RF19, RF25, RF30, RF49 | Alta | Repositorio documental y metadatos reales. |
 | Estado de pago | Confirmado, Rechazado, Pendiente, usuario, momento. | Pedido y Evento de trazabilidad. | RF26-RF29, RF32 | Alta | Estado inicial y rechazo/pendiente. |
 | Estado Kanban o etapa productiva | Estados RF44, ingreso/salida etapa, tiempo real, retraso. | Pedido y Evento de trazabilidad. | RF42-RF57, RF61, RF76 | Alta | Reglas de transicion e indicador visual. |
-| Subproceso de produccion | Tipo de producto aplicable, nombre, estado, comentario, responsable, momento. | Pedido, Tipo de producto, Evento de trazabilidad, referencia de firma. | RF46-RF50 | Alta | Valores del Stepper. |
+| Subproceso de produccion | Valor de tipo de producto aplicable, nombre, estado, comentario, responsable, momento. | Pedido, valor tipo de producto de NV, Evento de trazabilidad, referencia de firma. | RF46-RF50 | Alta | Valores del Stepper. |
 | Evento de trazabilidad | Pedido, tipo, estado, fecha, hora, usuario, descripcion. | Pedido, Usuario, estados, Comentario, observacion o alerta. | RF29, RF37, RF50, RF59, RF60, RF63, RNF07 | Alta | Catalogo de eventos. |
 | Bitacora de auditoria | Evento auditado, usuario, fecha/hora servidor, recurso afectado. | Usuario y conceptos auditados. | RF15, RF16, RNF07, RNF08 | Alta | Alcance completo. |
 | Comentario, observacion o alerta | Tipo, contenido, pedido, autor, fecha/hora. | Pedido, Usuario, Evento de trazabilidad. | RF48, RF62, RF63 | Alta | Alertas automaticas vs manuales. |
-| Capacidad | Fecha, tipo producto, maxima, utilizada, disponible, sobrecarga. | Tipo de producto, Pedido, Calendario de planificacion, Reporte o indicador. | RF31, RF33-RF37, RF72 | Alta | Fuente real de capacidad. |
-| Parametro de estimacion | Tipo producto, rango, dias habiles, etapa. | Tipo de producto, Pedido, Capacidad. | RF39, RF40, RNF06 | Alta | Carga inicial y limites de rangos. |
+| Capacidad | Fecha, valor tipo producto, maxima, utilizada, disponible, sobrecarga. | Valor tipo de producto de NV, Pedido, Calendario de planificacion, Reporte o indicador. | RF31, RF33-RF37, RF72 | Alta | Fuente real de capacidad. |
+| Parametro de estimacion | Valor tipo producto, rango, dias habiles, etapa. | Valor tipo de producto de NV, Pedido, Capacidad. | RF39, RF40, RNF06 | Alta | Carga inicial y limites de rangos. |
 | Calendario de planificacion | Fecha estimada, usuario que reajusta, reajuste. | Vista/proceso asociado a Pedido y Capacidad; no relacion persistente independiente. | RF41 | Media | Motivo y trazabilidad del reajuste. |
 | Notificacion | Evento origen, destinatario, canal, pedido. | Pedido, usuario/rol, correo. | RF58, RF61, RF65 | Alta | Estado de lectura. |
 | Anuncio interno | Contenido, autor, visibilidad. | Usuario Administrador y roles. | RF66, RF67 | Alta | Vigencia/estado. |
