@@ -15,8 +15,9 @@ Esta propuesta se mantiene en nivel conceptual, no define estructura de implemen
 | Requisitos funcionales vigentes | Seccion `# 7. REQUISITOS FUNCIONALES Y NO FUNCIONALES` del Documento 0 | Base normativa para entidades, relaciones, estados y reglas. | Alta | La estructura de modulos y codigos se verifico directamente en el Documento 0 actualizado. |
 | Requisitos no funcionales vigentes | Seccion 7.2 del Documento 0 | Apoyo para seguridad, sesiones, tiempos estimados, auditoria, conservacion historica y rendimiento. | Alta | Solo se consideran RNF con impacto en datos o trazabilidad. |
 | Requisitos de usuario vigentes | Seccion `# 8. REQUERIMIENTOS DEL SISTEMA` del Documento 0 | Apoyo para necesidades de datos y trazabilidad funcional. | Media | La tabla Markdown presenta celdas repetidas por conversion desde DOCX; se interpreta solo como apoyo. |
+| Estructura dummy de Nota de Venta desde Manager | `.datosdummy/Estudio.xlsx` | Fuente local para nombres de campos y tipos conceptuales inferidos de la informacion rescatable desde Manager. | Alta para estructura de NV | Carpeta ignorada por Git por confidencialidad. No se copian registros ni valores sensibles; solo nombres de campos. |
 | Glosario y roles | Anexo B del Documento 0 | Apoyo secundario para vocabulario, roles y conceptos documentales. | Media | No supera a RF/RNF/UR. Los atributos documentales reales siguen pendientes si no estan en RF vigentes. |
-| Anexos documentales y dimension tecnica | Anexos C, D, E e I del Documento 0 | Apoyo para ubicar documentos, herramientas y sistemas externos. | Baja | Ficha de cliente, Nota de Venta y Orden de Produccion aparecen como figuras: Pendiente de revision visual. |
+| Anexos documentales y dimension tecnica | Anexos C, D, E e I del Documento 0 | Apoyo para ubicar documentos, herramientas y sistemas externos. | Baja | Ficha de cliente y documentos visuales requieren revision visual. La OP no se usa como fuente de atributos completos. |
 | Arquitectura de componentes y despliegue | `docs/Arquitectura/Diagrama_de_componentes.md`, `docs/Arquitectura/Diagrama_de_despliegue.md` | Contexto complementario sobre limites tecnicos, Auth0, Manager, correo y repositorio documental. | Baja | No se usa para contradecir ni ampliar sin respaldo los RF vigentes. |
 | Contexto anterior obsoleto | `docs/Base de Datos/00_contexto_para_erm.md` | Descartado como fuente normativa. | No usar | Fue creado con una version anterior del Documento 0. |
 | Documento `01_contexto_actualizado_para_base_de_datos.md` | `docs/Base de Datos/01_contexto_actualizado_para_base_de_datos.md` | No se crea ni modifica. Si existe, queda como antecedente. | No usar como base de esta ejecucion | No debe ser sobrescrito. |
@@ -46,8 +47,8 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | RF16 | Conservacion de datos de usuario desvinculado | Modulo 1: Gestion de usuario | Mantiene registros asociados visibles en reportes. | Bitacoras, ordenes de produccion, ventas asociadas a usuario. | Requiere preservar trazabilidad historica. |
 | RF17 | Cierre de sesion desde cualquier interfaz | Modulo 1: Gestion de usuario | Permite cierre de sesion. | Evento tecnico de cierre o auditoria de autenticacion. | Con JWT/Auth0 no se asume sesion persistida en BD propia. |
 | RF18 | Generacion de pedidos | Modulo 2: Ingreso y validacion de Nota de Venta, ficha de cliente y orden de produccion | Ventas genera pedidos. | Pedido, usuario de Ventas. | Pedido emerge como concepto central. |
-| RF19 | Registro de pedidos | Modulo 2 | Crea pedido con numero de Nota de Venta y PDF. | Numero de Nota de Venta, archivo PDF de Nota de Venta, pedido. | Atributos reales de la NV quedan pendientes. |
-| RF20 | Creacion de pedido | Modulo 2 | Completa datos por busqueda asociada al numero de Nota de Venta. | Razon social, RUT cliente, descripcion de producto, cantidad, datos para fabricacion. | Depende de fuente real/Manager: Pendiente de validacion con datos reales. |
+| RF19 | Registro de pedidos | Modulo 2 | Crea pedido con numero de Nota de Venta y PDF. | Numero de Nota de Venta, archivo PDF de Nota de Venta, pedido. | La estructura de campos NV rescatables desde Manager queda definida por `.datosdummy/Estudio.xlsx`. |
+| RF20 | Creacion de pedido | Modulo 2 | Completa datos por busqueda asociada al numero de Nota de Venta. | Razon social, RUT cliente, descripcion de producto, cantidad, datos para fabricacion. | Los campos rescatables desde Manager se documentan con los nombres del Excel dummy; quedan pendientes solo semanticas exactas de campos ambiguos. |
 | RF21 | Fecha y hora de creacion de pedido | Modulo 2 | Registra fecha y hora de creacion. | Fecha DD-MM-YYYY y hora HH:MM:SS del pedido. | Respaldado directamente. |
 | RF22 | Identificacion de productos asociados | Modulo 2 | Identifica si el producto es lanyard o tarjeta. | Tipo de producto. | Valor controlado respaldado. |
 | RF23 | Unicidad de Nota de Venta | Modulo 2 | Verifica si el numero de Nota de Venta ya existe. | Numero de Nota de Venta unico en pedidos/notas. | No define formato real del numero. |
@@ -57,7 +58,7 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | RF27 | Firma digital al confirmar pago | Modulo 3 | Firma digitalmente la Nota de Venta al confirmar pago. | Referencia/metadato de firma, Nota de Venta, evento de confirmacion. | La firma se trata como archivo/metadato documental, no como entidad fuerte. |
 | RF28 | Estado automatico del pedido | Modulo 3 | Cambia pedido a Listo para produccion al confirmar pago. | Estado de pedido/Kanban, condicion de pago. | Regla automatica. |
 | RF29 | Trazabilidad de cambios de pago | Modulo 3 | Registra fecha, hora e identificador del usuario que confirma. | Evento de pago, fecha, hora, usuario responsable. | Historial/auditoria respaldado. |
-| RF30 | Asociacion de documentos al pedido | Modulo 3 | Administrador adjunta OP y ficha cliente cuando pago confirmado. | Orden de Produccion, ficha de cliente, pedido, documentos. | Atributos reales de OP/ficha: Pendiente de validacion con datos reales. |
+| RF30 | Asociacion de documentos al pedido | Modulo 3 | Administrador adjunta OP y ficha cliente cuando pago confirmado. | Codigo de OP, ficha de cliente, pedido, documentos. | Por aclaracion del equipo, OP se modela solo como codigo/referencia asociada al pedido. |
 | RF31 | Actualizacion de capacidad disponible | Modulo 3 | Actualiza capacidad disponible al generarse el pedido. | Capacidad productiva disponible, pedido. | Capacidad se mantiene como concepto propio de configuracion/metrica. |
 | RF32 | Restriccion manual a Listo para produccion | Modulo 3 | Bloquea cambio si pago no esta confirmado. | Estado de pago, estado de orden/pedido, regla de transicion. | Terminos pedido/orden requieren validacion conceptual. |
 | RF33 | Configuracion de capacidad de produccion | Modulo 4: Gestion de capacidad instalada y reglas de negocio | Administrador configura capacidad maxima diaria por tipo. | Capacidad maxima diaria, tipo de producto. | Valor controlado por tarjetas/lanyards. |
@@ -65,7 +66,7 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | RF35 | Alerta por sobrecarga | Modulo 4 | Alerta a Ventas al ingresar NV con capacidad igual o superior al 90%. | Porcentaje de capacidad usada/disponible, alerta. | La redaccion mezcla disponible y sobrecarga; validar regla exacta. |
 | RF36 | Fecha alternativa de entrega | Modulo 4 | Muestra fecha alternativa cuando no hay capacidad. | Fecha solicitada, fecha alternativa. | Fecha solicitada no esta definida como atributo cerrado. |
 | RF37 | Pedido bajo sobrecarga | Modulo 4 | Guarda historial al ingresar pedido bajo sobrecarga. | Evento de sobrecarga, pedido, usuario Ventas. | Historial respaldado. |
-| RF38 | Extraccion desde Nota de Venta | Modulo 4 | Extrae tipo de producto y cantidad desde la Nota de Venta. | Tipo de producto y cantidad desde NV. | Depende de NV real/Manager: Pendiente de validacion con datos reales. |
+| RF38 | Extraccion desde Nota de Venta | Modulo 4 | Extrae tipo de producto y cantidad desde la Nota de Venta. | Tipo de producto y cantidad desde NV. | Cantidad y clasificaciones de producto se apoyan en campos Manager definidos en el Excel dummy. |
 | RF39 | Fecha estimada de entrega | Modulo 4 | Calcula termino estimado por tipo y cantidad. | Rangos de cantidad, dias habiles, fecha estimada. | Parametros por defecto respaldados. |
 | RF40 | Configuracion de parametros de estimacion | Modulo 4 | Administrador ajusta parametros por tipo/rango. | Parametros de estimacion, tipo, rango de unidades. | Configuracion conceptual. |
 | RF41 | Calendario de planificacion | Modulo 4 | Administrador visualiza y reajusta fecha estimada. | Calendario, fecha estimada, reajuste. | Motivo de reajuste solo aparece en apoyo secundario; pendiente. |
@@ -78,7 +79,7 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | RF48 | Comentarios en subproceso | Modulo 5 | Permite comentario al cambiar estado de subproceso. | Comentario, subproceso, pedido. | Complementado por RF63. |
 | RF49 | Firma electronica en produccion | Modulo 5 | Agrega firma a ficha cliente al actualizar subproceso. | Referencia/metadato de firma, ficha cliente, subproceso, usuario. | Ficha real pendiente de revision visual. |
 | RF50 | Historial de estados de produccion | Modulo 5 | Guarda historial completo sin sobrescribir. | Fecha, hora, usuario responsable, cambio de subproceso. | Historial respaldado. |
-| RF51 | Filtrado de pedidos | Modulo 5 | Filtra por NV, OP, cliente y vendedor. | Numero de NV, numero de OP, nombre cliente, vendedor. | Numero OP y nombre cliente dependen de datos reales/documentos. |
+| RF51 | Filtrado de pedidos | Modulo 5 | Filtra por NV, OP, cliente y vendedor. | Numero de NV, codigo OP, nombre cliente, vendedor. | Cliente se obtiene desde campos Manager de NV; OP se conserva como codigo asociado. |
 | RF52 | Etiquetas visuales | Modulo 5 | Administrador y Operario asignan etiquetas. | Etiquetas Urgencia y Atraso. | Respaldado. |
 | RF53 | Organizacion por etiquetas | Modulo 5 | Administrador organiza pedidos bajo etiquetas. | Etiquetas de tablero. | El requisito menciona tres etiquetas, pero lista dos; Pendiente de validacion. |
 | RF54 | Prioridad de pedidos | Modulo 5 | Administrador modifica prioridad de atencion. | Prioridad del pedido. | Valores de prioridad no definidos. |
@@ -103,15 +104,15 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | RF73 | Filtro por rango de fechas | Modulo 8 | Filtra reportes e indicadores por periodo. | Rango de fechas. | Respaldado. |
 | RF74 | Panel gerencial | Modulo 8 | Panel exclusivo para Gerencia. | Rol Gerencia, indicadores. | Control de acceso. |
 | RF75 | Ranking de productos solicitados | Modulo 8 | Ranking por rango de fechas. | Datos de producto importados desde NV, cantidad solicitada, periodo. | Producto no se modela como entidad independiente. |
-| RF76 | Ordenes agrupadas por estado | Modulo 8 | Reporta cantidad de ordenes por estado Kanban. | Orden/pedido, estado, rango de fechas. | Termino orden/pedido debe alinearse. |
-| RF77 | Cumplimiento por vendedor | Modulo 8 | Indicador por Ventas con NV, entregas a tiempo, sobrecarga y fuera de plazo. | Vendedor, NV registradas, ordenes asociadas, sobrecarga, cumplimiento. | Requiere asociar usuario Ventas con pedidos/NV. |
+| RF76 | Ordenes agrupadas por estado | Modulo 8 | Reporta cantidad de ordenes por estado Kanban. | Pedido con codigo OP asociado, estado, rango de fechas. | OP no se modela como entidad completa. |
+| RF77 | Cumplimiento por vendedor | Modulo 8 | Indicador por Ventas con NV, entregas a tiempo, sobrecarga y fuera de plazo. | Vendedor, NV registradas, pedidos/codigos OP asociados, sobrecarga, cumplimiento. | Requiere asociar usuario Ventas con pedidos/NV. |
 
 ## 4. Criterios de modelado
 
 | Criterio | Aplicacion en esta propuesta |
 | --- | --- |
 | Entidad candidata | Concepto con identidad propia en RF/RNF/UR o apoyo secundario permitido, que necesita conservar datos o servir como referencia conceptual. |
-| Atributo conceptual | Dato mencionado explicitamente en requisitos o apoyo permitido. Si depende de documentos reales, Manager, planillas o registros existentes, se marca como Pendiente de validacion con datos reales. |
+| Atributo conceptual | Dato mencionado explicitamente en requisitos o apoyo permitido. Si depende de documentos reales, planillas o registros existentes no revisados, se marca como Pendiente de validacion con datos reales. Para Nota de Venta, la estructura de campos Manager ya queda respaldada por el Excel dummy; solo permanecen pendientes semanticas o reglas no documentadas. |
 | Relacion | Vinculo necesario para explicar procesos respaldados por requisitos, sin cerrar cardinalidad definitiva si el requisito no la precisa. En la seccion de relaciones, Entidad A y Entidad B deben existir como entidades o conceptos definidos en el listado conceptual; configuraciones, reglas, metadatos y salidas calculadas no se fuerzan como entidades. |
 | Catalogo o estado | Conjunto de valores controlados nombrados en requisitos vigentes. Los valores de glosario se usan solo si no contradicen RF. |
 | Dato de dominio | Informacion propia del negocio o proceso de ITECSA, como pedidos, notas de venta, estados, capacidad, documentos o informacion operacional, diferenciada de datos puramente tecnicos o de implementacion. |
@@ -126,10 +127,9 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Usuario | Actor interno / dato maestro | Gestiona autenticacion, perfil, estado, referencia de firma, roles, acciones y trazabilidad. | RF01-RF17, RNF01-RNF08, UR 1.x | Alto | respaldada por requisitos |
 | Rol | Catalogo/configuracion de autorizacion | Los accesos y capacidades dependen del rol. | RF04, RF12, RF13, RF26, RF33, RF58, RF67, RF74 | Alto | respaldada por requisitos |
 | Pedido | Proceso transaccional | Centraliza el flujo comercial-productivo, estados, documentos y reportes. | RF18-RF32, RF42-RF77 | Alto | respaldada por requisitos |
-| Nota de Venta | Documento/registro comercial | Origina el pedido y alimenta datos importados de cliente, producto, cantidad y pago. | RF19-RF24, RF27, RF38, RF51, RF65, RF77, glosario | Alto | Pendiente de validacion con datos reales |
-| Orden de Produccion | Documento/registro productivo | Se adjunta al pedido, se filtra por numero y se reporta por estado. | RF30, RF32, RF34, RF51, RF76, glosario | Alto | Pendiente de validacion con datos reales |
+| Nota de Venta | Documento/registro comercial | Origina el pedido y alimenta datos importados de cliente, producto, cantidad y pago. Su estructura rescatable desde Manager queda definida por `.datosdummy/Estudio.xlsx`. | RF19-RF24, RF27, RF38, RF51, RF65, RF77, glosario | Alto | respaldada por requisitos y estructura Manager/dummy |
 | Ficha de cliente | Documento vinculado al pedido | Se adjunta al pedido y recibe firma en produccion. | RF30, RF49, anexo C, glosario | Medio | Pendiente de validacion con datos reales |
-| Documento o archivo asociado | Metadatos / referencia documental | NV PDF, OP, ficha cliente, archivos de diseno y firmas deben asociarse al flujo sin guardar binarios en BD. | RF19, RF25, RF27, RF30, RF49, anexos C-E | Alto | pendiente de validacion con datos reales |
+| Documento o archivo asociado | Metadatos / referencia documental | NV PDF, ficha cliente, archivos de diseno y firmas deben asociarse al flujo sin guardar binarios en BD. El codigo OP se trata como referencia del pedido. | RF19, RF25, RF27, RF30, RF49, anexos C-E | Alto | pendiente de validacion con datos reales |
 | Estado de pago | Estado controlado | Cobranzas actualiza Confirmado, Rechazado o Pendiente. | RF26-RF29, RF32 | Alto | respaldada por requisitos |
 | Estado Kanban o etapa productiva | Estado controlado | Ordena pedidos en el tablero y sustenta tiempos/reportes. | RF28, RF32, RF42-RF45, RF55-RF57, RF61, RF76 | Alto | respaldada por requisitos |
 | Subproceso de produccion | Proceso / estado parcial | Depende del valor de tipo de producto importado desde la Nota de Venta y es actualizado por Operario. | RF46-RF50 | Alto | respaldada por requisitos |
@@ -258,37 +258,62 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Estado actual | Estado dentro del flujo/Kanban. | Estado | respaldado por requisitos | RF28, RF42, RF44, RF45 | Valores en RF44. |
 | Estado de pago asociado | Pago Confirmado, Rechazado o Pendiente. | Estado | respaldado por requisitos | RF26, RF32 | Controla transicion a produccion. |
 | Usuario de Ventas asociado | Vendedor que registra o esta asignado al pedido. | Relacion conceptual | respaldado por requisitos | RF18, RF61, RF77 | RF51 usa vendedor que emitio la NV. |
+| Codigo(s) de OP asociados | Codigo o codigos de Orden de Produccion usados como referencia externa para filtros y reportes. | Referencia identificadora | respaldado por aclaracion del equipo | RF30, RF51, RF76, RF77 | No implica importar ni mantener la OP completa; cardinalidad exacta pendiente. |
 | Condicion de sobrecarga | Indica ingreso bajo sobrecarga operativa. | Regla/evento | respaldado por requisitos | RF37, RF77 | Debe quedar en historial. |
 | Fecha estimada de termino | Fecha calculada o reajustada. | Fecha calculada | respaldado por requisitos | RF39, RF41 | Puede cambiar por calendario. |
 | Etiqueta visual | Urgencia o Atraso como clasificacion visual asociada al pedido. | Clasificacion | respaldado por requisitos | RF52, RF64 | RF53 menciona tres etiquetas pero lista dos. |
 | Prioridad | Nivel o criterio de atencion. | Clasificacion | respaldado por requisitos | RF54 | Valores no definidos. |
 
 **Pendientes de validacion:**
-- Alinear el concepto Pedido con Orden de Produccion cuando los RF usen ambos terminos.
-- Confirmar si un pedido puede tener una o varias ordenes de produccion en todos los escenarios.
+- Confirmar si un pedido puede tener uno o varios codigos de OP asociados.
+- Confirmar formato operativo del codigo OP.
 
 ### Nota de Venta
 
-**Descripcion:** Documento o registro comercial que origina el pedido. Se ingresa mediante numero y archivo PDF; algunos datos se completan por busqueda asociada al numero de Nota de Venta.
+**Descripcion:** Documento o registro comercial que origina el pedido. Se ingresa mediante numero y archivo PDF; los datos rescatables desde Manager quedan definidos por la estructura del Excel dummy `.datosdummy/Estudio.xlsx`. Esta propuesta documenta solo nombres de campos y tipos conceptuales inferidos, sin copiar registros.
 
 **Tipo conceptual:** Documento/registro comercial.
 
 **Requisitos que la respaldan:** RF19-RF24, RF27, RF38, RF51, RF65, RF77, glosario.
 
-**Nivel de confianza:** Alto para el concepto; bajo/medio para atributos reales.
+**Nivel de confianza:** Alto para el concepto y la estructura de campos; medio para la semantica exacta de campos codificados o ambiguos.
 
-**Atributos conceptuales mencionados directamente en requisitos vigentes:**
+**Atributos definidos por estructura Manager / Excel dummy:**
 
 | Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
 | --- | --- | --- | --- | --- | --- |
-| Numero de Nota de Venta | Codigo ingresado para crear pedido, validar duplicidad y filtrar. | Identificador documental conceptual | respaldado por requisitos | RF19, RF23, RF24, RF51 | Formato real pendiente. |
-| Archivo PDF de Nota de Venta | Documento adjunto solicitado al crear pedido. | Archivo documental | pendiente de validacion con datos reales | RF19 | Se conoce formato PDF, no contenido interno. |
-| Razon social | Dato completado por busqueda asociada a NV. | Dato comercial | Pendiente de validacion con datos reales | RF20 | Depende de fuente real/Manager. |
-| RUT cliente | Dato completado por busqueda asociada a NV. | Dato comercial | Pendiente de validacion con datos reales | RF20 | Depende de fuente real/Manager. |
-| Descripcion de producto | Dato completado por busqueda asociada a NV. | Dato de producto | Pendiente de validacion con datos reales | RF20 | Depende de NV real/Manager. |
-| Cantidad | Dato completado y extraido para estimacion. | Cantidad conceptual | Pendiente de validacion con datos reales | RF20, RF38 | Se usa en reglas, pero origen real pendiente. |
-| Datos para fabricacion | Informacion completada desde busqueda asociada a NV. | Dato operacional | Pendiente de validacion con datos reales | RF20 | No se detalla estructura. |
-| Tipo de producto | Lanyard o tarjeta identificado desde NV. | Atributo / valor controlado de Nota de Venta | Pendiente de validacion con datos reales | RF22, RF38 | Valores respaldados; extraccion real pendiente. |
+| NUMNOTA | Numero de Nota de Venta usado para crear pedido, validar duplicidad y filtrar. | Identificador documental | estructura definida por Excel dummy / Manager | RF19, RF23, RF24, RF51, `.datosdummy/Estudio.xlsx` | No se documentan valores reales. |
+| ESTADO | Estado registrado en Manager para la NV. | Estado/codigo comercial | estructura definida; semantica pendiente | `.datosdummy/Estudio.xlsx` | Confirmar significado de codigos o valores. |
+| APROBADA | Indicador de aprobacion de la NV. | Indicador comercial | estructura definida; semantica pendiente | `.datosdummy/Estudio.xlsx` | Confirmar valores posibles y regla de uso. |
+| FECHA | Fecha principal asociada a la NV. | Fecha | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | Confirmar si corresponde a emision, registro u otra fecha operativa. |
+| FACT_DESPACHO | Indicador o referencia asociada a facturacion/despacho. | Indicador/comercial | estructura definida; semantica pendiente | `.datosdummy/Estudio.xlsx` | Confirmar significado operativo. |
+| FECHA_FAV | Fecha asociada a facturacion/despacho u otro hito comercial. | Fecha | estructura definida; semantica pendiente | `.datosdummy/Estudio.xlsx` | Nombre tecnico requiere validacion semantica. |
+| TIPO_NVTA | Tipo de nota de venta registrado en Manager. | Categoria comercial | estructura definida; semantica pendiente | `.datosdummy/Estudio.xlsx` | Confirmar catalogo de valores. |
+| FECHA2 | Fecha secundaria asociada a la NV. | Fecha | estructura definida; semantica pendiente | `.datosdummy/Estudio.xlsx` | Confirmar uso exacto. |
+| usuario | Usuario registrado en la fuente Manager. | Usuario/fuente | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | Debe alinearse con Usuario del sistema si aplica. |
+| fechamodif | Fecha de modificacion registrada en Manager. | Fecha/hora de modificacion | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | Confirmar formato operativo. |
+| RUT | RUT del cliente asociado a la NV. | Dato comercial de cliente | estructura definida por Excel dummy / Manager | RF20, `.datosdummy/Estudio.xlsx` | Cliente no se modela como entidad independiente. |
+| CLIENTE | Nombre o razon social del cliente asociado a la NV. | Dato comercial de cliente | estructura definida por Excel dummy / Manager | RF20, RF51, `.datosdummy/Estudio.xlsx` | Equivale al dato usado para busqueda por cliente. |
+| CODIGO | Codigo de producto o item registrado en la NV. | Dato de producto importado | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | No implica entidad Producto independiente. |
+| PRODUCTO | Descripcion del producto o item registrado en la NV. | Dato de producto importado | estructura definida por Excel dummy / Manager | RF20, `.datosdummy/Estudio.xlsx` | Puede apoyar la clasificacion de tipo de producto. |
+| CANTIDAD | Cantidad solicitada en la NV. | Cantidad | estructura definida por Excel dummy / Manager | RF20, RF38, RF39, RF75, `.datosdummy/Estudio.xlsx` | Se usa para estimacion y reportes. |
+| CANTDESP | Cantidad despachada registrada en la fuente. | Cantidad | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | Confirmar si se usa para cumplimiento o despacho. |
+| PENDIENTE | Cantidad pendiente registrada en la fuente. | Cantidad | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | Puede derivarse operacionalmente de cantidad y despacho; validar regla. |
+| TIPO_CLIENTE | Tipo o categoria del cliente. | Categoria comercial de cliente | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | Confirmar catalogo real de valores. |
+| SUPERFAMILIA | Clasificacion superior del producto. | Clasificacion de producto importada | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | Puede apoyar derivacion de Lanyard/Tarjeta. |
+| FAMILIA | Clasificacion familiar del producto. | Clasificacion de producto importada | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | Puede apoyar derivacion de Lanyard/Tarjeta. |
+| SUBFAMILIA | Clasificacion especifica del producto. | Clasificacion de producto importada | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | Puede apoyar derivacion de Lanyard/Tarjeta. |
+| dir | Direccion asociada al cliente o despacho. | Dato de direccion | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | Confirmar si corresponde a direccion comercial o despacho. |
+| comuna | Comuna asociada al cliente o despacho. | Dato geografico | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | No implica entidad geografica independiente. |
+| ciudad | Ciudad asociada al cliente o despacho. | Dato geografico | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | No implica entidad geografica independiente. |
+| observaciones | Observaciones registradas en la fuente. | Texto operativo | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | No se copian textos reales al documento. |
+
+**Atributos del flujo no provenientes directamente del Excel dummy:**
+
+| Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
+| --- | --- | --- | --- | --- | --- |
+| Archivo PDF de Nota de Venta | Documento adjunto solicitado al crear pedido. | Archivo documental | referencia documental pendiente | RF19 | Se conoce formato PDF; su contenido interno no se modela porque la estructura rescatable desde Manager esta en el Excel dummy. |
+| Tipo de producto | Lanyard o tarjeta identificado desde datos de la NV. | Atributo / valor controlado derivado de Nota de Venta | inferido desde estructura Manager | RF22, RF38, RF46, `.datosdummy/Estudio.xlsx` | Debe definirse regla de derivacion desde PRODUCTO, SUPERFAMILIA, FAMILIA o SUBFAMILIA. |
 | Clasificacion urgente | Condicion que dispara notificacion interna. | Clasificacion | tentativa | RF65 | No se define como viene ni donde se registra. |
 
 **Atributos inferidos:**
@@ -304,44 +329,47 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | --- | --- | --- | --- | --- | --- |
 | Estado documental | Situacion del archivo o firma aplicada a la NV. | Estado documental | tentativa | RF19, RF27 | No esta definido como estado formal. |
 
-**Atributos pendientes de validacion con datos reales:**
+**Semanticas y reglas pendientes de validacion:**
 
 | Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
 | --- | --- | --- | --- | --- | --- |
-| Campos internos del documento real | Cualquier campo no enumerado directamente en RF vigentes. | Dato documental | Pendiente de validacion con datos reales | Anexo D, Manager, documentos reales | No inventar estructura interna. |
-| SKU | Codigo de producto mencionado en glosario. | Dato comercial/producto | Pendiente de validacion con datos reales | Glosario | No aparece en RF vigentes como atributo operativo cerrado. |
-| Fecha de entrega comprometida | Fecha mencionada en glosario. | Fecha documental | Pendiente de validacion con datos reales | Glosario | Debe validarse contra NV real o Manager. |
+| Semantica de campos codificados | Significado exacto de ESTADO, APROBADA, FACT_DESPACHO, TIPO_NVTA, FECHA_FAV y FECHA2. | Regla/semantica de datos | pendiente de validacion semantica | `.datosdummy/Estudio.xlsx`, Manager | La estructura ya esta disponible; falta confirmar interpretacion operativa. |
+| Regla de tipo de producto | Mapeo que determina si la NV corresponde a lanyard o tarjeta. | Regla de derivacion | pendiente de validacion semantica | RF22, RF38, RF46, `.datosdummy/Estudio.xlsx` | Probablemente se apoya en PRODUCTO, SUPERFAMILIA, FAMILIA o SUBFAMILIA. |
+| Clasificacion urgente | Regla para determinar si una NV es urgente. | Regla de negocio | pendiente de validacion | RF65 | No aparece como campo explicito en la estructura revisada. |
 
 **Pendientes de validacion:**
-- Confirmar estructura real de la Nota de Venta desde Manager, documentos reales o documentacion operacional.
-- Confirmar que datos de RF20 y RF38 se obtienen de Manager, de documento PDF o de otro origen.
+- Confirmar semantica exacta de campos codificados o con nombres ambiguos provenientes de Manager.
+- Confirmar regla de derivacion de tipo de producto desde los campos de producto/familia.
 - Confirmar como se determina la clasificacion urgente de RF65.
 
 ### Datos de cliente importados en Nota de Venta
 
-**Descripcion:** Grupo de datos comerciales del cliente que viene desde la Nota de Venta, Manager o documentos reales, y que puede usarse para caracterizar el pedido.
+**Descripcion:** Grupo de datos comerciales del cliente que viene desde la Nota de Venta rescatada desde Manager y puede usarse para caracterizar el pedido.
 
 **Tipo conceptual:** Grupo de datos de dominio importados; no entidad independiente.
 
 **Requisitos que la respaldan:** RF20, RF51, glosario.
 
-**Nivel de confianza:** Medio.
+**Nivel de confianza:** Alto para estructura de campos; medio para semantica de catalogos.
 
 **Atributos conceptuales:**
 
 | Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
 | --- | --- | --- | --- | --- | --- |
-| Razon social | Nombre comercial obtenido al buscar la NV. | Dato comercial | Pendiente de validacion con datos reales | RF20 | Depende de fuente real/Manager. |
-| RUT cliente | Identificador tributario del cliente. | Dato comercial | Pendiente de validacion con datos reales | RF20 | Depende de fuente real/Manager. |
-| Nombre del cliente | Criterio de busqueda en Kanban. | Dato comercial | Pendiente de validacion con datos reales | RF51 | Puede derivar de razon social u otro campo real. |
+| RUT | Identificador tributario del cliente asociado a la NV. | Dato comercial | estructura definida por Excel dummy / Manager | RF20, `.datosdummy/Estudio.xlsx` | Cliente no se modela como entidad independiente. |
+| CLIENTE | Nombre o razon social del cliente asociado a la NV. | Dato comercial | estructura definida por Excel dummy / Manager | RF20, RF51, `.datosdummy/Estudio.xlsx` | Apoya filtros por cliente. |
+| TIPO_CLIENTE | Tipo o categoria del cliente. | Categoria comercial | estructura definida; semantica pendiente | `.datosdummy/Estudio.xlsx` | Confirmar valores posibles. |
+| dir | Direccion asociada al cliente o despacho. | Dato de direccion | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | Confirmar uso exacto de direccion. |
+| comuna | Comuna asociada al cliente o despacho. | Dato geografico | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | No se propone entidad geografica. |
+| ciudad | Ciudad asociada al cliente o despacho. | Dato geografico | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | No se propone entidad geografica. |
 
 **Pendientes de validacion:**
-- Confirmar estructura real de los datos de cliente en NV/Manager.
+- Confirmar semantica de `TIPO_CLIENTE` y uso operativo de `dir`, `comuna` y `ciudad`.
 - No modelar Cliente como registro propio mientras no exista requisito de gestion de clientes.
 
 ### Datos de producto importados desde Nota de Venta
 
-**Descripcion:** Grupo de datos de producto que viene desde la Nota de Venta y se usa para caracterizar el pedido. `Tipo de producto` se mantiene como atributo/valor controlado de la Nota de Venta, no como entidad independiente, porque impacta capacidad, planificacion, estimacion y subprocesos.
+**Descripcion:** Grupo de datos de producto que viene desde la Nota de Venta rescatada desde Manager y se usa para caracterizar el pedido. `Tipo de producto` se mantiene como atributo/valor controlado derivado de la Nota de Venta, no como entidad independiente, porque impacta capacidad, planificacion, estimacion y subprocesos.
 
 **Tipo conceptual:** Grupo de datos importados desde Nota de Venta; no entidad Producto ni entidad Tipo de producto independiente.
 
@@ -353,56 +381,40 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 
 | Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
 | --- | --- | --- | --- | --- | --- |
-| Tipo de producto | Lanyard o tarjeta, importado o extraido desde la Nota de Venta. | Atributo / valor controlado de Nota de Venta | Pendiente de validacion con datos reales | RF22, RF33, RF38, RF39, RF46 | Valores iniciales respaldados; origen real NV/Manager pendiente. |
-| Cantidad solicitada | Cantidad de productos usada para estimacion y ranking. | Cantidad | Pendiente de validacion con datos reales | RF20, RF38, RF39, RF75 | Dato extraido desde NV. |
-| Descripcion de producto | Descripcion obtenida en la creacion del pedido. | Texto comercial | Pendiente de validacion con datos reales | RF20 | Depende de Manager/NV real. |
+| CODIGO | Codigo de producto o item registrado en Manager. | Dato de producto importado | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | No implica entidad Producto independiente. |
+| PRODUCTO | Descripcion del producto o item registrado en la NV. | Texto comercial | estructura definida por Excel dummy / Manager | RF20, `.datosdummy/Estudio.xlsx` | Puede apoyar derivacion de tipo de producto. |
+| CANTIDAD | Cantidad solicitada usada para estimacion y ranking. | Cantidad | estructura definida por Excel dummy / Manager | RF20, RF38, RF39, RF75, `.datosdummy/Estudio.xlsx` | Dato estructural disponible desde Manager. |
+| CANTDESP | Cantidad despachada registrada en la fuente. | Cantidad | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | Confirmar uso para cumplimiento/despacho. |
+| PENDIENTE | Cantidad pendiente registrada en la fuente. | Cantidad | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | Validar si se calcula o viene desde Manager. |
+| SUPERFAMILIA | Clasificacion superior del producto. | Clasificacion de producto importada | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | Puede apoyar derivacion de Lanyard/Tarjeta. |
+| FAMILIA | Clasificacion familiar del producto. | Clasificacion de producto importada | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | Puede apoyar derivacion de Lanyard/Tarjeta. |
+| SUBFAMILIA | Clasificacion especifica del producto. | Clasificacion de producto importada | estructura definida por Excel dummy / Manager | `.datosdummy/Estudio.xlsx` | Puede apoyar derivacion de Lanyard/Tarjeta. |
+| Tipo de producto | Lanyard o tarjeta, derivado desde los datos de producto/familia de la NV. | Atributo / valor controlado de Nota de Venta | pendiente de validacion semantica | RF22, RF33, RF38, RF39, RF46, `.datosdummy/Estudio.xlsx` | No es entidad; falta cerrar regla de derivacion. |
 
 **Pendientes de validacion:**
-- Confirmar si existe catalogo operacional de productos o SKU vigente en Manager/NV.
+- Confirmar regla de derivacion de `Tipo de producto` desde `PRODUCTO`, `SUPERFAMILIA`, `FAMILIA` o `SUBFAMILIA`.
 - No modelar Producto ni Tipo de producto como entidad propia mientras los RF solo respalden valores y datos importados desde Nota de Venta/Manager.
 
-### Orden de Produccion
+### Codigo de Orden de Produccion
 
-**Descripcion:** Documento o registro productivo asociado al pedido, adjuntado cuando el pago esta confirmado y usado para filtros y reportes.
+**Descripcion:** Referencia identificadora externa de una Orden de Produccion asociada al pedido. Por aclaracion del equipo, el sistema no importa ni mantiene la informacion completa de la OP; solo conserva el codigo necesario para identificarla, filtrar pedidos y reportar.
 
-**Tipo conceptual:** Documento/registro productivo.
+**Tipo conceptual:** Dato/referencia identificadora asociada a Pedido; no entidad independiente.
 
 **Requisitos que la respaldan:** RF30, RF32, RF34, RF51, RF76, glosario.
 
-**Nivel de confianza:** Alto para el concepto; bajo/medio para atributos reales.
+**Nivel de confianza:** Alto para el tratamiento como codigo/referencia; medio para formato y cardinalidad.
 
-**Atributos conceptuales mencionados directamente en requisitos vigentes:**
-
-| Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
-| --- | --- | --- | --- | --- | --- |
-| Documento de Orden de Produccion | Orden adjunta al pedido por Administrador. | Documento o archivo asociado | Pendiente de validacion con datos reales | RF30, Anexo E | El anexo es figura no transcrita. |
-| Numero de Orden de Produccion | Criterio de filtrado de pedidos. | Identificador documental conceptual | Pendiente de validacion con datos reales | RF51 | Formato real no disponible. |
-| Estado asociado | Estado usado para bloqueo/transicion y reportes. | Estado | respaldado por requisitos | RF32, RF76 | Debe alinearse con estado de pedido/Kanban. |
-| Dia asignado | Dia usado para carga laboral por capacidad. | Fecha/asignacion | tentativa | RF34 | El RF habla de ordenes asignadas por dia, sin estructura. |
-
-**Atributos inferidos:**
+**Atributos conceptuales:**
 
 | Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
 | --- | --- | --- | --- | --- | --- |
-| Pedido asociado | Pedido al que se adjunta la OP. | Relacion conceptual | inferido | RF30 | RF30 permite una o mas OP por pedido. |
-| Valor de tipo de producto asociado | Valor importado desde NV que orienta subprocesos y capacidad. | Atributo derivado/importado | inferido | RF34, RF46, RF76 | Puede derivar del pedido/NV; no implica entidad Tipo de producto. |
-
-**Atributos tentativos:**
-
-| Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
-| --- | --- | --- | --- | --- | --- |
-| Estado documental | Situacion de carga o asociacion del documento OP. | Estado documental | tentativa | RF30 | No definido formalmente en RF. |
-
-**Atributos pendientes de validacion con datos reales:**
-
-| Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
-| --- | --- | --- | --- | --- | --- |
-| Campos internos de la OP real | Cualquier campo de OP no cerrado por RF vigentes. | Dato documental/productivo | Pendiente de validacion con datos reales | Anexo E, documentos reales | No inventar estructura interna. |
-| Cliente, fechas, producto, cantidad, lista de materiales | Datos mencionados en glosario. | Datos productivos | Pendiente de validacion con datos reales | Glosario | Requieren OP real o documentacion operacional. |
+| Codigo OP | Codigo externo de Orden de Produccion asociado al pedido. | Identificador/referencia externa | respaldado por aclaracion del equipo | RF30, RF51, RF76, RF77 | No se modelan cliente, fechas, producto, cantidad ni materiales de la OP. |
+| Pedido asociado | Pedido al que pertenece el codigo OP. | Relacion conceptual | respaldado por requisitos | RF30, RF51, RF76 | Se representa como atributo/referencia del pedido, no como entidad OP. |
 
 **Pendientes de validacion:**
-- Confirmar estructura real de la Orden de Produccion con documentos reales.
-- Confirmar si una OP representa el mismo avance que el pedido o si existe vida propia separada.
+- Confirmar formato operativo del codigo OP.
+- Confirmar si un pedido puede tener uno o varios codigos OP asociados.
 
 ### Ficha de cliente
 
@@ -430,7 +442,7 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 
 ### Documento o archivo asociado
 
-**Descripcion:** Metadatos y referencia logica de un archivo vinculado a pedido, usuario, Nota de Venta, Orden de Produccion o ficha de cliente.
+**Descripcion:** Metadatos y referencia logica de un archivo vinculado a pedido, usuario, Nota de Venta o ficha de cliente. El codigo OP se conserva como referencia del pedido y no como documento completo.
 
 **Tipo conceptual:** Metadatos / referencia documental.
 
@@ -442,7 +454,7 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 
 | Atributo | Descripcion | Tipo conceptual | Estado | Fuente / requisito | Observaciones |
 | --- | --- | --- | --- | --- | --- |
-| Tipo de documento | NV, OP, ficha cliente, archivo de diseno, firma u otro adjunto. | Catalogo documental | respaldado por requisitos | RF19, RF25, RF30, RF49 | Valores iniciales respaldados. |
+| Tipo de documento | NV, ficha cliente, archivo de diseno, firma u otro adjunto. | Catalogo documental | respaldado por requisitos | RF19, RF25, RF30, RF49 | El codigo OP no requiere almacenar documento completo. |
 | Referencia documental | Ruta logica, identificador documental o ubicacion controlada en repositorio documental interno. | Referencia | pendiente de validacion con datos reales | RF19, RF25, RF30 | La BD no almacena binarios; conserva metadatos y referencia. |
 | Usuario que adjunta o aplica | Usuario responsable de carga o firma. | Relacion conceptual | inferido | RF25, RF27, RF30, RF49 | RF29/RF50 refuerzan trazabilidad de acciones. |
 | Pedido asociado | Pedido donde se adjunta documento. | Relacion conceptual | respaldado por requisitos | RF25, RF30 | Respaldado. |
@@ -795,9 +807,8 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Usuario referencia firma documental | Usuario | Documento o archivo asociado | Uno a una o muchas referencias tentativas | Obligatoria para usuarios que firman; pendiente para todos | RF05 exige firma al registrar usuario; RF27/RF49 usan firma en documentos. | RF05, RF15, RF27, RF49 | Alto | Validar si puede existir mas de una firma vigente y su versionado. |
 | Usuario crea o gestiona Pedido | Usuario | Pedido | Uno a muchos | Obligatoria para eventos; pedido requiere responsable | Ventas genera pedidos; otros roles actualizan. | RF18, RF26, RF29, RF47, RF58, RF77 | Alto | Distinguir creador, asignado y ejecutor. |
 | Pedido se origina en Nota de Venta | Pedido | Nota de Venta | Tentativa: uno a una | Obligatoria para pedido creado por RF19 | Pedido solicita numero y PDF de NV. | RF19-RF24 | Alto | Confirmar si una NV puede originar varios pedidos. |
-| Pedido puede tener Orden de Produccion | Pedido | Orden de Produccion | Uno a una o muchas | Condicionada a pago confirmado | RF30 dice la o las ordenes. | RF30, RF32, RF51, RF76 | Alto | Cardinalidad real pendiente. |
 | Pedido puede tener Ficha de cliente | Pedido | Ficha de cliente | Tentativa: uno a una | Condicionada a pago confirmado | RF30 adjunta ficha al pedido. | RF30, RF49 | Medio | Validar estructura/documento real. |
-| Pedido agrupa Documentos asociados | Pedido | Documento o archivo asociado | Uno a muchos | Opcional segun etapa | NV PDF, disenos, OP y ficha. | RF19, RF25, RF30, RF49 | Alto | Validar repositorio documental. |
+| Pedido agrupa Documentos asociados | Pedido | Documento o archivo asociado | Uno a muchos | Opcional segun etapa | NV PDF, disenos, ficha cliente y firmas documentales. | RF19, RF25, RF30, RF49 | Alto | Validar repositorio documental. |
 | Pedido tiene Estado de pago | Pedido | Estado de pago | Muchos a uno, con historial de cambios | Obligatoria para avance | Cobranzas actualiza estado. | RF26-RF29, RF32 | Alto | Confirmar estado inicial. |
 | Pedido tiene Estado Kanban | Pedido | Estado Kanban o etapa productiva | Muchos a uno, con historial de cambios | Obligatoria para tablero | Kanban organiza por estado. | RF28, RF42-RF45, RF55 | Alto | Reglas de transicion pendientes. |
 | Pedido contiene Subprocesos de produccion | Pedido | Subproceso de produccion | Uno a muchos | Segun tipo de producto | RF46 muestra subprocesos por producto. | RF46-RF50 | Alto | Confirmar si se materializan al entrar en produccion. |
@@ -805,10 +816,10 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Usuario ejecuta Evento de trazabilidad | Usuario | Evento de trazabilidad | Uno a muchos | Obligatoria cuando hay accion humana | RF exige usuario/autor/responsable. | RF29, RF50, RF59, RF63 | Alto | Eventos automaticos deben definirse. |
 | Usuario genera Bitacora de auditoria | Usuario | Bitacora de auditoria | Uno a muchos | Opcional segun evento | Modificaciones y usuarios desvinculados conservan historial. | RF15, RF16, RNF07, RNF08 | Alto | Alcance completo pendiente. |
 | Pedido recibe Comentarios/alertas | Pedido | Comentario, observacion o alerta | Uno a muchos | Opcional | Todos los usuarios pueden registrar. | RF48, RF62, RF63 | Alto | Distinguir alertas automaticas/manuales. |
-| Pedido usa Parametro de estimacion | Pedido | Parametro de estimacion | Muchos a uno | Condicional | Fecha estimada depende de tipo/cantidad. | RF38-RF40 | Medio | Depende de datos reales de NV. |
+| Pedido usa Parametro de estimacion | Pedido | Parametro de estimacion | Muchos a uno | Condicional | Fecha estimada depende de tipo/cantidad. | RF38-RF40 | Medio | Depende de `CANTIDAD` y de la regla de tipo de producto derivada desde NV/Manager. |
 | Pedido origina Notificaciones | Pedido | Notificacion | Uno a muchos | Condicional | Nuevo pedido, urgencia, listo para entrega. | RF58, RF61, RF65 | Alto | Estado de lectura pendiente. |
 | Usuario publica Anuncio interno | Usuario | Anuncio interno | Uno a muchos | Opcional | Administrador publica comunicados. | RF66, RF67 | Alto | Vigencia pendiente. |
-| Sistema externo entrega datos de NV | Sistema externo | Nota de Venta | Uno externo a muchos registros | Pendiente | Manager es fuente de datos de NV. | RF20, RF38, glosario, Anexo I | Medio | Contrato real de Manager pendiente. |
+| Sistema externo entrega datos de NV | Sistema externo | Nota de Venta | Uno externo a muchos registros | Pendiente | Manager es fuente de datos de NV; la estructura de campos esta representada por el Excel dummy. | RF20, RF38, glosario, Anexo I | Medio | Contrato/query real de Manager pendiente. |
 
 ## 8. Catalogos, estados y valores controlados
 
@@ -834,7 +845,7 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | Evento o accion a historizar | Datos minimos respaldados | Fuente | Conceptos afectados | Observaciones |
 | --- | --- | --- | --- | --- |
 | Modificacion de usuario por Administrador | Usuario modificado, atributos modificados, registro en bitacora. | RF15 | Usuario, Bitacora de auditoria | Fecha/hora se respalda por RNF07 para auditoria. |
-| Conservacion de usuario desvinculado | Bitacoras, ordenes de produccion y ventas asociadas. | RF16, RNF08 | Usuario, Bitacora de auditoria, Pedido, Orden de Produccion | No eliminar ni modificar historicos por desvinculacion. |
+| Conservacion de usuario desvinculado | Bitacoras, pedidos, codigos OP y ventas asociadas. | RF16, RNF08 | Usuario, Bitacora de auditoria, Pedido | No eliminar ni modificar historicos por desvinculacion. |
 | Cierre o invalidacion de acceso | Usuario, momento de cierre/invalidacion si se audita. | RF17, RNF01, RNF05 | Usuario, Bitacora de auditoria, Sistema externo | Con JWT/Auth0 no se asume sesion persistida en BD propia. |
 | Confirmacion de pago | Fecha, hora, identificador del usuario. | RF29, RNF07 | Pedido, Estado de pago, Evento de trazabilidad | RF29 enfatiza confirmacion; rechazo/pendiente requieren validacion. |
 | Firma de Nota de Venta | Usuario Cobranzas, NV, momento de cambio a Confirmado. | RF27, RF29 | Referencia de firma, Nota de Venta, Documento o archivo asociado, Estado de pago | Documento firmado pendiente de validacion real. |
@@ -850,14 +861,14 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 
 | Elemento | Categoria | Fuente | Relacion con el sistema | Informacion conocida | Pendientes |
 | --- | --- | --- | --- | --- | --- |
-| Nota de Venta PDF | Documento adjunto | RF19, Anexo D | Se adjunta al crear pedido y se firma al confirmar pago. | Formato PDF y numero de NV. | Pendiente de revision visual y validacion con datos reales. |
-| Nota de Venta como datos comerciales | Datos estructurados potenciales | RF20, RF38, glosario | Provee razon social, RUT cliente, producto, cantidad y datos de fabricacion. | Datos mencionados en RF20/RF38. | Estructura real de Manager/NV pendiente. |
-| Orden de Produccion | Documento/registro productivo | RF30, RF51, RF76, Anexo E | Se adjunta al pedido y se usa en filtros/reportes. | Numero OP mencionado como filtro; estados para reporte. | Pendiente de revision visual y validacion con datos reales. |
+| Nota de Venta PDF | Documento adjunto | RF19, Anexo D | Se adjunta al crear pedido y se firma al confirmar pago. | Formato PDF y numero de NV. | El contenido del PDF no se modela; se conserva como documento referenciado. |
+| Nota de Venta como datos comerciales | Datos estructurados desde Manager | RF20, RF38, glosario, `.datosdummy/Estudio.xlsx` | Provee campos de cliente, producto, cantidades, fechas, estado y observaciones. | Estructura de campos definida por Excel dummy. | Pendiente semantica de campos codificados y query/contrato real con Manager. |
+| Codigo de Orden de Produccion | Referencia identificadora | RF30, RF51, RF76, aclaracion del equipo | Se asocia al pedido y se usa en filtros/reportes. | Solo se requiere codigo OP. | Pendiente formato y cardinalidad; no se importan datos completos de OP. |
 | Ficha de cliente | Documento vinculado al pedido | RF30, RF49, Anexo C | Se adjunta al pedido y recibe firma durante produccion. | Existe como figura; glosario lista datos minimos. | Pendiente de revision visual y validacion con datos reales. |
 | Archivos de diseno | Archivo adjunto | RF25 | Administrador y Ventas los adjuntan al pedido. | Asociados al pedido. | Formato, contenido y versionado pendientes. |
 | Referencia de firma electronica | Metadato/referencia documental | RF05, RF15, RF27, RF49 | Se registra con usuario y se aplica a documentos. | Formatos XML, CMS, PDF. | Validacion de firma, ruta logica y almacenamiento documental pendientes. |
 | Salida de reporte | Archivo generado bajo demanda | RF69, RF70 | Salida de reportes para uso externo. | Excel y CSV como parametros de ejecucion. | No se persiste historial de salidas salvo requisito futuro. |
-| Manager | Sistema externo / fuente de datos | Glosario, Anexo I, arquitectura | Fuente de datos de Nota de Venta; posible integracion futura directa. | Entrega informacion asociada a NV. | Contrato, campos reales y disponibilidad pendientes. |
+| Manager | Sistema externo / fuente de datos | Glosario, Anexo I, arquitectura, `.datosdummy/Estudio.xlsx` | Fuente de datos de Nota de Venta; posible integracion futura directa. | Estructura de campos NV disponible en Excel dummy. | Contrato/query real y semantica de campos codificados pendientes. |
 | Auth0 | Sistema externo de identidad | Anexo I, arquitectura | Autenticacion y credenciales/JWT. | Proveedor de identidad indicado. | Confirmar alcance frente a contrasenas y recuperacion. |
 | Servicio de correo | Sistema externo | RF14, RF58, RF61, arquitectura | Envia recuperacion y notificaciones. | Canal correo requerido por RF. | Proveedor, plantilla y registros pendientes. |
 | Planillas operacionales | Fuente de datos futura | Anexo A | Produccion 2026 y tabla de tiempos se mencionan como antecedentes. | Nombres de archivos mencionados. | Pendiente de validacion con datos reales; no se extraen atributos. |
@@ -869,18 +880,18 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | --- | --- | --- | --- | --- |
 | Correo unico | No se permite registrar o actualizar un correo ya asociado a una cuenta, sin importar estado. | RF11, RF15 | Usuario | Requiere restriccion conceptual de unicidad. |
 | Usuario desvinculado sin acceso | Estado desvinculado bloquea interfaz, API y operaciones internas. | RF02, RF09, RF10 | Usuario, Rol, capacidades de autorizacion, Bitacora de auditoria | Estado de cuenta impacta autorizacion; no requiere entidad de sesion. |
-| Conservacion historica de desvinculados | Registros asociados a usuarios desvinculados se mantienen visibles en reportes. | RF16, RNF08 | Usuario, Bitacora de auditoria, Pedido, Orden de Produccion | No eliminar historia por cambio de estado. |
+| Conservacion historica de desvinculados | Registros asociados a usuarios desvinculados se mantienen visibles en reportes. | RF16, RNF08 | Usuario, Bitacora de auditoria, Pedido | No eliminar historia por cambio de estado; codigo OP permanece como referencia del pedido. |
 | Acceso por rol | Recursos protegidos dependen del rol autenticado. | RF04, RF12, RF13 | Usuario, Rol, capacidades de autorizacion | Las capacidades quedan como configuracion del rol, no como entidad independiente. |
 | Politica de contrasenas | Contrasenas deben cumplir longitud y composicion minima. | RF01, RF05, RF06, RF14, RNF03 | Usuario, Sistema externo (Auth0/JWT) | No define almacenamiento; validar con Auth0. |
 | Recuperacion temporal de contrasena | Enlace de restablecimiento debe ser unico, temporal y de un solo uso. | RF14 | Sistema externo (Auth0/JWT), Servicio de correo, Bitacora de auditoria si aplica | Flujo tecnico; no se modela como entidad conceptual persistente. |
 | Nota de Venta no duplicada | Numero de NV no puede duplicarse. | RF23, RF24 | Nota de Venta, Pedido | Requiere validacion antes de crear pedido. |
 | Pago confirmado habilita produccion | Al confirmar pago, pedido pasa automaticamente a Listo para produccion. | RF26-RF28 | Pedido, Estado de pago, Estado Kanban | Transicion automatica respaldada. |
-| Pago no confirmado bloquea Listo para produccion | No se puede cambiar manualmente si pago no es Confirmado. | RF32 | Pedido, Orden de Produccion, Estado de pago, Estado Kanban o etapa productiva | Regla de transicion obligatoria. |
+| Pago no confirmado bloquea Listo para produccion | No se puede cambiar manualmente si pago no es Confirmado. | RF32 | Pedido, codigo OP, Estado de pago, Estado Kanban o etapa productiva | Regla de transicion obligatoria; OP no se modela como entidad completa. |
 | Capacidad diferenciada por tipo de producto | Capacidad maxima diaria se configura al menos por valores tarjetas y lanyards. | RF33 | Capacidad, atributo tipo de producto de Nota de Venta | Requiere capacidad por fecha y valor de tipo de producto, sin modelar Tipo de producto como entidad. |
 | Sobrecarga al 90% | Al ingresar NV se alerta si la capacidad alcanza el umbral indicado. | RF35 | Capacidad, Pedido, Notificacion, Comentario, observacion o alerta | La redaccion debe validarse por posible ambiguedad. |
 | Registro bajo sobrecarga | Pedido ingresado bajo sobrecarga queda en historial. | RF37 | Pedido, Evento de trazabilidad | Necesario para reportes por vendedor. |
 | Fecha alternativa si no hay capacidad | Se muestra fecha alternativa cuando la fecha solicitada no tiene capacidad. | RF36 | Pedido, Capacidad, Calendario de planificacion | Fecha solicitada requiere definicion real. |
-| Estimacion por tipo y cantidad | Fecha de termino depende del valor de tipo de producto y cantidad con parametros por defecto. | RF38-RF40 | Nota de Venta, Parametro de estimacion | Cantidad/tipo dependen de NV real. |
+| Estimacion por tipo y cantidad | Fecha de termino depende del valor de tipo de producto y cantidad con parametros por defecto. | RF38-RF40 | Nota de Venta, Parametro de estimacion | `CANTIDAD` ya aparece en la estructura Manager/dummy; queda pendiente la regla de derivacion del tipo de producto. |
 | Subprocesos por tipo de producto | Lanyard y tarjeta tienen subprocesos diferentes. | RF46 | Atributo tipo de producto de Nota de Venta, Subproceso de produccion | Catalogos de subproceso segun valor de tipo de producto. |
 | Historial sin sobrescritura | Cambios de subproceso deben conservar historial completo. | RF50 | Subproceso de produccion, Evento de trazabilidad | No sobrescribir eventos previos. |
 | Tiempo por etapa | Debe calcular y guardar tiempo real por etapa. | RF55, RF56, RNF06 | Estado Kanban o etapa productiva, Evento de trazabilidad, Parametro de estimacion | Requiere marcadores de ingreso/salida. |
@@ -892,27 +903,27 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 
 | Supuesto | Motivo | Riesgo | Como validarlo |
 | --- | --- | --- | --- |
-| Pedido es el concepto central que vincula NV, pago, documentos, Kanban, subprocesos, trazabilidad y reportes. | La mayoria de RF operativos usan "pedido" como unidad del flujo. | Puede confundirse con Orden de Produccion si la operacion los trata como equivalentes. | Revisar proceso real con documentos operacionales y responsables. |
-| Nota de Venta y Orden de Produccion se modelan como conceptos documentales con datos parcialmente estructurados. | RF exige adjuntos y algunos datos, pero no entrega estructura completa. | Sobremodelar documentos reales sin conocerlos. | Validar con Manager, NV reales, OP reales y anexos visuales. |
+| Pedido es el concepto central que vincula NV, pago, documentos, codigo OP, Kanban, subprocesos, trazabilidad y reportes. | La mayoria de RF operativos usan "pedido" como unidad del flujo. | Puede confundirse con OP si se interpreta como entidad completa. | Mantener OP solo como codigo/referencia salvo nuevo requisito. |
+| Nota de Venta se modela con estructura Manager/dummy y OP solo como codigo. | La estructura NV ya fue identificada en `.datosdummy/Estudio.xlsx`; el equipo aclaro que de OP solo se requiere codigo. | Sobremodelar OP o seguir marcando NV como pendiente de estructura real. | Validar semantica de campos Manager y formato/cardinalidad del codigo OP. |
 | Los documentos y archivos se referencian desde el modelo conceptual, pero su binario vive en repositorio documental. | Arquitectura diferencia persistencia relacional y documental. | El repositorio real puede imponer metadatos adicionales. | Confirmar implementacion documental y respaldos. |
 | Auth0 gestiona autenticacion principal, mientras el sistema conserva perfil, rol, estado y trazabilidad interna. | Anexo I y arquitectura mencionan Auth0. | Conflicto con RF que mencionan contrasena como dato de formulario/registro. | Definir limite exacto de Auth0 antes de detallar la estructura de implementacion. |
 | Reportes se calculan desde eventos y estados operativos, salvo que se decida conservar ejecuciones. | RF pide generar y exportar reportes, no conservar historicos de reportes. | Puede faltar evidencia de reportes emitidos. | Preguntar a Gerencia si requiere historial de reportes/exportaciones. |
 
 ## 13. Pendientes de validacion
 
-### Atributos reales pendientes de Nota de Venta y Orden de Produccion
+### Atributos de Nota de Venta y codigo OP
 
-- Los atributos reales de Nota de Venta y Orden de Produccion no quedan cerrados en esta propuesta.
-- Solo se consideran explicitamente respaldados los datos nombrados en RF vigentes, y aun asi los datos que dependan de Manager, documentos reales o registros existentes quedan marcados como Pendiente de validacion con datos reales.
-- La estructura interna de la Nota de Venta se cerrara solo cuando el equipo tenga acceso a Manager, NV reales o documentacion operacional correspondiente.
-- La estructura interna de la Orden de Produccion se cerrara solo cuando el equipo tenga acceso a OP reales, anexos visuales revisados o documentacion operacional correspondiente.
-- No se deben agregar campos tipicos por conocimiento general, costumbre comercial o supuestos no documentados.
+- La estructura de atributos de Nota de Venta rescatable desde Manager queda definida por `.datosdummy/Estudio.xlsx`.
+- Los campos documentados desde el Excel dummy son solo nombres de columnas e inferencia conceptual; no se copian registros ni valores sensibles.
+- Queda pendiente validar semantica exacta de `ESTADO`, `APROBADA`, `FACT_DESPACHO`, `TIPO_NVTA`, `FECHA_FAV` y `FECHA2`.
+- Queda pendiente cerrar la regla de derivacion de `Tipo de producto` desde `PRODUCTO`, `SUPERFAMILIA`, `FAMILIA` o `SUBFAMILIA`.
+- La Orden de Produccion no se modela como entidad completa; se conserva solo `Codigo OP` o codigo(s) OP asociados al pedido.
+- Queda pendiente validar formato y cardinalidad del codigo OP.
 
 ### Otros pendientes
 
-- Confirmar estructura real de datos provenientes de Manager.
-- Confirmar estructura real de datos de cliente y producto importados desde Nota de Venta/Manager.
-- Revisar visualmente Anexo C Ficha de cliente, Anexo D Nota de Venta ITECSA y Anexo E Orden de Produccion.
+- Confirmar query/contrato real para obtener desde Manager la estructura identificada en `.datosdummy/Estudio.xlsx`.
+- Revisar visualmente Anexo C Ficha de cliente.
 - Confirmar formato, versionado y metadatos de archivos de diseno.
 - Confirmar si las planillas `PRODUCCION 2026.xlsx` y `Tabla tiempos de proceso.xlsx` son fuente vigente para capacidades o tiempos.
 - Resolver inconsistencia de RF53: menciona tres etiquetas, pero lista Urgencia y Atraso.
@@ -929,11 +940,10 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 | --- | --- | --- | --- | --- | --- |
 | Usuario | Nombre, apellido, RUT, correo, rol, estado, referencia de firma, cambio inicial de contrasena. | Rol, Pedido, Evento de trazabilidad, Bitacora de auditoria, Documento o archivo asociado. | RF01-RF17, RNF01-RNF08 | Alta | Credenciales/Auth0 y capacidades por rol. |
 | Rol | Nombre de rol, descripcion operativa, capacidades asociadas. | Usuarios y reglas de autorizacion. | RF04, RF12, RF13 | Alta | Capacidades granulares sin matrices RF/CU. |
-| Pedido | Fecha/hora creacion, estado, pago, vendedor, sobrecarga, fecha estimada, etiqueta/prioridad. | Nota de Venta, Orden de Produccion, Ficha de cliente, Documento o archivo asociado, Evento de trazabilidad, Capacidad, Notificacion. | RF18-RF77 | Alta | Alineacion con Orden de Produccion y cardinalidades. |
-| Nota de Venta | Numero NV y PDF respaldados; datos de cliente, tipo/datos de producto, cantidad y datos para fabricacion como datos pendientes. | Pedido, documentos, Manager; tipo de producto como atributo/valor controlado de la NV. | RF19-RF24, RF27, RF38, RF51, RF65, RF77 | Alta para concepto | Pendiente de validacion con datos reales. |
-| Orden de Produccion | Documento OP, numero OP, estado asociado, dia asignado. | Pedido, Estado Kanban o etapa productiva, Reporte o indicador, Documento o archivo asociado. | RF30, RF32, RF34, RF51, RF76 | Alta para concepto | Pendiente de validacion con datos reales. |
+| Pedido | Fecha/hora creacion, estado, pago, vendedor, codigo(s) OP, sobrecarga, fecha estimada, etiqueta/prioridad. | Nota de Venta, Ficha de cliente, Documento o archivo asociado, Evento de trazabilidad, Capacidad, Notificacion. | RF18-RF77 | Alta | Formato y cardinalidad de codigo OP pendientes. |
+| Nota de Venta | `NUMNOTA`, estado/aprobacion, fechas, usuario, cliente, producto, cantidades, familias, direccion y observaciones desde Manager. | Pedido, documentos, Manager; tipo de producto como atributo/valor controlado derivado de la NV. | RF19-RF24, RF27, RF38, RF51, RF65, RF77, `.datosdummy/Estudio.xlsx` | Alta para estructura | Semantica de campos codificados y regla de tipo de producto pendientes. |
 | Ficha de cliente | Documento, referencia/metadato de firma aplicada, datos de glosario pendientes. | Pedido, Documento o archivo asociado. | RF30, RF49, glosario | Media | Pendiente de revision visual y datos reales. |
-| Documento o archivo asociado | Tipo documental, referencia/ruta logica, usuario, pedido. | Pedido, Nota de Venta, Orden de Produccion, Ficha de cliente, firma como metadato. | RF19, RF25, RF30, RF49 | Alta | Repositorio documental y metadatos reales. |
+| Documento o archivo asociado | Tipo documental, referencia/ruta logica, usuario, pedido. | Pedido, Nota de Venta, Ficha de cliente, firma como metadato. | RF19, RF25, RF30, RF49 | Alta | Repositorio documental y metadatos reales. |
 | Estado de pago | Confirmado, Rechazado, Pendiente, usuario, momento. | Pedido y Evento de trazabilidad. | RF26-RF29, RF32 | Alta | Estado inicial y rechazo/pendiente. |
 | Estado Kanban o etapa productiva | Estados RF44, ingreso/salida etapa, tiempo real, retraso. | Pedido y Evento de trazabilidad. | RF42-RF57, RF61, RF76 | Alta | Reglas de transicion e indicador visual. |
 | Subproceso de produccion | Valor de tipo de producto aplicable, nombre, estado, comentario, responsable, momento. | Pedido, valor tipo de producto de NV, Evento de trazabilidad, referencia de firma. | RF46-RF50 | Alta | Valores del Stepper. |
@@ -950,4 +960,4 @@ La siguiente estructura fue verificada directamente en el Documento 0 actualizad
 
 ## 15. Diagrama textual opcional
 
-No se incluye diagrama en esta version. La cardinalidad de Nota de Venta, Pedido y Orden de Produccion todavia requiere validacion con datos reales y documentos operacionales; representarla graficamente en este punto podria hacer parecer definitivas relaciones que siguen siendo tentativas.
+No se incluye diagrama en esta version. La Nota de Venta ya cuenta con estructura de campos rescatable desde Manager, pero la regla de derivacion de tipo de producto y la cardinalidad de codigo(s) OP por pedido todavia requieren validacion; representarlo graficamente en este punto podria hacer parecer definitivas reglas que siguen siendo tentativas.
