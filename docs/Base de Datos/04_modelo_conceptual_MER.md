@@ -66,11 +66,11 @@ No se identifican entidades debiles cerradas en el modelo conceptual actual.
 | Pedido se origina en Nota de Venta | Pedido | Nota de Venta | 1:1 tentativa | Total en Pedido y Nota de Venta usada |
 | Pedido tiene Produccion | Pedido | Produccion | 1:N | Total en Produccion; total en Pedido cuando el pedido entra a produccion |
 | Administrador registra codigo_op | Usuario | Produccion | 1:N | Total en Produccion cuando inicia o se crea la produccion |
-| Produccion tiene Ficha de cliente | Produccion | Ficha de cliente | 1:0..1 tentativa | Condicionada a carga o generacion de ficha |
+| Produccion tiene Ficha de cliente | Produccion | Ficha de cliente | 1:0..1 | Total en Ficha de cliente; parcial en Produccion hasta que la ficha se genere |
 | Pedido agrupa Archivo documental | Pedido | Archivo documental | 1:N | Parcial segun etapa del flujo |
 | Produccion agrupa Archivo documental | Produccion | Archivo documental | 1:N | Parcial segun etapa productiva |
 | Nota de Venta tiene Archivo documental | Nota de Venta | Archivo documental | 1:N | Parcial; incluye PDF de Nota de Venta |
-| Ficha de cliente tiene Archivo documental | Ficha de cliente | Archivo documental | 1:N | Parcial; incluye ficha o ficha firmada |
+| Ficha de cliente genera o referencia Archivo documental | Ficha de cliente | Archivo documental | 1:N | Parcial; incluye documentos exportados, generados o firmados |
 | Usuario carga Archivo documental | Usuario | Archivo documental | 1:N | Total en Archivo documental |
 | Pedido tiene Estado de pago | Pedido | Estado de pago | N:1 con historial | Total en Pedido |
 | Produccion tiene Estado Kanban | Produccion | Estado Kanban | N:1 con historial | Total en Produccion |
