@@ -27,7 +27,6 @@
 | Regla de tipo de producto | Pendiente | Falta cerrar derivacion desde `PRODUCTO`, `SUPERFAMILIA`, `FAMILIA` o `SUBFAMILIA`. |
 | Regla de sobrecarga | Pendiente | Falta cerrar interpretacion de umbral de capacidad. |
 | Stepper de subprocesos | Pendiente | Falta definir valores de avance. |
-| Control de calidad | Pendiente | No se incorpora como estado vigente hasta confirmacion. |
 | Reportes/exportaciones | Pendiente | Falta confirmar si se almacenan historicamente o se generan bajo demanda. |
 | Sistemas externos | Requiere confirmacion | Falta contrato real de Manager, Auth0/JWT y servicio de correo. |
 
@@ -115,8 +114,6 @@ No hay entidades debiles cerradas con clave parcial documentada. `Produccion` no
 | Fuente real de capacidad y tiempos | Produccion, Capacidad, Parametro de estimacion | Confirmar si se cargan desde planillas operacionales o configuracion manual. |
 | Regla exacta de sobrecarga | Capacidad, Produccion, Pedido, Evento de trazabilidad | Resolver umbral y calculo de disponibilidad/capacidad usada. |
 | Valores del Stepper | Subproceso de produccion, Avance de subproceso | Definir estados posibles de avance. |
-| Control de calidad | Estado Kanban, Subproceso, Evento de trazabilidad | Confirmar si es estado, subproceso, evento de rechazo o fuera de alcance. |
-| Muestra/aprobacion, Vale de salida, Despacho/Bodega | Pedido, Produccion, Archivo documental, Estado Kanban | Confirmar si entran al alcance del modelo conceptual. |
 | Persistencia de reportes/exportaciones | Reporte o indicador, Archivo documental, Bitacora | Confirmar si se almacenan ejecuciones historicas o solo se generan bajo demanda. |
 | Contratos de sistemas externos | Sistema externo, Nota de Venta, Usuario, Notificacion, Bitacora | Confirmar contrato/query de Manager, alcance de Auth0/JWT y servicio de correo. |
 | Alcance de auditoria tecnica | Bitacora de auditoria, Sistema externo, Usuario | Definir si se auditan accesos denegados, errores de integracion y acciones automaticas. |
