@@ -1666,9 +1666,9 @@
         <mxCell id="attr_edge_comercial_y_pedidos_64" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeColor=#666666;ignoreRouteCrossing=1;" edge="1" parent="root_2_1" source="entity_pedido_comercial_y_pedidos_56" target="attr_pedido_comercial_y_pedidos_63">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="1505" y="232"/>
-              <mxPoint x="962" y="232"/>
-              <mxPoint x="962" y="430"/>
+              <mxPoint x="1500" y="249"/>
+              <mxPoint x="1144" y="249"/>
+              <mxPoint x="1144" y="430"/>
               <mxPoint x="1258" y="430"/>
             </Array>
           </mxGeometry>
@@ -1704,9 +1704,9 @@
         <mxCell id="attr_edge_comercial_y_pedidos_70" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeColor=#666666;ignoreRouteCrossing=1;" edge="1" parent="root_2_1" source="entity_pedido_comercial_y_pedidos_56" target="attr_pedido_comercial_y_pedidos_69">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="1505" y="232"/>
-              <mxPoint x="962" y="232"/>
-              <mxPoint x="962" y="504"/>
+              <mxPoint x="1500" y="249"/>
+              <mxPoint x="1144" y="249"/>
+              <mxPoint x="1144" y="504"/>
               <mxPoint x="1258" y="504"/>
             </Array>
           </mxGeometry>
@@ -2024,21 +2024,23 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="rel_se_origina_comercial_y_pedidos_123" value="se origina" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;ignoreLayoutOverlap=1;" vertex="1" parent="root_2_1">
-          <mxGeometry x="980" y="250" width="150" height="82" as="geometry"/>
+          <mxGeometry x="980" y="105" width="150" height="82" as="geometry"/>
         </mxCell>
         <mxCell id="rel_edge_comercial_y_pedidos_124" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;ignoreRouteCrossing=1;" edge="1" parent="root_2_1" source="entity_pedido_comercial_y_pedidos_56" target="rel_se_origina_comercial_y_pedidos_123">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1500" y="249"/>
               <mxPoint x="1055" y="249"/>
+              <mxPoint x="1055" y="202"/>
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="rel_edge_comercial_y_pedidos_125" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;ignoreRouteCrossing=1;" edge="1" parent="root_2_1" source="rel_se_origina_comercial_y_pedidos_123" target="entity_nota_de_venta_comercial_y_pedidos_1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="1042" y="291"/>
-              <mxPoint x="305" y="291"/>
+              <mxPoint x="1042" y="146"/>
+              <mxPoint x="305" y="146"/>
+              <mxPoint x="305" y="232"/>
             </Array>
           </mxGeometry>
         </mxCell>
@@ -2368,10 +2370,10 @@
         <mxCell id="attr_edge_produccion_y_ficha_29" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeColor=#666666;ignoreRouteCrossing=1;" edge="1" parent="root_3_1" source="entity_ficha_de_cliente_produccion_y_ficha_19" target="attr_ficha_de_cliente_produccion_y_ficha_28">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="2005" y="192"/>
-              <mxPoint x="1452" y="192"/>
-              <mxPoint x="1452" y="390"/>
-              <mxPoint x="1638" y="390"/>
+              <mxPoint x="2001" y="209"/>
+              <mxPoint x="1525" y="209"/>
+              <mxPoint x="1525" y="390"/>
+              <mxPoint x="1575" y="390"/>
             </Array>
           </mxGeometry>
         </mxCell>
@@ -2420,10 +2422,10 @@
         <mxCell id="attr_edge_produccion_y_ficha_37" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeColor=#666666;ignoreRouteCrossing=1;" edge="1" parent="root_3_1" source="entity_ficha_de_cliente_produccion_y_ficha_19" target="attr_ficha_de_cliente_produccion_y_ficha_36">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="2005" y="192"/>
-              <mxPoint x="1452" y="192"/>
-              <mxPoint x="1452" y="464"/>
-              <mxPoint x="1638" y="464"/>
+              <mxPoint x="2001" y="209"/>
+              <mxPoint x="1525" y="209"/>
+              <mxPoint x="1525" y="464"/>
+              <mxPoint x="1575" y="464"/>
             </Array>
           </mxGeometry>
         </mxCell>
@@ -2472,10 +2474,10 @@
         <mxCell id="attr_edge_produccion_y_ficha_45" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeColor=#666666;ignoreRouteCrossing=1;" edge="1" parent="root_3_1" source="entity_ficha_de_cliente_produccion_y_ficha_19" target="attr_ficha_de_cliente_produccion_y_ficha_44">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="2005" y="192"/>
-              <mxPoint x="1452" y="192"/>
-              <mxPoint x="1452" y="538"/>
-              <mxPoint x="1638" y="538"/>
+              <mxPoint x="2001" y="209"/>
+              <mxPoint x="1525" y="209"/>
+              <mxPoint x="1525" y="538"/>
+              <mxPoint x="1575" y="538"/>
             </Array>
           </mxGeometry>
         </mxCell>
@@ -2524,10 +2526,10 @@
         <mxCell id="attr_edge_produccion_y_ficha_53" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeColor=#666666;ignoreRouteCrossing=1;" edge="1" parent="root_3_1" source="entity_ficha_de_cliente_produccion_y_ficha_19" target="attr_ficha_de_cliente_produccion_y_ficha_52">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="2005" y="192"/>
-              <mxPoint x="1452" y="192"/>
-              <mxPoint x="1452" y="612"/>
-              <mxPoint x="1638" y="612"/>
+              <mxPoint x="2001" y="209"/>
+              <mxPoint x="1525" y="209"/>
+              <mxPoint x="1525" y="612"/>
+              <mxPoint x="1575" y="612"/>
             </Array>
           </mxGeometry>
         </mxCell>
@@ -2576,10 +2578,10 @@
         <mxCell id="attr_edge_produccion_y_ficha_61" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeColor=#666666;ignoreRouteCrossing=1;" edge="1" parent="root_3_1" source="entity_ficha_de_cliente_produccion_y_ficha_19" target="attr_ficha_de_cliente_produccion_y_ficha_60">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="2005" y="192"/>
-              <mxPoint x="1452" y="192"/>
-              <mxPoint x="1452" y="686"/>
-              <mxPoint x="1638" y="686"/>
+              <mxPoint x="2001" y="209"/>
+              <mxPoint x="1525" y="209"/>
+              <mxPoint x="1525" y="686"/>
+              <mxPoint x="1575" y="686"/>
             </Array>
           </mxGeometry>
         </mxCell>
@@ -2628,10 +2630,10 @@
         <mxCell id="attr_edge_produccion_y_ficha_69" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeColor=#666666;ignoreRouteCrossing=1;" edge="1" parent="root_3_1" source="entity_ficha_de_cliente_produccion_y_ficha_19" target="attr_ficha_de_cliente_produccion_y_ficha_68">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="2005" y="192"/>
-              <mxPoint x="1452" y="192"/>
-              <mxPoint x="1452" y="760"/>
-              <mxPoint x="1638" y="760"/>
+              <mxPoint x="2001" y="209"/>
+              <mxPoint x="1525" y="209"/>
+              <mxPoint x="1525" y="760"/>
+              <mxPoint x="1575" y="760"/>
             </Array>
           </mxGeometry>
         </mxCell>
@@ -2681,10 +2683,10 @@
         <mxCell id="attr_edge_produccion_y_ficha_77" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeColor=#666666;ignoreRouteCrossing=1;" edge="1" parent="root_3_1" source="entity_ficha_de_cliente_produccion_y_ficha_19" target="attr_ficha_de_cliente_produccion_y_ficha_76">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="2005" y="192"/>
-              <mxPoint x="1452" y="192"/>
-              <mxPoint x="1452" y="832"/>
-              <mxPoint x="1648" y="832"/>
+              <mxPoint x="2001" y="209"/>
+              <mxPoint x="1525" y="209"/>
+              <mxPoint x="1525" y="834"/>
+              <mxPoint x="1575" y="834"/>
             </Array>
           </mxGeometry>
         </mxCell>
@@ -2694,10 +2696,11 @@
         <mxCell id="attr_edge_produccion_y_ficha_79" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeColor=#666666;ignoreRouteCrossing=1;" edge="1" parent="root_3_1" source="entity_ficha_de_cliente_produccion_y_ficha_19" target="attr_ficha_de_cliente_produccion_y_ficha_78">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="2009" y="209"/>
-              <mxPoint x="2485" y="209"/>
-              <mxPoint x="2485" y="834"/>
-              <mxPoint x="1902" y="834"/>
+              <mxPoint x="2001" y="209"/>
+              <mxPoint x="1525" y="209"/>
+              <mxPoint x="1525" y="876"/>
+              <mxPoint x="1886" y="876"/>
+              <mxPoint x="1886" y="842"/>
             </Array>
           </mxGeometry>
         </mxCell>
@@ -3112,21 +3115,23 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="rel_tiene_ficha_produccion_y_ficha_149" value="tiene ficha" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;ignoreLayoutOverlap=1;" vertex="1" parent="root_3_1">
-          <mxGeometry x="1470" y="210" width="150" height="82" as="geometry"/>
+          <mxGeometry x="1490" y="70" width="150" height="82" as="geometry"/>
         </mxCell>
         <mxCell id="rel_edge_produccion_y_ficha_150" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;ignoreRouteCrossing=1;" edge="1" parent="root_3_1" source="entity_produccion_produccion_y_ficha_4" target="rel_tiene_ficha_produccion_y_ficha_149">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1009" y="209"/>
-              <mxPoint x="1545" y="209"/>
+              <mxPoint x="1565" y="209"/>
+              <mxPoint x="1565" y="162"/>
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="rel_edge_produccion_y_ficha_151" value="0..1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;ignoreRouteCrossing=1;" edge="1" parent="root_3_1" source="rel_tiene_ficha_produccion_y_ficha_149" target="entity_ficha_de_cliente_produccion_y_ficha_19">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="1570" y="251"/>
-              <mxPoint x="2005" y="251"/>
+              <mxPoint x="1570" y="111"/>
+              <mxPoint x="2005" y="111"/>
+              <mxPoint x="2005" y="192"/>
             </Array>
           </mxGeometry>
         </mxCell>
@@ -3159,9 +3164,7 @@
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1009" y="209"/>
-              <mxPoint x="1452" y="209"/>
-              <mxPoint x="1452" y="832"/>
-              <mxPoint x="1525" y="832"/>
+              <mxPoint x="1525" y="209"/>
               <mxPoint x="1525" y="901"/>
               <mxPoint x="2562" y="901"/>
             </Array>
@@ -3214,7 +3217,7 @@
         <mxCell id="rel_edge_produccion_y_ficha_164" value="0..N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;ignoreRouteCrossing=1;" edge="1" parent="root_3_1" source="rel_registra_etapa_produccion_y_ficha_162" target="entity_registro_de_etapa_kanban_produccion_y_ficha_97">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="1452" y="891"/>
+              <mxPoint x="1472" y="891"/>
               <mxPoint x="2005" y="891"/>
               <mxPoint x="2005" y="962"/>
             </Array>
@@ -3284,7 +3287,7 @@
         <mxCell id="rel_edge_produccion_y_ficha_174" value="0..N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;ignoreRouteCrossing=1;" edge="1" parent="root_3_1" source="rel_actualiza_avance_produccion_y_ficha_172" target="entity_avance_de_subproceso_produccion_y_ficha_125">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="1638" y="1591"/>
+              <mxPoint x="1648" y="1591"/>
               <mxPoint x="2005" y="1591"/>
               <mxPoint x="2005" y="1675"/>
             </Array>
@@ -4085,8 +4088,8 @@
             <Array as="points">
               <mxPoint x="2442" y="249"/>
               <mxPoint x="2184" y="249"/>
-              <mxPoint x="2184" y="502"/>
-              <mxPoint x="2307" y="502"/>
+              <mxPoint x="2184" y="504"/>
+              <mxPoint x="2295" y="504"/>
             </Array>
           </mxGeometry>
         </mxCell>
@@ -4122,10 +4125,10 @@
         <mxCell id="attr_edge_trazabilidad_y_comunicaciones_67" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeColor=#666666;ignoreRouteCrossing=1;" edge="1" parent="root_5_1" source="entity_archivo_documental_trazabilidad_y_comunicaciones_47" target="attr_archivo_documental_trazabilidad_y_comunicaciones_66">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="2648" y="249"/>
-              <mxPoint x="2906" y="249"/>
-              <mxPoint x="2906" y="620"/>
-              <mxPoint x="2307" y="620"/>
+              <mxPoint x="2442" y="249"/>
+              <mxPoint x="2184" y="249"/>
+              <mxPoint x="2184" y="578"/>
+              <mxPoint x="2295" y="578"/>
             </Array>
           </mxGeometry>
         </mxCell>
@@ -4135,9 +4138,9 @@
         <mxCell id="attr_edge_trazabilidad_y_comunicaciones_69" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;strokeColor=#666666;ignoreRouteCrossing=1;" edge="1" parent="root_5_1" source="entity_archivo_documental_trazabilidad_y_comunicaciones_47" target="attr_archivo_documental_trazabilidad_y_comunicaciones_68">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="2648" y="249"/>
-              <mxPoint x="2906" y="249"/>
-              <mxPoint x="2906" y="620"/>
+              <mxPoint x="2442" y="249"/>
+              <mxPoint x="2184" y="249"/>
+              <mxPoint x="2184" y="620"/>
               <mxPoint x="2545" y="620"/>
             </Array>
           </mxGeometry>
@@ -4335,23 +4338,25 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="rel_referencia_archivo_trazabilidad_y_comunicaciones_104" value="referencia archivo" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;ignoreLayoutOverlap=1;" vertex="1" parent="root_5_1">
-          <mxGeometry x="2050" y="520" width="150" height="82" as="geometry"/>
+          <mxGeometry x="2180" y="720" width="150" height="82" as="geometry"/>
         </mxCell>
         <mxCell id="rel_edge_trazabilidad_y_comunicaciones_105" value="0..N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;ignoreRouteCrossing=1;" edge="1" parent="root_5_1" source="entity_evento_de_trazabilidad_trazabilidad_y_comunicaciones_1" target="rel_referencia_archivo_trazabilidad_y_comunicaciones_104">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="349" y="249"/>
-              <mxPoint x="1203" y="249"/>
-              <mxPoint x="1203" y="561"/>
-              <mxPoint x="2090" y="561"/>
+              <mxPoint x="345" y="296"/>
+              <mxPoint x="345" y="314"/>
+              <mxPoint x="2184" y="314"/>
+              <mxPoint x="2184" y="761"/>
+              <mxPoint x="2202" y="761"/>
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="rel_edge_trazabilidad_y_comunicaciones_106" value="0..1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;ignoreRouteCrossing=1;" edge="1" parent="root_5_1" source="rel_referencia_archivo_trazabilidad_y_comunicaciones_104" target="entity_archivo_documental_trazabilidad_y_comunicaciones_47">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="2125" y="546"/>
-              <mxPoint x="2125" y="249"/>
+              <mxPoint x="2202" y="761"/>
+              <mxPoint x="2184" y="761"/>
+              <mxPoint x="2184" y="249"/>
               <mxPoint x="2442" y="249"/>
             </Array>
           </mxGeometry>
@@ -4387,7 +4392,7 @@
               <mxPoint x="349" y="249"/>
               <mxPoint x="1203" y="249"/>
               <mxPoint x="1203" y="1401"/>
-              <mxPoint x="2032" y="1401"/>
+              <mxPoint x="2018" y="1401"/>
             </Array>
           </mxGeometry>
         </mxCell>
@@ -4417,8 +4422,8 @@
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1922" y="391"/>
-              <mxPoint x="1962" y="391"/>
-              <mxPoint x="1962" y="929"/>
+              <mxPoint x="2162" y="391"/>
+              <mxPoint x="2162" y="929"/>
               <mxPoint x="3038" y="929"/>
             </Array>
           </mxGeometry>
@@ -4504,9 +4509,8 @@
         <mxCell id="rel_edge_trazabilidad_y_comunicaciones_127" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;ignoreRouteCrossing=1;" edge="1" parent="root_5_1" source="rel_origina_aviso_trazabilidad_y_comunicaciones_125" target="entity_notificacion_trazabilidad_y_comunicaciones_25">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="2032" y="621"/>
-              <mxPoint x="1948" y="621"/>
-              <mxPoint x="1948" y="249"/>
+              <mxPoint x="2055" y="620"/>
+              <mxPoint x="2055" y="249"/>
               <mxPoint x="1449" y="249"/>
             </Array>
           </mxGeometry>
@@ -4527,7 +4531,7 @@
         <mxCell id="rel_edge_trazabilidad_y_comunicaciones_130" value="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;ignoreRouteCrossing=1;" edge="1" parent="root_5_1" source="rel_origina_aviso_trazabilidad_y_comunicaciones_128" target="entity_notificacion_trazabilidad_y_comunicaciones_25">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="2032" y="761"/>
+              <mxPoint x="2018" y="761"/>
               <mxPoint x="1948" y="761"/>
               <mxPoint x="1948" y="249"/>
               <mxPoint x="1449" y="249"/>
@@ -4548,7 +4552,7 @@
         <mxCell id="rel_edge_trazabilidad_y_comunicaciones_133" value="0..N" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;ignoreRouteCrossing=1;" edge="1" parent="root_5_1" source="rel_destina_usuario_trazabilidad_y_comunicaciones_131" target="entity_notificacion_trazabilidad_y_comunicaciones_25">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="2032" y="1901"/>
+              <mxPoint x="2018" y="1901"/>
               <mxPoint x="1687" y="1901"/>
               <mxPoint x="1687" y="249"/>
               <mxPoint x="1449" y="249"/>
