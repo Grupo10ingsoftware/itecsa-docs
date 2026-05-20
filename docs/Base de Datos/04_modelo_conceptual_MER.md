@@ -39,7 +39,7 @@
 | Pedido | `id_pedido`, `fecha_creacion_pedido`, `hora_creacion_pedido`, `nota_venta_asociada`, `usuario_ventas_asociado`, `estado_pago_pedido`, `etiqueta_visual_pedido`, `prioridad_pedido`, `capacidad_total_pedido` | `id_pedido` |
 | Nota de Venta | `numero_nota_venta` (`NUMNOTA`), `estado_manager` (`ESTADO`), `aprobada_manager` (`APROBADA`), `fecha_nota_venta` (`FECHA`), `fact_despacho` (`FACT_DESPACHO`), `fecha_fav` (`FECHA_FAV`), `tipo_nota_venta` (`TIPO_NVTA`), `fecha_secundaria` (`FECHA2`), `usuario_manager` (`usuario`), `fecha_modificacion_manager` (`fechamodif`), `rut_cliente` (`RUT`), `nombre_cliente` (`CLIENTE`), `codigo_producto` (`CODIGO`), `descripcion_producto` (`PRODUCTO`), `cantidad_solicitada` (`CANTIDAD`), `cantidad_despachada` (`CANTDESP`), `cantidad_pendiente` (`PENDIENTE`), `tipo_cliente` (`TIPO_CLIENTE`), `superfamilia_producto` (`SUPERFAMILIA`), `familia_producto` (`FAMILIA`), `subfamilia_producto` (`SUBFAMILIA`), `direccion_cliente` (`dir`), `comuna_cliente` (`comuna`), `ciudad_cliente` (`ciudad`), `observaciones_nota_venta` (`observaciones`), `tipo_producto`, `clasificacion_urgente` | `numero_nota_venta` |
 | Produccion | `codigo_op`, `pedido_asociado`, `estado_kanban_actual`, `capacidad_produccion`, `fecha_estimada_termino`, `ficha_cliente_asociada` | `codigo_op` |
-| Ficha de cliente | `firma_aplicada`, `numero_nota_venta`, `razon_social_cliente`, `ejecutivo_cliente`, `fecha_entrega_bodega`, `produccion_asociada` | Requiere confirmacion |
+| Ficha de cliente | `id_ficha_cliente`, `firma_aplicada`, `numero_nota_venta`, `razon_social_cliente`, `ejecutivo_cliente`, `fecha_entrega_bodega`, `produccion_asociada`, `archivo_documental_asociado` | `id_ficha_cliente` |
 | Estado de pago | `valor_estado_pago`, `usuario_responsable_pago`, `momento_actualizacion_pago` | `valor_estado_pago` |
 | Estado Kanban | `valor_estado_kanban`, `fecha_hora_ingreso_etapa`, `fecha_hora_salida_etapa`, `tiempo_real_etapa`, `diferencia_estimado_real`, `nivel_retraso` | `valor_estado_kanban` |
 | Subproceso de produccion | `tipo_producto_aplicable`, `nombre_subproceso`, `estado_subproceso`, `comentario_cambio_subproceso`, `usuario_responsable_subproceso`, `momento_cambio_subproceso` | `nombre_subproceso` + `tipo_producto_aplicable` |
@@ -50,7 +50,7 @@
 
 ## 3. Entidades debiles
 
-No hay entidades debiles cerradas con clave parcial documentada. `Produccion` no se modela como entidad debil: tiene identificador propio mediante `codigo_op`.
+No se identifican entidades debiles cerradas en el modelo conceptual actual.
 
 | Entidad debil | Depende de | Atributos | Clave parcial | Identificador compuesto |
 |---|---|---|---|---|
@@ -117,3 +117,4 @@ No hay entidades debiles cerradas con clave parcial documentada. `Produccion` no
 | Persistencia de reportes/exportaciones | Reporte o indicador, Archivo documental, Bitacora | Confirmar si se almacenan ejecuciones historicas o solo se generan bajo demanda. |
 | Contratos de sistemas externos | Sistema externo, Nota de Venta, Usuario, Notificacion, Bitacora | Confirmar contrato/query de Manager, alcance de Auth0/JWT y servicio de correo. |
 | Alcance de auditoria tecnica | Bitacora de auditoria, Sistema externo, Usuario | Definir si se auditan accesos denegados, errores de integracion y acciones automaticas. |
+
