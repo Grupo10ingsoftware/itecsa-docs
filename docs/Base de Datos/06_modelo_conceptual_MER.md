@@ -7,7 +7,8 @@
 | Usuario | Entidad fuerte | Cerrado |
 | Rol | Catalogo | Cerrado |
 | Pedido | Entidad fuerte | Cerrado |
-| Nota de Venta | Entidad fuerte | Cerrado con campos pendientes |
+| Nota de Venta | Entidad fuerte | Cerrado con campos de encabezado pendientes |
+| Detalle de Nota de Venta | Entidad dependiente/operativa | Cerrado conceptual |
 | Produccion | Entidad dependiente/operativa | Cerrado con cardinalidad pendiente |
 | Ficha de cliente | Entidad dependiente/operativa | Parcial |
 | Archivo documental | Entidad fuerte | Parcial |
@@ -16,7 +17,7 @@
 | Cambio de estado de pago | Entidad de evento/historial | Cerrado para confirmacion |
 | Estado Kanban | Catalogo | Cerrado |
 | Historial de etapa Kanban | Entidad de evento/historial | Cerrado |
-| Subproceso de produccion | Catalogo | Cerrado para Lanyard y Tarjeta |
+| Subproceso de produccion | Catalogo | Cerrado para Lanyard y Tarjeta, incluyendo Armado |
 | Avance de subproceso | Entidad de evento/historial | Cerrado |
 | Evento de trazabilidad | Entidad de evento/historial | Cerrado |
 | Bitacora de auditoria | Entidad de evento/historial | Cerrado |
@@ -28,7 +29,7 @@
 | Notificacion | Entidad de evento/historial | Cerrado |
 | Anuncio interno | Entidad fuerte | Cerrado |
 
-`Cliente`, `Producto` y `Tipo de producto` no se modelan como entidades propias. Sus datos quedan como atributos importados o derivados dentro de `Nota de Venta`.
+`Cliente`, `Producto`, `Tipo de producto` y `Accesorio` no se modelan como entidades propias. Los datos de cliente quedan como atributos importados dentro de `Nota de Venta`, mientras que los datos de producto, familia, subfamilia, cantidades y accesorios quedan en `Detalle de Nota de Venta`.
 
 `Ficha de cliente` conserva el nombre usado por el negocio, pero conceptualmente representa una ficha operativa/de produccion asociada a `Produccion`.
 
@@ -42,9 +43,9 @@
 
 | Entidad | Atributos conceptuales | Identificador conceptual |
 |---|---|---|
-| Usuario | primer_nombre, apellido_paterno, rut_usuario, correo_usuario, estado_usuario, referencia_firma_electronica, indicador_cambio_contrasena | rut_usuario |
+| Usuario | primer_nombre, apellido_paterno, rut_usuario, correo_usuario, estado_usuario, referencia_firma_electronica, id_usuario_autenticacion_externa | rut_usuario |
 | Pedido | id_pedido, fecha_creacion, hora_creacion, estado_pago_actual, estado_kanban_actual, fecha_estimada_termino, prioridad, condicion_sobrecarga, vendedor_asociado | id_pedido |
-| Nota de Venta | numero_nota_venta, estado_manager, aprobada_manager, fecha_nota_venta, codigo_factura_despacho, fecha_fav, tipo_nota_venta, fecha_secundaria, codigo_ejecutivo_manager, fecha_modificacion_manager, rut_cliente_importado, nombre_cliente_importado, codigo_producto_importado, descripcion_producto_importado, cantidad_solicitada, cantidad_despachada, cantidad_pendiente, tipo_cliente_importado, superfamilia_producto_importada, familia_producto_importada, subfamilia_producto_importada, direccion_cliente_importada, comuna_cliente_importada, ciudad_cliente_importada, observaciones_nota_venta, tipo_producto_derivado, clasificacion_urgente | numero_nota_venta |
+| Nota de Venta | numero_nota_venta, estado_manager, aprobada_manager, fecha_nota_venta, codigo_factura_despacho, fecha_fav, tipo_nota_venta, fecha_secundaria, codigo_ejecutivo_manager, fecha_modificacion_manager, rut_cliente_importado, nombre_cliente_importado, tipo_cliente_importado, direccion_cliente_importada, comuna_cliente_importada, ciudad_cliente_importada, observaciones_nota_venta | numero_nota_venta |
 | Archivo documental | id_archivo_documental, tipo_archivo_documental, nombre_archivo, formato_archivo, referencia_documental, entidad_asociada, usuario_carga, fecha_hora_carga, usuario_ultima_modificacion, fecha_hora_ultima_modificacion, estado_archivo_documental | id_archivo_documental |
 | Capacidad diaria | id_capacidad_diaria, fecha_capacidad, tipo_producto_derivado, capacidad_maxima, capacidad_utilizada, capacidad_disponible, condicion_sobrecarga, usuario_configuracion, fecha_hora_configuracion | id_capacidad_diaria |
 | Anuncio interno | id_anuncio, contenido_anuncio, tipo_publicacion, autor_anuncio, fecha_hora_publicacion, vigencia_anuncio, estado_anuncio, visibilidad_anuncio | id_anuncio |
@@ -53,6 +54,7 @@
 
 | Entidad | Atributos conceptuales | Identificador conceptual | Depende de |
 |---|---|---|---|
+| Detalle de Nota de Venta | id_detalle_nota_venta, codigo_producto_importado, descripcion_producto_importado, cantidad_solicitada, cantidad_despachada, cantidad_pendiente, superfamilia_producto_importada, familia_producto_importada, subfamilia_producto_importada, tipo_producto_derivado, es_accesorio, datos_para_fabricacion | id_detalle_nota_venta | Nota de Venta |
 | Produccion | codigo_op, fecha_generacion_produccion, estado_operativo, capacidad_asignada, fecha_estimada_termino, usuario_registro_produccion | codigo_op | Pedido |
 | Ficha de cliente | id_ficha_cliente, tipo_ficha_cliente, estado_completitud_ficha, fecha_creacion_ficha, fecha_ultima_actualizacion_ficha, numero_nota_venta_referencial, razon_social_cliente_importada, ejecutivo_cliente_importado, fecha_entrega_produccion_bodega, datos_operativos_ficha, firmas_aplicadas | id_ficha_cliente | Produccion |
 
@@ -63,7 +65,7 @@
 | Rol | nombre_rol, descripcion_rol, permisos_asociados. Valores base: Administrador, Gerencia, Operario, Ventas, Cobranzas. | nombre_rol |
 | Estado de pago | valor_estado_pago, descripcion_estado_pago, habilita_produccion. Valores: Confirmado, Rechazado, Pendiente. | valor_estado_pago |
 | Estado Kanban | valor_estado_kanban, orden_estado, condicion_entrada, automatico. Valores: Confirmacion de pago, Listo para produccion, En produccion, Listo para entrega. | valor_estado_kanban |
-| Subproceso de produccion | nombre_subproceso, tipo_producto_derivado, orden_subproceso, descripcion_subproceso. Lanyard: impresion, sublimacion, corte, costura. Tarjeta: revisar informacion, ordenar informacion, cargar datos. | nombre_subproceso + tipo_producto_derivado |
+| Subproceso de produccion | nombre_subproceso, tipo_producto_derivado, orden_subproceso, descripcion_subproceso. Lanyard: impresion, sublimacion, corte, costura, armado. Tarjeta: revisar informacion, ordenar informacion, cargar datos, armado. | nombre_subproceso + tipo_producto_derivado |
 | Etiqueta visual | nombre_etiqueta, descripcion_etiqueta, estado_etiqueta. Valores confirmados: Urgencia, Atraso. | nombre_etiqueta |
 | Parametro de estimacion | tipo_producto_derivado, rango_unidades, dias_habiles_estimados, etapa_productiva, vigencia_parametro, usuario_configuracion, fecha_hora_configuracion | tipo_producto_derivado + rango_unidades + etapa_productiva |
 
@@ -86,7 +88,7 @@
 |---|---|---|---|
 | Asignacion de etiqueta | Pedido, Etiqueta visual, Usuario | fecha_hora_asignacion, fecha_hora_remocion, usuario_asignacion, usuario_remocion, estado_asignacion | id_asignacion_etiqueta |
 
-### 2.6 Atributos importados y derivados de Nota de Venta
+### 2.6 Atributos importados y derivados de Nota de Venta y sus detalles
 
 | Grupo de datos | Atributos |
 |---|---|
@@ -94,9 +96,9 @@
 | Estado comercial en Manager | estado_manager (`ESTADO`), aprobada_manager (`APROBADA`), tipo_nota_venta (`TIPO_NVTA`) |
 | Fechas de Manager | fecha_nota_venta (`FECHA`), fecha_fav (`FECHA_FAV`), fecha_secundaria (`FECHA2`), fecha_modificacion_manager (`fechamodif`) |
 | Datos importados de cliente | rut_cliente_importado (`RUT`), nombre_cliente_importado (`CLIENTE`), tipo_cliente_importado (`TIPO_CLIENTE`), direccion_cliente_importada (`dir`), comuna_cliente_importada (`comuna`), ciudad_cliente_importada (`ciudad`) |
-| Datos importados de producto | codigo_producto_importado (`CODIGO`), descripcion_producto_importado (`PRODUCTO`), superfamilia_producto_importada (`SUPERFAMILIA`), familia_producto_importada (`FAMILIA`), subfamilia_producto_importada (`SUBFAMILIA`) |
-| Cantidades | cantidad_solicitada (`CANTIDAD`), cantidad_despachada (`CANTDESP`), cantidad_pendiente (`PENDIENTE`) |
-| Datos operativos derivados | tipo_producto_derivado, clasificacion_urgente, datos_para_fabricacion |
+| Datos importados de producto por detalle | codigo_producto_importado (`CODIGO`), descripcion_producto_importado (`PRODUCTO`), superfamilia_producto_importada (`SUPERFAMILIA`), familia_producto_importada (`FAMILIA`), subfamilia_producto_importada (`SUBFAMILIA`) |
+| Cantidades por detalle | cantidad_solicitada (`CANTIDAD`), cantidad_despachada (`CANTDESP`), cantidad_pendiente (`PENDIENTE`) |
+| Datos operativos derivados por detalle | tipo_producto_derivado, es_accesorio, datos_para_fabricacion |
 | Observaciones | observaciones_nota_venta (`observaciones`) |
 
 ## 3. Relaciones, cardinalidades y participacion
@@ -106,7 +108,9 @@
 | Usuario pertenece a Rol | Usuario | Rol | N:1 | Total en Usuario; parcial en Rol | Relacion simple |
 | Usuario crea Pedido | Usuario | Pedido | 1:N | Total en Pedido; parcial en Usuario | Relacion simple |
 | Pedido se origina en Nota de Venta | Pedido | Nota de Venta | 1:1 | Total en Pedido; total en Nota de Venta usada | Relacion simple |
+| Nota de Venta contiene Detalle de Nota de Venta | Nota de Venta | Detalle de Nota de Venta | 1:N | Total en Detalle de Nota de Venta; total en Nota de Venta usada | Relacion identificadora/dependiente |
 | Pedido agrupa Produccion | Pedido | Produccion | 1:0..N | Total en Produccion; condicional en Pedido | Relacion simple |
+| Produccion considera Detalle de Nota de Venta | Produccion | Detalle de Nota de Venta | 1:1..N | Total en Produccion; condicional en Detalle de Nota de Venta hasta que exista OP asociada | Relacion operativa/dependiente |
 | Produccion tiene Ficha de cliente | Produccion | Ficha de cliente | 1:0..1 | Total en Ficha de cliente; condicional en Produccion | Relacion simple |
 | Pedido mantiene Estado de pago actual | Pedido | Estado de pago | N:1 | Total en Pedido | Relacion simple |
 | Pedido registra Cambio de estado de pago | Pedido | Cambio de estado de pago | 1:N | Total en Cambio de estado de pago; parcial en Pedido | Relacion simple |
@@ -153,22 +157,24 @@
 | Regla | Descripcion | Elementos afectados |
 |---|---|---|
 | Roles minimos | Los roles base son Administrador, Gerencia, Operario, Ventas y Cobranzas. | Usuario, Rol |
-| Correo unico | El correo de usuario no puede duplicarse aunque la cuenta este desvinculada. | Usuario |
+| RUT unico | El RUT de usuario no puede duplicarse y se utiliza como identificador conceptual interno del usuario. | Usuario |
+| Autenticacion externa | Auth0 se utiliza como proveedor externo de autenticacion. El sistema no almacena contrasenas, tokens, sesiones, JWT, JWK ni claves de Auth0 en la base de datos. La entidad Usuario conserva los datos propios del negocio y registra unicamente un identificador externo de autenticacion para vincular la cuenta interna con Auth0. | Usuario |
 | Usuario desvinculado | No puede acceder, pero sus acciones y registros historicos se conservan. | Usuario, Bitacora de auditoria, Evento de trazabilidad |
-| Nota de Venta unica | No se permite duplicar el numero de Nota de Venta asociado a un pedido. | Nota de Venta, Pedido |
+| Nota de Venta unica | No se permite duplicar el numero de Nota de Venta asociado a un pedido. Una Nota de Venta puede contener uno o varios detalles importados desde Manager. | Nota de Venta, Detalle de Nota de Venta, Pedido |
 | Pedido desde Nota de Venta | Ventas crea el pedido ingresando numero de Nota de Venta y PDF asociado. | Pedido, Nota de Venta, Archivo documental |
-| Datos desde Manager | Razon social, RUT cliente, producto, cantidad y datos de fabricacion se completan por busqueda asociada a la Nota de Venta. | Nota de Venta |
-| Cliente y Producto importados | Cliente, Producto y Tipo de producto no tienen vida propia en el sistema; se mantienen como atributos de Nota de Venta. | Nota de Venta |
+| Datos desde Manager | Razon social y RUT cliente se completan en la Nota de Venta; producto, familia, subfamilia, cantidades y datos de fabricacion se completan en los detalles de la Nota de Venta. | Nota de Venta, Detalle de Nota de Venta |
+| Cliente, Producto y Accesorio importados | Cliente, Producto, Tipo de producto y Accesorio no tienen vida propia en el sistema. Cliente queda como datos importados de Nota de Venta; producto, familia, subfamilia y accesorios quedan como datos importados o derivados del Detalle de Nota de Venta. | Nota de Venta, Detalle de Nota de Venta |
 | Pago confirmado habilita produccion | Al confirmar pago, el pedido pasa automaticamente a Listo para produccion. | Pedido, Estado de pago, Estado Kanban, Cambio de estado de pago |
 | Restriccion de avance manual | No se puede mover manualmente a Listo para produccion si el pago no esta Confirmado. | Pedido, Estado de pago, Estado Kanban |
 | Firma al confirmar pago | Al confirmar pago, se firma digitalmente la Nota de Venta. | Cambio de estado de pago, Archivo documental, Usuario |
 | OP y ficha tras pago confirmado | Administrador adjunta la o las OP y la Ficha de cliente cuando el pago esta confirmado. | Pedido, Produccion, Ficha de cliente, Archivo documental |
 | Ficha de cliente como ficha de produccion | La Ficha de cliente conserva su nombre de negocio, pero se interpreta como ficha operativa de produccion. | Ficha de cliente, Produccion |
-| Capacidad por tipo derivado | La capacidad maxima diaria se diferencia al menos entre tarjetas y lanyards, sin crear entidad Tipo de producto. | Capacidad diaria, Nota de Venta, Pedido |
+| Capacidad por tipo derivado | La capacidad maxima diaria se diferencia al menos entre tarjetas y lanyards, sin crear entidad Tipo de producto. Los detalles marcados como accesorio no generan capacidad propia; se incorporan al armado de la produccion principal. | Capacidad diaria, Detalle de Nota de Venta, Pedido, Produccion |
 | Sobrecarga | El sistema alerta y registra pedidos bajo sobrecarga operativa. | Capacidad diaria, Pedido, Evento de trazabilidad |
-| Estimacion de termino | Fecha estimada depende del tipo derivado y cantidad importada desde Nota de Venta. | Nota de Venta, Pedido, Parametro de estimacion |
+| Estimacion de termino | Fecha estimada depende del tipo derivado y cantidad importada desde los detalles de la Nota de Venta. | Detalle de Nota de Venta, Pedido, Parametro de estimacion |
 | Estados Kanban fijos | Estados vigentes: Confirmacion de pago, Listo para produccion, En produccion, Listo para entrega. | Estado Kanban, Pedido, Historial de etapa Kanban |
-| Subprocesos por tipo derivado | Lanyard y Tarjeta tienen listas distintas de subprocesos. | Subproceso de produccion, Avance de subproceso, Produccion |
+| Subprocesos por tipo derivado | Lanyard considera impresion, sublimacion, corte, costura y armado. Tarjeta considera revisar informacion, ordenar informacion, cargar datos y armado. | Subproceso de produccion, Avance de subproceso, Produccion |
+| Accesorios en armado | Los accesorios se registran como detalles importados de la Nota de Venta y se incorporan en el subproceso de armado; no generan una produccion independiente, subproceso propio ni capacidad propia. | Detalle de Nota de Venta, Produccion, Subproceso de produccion, Capacidad diaria |
 | Firma en subproceso | Al actualizar subproceso se agrega firma electronica a la Ficha de cliente. | Avance de subproceso, Ficha de cliente, Archivo documental, Usuario |
 | Historial sin sobrescritura | Cambios de subproceso, estado, auditoria y confirmaciones conservan historial completo. | Evento de trazabilidad, Historial de etapa Kanban, Avance de subproceso, Bitacora de auditoria |
 | Comentarios trazables | Comentarios, observaciones y alertas registran autor, fecha y hora. | Comentario, observacion o alerta, Usuario, Pedido |
@@ -181,8 +187,8 @@
 | Pendiente | Afecta a | Decision necesaria |
 |---|---|---|
 | Semantica de campos Manager `ESTADO`, `APROBADA`, `FACT_DESPACHO`, `FECHA_FAV`, `TIPO_NVTA`, `FECHA2` | Nota de Venta | Confirmar significado operativo, valores posibles y uso dentro del sistema. |
-| Regla para derivar tipo de producto | Nota de Venta, Capacidad diaria, Parametro de estimacion, Subproceso de produccion | Definir si se deriva desde `PRODUCTO`, `SUPERFAMILIA`, `FAMILIA`, `SUBFAMILIA` u otra regla. |
-| Accesorios y subfamilias | Nota de Venta, Produccion, Subproceso, Capacidad | Confirmar si accesorios entran al sistema y si requieren subprocesos/capacidad propios. |
+| Regla para derivar tipo de producto | Detalle de Nota de Venta, Capacidad diaria, Parametro de estimacion, Subproceso de produccion | Definir si se deriva desde `PRODUCTO`, `SUPERFAMILIA`, `FAMILIA`, `SUBFAMILIA` u otra regla. |
+| Regla de consolidacion de tipo productivo en NV con multiples detalles | Detalle de Nota de Venta, Pedido, Produccion, Capacidad diaria, Parametro de estimacion | Definir si una Nota de Venta puede contener mas de un tipo productivo principal y, si ocurre, si se genera una sola Produccion/OP consolidada o varias Producciones/OP asociadas al mismo Pedido. |
 | Cardinalidad real de OP | Pedido, Produccion | Confirmar si un Pedido puede tener una o varias Producciones/OP. |
 | Estructura real de OP | Produccion, Archivo documental | Confirmar si basta `codigo_op` o si se deben modelar atributos propios de OP. |
 | Ficha de cliente para Tarjetas | Ficha de cliente, Produccion, Avance de subproceso | Confirmar si Tarjetas usa ficha, si usa la misma estructura que Lanyards o si requiere variante. |
