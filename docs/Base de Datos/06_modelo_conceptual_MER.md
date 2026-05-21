@@ -17,7 +17,7 @@
 | Cambio de estado de pago | Entidad de evento/historial | Cerrado para confirmacion |
 | Estado Kanban | Catalogo | Cerrado |
 | Historial de etapa Kanban | Entidad de evento/historial | Cerrado |
-| Subproceso de produccion | Catalogo | Cerrado para Lanyard, Tarjeta y Armado |
+| Subproceso de produccion | Catalogo | Cerrado para Lanyard y Tarjeta, incluyendo Armado |
 | Avance de subproceso | Entidad de evento/historial | Cerrado |
 | Evento de trazabilidad | Entidad de evento/historial | Cerrado |
 | Bitacora de auditoria | Entidad de evento/historial | Cerrado |
@@ -54,7 +54,7 @@
 
 | Entidad | Atributos conceptuales | Identificador conceptual | Depende de |
 |---|---|---|---|
-| Detalle de Nota de Venta | id_detalle_nota_venta, codigo_producto_importado, descripcion_producto_importado, cantidad_solicitada, cantidad_despachada, cantidad_pendiente, superfamilia_producto_importada, familia_producto_importada, subfamilia_producto_importada, tipo_linea_derivado, es_accesorio, datos_para_fabricacion | id_detalle_nota_venta | Nota de Venta |
+| Detalle de Nota de Venta | id_detalle_nota_venta, codigo_producto_importado, descripcion_producto_importado, cantidad_solicitada, cantidad_despachada, cantidad_pendiente, superfamilia_producto_importada, familia_producto_importada, subfamilia_producto_importada, tipo_producto_derivado, es_accesorio, datos_para_fabricacion | id_detalle_nota_venta | Nota de Venta |
 | Produccion | codigo_op, fecha_generacion_produccion, estado_operativo, capacidad_asignada, fecha_estimada_termino, usuario_registro_produccion | codigo_op | Pedido |
 | Ficha de cliente | id_ficha_cliente, tipo_ficha_cliente, estado_completitud_ficha, fecha_creacion_ficha, fecha_ultima_actualizacion_ficha, numero_nota_venta_referencial, razon_social_cliente_importada, ejecutivo_cliente_importado, fecha_entrega_produccion_bodega, datos_operativos_ficha, firmas_aplicadas | id_ficha_cliente | Produccion |
 
@@ -98,7 +98,7 @@
 | Datos importados de cliente | rut_cliente_importado (`RUT`), nombre_cliente_importado (`CLIENTE`), tipo_cliente_importado (`TIPO_CLIENTE`), direccion_cliente_importada (`dir`), comuna_cliente_importada (`comuna`), ciudad_cliente_importada (`ciudad`) |
 | Datos importados de producto por detalle | codigo_producto_importado (`CODIGO`), descripcion_producto_importado (`PRODUCTO`), superfamilia_producto_importada (`SUPERFAMILIA`), familia_producto_importada (`FAMILIA`), subfamilia_producto_importada (`SUBFAMILIA`) |
 | Cantidades por detalle | cantidad_solicitada (`CANTIDAD`), cantidad_despachada (`CANTDESP`), cantidad_pendiente (`PENDIENTE`) |
-| Datos operativos derivados por detalle | tipo_linea_derivado, es_accesorio, datos_para_fabricacion |
+| Datos operativos derivados por detalle | tipo_producto_derivado, es_accesorio, datos_para_fabricacion |
 | Observaciones | observaciones_nota_venta (`observaciones`) |
 
 ## 3. Relaciones, cardinalidades y participacion
@@ -110,6 +110,7 @@
 | Pedido se origina en Nota de Venta | Pedido | Nota de Venta | 1:1 | Total en Pedido; total en Nota de Venta usada | Relacion simple |
 | Nota de Venta contiene Detalle de Nota de Venta | Nota de Venta | Detalle de Nota de Venta | 1:N | Total en Detalle de Nota de Venta; total en Nota de Venta usada | Relacion identificadora/dependiente |
 | Pedido agrupa Produccion | Pedido | Produccion | 1:0..N | Total en Produccion; condicional en Pedido | Relacion simple |
+| Produccion considera Detalle de Nota de Venta | Produccion | Detalle de Nota de Venta | 1:1..N | Total en Produccion; condicional en Detalle de Nota de Venta hasta que exista OP asociada | Relacion operativa/dependiente |
 | Produccion tiene Ficha de cliente | Produccion | Ficha de cliente | 1:0..1 | Total en Ficha de cliente; condicional en Produccion | Relacion simple |
 | Pedido mantiene Estado de pago actual | Pedido | Estado de pago | N:1 | Total en Pedido | Relacion simple |
 | Pedido registra Cambio de estado de pago | Pedido | Cambio de estado de pago | 1:N | Total en Cambio de estado de pago; parcial en Pedido | Relacion simple |
@@ -167,7 +168,7 @@
 | Firma al confirmar pago | Al confirmar pago, se firma digitalmente la Nota de Venta. | Cambio de estado de pago, Archivo documental, Usuario |
 | OP y ficha tras pago confirmado | Administrador adjunta la o las OP y la Ficha de cliente cuando el pago esta confirmado. | Pedido, Produccion, Ficha de cliente, Archivo documental |
 | Ficha de cliente como ficha de produccion | La Ficha de cliente conserva su nombre de negocio, pero se interpreta como ficha operativa de produccion. | Ficha de cliente, Produccion |
-| Capacidad por tipo derivado | La capacidad maxima diaria se diferencia al menos entre tarjetas y lanyards, sin crear entidad Tipo de producto ni capacidad propia para accesorios. | Capacidad diaria, Detalle de Nota de Venta, Pedido |
+| Capacidad por tipo derivado | La capacidad maxima diaria se diferencia al menos entre tarjetas y lanyards, sin crear entidad Tipo de producto. Los detalles marcados como accesorio no generan capacidad propia; se incorporan al armado de la produccion principal. | Capacidad diaria, Detalle de Nota de Venta, Pedido, Produccion |
 | Sobrecarga | El sistema alerta y registra pedidos bajo sobrecarga operativa. | Capacidad diaria, Pedido, Evento de trazabilidad |
 | Estimacion de termino | Fecha estimada depende del tipo derivado y cantidad importada desde los detalles de la Nota de Venta. | Detalle de Nota de Venta, Pedido, Parametro de estimacion |
 | Estados Kanban fijos | Estados vigentes: Confirmacion de pago, Listo para produccion, En produccion, Listo para entrega. | Estado Kanban, Pedido, Historial de etapa Kanban |
@@ -186,6 +187,7 @@
 |---|---|---|
 | Semantica de campos Manager `ESTADO`, `APROBADA`, `FACT_DESPACHO`, `FECHA_FAV`, `TIPO_NVTA`, `FECHA2` | Nota de Venta | Confirmar significado operativo, valores posibles y uso dentro del sistema. |
 | Regla para derivar tipo de producto | Detalle de Nota de Venta, Capacidad diaria, Parametro de estimacion, Subproceso de produccion | Definir si se deriva desde `PRODUCTO`, `SUPERFAMILIA`, `FAMILIA`, `SUBFAMILIA` u otra regla. |
+| Regla de consolidacion de tipo productivo en NV con multiples detalles | Detalle de Nota de Venta, Pedido, Produccion, Capacidad diaria, Parametro de estimacion | Definir si una Nota de Venta puede contener mas de un tipo productivo principal y, si ocurre, si se genera una sola Produccion/OP consolidada o varias Producciones/OP asociadas al mismo Pedido. |
 | Cardinalidad real de OP | Pedido, Produccion | Confirmar si un Pedido puede tener una o varias Producciones/OP. |
 | Estructura real de OP | Produccion, Archivo documental | Confirmar si basta `codigo_op` o si se deben modelar atributos propios de OP. |
 | Ficha de cliente para Tarjetas | Ficha de cliente, Produccion, Avance de subproceso | Confirmar si Tarjetas usa ficha, si usa la misma estructura que Lanyards o si requiere variante. |
