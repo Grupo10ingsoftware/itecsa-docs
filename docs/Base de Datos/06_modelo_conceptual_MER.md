@@ -43,7 +43,7 @@
 
 | Entidad | Atributos conceptuales | Identificador conceptual |
 |---|---|---|
-| Usuario | primer_nombre, apellido_paterno, rut_usuario, correo_usuario, estado_usuario, referencia_firma_electronica, indicador_cambio_contrasena | rut_usuario |
+| Usuario | primer_nombre, apellido_paterno, rut_usuario, correo_usuario, estado_usuario, referencia_firma_electronica, id_usuario_autenticacion_externa | rut_usuario |
 | Pedido | id_pedido, fecha_creacion, hora_creacion, estado_pago_actual, estado_kanban_actual, fecha_estimada_termino, prioridad, condicion_sobrecarga, vendedor_asociado | id_pedido |
 | Nota de Venta | numero_nota_venta, estado_manager, aprobada_manager, fecha_nota_venta, codigo_factura_despacho, fecha_fav, tipo_nota_venta, fecha_secundaria, codigo_ejecutivo_manager, fecha_modificacion_manager, rut_cliente_importado, nombre_cliente_importado, tipo_cliente_importado, direccion_cliente_importada, comuna_cliente_importada, ciudad_cliente_importada, observaciones_nota_venta | numero_nota_venta |
 | Archivo documental | id_archivo_documental, tipo_archivo_documental, nombre_archivo, formato_archivo, referencia_documental, entidad_asociada, usuario_carga, fecha_hora_carga, usuario_ultima_modificacion, fecha_hora_ultima_modificacion, estado_archivo_documental | id_archivo_documental |
@@ -157,7 +157,8 @@
 | Regla | Descripcion | Elementos afectados |
 |---|---|---|
 | Roles minimos | Los roles base son Administrador, Gerencia, Operario, Ventas y Cobranzas. | Usuario, Rol |
-| Correo unico | El correo de usuario no puede duplicarse aunque la cuenta este desvinculada. | Usuario |
+| RUT unico | El RUT de usuario no puede duplicarse y se utiliza como identificador conceptual interno del usuario. | Usuario |
+| Autenticacion externa | Auth0 se utiliza como proveedor externo de autenticacion. El sistema no almacena contrasenas, tokens, sesiones, JWT, JWK ni claves de Auth0 en la base de datos. La entidad Usuario conserva los datos propios del negocio y registra unicamente un identificador externo de autenticacion para vincular la cuenta interna con Auth0. | Usuario |
 | Usuario desvinculado | No puede acceder, pero sus acciones y registros historicos se conservan. | Usuario, Bitacora de auditoria, Evento de trazabilidad |
 | Nota de Venta unica | No se permite duplicar el numero de Nota de Venta asociado a un pedido. Una Nota de Venta puede contener uno o varios detalles importados desde Manager. | Nota de Venta, Detalle de Nota de Venta, Pedido |
 | Pedido desde Nota de Venta | Ventas crea el pedido ingresando numero de Nota de Venta y PDF asociado. | Pedido, Nota de Venta, Archivo documental |
