@@ -2767,15 +2767,15 @@ Tabla 3.65: “Visualizando indicador de pedido urgente”
 | Caso de uso N°65 | Visualizando indicador de pedido urgente. |
 | --- | --- |
 | Actores | Usuario con rol: <br> -Administrador <br> -Producción. |
-| Propósito | Notificar de forma rápida y eficiente a todos los usuarios con rol de Producción el ingreso de un pedido con la etiqueta de urgente. |
+| Propósito | Notificar de forma rápida y eficiente a todos los usuarios con rol de Operario el ingreso de un pedido con la etiqueta de urgente. |
 | Precondiciones | Un pedido con la etiqueta de urgente. <br> Usuarios del área de Producción. <br> Usuario con rol de Administración. |
-| Resumen | Una vez que el usuario con rol de Administrador ingrese un pedido con la etiqueta de “urgente” el sistema genera una notificación automática para todos los usuarios con rol de Producción |
+| Resumen | Una vez que el usuario con rol de Administrador ingrese un pedido con la etiqueta de “urgente” el sistema genera una notificación automática para todos los usuarios con rol de Operario |
 | Postcondiciones | Una notificación clara del pedido calificado como urgente. |
 | Tipos | Secundario. |
 | Curso normal de eventos | Curso normal de eventos |
 | Acciones de los actores | Respuesta del sistema |
 | 1. El usuario con rol de Administrador ingresa un pedido con la etiqueta de urgente. | 2. El sistema detecta la etiqueta en el pedido y genera una notificación automática. |
-| 3. Todos los usuarios con rol de producción ven en tiempo real la notificación emitida por el sistema. | 4. El sistema ingresa el pedido con etiqueta de urgente a la primera etapa de los subprocesos. |
+| 3. Todos los usuarios con rol de Operario ven en tiempo real la notificación emitida por el sistema. | 4. El sistema ingresa el pedido con etiqueta de urgente a la primera etapa de los subprocesos. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
