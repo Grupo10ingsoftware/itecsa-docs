@@ -65,6 +65,8 @@ Santiago, Chile.
 
 Índice de Figuras
 
+1. INTRODUCCIÓN 10
+
 2. CONTEXTO DE LA ORGANIZACIÓN 12
 
 Figura 1.1: “Organigrama de la Organización” 15
@@ -93,7 +95,7 @@ Figura 2.4: FODA de ITECSA”. 36
 
 4. LEVANTAMIENTO DE PROCESOS INICIALES (BPMN) 37
 
-Figura 3.1: “Proceso operativo de ITECSA 37
+Figura 3.1: “Proceso operativo de ITECSA 38
 
 Figura 3.2: “Subproceso de elaboración de órdenes de producción de ITECSA” 38
 
@@ -101,315 +103,309 @@ Figura 3.2: “Subproceso de elaboración de órdenes de producción de ITECSA�
 
 Figura 4.1: “Histograma para tiempos de proceso”. 39
 
-Figura 4.2: “Ishikawa de ITECSA”. 41
+6. DESCRIPCIÓN DE LA PROBLEMÁTICA 43
 
-10. DIAGRAMAS CASOS DE USO 197
+7. REQUISITOS FUNCIONALES Y NO FUNCIONALES 45
 
-Figura 5.1: “Autenticación y sesión” 197
+8. REQUERIMIENTOS DEL SISTEMA 63
 
-Figura 5.2: “Gestión de usuarios y permisos” 198
+9. CASOS DE USO 89
 
-Figura 5.3: “Perfil y acceso a módulos” 199
+10. DIAGRAMAS CASOS DE USO 186
 
-Figura 5.4:” Registrando Notas de Venta” 200
+Figura 5.1: “Autenticando usuarios” 186
 
-Figura 5.5: “Generando Orden de Producción” 201
+Figura 5.2: “Gestionando usuarios y permisos” 187
 
-Figura 5.6: “Gestión de producción y pedidos” 202
+Figura 5.3: “Visualizando Perfil y acceso a módulos” 188
 
-Figura 5.7: “Actualización estado de pago” 203
+Figura 5.4:” Registrando Notas de Venta” 189
 
-Figura 5.8: “Configurando capacidad de producción” 204
+Figura 5.5: “Generando Orden de Producción” 190
 
-Figura 5.9: “Calendario de Producción y Ventas” 205
+Figura 5.6: “Gestionando producción y pedidos” 191
 
-Figura 5.10: “Tareas de producción” 206
+Figura 5.7: “Actualizando estado de pago” 192
 
-Figura 5.11: “Gestión Visual de Producción” 207
+Figura 5.8: “Configurando capacidad de producción” 193
 
-Figura 5.12: “Notificación e Historial de Producción” 208
+Figura 5.9: “Visualizando Calendario de Producción y Ventas” 194
 
-Figura 5.13: “Notificando alertas de órdenes de producción” 209
+Figura 5.10: “Visualizando tareas de producción” 195
 
-Figura 5.14: “Generando reportes de pedidos a tiempo y atrasados” 210
+Figura 5.11: “Gestionando Producción” 196
 
-Figura 5.15: “Panel de Control Gerencia” 211
+Figura 5.12: “Notificando y visualizando Historial de Producción” 197
 
-13. ANEXO 214
+Figura 5.14: “Generando reportes de pedidos a tiempo y atrasados” 199
 
-Figura 6.1: “Ficha cliente” 216
+11. MATRIZ REQUERIMIENTOS VS CASOS DE USO 201
 
-Figura 6.2: “Nota de venta ITECSA” 217
+12. OBJETIVO GENERAL Y OBJETIVOS ESPECIFICOS 202
 
-Figura 6.3: “Orden de producción ITECSA” 218
+13. ANEXO 204
 
-Figura 6.4: “CV Diego Carrillo” 219
+Figura 6.1: “Ficha cliente” 207
 
-Figura 6.5: “CV Dana Gadansky” 220
+Figura 6.2: “Nota de venta ITECSA” 208
 
-Figura 6.6: “CV Brandon Jiménez” 221
+Figura 6.3: “Orden de producción ITECSA” 209
 
-Figura 6.7: “CV Sebastián Oyarce” 222
+Figura 6.4: “CV Diego Carrillo” 210
 
-Figura 6.8: “CV Elías Pérez” 224
+Figura 6.5: “CV Dana Gadansky” 211
 
-Figura 6.9: “CV Francisco Tassara” 224
+Figura 6.6: “CV Brandon Jiménez” 212
 
-Figura 6.10: “CV Sergio Villegas” 225
+Figura 6.7: “CV Sebastián Oyarce” 213
 
-Figura 6.11: “Mockup RF01” 229
+Figura 6.8: “CV Elías Pérez” 214
 
-Figura 6.12: “Mockup RF02” 229
+Figura 6.9: “CV Francisco Tassara” 215
 
-Figura 6.13: “Mockup RF05” 231
+Figura 6.10: “CV Sergio Villegas” 216
 
-Figura 6.14: “Mockup RF06” 232
+Figura 6.11: “Mockup RF01” 220
 
-Figura 6.15: “Mockup RF07 y 08” 233
+Figura 6.12: “Mockup RF02” 221
 
-Figura 6.16: “Mockup RF15” 233
+Figura 6.13: “Mockup RF05” 222
 
-Figura 6.17: “Mockup RF19” 234
+Figura 6.14: “Mockup RF06” 223
 
-Figura 6.18: “Mockup RF20” 235
+Figura 6.15: “Mockup RF07 y 08” 224
 
-Figura 6.19: “Mockup RF24” 236
+Figura 6.16: “Mockup RF14” 225
 
-Figura 6.20: “Mockup RF29” 237
+Figura 6.17: “Mockup RF19” 226
 
-Figura 6.21: “Mockup RF30” 238
+Figura 6.18: “Mockup RF20” 227
 
-Figura 6.22: “Mockup RF40” 239
+Figura 6.19: “Mockup RF24” 228
 
-Figura 6.23: “Mockup RF44” 240
+Figura 6.20: “Mockup RF29” 229
 
-Figura 6.24: “Mockup RF45 y 46” 240
+Figura 6.22: “Mockup RF40” 231
 
-Figura 6.25: “Mockup RF47” 241
+Figura 6.23: “Mockup RF44” 232
 
-Figura 6.26: “Mockup RF48” 242
+Figura 6.24: “Mockup RF45 y 46” 233
 
-Figura 6.27: “Mockup RF50” 243
+Figura 6.25: “Mockup RF47” 234
 
-Figura 6.28: “Mockup RF67” 244
+Figura 6.26: “Mockup RF48” 235
 
-Figura 6.29: “Mockup RF73” 245
+Figura 6.27: “Mockup RF50” 236
 
-Figura 6.30: “Correo de aceptación de requerimientos” 251
+Figura 6.28: “Mockup RF57” 237
 
-Figura 6.30:” Tabla de actividades Actual” 252
+Figura 6.29: “Mockup RF73” 238
 
-Figura 6.31: “Carta Gantt de proyección Proyecto” 253
+Figura 6.30: “Correo de aceptación de requerimientos” 242
 
-Figura 6.32:” Carta Gantt de desarrollo Documento 0” 254
+Figura 6.31:” Tabla de actividades Actual” 243
+
+Figura 6.32: “Carta Gantt de proyección Proyecto” 244
+
+Figura 6.33:” Carta Gantt de desarrollo Documento 0” 245
+
+14. REFERENCIAS BIBLIOGRÁFICAS: 246
 
 Índice de Tablas
+
+1. INTRODUCCIÓN 9
+
+2. CONTEXTO DE LA ORGANIZACIÓN 11
+
+3. ANÁLISIS EXTERNO INTERNO DE LA ORGANIZACIÓN 25
+
+4. LEVANTAMIENTO DE PROCESOS INICIALES (BPMN) 37
 
 5. ANÁLISIS CUANTITATIVO Y CUALITATIVO 39
 
 Tabla 1.1: “Frecuencia de pedidos y duración de proceso productivo” 39
 
-8. REQUERIMIENTOS DEL SISTEMA 64
+6. DESCRIPCIÓN DE LA PROBLEMÁTICA 43
 
-Tabla 2.1: “Requerimientos para el software de ITECSA” 64
+8. REQUERIMIENTOS DEL SISTEMA 63
 
-9. CASOS DE USO 90
+Tabla 2.1: “Requerimientos para el software de ITECSA” 63
 
-Tabla 3.1: “Ingresando credenciales de inicio de sesión” 90
+9. CASOS DE USO 89
 
-Tabla 3.2: “Iniciando sesión de Administrador mediante formulario de autenticación” 91
+Tabla 3.1: “Ingresando credenciales de inicio de sesión” 89
 
-Tabla 3.3: “Iniciando sesión de Gerencia mediante formulario de autenticación” 92
+Tabla 3.2: “Mostrando alerta de cuenta desactivada.” 90
 
-Tabla 3.4: “Visualizando alerta de cuenta desactivada” 92
+Tabla 3.3: “Visualizando error de autenticación.” 91
 
-Tabla 3.5: “Visualizando error de autenticación” 94
+Tabla 3.4: “Consultando matriz de permisos por rol.” 92
 
-Tabla 3.6: “Consultado matriz de permisos por rol” 95
+Tabla 3.5: “Registrando nuevos usuarios” 93
 
-Tabla 3.7: “Registrando nuevo usuario” 96
+Tabla 3.6: “Cambiando contraseña en primer inicio de sesión” 94
 
-Tabla 3.8: “Cambiando contraseña de forma obligatoria en el primer inicio de sesión” 97
+Tabla 3.7: “Visualizando perfil de usuario.” 95
 
-Tabla 3.9: “Visualizando perfil de usuario” 99
+Tabla 3.8: “Visualizando historial en perfil de usuario” 96
 
-Tabla 3.10: “Visualizando historial en perfil de usuario” 99
+Tabla 3.9: “Bloqueando acceso a usuario desvinculado” 97
 
-Tabla 3.11: “Accediendo a un módulo del sistema” 100
+Tabla 3.10: “Iniciando sesión de manera exitosa.” 99
 
-Tabla 3.12: “Recuperando la contraseña mediante correo electrónico” 101
+Tabla 3.11: “Registrando usuario con correo anteriormente registrado” 100
 
-Tabla 3.13: “Editando datos de un usuario existente” 103
+Tabla 3.12: “Accediendo a una URL protegida según rol” 101
 
-Tabla 3.14: “Consultando registros a un usuario desvinculado” 104
+Tabla 3.13: “Visualizando acceso denegado por permisos insuficientes” 103
 
-Tabla 3.15: “Cerrando sesión desde cualquier interfaz de usuario” 106
+Tabla 3.14: “Recuperando la contraseña mediante correo electrónico.” 105
 
-Tabla 3.16: “Adjuntando Nota de Venta desde Manager” 107
+Tabla 3.15: “Editando usuarios” 107
 
-Tabla 3.17: “Registrando ficha de cliente” 108
+Tabla 3.16: “Conservando datos de usuario “desvinculado”” 108
 
-Tabla 3.18: “Validando campos mínimos de la NV” 109
+Tabla 3.17: “Cerrando sesión desde cualquier interfaz de usuario” 109
 
-Tabla 3.19: “Validando SKU contra catálogo” 110
+Tabla 3.18: “Generando pedido desde el módulo de ventas” 110
 
-Tabla 3.20: “Validando unicidad del código de la NV” 111
+Tabla 3.19: “Registrando pedido mediante formulario de nota de venta” 112
 
-Tabla 3.21: “Adjuntando archivos de diseño en Kanban” 111
+Tabla 3.20: “Creando el pedido” 114
 
-Tabla 3.22: “Registrando comentarios en la Nota de venta” 112
+Tabla 3.21: “Registrando automáticamente la fecha y hora” 115
 
-Tabla 3.23: “Registrando comentarios en orden de producción” 113
+Tabla 3.22: “Identificando los tipos de productos” 115
 
-Tabla 3.24: “Eliminando comentario en NV” 115
+Tabla 3.23: “Validando unicidad de nota de venta” 117
 
-Tabla 3.25: “Eliminando comentario en NV” 116
+Tabla 3.24: “Ingresando número de nota de venta ya existente.” 118
 
-Tabla 3.26: “Validando campos obligatorios antes de generar orden de producción” 117
+Tabla 3.25: “Adjuntado archivos de diseño al pedido” 119
 
-Tabla 3.27: “Validando capacidad disponible antes de registrar la nota de venta” 118
+Tabla 3.26: “Actualizando el estado de pago del pedido” 120
 
-Tabla 3.28: “Visualizando el estado del pedido en Kanban” 119
+Tabla 3.27: “Firmando digitalmente nota de venta” 122
 
-Tabla 3.29: “Generando automáticamente orden de producción” 120
+Tabla 3.28: “Actualizando automáticamente el estado del pedido” 123
 
-Tabla 3.30: “Editando nota de venta convertida en orden de producción” 121
+Tabla 3.29 “Registrando trazabilidad de cambios de estado de pago” 124
 
-Tabla 3.31: “Exportando nota de venta a formato compatible con Manager” 122
+Tabla 3.30.: “Asociando documento al pedido” 125
 
-Tabla 3.32: “Actualizando el estado de pago” 123
+Tabla 3.31: “Mostrando alerta de cuenta desactivada.” 126
 
-Tabla 3.33: “Cambiando estado de la orden a “Listo para producción” tras confirmación de pago” 124
+Tabla 3.32: “Restringiendo el cambio manual” 127
 
-Tabla 3.34: “Registrando trazabilidad de confirmación de pago” 125
+Tabla 3.33: “Configurando capacidad de producción” 128
 
-Tabla 3.35: “Generando vale de salida asociado a la orden” 126
+Tabla 3.34: “Estimando carga laboral diaria” 129
 
-Tabla 3.36: “Actualizando capacidad de producción disponible” 127
+Tabla 3.35: “Alertando visualmente sobrecarga en producción” 130
 
-Tabla 3.37: “Restringiendo el cambio de estado sin pago confirmado” 128
+Tabla 3.36: “Calculando fecha de entrega” 131
 
-Tabla 3.38: “Configurando capacidad de producción” 129
+Tabla 3.37: “Ingresando pedido bajo sobrecarga operativa” 132
 
-Tabla 3.39: “Ajustando manualmente capacidad de producción” 130
+Tabla 3.38: “Extrayendo información desde la nota de venta para estimación de entrega” 134
 
-Tabla 3.40: “Calculando automáticamente carga laboral” 131
+Tabla 3.39: “Calculando fecha estimada de entrega del pedido” 135
 
-Tabla 3.41: “Alertando sobrecarga en producción” 132
+Tabla 3.40: “Ajustando parámetros de estimación por cantidad y producto” 137
 
-Tabla 3.42: “Bloqueando registro de nota de venta por capacidad máxima” 133
+Tabla 3.41: “Mostrando calendario de planificación” 138
 
-Tabla 3.43: “Proyectando fecha de entrega” 134
+Tabla 3.42: “Visualizando el tablero de Kanban” 140
 
-Tabla 3.44: “Registrando justificación de ajuste de capacidad” 135
+Tabla 3.43: “Visualizando el detalle del pedido” 140
 
-Tabla 3.45: “Calculando fecha estimada de término” 136
+Tabla 3.44: “Observando el flujo general de un pedido” 141
 
-Tabla 3.46: “Visualizando ajuste en calendario de planificación” 137
+Tabla 3.45: “Cambiando manualmente el estado del pedido” 142
 
-Tabla 3.47: “Visualizando tablero Kanban Administrador” 138
+Tabla 3.46: “Visualizando subproceso productivo en Stepper” 143
 
-Tabla 3.48: “Visualizando tablero Kanban Operario” 140
+Tabla 3.47: “Actualizando el estado del Sub-Proceso de producción” 144
 
-Tabla 3.50: “Visualizando tablero Kanban Ventas” 142
+Tabla 3.48: “Registrando comentarios en Sub-Procesos” 145
 
-Tabla 3.51: “Visualizando tablero Kanban Facturación” 144
+Tabla 3.49: “Registrando firma electrónica del usuario” 146
 
-Tabla 3.52: “Visualizando estructura de columnas de tablero” 146
+Tabla 3.50: “Registrando firma electrónica del usuario en producción” 147
 
-Tabla 3.53: “Cambiando manual de estado de un pedido mediante arrastrar y soltar.” 148
+Tabla 3.51: “Filtrando pedidos visibles” 148
 
-Tabla 3.54: “Intento de cambio de estado hacia una columna no permitida.” 150
+Tabla 3.52: “Asignando etiquetas visuales a pedidos” 149
 
-Tabla 3.53: “Cambiando manual de estado de un pedido mediante arrastrar y soltar.” 150
+Tabla 3.53: “Organizando pedidos mediante etiquetas en el tablero Kanban” 150
 
-Tabla 3.55: “Intento de cambio de estado de un pedido sin permisos.” 152
+Tabla 3.54: “Modificando prioridad de atención de pedidos” 151
 
-Tabla 3.56: “Registrando subtareas de producción.” 153
+Tabla 3.55: “Calculando tiempo real transcurrido por etapas” 152
 
-Tabla 3.57: “Registrando trazabilidad de cambios de estado del pedido.” 155
+Tabla 3.56: “Calculando diferencia entre tiempo estimado y tiempo real por etapa” 153
 
-Tabla 3.58: “Filtrando de pedidos en el tablero Kanban.” 157
+Tabla 3.57: “Visualizando indicador visual de retraso en el tablero Kanban” 155
 
-Tabla 3.59: “Organizando pedidos mediante etiquetas en el tablero Kanban.” 158
+Tabla 3.58: “Notificando creación de nuevo pedido a jefatura” 157
 
-Tabla 3.60: “Calculando y registrando el tiempo real por etapa de producción” 160
+Tabla 3.59: “Visualizando el historial de trazabilidad de producción” 159
 
-Tabla 3.61: “Calculando de la diferencia entre tiempo estimado y tiempo real por etapa”.” 162
+Tabla 3.60: “Visualizando historial consolidado del pedido” 160
 
-Tabla 3.62: “Visualizando indicador de retraso en el tablero Kanban” 164
+Tabla 3.61: “Notificando disponibilidad para despacho” 161
 
-Tabla 3.63: “Asignación de operario a una orden de producción” 166
+Tabla 3.62: “Registrando comentarios, observaciones asociadas a un pedido” 162
 
-Tabla 3.64: “Registro de rechazo de pedido en etapa de control de calidad”. 167
+Tabla 3.63: “Registrando trazabilidad de comentarios observaciones y alertas” 163
 
-Tabla 3.65: “Intentando registrar el rechazo sin motivo” 170
+Tabla 3.64: “Removiendo etiquetas visuales de pedidos” 165
 
-Tabla 3.66: “Cambiando automáticamente el estado tras rechazo”.” 172
+Tabla 3.65: “Visualizando indicador de pedido urgente” 166
 
-Tabla 3.67: “Conservación del historial de rechazos en control de calidad” 173
+Tabla 3.66: “Ingresando al panel de anuncios” 167
 
-Tabla 3.68: “Notificando creación de nueva orden a jefatura de producción” 174
+Tabla 3.67: “Publicando anuncios internos” 168
 
-Tabla 3.69: “Visualizando historial de trazabilidad de producción” 175
+Tabla 3.68: “Generando reporte de cumplimiento de entrega” 169
 
-Tabla 3.70: “Visualizando historial consolidado de la orden de producción” 176
+Tabla 3.69: “Exportando reporte de pedidos entregados a tiempo y fiera de plazo en formato Excel” 171
 
-Tabla 3.71: “Notificando disponibilidad para despacho” 178
+Tabla 3.70: “Exportando reportes de producción” 172
 
-Tabla 3.72: “Registrando comentarios y alertas en orden de producción” 179
+Tabla 3.71 “Visualizando el grafico de tendencia promedio de ciclo de producción” 174
 
-Tabla 3.73: “Registrando trazabilidad de comentarios, observaciones y alertas” 180
+Tabla 3.72: “Visualizando la carga de producción por día de la semana” 176
 
-Tabla 3.74: “Asignando etiquetas visuales a pedidos” 181
+Tabla 3.73: “Filtrando por rango de fechas en todas las vistas de reportes” 177
 
-Tabla 3.75: “Removiendo etiquetas visuales de pedidos” 182
+Tabla 3.74: “Visualizando panel de control gerencial” 179
 
-Tabla 3.76: “Disponiendo etiquetas visuales para pedidos” 183
+Tabla 3.75: “Visualizando los productos más solicitados” 180
 
-Tabla 3.77: “Generando indicador de urgencia” 184
+Tabla 3.76: “Generando reporte de órdenes agrupadas por estado” 181
 
-Tabla 3.78: “Notificando rechazo de Nota de Venta” 185
+Tabla 3.77: “Visualizando indicadores de cumplimiento de vendedores” 183
 
-Tabla 3.79: “Accediendo al panel de anuncios internos” 186
+10. DIAGRAMAS CASOS DE USO 186
 
-Tabla 3.80: “Publicando anuncios internos” 187
+11. MATRIZ REQUERIMIENTOS VS CASOS DE USO 201
 
-Tabla 3.81: “Visualizando y accediendo al panel de anuncios internos” 188
+Tabla 4.1: “Matriz RF vs CU Extendidos.” 201
 
-Tabla 3.82: “Generando reporte de pedidos entregados a tiempo y fuera de plazo” 189
+12. OBJETIVO GENERAL Y OBJETIVOS ESPECIFICOS 202
 
-Tabla 3.83: “Exportando reportes de producción a Excel y CSV” 190
+13. ANEXO 204
 
-Tabla 3.84: “Calculando tiempo de ciclo promedio de pedidos” 190
+Tabla 5.1: “Glosario de términos A” 204
 
-Tabla 3.85: “Visualizando mapa de carga de producción por día” 191
+Tabla 5.2: “Glosario de términos B” 205
 
-Tabla 3.86: “Filtrando reportes por rango de fechas” 192
+Tabla 5.3: “Estimación de costos A” 217
 
-Tabla 3.87: “Accediendo a panel de control gerencial” 193
+Tabla 5.4: “Estimación de costos B” 218
 
-Tabla 3.88: “Visualizando ranking de productos más solicitados” 194
-
-Tabla 3.89: “Generando reporte de órdenes agrupadas por estado” 194
-
-Tabla 3.90: “Generando indicador de cumplimiento por usuario de ventas” 195
-
-11. MATRIZ REQUERIMIENTOS VS CASOS DE USO 212
-
-Tabla 4.1: “Matriz RF vs CU Extendidos.” 212
-
-13. ANEXO 214
-
-Tabla 5.1: “Glosario de términos A” 214
-
-Tabla 5.2: “Glosario de términos B” 215
-
-Tabla 5.3: “Estimación de costos A” 227
-
-Tabla 5.4: “Estimación de costos B” 227
-
-1
+14. REFERENCIAS BIBLIOGRÁFICAS: 246
 
 # 1. INTRODUCCIÓN
 
@@ -1498,7 +1494,7 @@ Los casos de uso extendidos describen escenarios específicos de interacción en
 
 Cada caso de uso especifica las condiciones de inicio, el flujo principal de eventos, las posibles variaciones o excepciones y las respuestas del sistema frente a las acciones del usuario, permitiendo representar de manera estructurada el comportamiento esperado del sistema.
 
-El conjunto de casos de uso desarrollados se presenta en las Tablas 3.1 a 3.75.
+El conjunto de casos de uso desarrollados se presenta en las Tablas 3.1 a 3.77.
 
 Módulo 1: Gestión de usuario
 
@@ -1660,7 +1656,7 @@ Tabla 3.9: “Bloqueando acceso a usuario desvinculado”
 | Caso de uso N°9 | Bloqueando acceso a usuario desvinculado. |
 | --- | --- |
 | Actores | Usuario con rol: <br> -Producción. <br> -Ventas. <br> -Cobranza. |
-| Propósito | Impedir que un usuario con estado “Desvinculado” acceda a la interfaz web, puntos de conexion de API u operaciones internas del sistema. |
+| Propósito | Impedir que un usuario con estado “Desvinculado” acceda a la interfaz web, puntos de conexiónn de API u operaciones internas del sistema. |
 | Precondiciones | El usuario debe existir previamente en el sistema. La cuenta del usuario debe encontrarse registrada con estado “Desvinculado”. El usuario intenta acceder al sistema mediante inicio de sesión, URL directa, petición API u operación interna. |
 | Resumen | El usuario con cuenta desvinculada intenta acceder al sistema. El sistema verifica el estado de la cuenta y bloquea cualquier acceso a recursos protegidos, evitando el ingreso a la interfaz web, el uso de puntos de conexión de API y la ejecución de operaciones internas. |
 | Postcondiciones | El usuario no accede al sistema. La interfaz web, API y operaciones internas permanecen protegidas frente a cuentas desvinculadas. |
@@ -1715,7 +1711,7 @@ Tabla 3.11: “Registrando usuario con correo anteriormente registrado”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.12: “Accediendo a una ULR protegida según rol”
+Tabla 3.12: “Accediendo a una URL protegida según rol”
 
 ### Table 16
 
@@ -1736,7 +1732,7 @@ Tabla 3.12: “Accediendo a una ULR protegida según rol”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.12: “Visualizando acceso denegado por permisos insuficientes”
+Tabla 3.13: “Visualizando acceso denegado por permisos insuficientes”
 
 ### Table 17
 
@@ -1757,7 +1753,7 @@ Tabla 3.12: “Visualizando acceso denegado por permisos insuficientes”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.14: “Mostrando alerta de cuenta desactivada.”
+Tabla 3.14: “Recuperando la contraseña mediante correo electrónico.”
 
 ### Table 18
 
@@ -1925,7 +1921,7 @@ Tabla 3.21: “Registrando automáticamente la fecha y hora”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.21: “Identificando los tipos de productos”
+Tabla 3.22: “Identificando los tipos de productos”
 
 ### Table 26
 
@@ -2120,7 +2116,7 @@ Tabla 3.31: “Mostrando alerta de cuenta desactivada.”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.2: “Restringiendo el cambio manual”
+Tabla 3.32: “Restringiendo el cambio manual”
 
 ### Table 36
 
@@ -2175,7 +2171,7 @@ Tabla 3.34: “Estimando carga laboral diaria”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.34: “Alertando visualmente sobrecarga en producción”
+Tabla 3.35: “Alertando visualmente sobrecarga en producción”
 
 ### Table 39
 
@@ -2702,11 +2698,11 @@ Tabla 3.61: “Notificando disponibilidad para despacho”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.62: “Registrando comentarios, observaciones o alertas asociadas a un pedido”
+Tabla 3.62: “Registrando comentarios, observaciones asociadas a un pedido”
 
 ### Table 66
 
-| Caso de uso N° 62 | Registrando comentarios, observaciones o alertas asociados a un pedido. |
+| Caso de uso N° 62 | Registrando comentarios, observaciones asociados a un pedido. |
 | --- | --- |
 | Actores | Usuario de cualquier rol. |
 | Propósito | Permitir que los usuarios del sistema registren comentarios, observaciones o alertas asociados a un pedido. |
@@ -2853,7 +2849,7 @@ Tabla 3.69: “Exportando reporte de pedidos entregados a tiempo y fiera de plaz
 | Precondiciones | El usuario debe estar autenticado en el sistema. <br> El usuario debe poseer rol válido de Gerencia. <br> El usuario se encuentra en la vista “Reportes de pedidos”. <br> El sistema debe contener información de los reportes dentro de un periodo solicitado. <br> El sistema debió haber generado un reporte antes de exportar el archivo con los datos. |
 | Resumen | El sistema exporta información de pedidos entregados a tiempo y fuera de plazo que había sido generado. |
 | Postcondiciones | El sistema entrega con éxito el reporte de pedidos entregados a tiempo y fuera de plazo en un formato Excel. |
-| sTipos | Secundario. |
+| Tipos | Secundario. |
 | Curso normal de eventos | Curso normal de eventos |
 | Acciones de los actores | Respuesta del sistema |
 | 1. El usuario con rol Gerencia permanece en el módulo de reportes de pedidos después de obtenido el reporte de entrega. | 2. El sistema muestra la opción de exportación en Excel. |
@@ -2903,7 +2899,7 @@ Tabla 3.71 “Visualizando el grafico de tendencia promedio de ciclo de producci
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 372: “Visualizando la carga de producción por día de la semana”
+Tabla 3.72: “Visualizando la carga de producción por día de la semana”
 
 ### Table 76
 
@@ -3028,7 +3024,7 @@ Los diagramas de casos de uso permiten representar de manera visual las interacc
 
 Esta herramienta facilita la comprensión de los procesos clave y apoya las etapas de análisis, diseño y validación, permitiendo identificar las funcionalidades principales y su relación con los distintos actores involucrados, como podemos ver a continuación en las Figuras 5.1 a 5.14.
 
-Figura 5.1: “Autenticación y sesión”
+Figura 5.1: “Autenticando usuarios”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
@@ -3481,7 +3477,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Se presenta la figura 6.31 de actividades desarrolladas para gestionar el tiempo y recursos del proyecto.
 
-Figura 6.30:” Tabla de actividades Actual”
+Figura 6.31:” Tabla de actividades Actual”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
@@ -3489,7 +3485,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Se presenta la figura 6.32, que representa una proyección de lo que se va a situar el desarrollo completo del proyecto.
 
-Figura 6.31: “Carta Gantt de proyección Proyecto”
+Figura 6.32: “Carta Gantt de proyección Proyecto”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
@@ -3497,7 +3493,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 En la figura 6.33, representa la carta Gantt del desarrollo obtenido en el Documento 0.
 
-Figura 6.32:” Carta Gantt de desarrollo Documento 0”
+Figura 6.33:” Carta Gantt de desarrollo Documento 0”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
@@ -3531,5 +3527,5 @@ produccion_tarjetas
 
 ### Table 85
 
-| [EMPTY] | 226 | [EMPTY] |
+| [EMPTY] | 246 | [EMPTY] |
 | --- | --- | --- |
