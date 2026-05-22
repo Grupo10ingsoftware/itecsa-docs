@@ -1,4 +1,22 @@
-# Modelo conceptual MER definitivo
+# Modelo conceptual MER general
+
+## 0. Criterios consolidados del dominio
+
+Este documento representa una vision conceptual general del dominio de base de datos del sistema ITECSA. Para la primera version implementable se deben usar como fuente directa `MER_v1.md` y `MERE_v1.md`.
+
+| Criterio | Definicion consolidada |
+|---|---|
+| Manager como fuente externa | Nota de Venta y codigo OP provienen de Manager. El sistema ITECSA conserva datos necesarios para seguimiento interno, trazabilidad, pago, documentos y avance productivo. |
+| Nota de Venta y detalle | Una Nota de Venta puede contener muchas lineas de detalle. Cada linea corresponde a productos, accesorios o insumos importados desde Manager. |
+| Pedido y Produccion | Un Pedido se crea desde una Nota de Venta y puede tener una o mas Producciones. |
+| Produccion | Produccion representa una unidad independiente de seguimiento productivo y pertenece a Pedido. |
+| codigo_op | `codigo_op` es atributo conceptual de Produccion e identifica externamente la produccion registrada en Manager. No define una entidad conceptual separada. |
+| Kanban | El Kanban visualiza y actualiza Producciones individuales, aunque muestre datos del Pedido y de la Nota de Venta como contexto. |
+| Accesorios | Los accesorios se tratan como insumos o datos de fabricacion asociados, no como Producciones independientes por defecto. |
+| Ficha de produccion | En v1 la ficha se representa como documento adjunto. La estructuracion de sus campos corresponde a una evolucion posterior del modelo. |
+| Usuario interno | El RUT identifica conceptualmente al usuario interno. El correo es un dato modificable de contacto y acceso. |
+| Auth0 | El sistema registra `auth0_user_id` para vincular usuarios internos con Auth0. No se modelan contrasenas locales. |
+| Alcance general y v1 | Capacidad, notificaciones, anuncios, auditoria completa, etiquetas y reportes pueden existir en el modelo general, pero quedan fuera del nucleo conceptual v1. |
 
 ## 1. Entidades del modelo
 
@@ -17,16 +35,16 @@
 | Registro de etapa Kanban | Entidad de historial |
 | Subproceso de produccion | Catalogo |
 | Avance de subproceso | Entidad de historial |
-| Evento de trazabilidad | Entidad de historial |
-| Bitacora de auditoria | Entidad de historial |
+| Evento de trazabilidad | Entidad futura de historial |
+| Bitacora de auditoria | Entidad futura de historial |
 | Comentario, observacion o alerta | Entidad de historial |
-| Etiqueta visual | Catalogo |
-| Asignacion de etiqueta | Entidad asociativa |
-| Capacidad | Entidad fuerte |
-| Parametro de estimacion | Catalogo |
+| Etiqueta visual | Catalogo fuera del nucleo v1 |
+| Asignacion de etiqueta | Entidad asociativa fuera del nucleo v1 |
+| Capacidad | Entidad futura |
+| Parametro de estimacion | Catalogo futuro |
 | Archivo documental | Entidad fuerte |
-| Notificacion | Entidad de historial |
-| Anuncio interno | Entidad fuerte |
+| Notificacion | Entidad futura de historial |
+| Anuncio interno | Entidad futura |
 
 ## 2. Atributos e identificadores conceptuales
 
@@ -34,11 +52,11 @@
 
 | Entidad | Atributos conceptuales | Identificador conceptual |
 |---|---|---|
-| Usuario | nombre_usuario, apellido_paterno_usuario, rut_usuario, correo_usuario, rol_usuario, estado_cuenta_usuario, referencia_firma_electronica, id_usuario_autenticacion_externa, cambio_obligatorio_contrasena | rut_usuario |
+| Usuario | nombre_usuario, apellido_paterno_usuario, rut_usuario, correo_usuario, rol_usuario, estado_cuenta_usuario, referencia_firma_electronica, auth0_user_id | rut_usuario |
 | Pedido | id_pedido, fecha_creacion_pedido, hora_creacion_pedido, nota_venta_asociada, usuario_ventas_asociado, estado_pago_pedido, etiqueta_visual_pedido, prioridad_pedido, capacidad_total_pedido | id_pedido |
 | Nota de Venta | numero_nota_venta, estado_manager, aprobada_cobranza_manager, fecha_nota_venta, codigo_factura_despacho, fecha_fav, tipo_nota_venta, fecha_secundaria, codigo_ejecutivo_venta_manager, fecha_modificacion_manager, rut_cliente, nombre_cliente, tipo_cliente, direccion_cliente, comuna_cliente, ciudad_cliente, observaciones_nota_venta | numero_nota_venta |
 | Detalle de Nota de Venta | id_detalle_nota_venta, codigo_producto, descripcion_producto, cantidad_solicitada, cantidad_despachada, cantidad_pendiente, superfamilia_producto, familia_producto, subfamilia_producto, tipo_producto, clasificacion_urgente, es_accesorio, datos_para_fabricacion | id_detalle_nota_venta |
-| Produccion | codigo_op, pedido_asociado, estado_kanban_actual, capacidad_produccion, fecha_estimada_termino, ficha_cliente_asociada, usuario_registro_produccion | codigo_op |
+| Produccion | id_produccion, codigo_op, pedido_asociado, estado_kanban_actual, capacidad_produccion, fecha_estimada_termino, ficha_cliente_asociada, usuario_registro_produccion | id_produccion |
 | Ficha de cliente | id_ficha_cliente, produccion_asociada, tipo_ficha_cliente, estado_completitud_ficha, fecha_creacion_ficha, fecha_ultima_actualizacion_ficha, numero_nota_venta, fecha_recepcion_nota_venta, razon_social_cliente, ejecutivo_cliente, fecha_entrega_produccion_bodega, fecha_recepcion_diseno, plotter, programa, cantidad_impresion, color_fondo_y, color_fondo_m, color_fondo_c, color_fondo_k, responsable_diseno, fecha_recepcion_produccion, calandra, temperatura, velocidad, responsable_calandra, merma, stock, responsable_control_calidad_armado, responsable_control_calidad_doble_control, firmas_aplicadas | id_ficha_cliente |
 | Capacidad | id_capacidad, fecha_capacidad, tipo_producto_capacidad, capacidad_maxima_diaria, capacidad_utilizada, capacidad_disponible, condicion_sobrecarga_90_mas, usuario_configuracion_capacidad, fecha_hora_configuracion_capacidad | id_capacidad |
 | Archivo documental | id_archivo_documental, tipo_archivo_documental, nombre_archivo, formato_archivo, referencia_documental, entidad_asociada, usuario_carga_asociado, fecha_hora_carga, usuario_ultima_modificacion, fecha_hora_ultima_modificacion, sobrescrito, estado_archivo_documental | id_archivo_documental |
@@ -51,7 +69,7 @@
 | Rol | id_rol, nombre_rol, descripcion_rol, capacidades_rol. Valores base: Administrador, Gerencia, Operario, Ventas y Cobranzas. | id_rol |
 | Estado de pago | id_estado_pago, valor_estado_pago, habilita_produccion. Valores: Confirmado, Rechazado, Pendiente. | id_estado_pago |
 | Estado Kanban | id_estado_kanban, valor_estado_kanban, condicion_entrada_estado, accion_principal_estado. Valores: Confirmacion de pago, Listo para produccion, En produccion, Listo para entrega. | id_estado_kanban |
-| Subproceso de produccion | id_subproceso_produccion, tipo_producto_aplicable, nombre_subproceso, orden_subproceso. Lanyard: impresion, sublimacion, corte, costura, armado. Tarjeta: revisar informacion, ordenar informacion, cargar datos, armado. | id_subproceso_produccion |
+| Subproceso de produccion | id_subproceso_produccion, tipo_producto_aplicable, nombre_subproceso, orden_subproceso. V1 confirmado por mockups: Lanyard considera impresion, sublimacion, corte y costura; Tarjeta considera revisar informacion, ordenar informacion y cargar datos. Subprocesos ampliados pueden incorporarse en versiones posteriores. | id_subproceso_produccion |
 | Etiqueta visual | nombre_etiqueta, descripcion_etiqueta, estado_etiqueta. Valores confirmados: Urgencia, Atraso. | nombre_etiqueta |
 | Parametro de estimacion | id_parametro_estimacion, tipo_producto_estimacion, rango_unidades, dias_habiles_estimados, etapa_productiva, usuario_configuracion_estimacion, fecha_hora_configuracion_estimacion | id_parametro_estimacion |
 
@@ -99,8 +117,7 @@
 | rol_usuario | Rol asignado al usuario. |
 | estado_cuenta_usuario | Estado de la cuenta dentro del sistema. |
 | referencia_firma_electronica | Referencia al archivo documental de firma electronica. |
-| id_usuario_autenticacion_externa | Identificador del usuario en el proveedor externo de autenticacion. |
-| cambio_obligatorio_contrasena | Marca de cambio inicial o renovacion de credencial administrada fuera de la base local. |
+| auth0_user_id | Identificador del usuario en el proveedor externo de autenticacion. |
 
 #### Pedido
 
@@ -160,20 +177,21 @@
 
 | Atributo | Descripcion |
 |---|---|
-| codigo_op | Codigo unico de Orden de Produccion. |
+| codigo_op | Codigo externo de Orden de Produccion registrado en Manager. |
+| id_produccion | Identificador conceptual interno de la produccion. |
 | pedido_asociado | Pedido al que pertenece la produccion. |
 | estado_kanban_actual | Estado Kanban vigente de la produccion. |
 | capacidad_produccion | Capacidad que registra o consume la produccion. |
 | fecha_estimada_termino | Fecha estimada de termino de la produccion. |
-| ficha_cliente_asociada | Ficha de cliente vinculada a la produccion. |
+| ficha_cliente_asociada | Ficha de produccion vinculada como documento o como estructura de datos segun version del modelo. |
 | usuario_registro_produccion | Usuario que registra la produccion. |
 
 #### Ficha de cliente
 
 | Atributo | Descripcion |
 |---|---|
-| id_ficha_cliente | Identificador de la ficha de cliente. |
-| produccion_asociada | Produccion a la que pertenece la ficha. |
+| id_ficha_cliente | Identificador conceptual de la ficha de produccion cuando se modele de forma estructurada. |
+| produccion_asociada | Produccion a la que pertenece la ficha o documento de ficha. |
 | tipo_ficha_cliente | Tipo de ficha segun familia productiva. |
 | estado_completitud_ficha | Estado de completitud de la ficha. |
 | fecha_creacion_ficha | Fecha de creacion de la ficha. |
@@ -359,7 +377,7 @@
 | Produccion tiene Estado Kanban | Produccion | Estado Kanban | N:1 | Total en Produccion | Relacion con catalogo |
 | Produccion registra Registro de etapa Kanban | Produccion | Registro de etapa Kanban | 1:N | Total en Registro de etapa Kanban; parcial en Produccion | Relacion de historial |
 | Estado Kanban participa en Registro de etapa Kanban | Estado Kanban | Registro de etapa Kanban | 1:N | Total en Registro de etapa Kanban; parcial en Estado Kanban | Relacion de historial |
-| Produccion contiene Subproceso de produccion | Produccion | Subproceso de produccion | 1:N | Total en Produccion en etapa productiva; parcial en Subproceso | Relacion simple |
+| Produccion usa Subproceso de produccion | Produccion | Subproceso de produccion | N:M | Total en Produccion en etapa productiva; parcial en Subproceso | Relacion de configuracion productiva |
 | Produccion registra Avance de subproceso | Produccion | Avance de subproceso | 1:N | Total en Avance de subproceso; parcial en Produccion | Relacion de historial |
 | Subproceso de produccion participa en Avance de subproceso | Subproceso de produccion | Avance de subproceso | 1:N | Total en Avance de subproceso; parcial en Subproceso | Relacion de historial |
 | Ficha de cliente participa en Avance de subproceso | Ficha de cliente | Avance de subproceso | 1:N | Condicional segun tipo de produccion | Relacion de historial |
@@ -395,14 +413,14 @@
 | Autenticacion externa | El sistema se vincula con un proveedor externo mediante identificador de autenticacion y no almacena contrasenas locales. | Usuario |
 | Pedido desde Nota de Venta | Cada pedido se crea desde una Nota de Venta y queda asociado al usuario de Ventas que lo registra. | Pedido, Nota de Venta, Usuario |
 | Nota de Venta con detalle | Una Nota de Venta puede contener uno o varios detalles con producto, cantidades, familia productiva, subfamilia, accesorios y datos de fabricacion. | Nota de Venta, Detalle de Nota de Venta |
-| Pedido con una o varias producciones | Un pedido puede agrupar una o varias producciones asociadas por `codigo_op`. | Pedido, Produccion |
-| Produccion como eje operativo | La produccion concentra OP, estado Kanban, capacidad, fecha estimada, ficha y avances productivos. | Produccion, Estado Kanban, Capacidad, Ficha de cliente |
-| Ficha por produccion | La ficha de cliente se adjunta al generar la produccion y se completa durante los subprocesos. | Produccion, Ficha de cliente, Archivo documental |
+| Pedido con una o varias producciones | Un pedido puede agrupar una o varias producciones independientes. | Pedido, Produccion |
+| Produccion como eje operativo | La produccion concentra identificador interno, codigo OP externo, estado Kanban, capacidad, fecha estimada, ficha y avances productivos. | Produccion, Estado Kanban, Capacidad, Ficha de cliente |
+| Ficha por produccion | La ficha de produccion se representa como documento adjunto en v1 y puede estructurarse como datos en versiones posteriores. | Produccion, Ficha de cliente, Archivo documental |
 | Estado de pago en Pedido | El estado de pago vigente pertenece al pedido y su historial se registra mediante Registro de pago. | Pedido, Estado de pago, Registro de pago |
 | Pago confirmado habilita produccion | Al confirmar pago, el pedido queda habilitado para generar produccion y avanzar en el flujo. | Pedido, Estado de pago, Produccion, Registro de pago |
 | Kanban en Produccion | El flujo Kanban representa el avance de cada produccion desde confirmacion de pago hasta listo para entrega. | Produccion, Estado Kanban, Registro de etapa Kanban |
-| Subprocesos por familia productiva | Lanyard considera impresion, sublimacion, corte, costura y armado. Tarjeta considera revisar informacion, ordenar informacion, cargar datos y armado. | Produccion, Subproceso de produccion, Avance de subproceso |
-| Accesorios en armado | Los accesorios se registran en el detalle de la Nota de Venta y se consideran dentro del armado de la produccion principal. | Detalle de Nota de Venta, Produccion, Subproceso de produccion |
+| Subprocesos por familia productiva | En v1, Lanyard considera impresion, sublimacion, corte y costura; Tarjeta considera revisar informacion, ordenar informacion y cargar datos. Otros subprocesos pueden incorporarse en versiones posteriores. | Produccion, Subproceso de produccion, Avance de subproceso |
+| Accesorios como insumos | Los accesorios se registran en el detalle de la Nota de Venta y se tratan como datos de fabricacion o insumos asociados. | Detalle de Nota de Venta, Produccion, Subproceso de produccion |
 | Capacidad por Produccion | Cada produccion registra o consume capacidad propia; la capacidad total del pedido se calcula desde sus producciones. | Pedido, Produccion, Capacidad |
 | Sobrecarga | Existe sobrecarga cuando la capacidad utilizada es igual o superior al 90% de la capacidad maxima diaria. | Capacidad, Produccion, Evento de trazabilidad |
 | Estimacion de termino | La fecha estimada de termino se calcula desde el tipo productivo, cantidad y parametro de estimacion aplicable. | Produccion, Detalle de Nota de Venta, Parametro de estimacion |
