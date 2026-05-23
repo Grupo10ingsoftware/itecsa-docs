@@ -6,7 +6,7 @@ Este documento transforma `MR_final_v1.md` en un modelo fisico v1 para la base d
 
 El modelo fisico se orienta al stack definido para el proyecto: Node.js, Express, Prisma ORM, MySQL, Auth0 como proveedor externo de identidad y repositorio persistente de archivos para documentos.
 
-Este documento no crea `schema.prisma`, migraciones ni scripts de base de datos. Su objetivo es dejar definidas las tablas, columnas, tipos sugeridos, nulabilidad, claves, unicidades, indices, reglas referenciales y seeds iniciales.
+Este documento no crea `schema.prisma`, migraciones ni scripts de base de datos. Su objetivo es dejar definidas las tablas, columnas, tipos sugeridos, nulabilidad, claves, unicidades, indices, reglas referenciales, dominios controlados y seeds iniciales.
 
 ## 2. Criterios fisicos generales
 
@@ -19,23 +19,45 @@ Este documento no crea `schema.prisma`, migraciones ni scripts de base de datos.
 | Correo | `correo_usuario` es unico, pero no es clave primaria |
 | Nota de Venta | `numero_nota_venta` identifica fisicamente la NotaVenta importada |
 | Pedido | `numero_nota_venta` en Pedido es FK unica |
+| Estado de pago vigente | `Pedido.id_estado_pago_actual` referencia a `EstadoPago` |
+| Estado Kanban vigente | `Produccion.id_estado_kanban_actual` referencia a `EstadoKanban` |
 | Codigo OP | `codigo_op` es nullable al inicio y unico cuando exista |
 | Archivos | MySQL guarda metadata y ruta; los binarios quedan fuera de MySQL |
 | Fechas | Las fechas de eventos internos deben registrarse desde servidor |
 | Snapshots | Datos de Manager se almacenan como copia operativa para trazabilidad |
 
-## 3. Convenciones de tipos
+## 3. Convenciones de tipos y dominios
+
+### 3.1 Tipos sugeridos
 
 | Tipo sugerido | Uso |
 |---|---|
-| Int | Identificadores internos autogenerados, ordenes y cantidades enteras |
+| Int | Identificadores internos autogenerados y campos de orden |
 | String | Codigos, nombres, estados cortos, rutas y referencias externas |
 | Text | Observaciones, comentarios y datos documentales extensos |
 | DateTime | Fechas y horas de eventos o importaciones |
 | Boolean | Banderas logicas |
-| Decimal | Cantidades que puedan requerir precision decimal |
+| Decimal(12,2) | Cantidades que puedan requerir precision decimal |
 
 Nota para Prisma: los campos textuales extensos deben representarse como `String` con tipo nativo de texto en MySQL cuando corresponda. La palabra `Text` en este documento indica intencion fisica de almacenamiento textual amplio.
+
+### 3.2 Dominios controlados sugeridos
+
+Estos valores pueden implementarse como `enum` en Prisma o como constantes validadas por backend.
+
+| Campo | Valores permitidos v1 |
+|---|---|
+| `Usuario.estado_cuenta_usuario` | Activa, Inactiva, Bloqueada |
+| `Pedido.prioridad_pedido` | Baja, Normal, Alta, Urgente |
+| `Pedido.estado_pedido` | Abierto, Cerrado, Cancelado |
+| `Produccion.estado_documental` | Pendiente, Incompleto, Completo, Observado |
+| `ArchivoDocumental.estado_archivo` | Activo, Reemplazado, EliminadoLogico |
+| `AvanceSubproceso.estado_avance` | Pendiente, En curso, Completado, Bloqueado |
+| `ArchivoDocumental.tipo_archivo` | NV_PDF, OP_ADJUNTA, FICHA_PRODUCCION, DISENO, FIRMA_USUARIO, OTRO_ADJUNTO |
+
+`estado_pedido` representa la vigencia operativa general del Pedido. No reemplaza `id_estado_pago_actual` ni resume el avance Kanban de sus Producciones.
+
+`estado_catalogo` representa si un valor de catalogo esta disponible para uso operativo. No representa el estado de pago de un Pedido ni el estado Kanban de una Produccion.
 
 ## 4. Tablas fisicas
 
@@ -43,14 +65,10 @@ Nota para Prisma: los campos textuales extensos deben representarse como `String
 
 | Columna | Tipo sugerido | Nulo | Clave/Restriccion | Comentario |
 |---|---|---:|---|---|
-| id_rol | Int | No | PK | Identificador interno autogenerado. |
+| id_rol | Int | No | PK, AUTOINCREMENT | Identificador interno autogenerado. |
 | nombre_rol | String | No | UNIQUE | Nombre funcional del rol. |
 | descripcion_rol | Text | Si |  | Descripcion del rol. |
-| estado_rol | Boolean | No | INDEX | Indica si el rol esta activo. |
-
-Indices:
-
-- `idx_rol_estado_rol` sobre `estado_rol`.
+| estado_rol | Boolean | No |  | Indica si el rol esta activo. |
 
 ### 4.2 Usuario
 
@@ -62,7 +80,7 @@ Indices:
 | apellido_usuario | String | No |  | Apellido del usuario. |
 | correo_usuario | String | No | UNIQUE | Correo de contacto/acceso; no es PK. |
 | estado_cuenta_usuario | String | No | INDEX | Estado operativo de la cuenta. |
-| referencia_firma_electronica | Int | Si | FK | Referencia a archivo de firma, si existe. |
+| referencia_firma_electronica | Int | Si | FK | Referencia a archivo documental de firma, si existe. |
 | fecha_creacion | DateTime | No |  | Fecha de creacion interna. |
 | fecha_ultimo_acceso | DateTime | Si |  | Ultimo acceso conocido. |
 | id_rol | Int | No | FK, INDEX | Rol interno del usuario. |
@@ -75,7 +93,8 @@ Relaciones:
 Reglas referenciales:
 
 - Si un rol esta asociado a usuarios, no debe eliminarse fisicamente.
-- Si el archivo de firma se elimina logicamente, `referencia_firma_electronica` puede quedar nula.
+- Si un usuario tiene registros operativos o historicos, no debe eliminarse fisicamente.
+- Si la firma no existe o no aplica, `referencia_firma_electronica` queda nula.
 
 Indices:
 
@@ -86,7 +105,7 @@ Indices:
 
 | Columna | Tipo sugerido | Nulo | Clave/Restriccion | Comentario |
 |---|---|---:|---|---|
-| numero_nota_venta | String | No | PK, UNIQUE | Numero de Nota de Venta importado desde Manager. |
+| numero_nota_venta | String | No | PK | Numero de Nota de Venta importado desde Manager. |
 | estado_manager | String | Si | INDEX | Estado importado desde Manager. |
 | aprobada_manager | Boolean | Si | INDEX | Indicador de aprobacion importado. |
 | fecha_nota_venta | DateTime | Si | INDEX | Fecha de la Nota de Venta. |
@@ -116,13 +135,13 @@ Indices:
 
 | Columna | Tipo sugerido | Nulo | Clave/Restriccion | Comentario |
 |---|---|---:|---|---|
-| id_detalle_nota_venta | Int | No | PK | Identificador interno autogenerado. |
+| id_detalle_nota_venta | Int | No | PK, AUTOINCREMENT | Identificador interno autogenerado. |
 | numero_nota_venta | String | No | FK, INDEX | NotaVenta a la que pertenece el detalle. |
 | codigo_producto | String | Si | INDEX | Codigo de producto importado. |
 | descripcion_producto | String | Si |  | Descripcion de producto importada. |
-| cantidad_solicitada | Decimal | Si |  | Cantidad solicitada. |
-| cantidad_despachada | Decimal | Si |  | Cantidad despachada. |
-| cantidad_pendiente | Decimal | Si |  | Cantidad pendiente. |
+| cantidad_solicitada | Decimal(12,2) | Si |  | Cantidad solicitada. |
+| cantidad_despachada | Decimal(12,2) | Si |  | Cantidad despachada. |
+| cantidad_pendiente | Decimal(12,2) | Si |  | Cantidad pendiente. |
 | superfamilia_producto | String | Si | INDEX | Superfamilia importada. |
 | familia_producto | String | Si | INDEX | Familia importada. |
 | subfamilia_producto | String | Si | INDEX | Subfamilia importada. |
@@ -149,27 +168,29 @@ Indices:
 
 | Columna | Tipo sugerido | Nulo | Clave/Restriccion | Comentario |
 |---|---|---:|---|---|
-| id_estado_pago | Int | No | PK | Identificador interno autogenerado. |
+| id_estado_pago | Int | No | PK, AUTOINCREMENT | Identificador interno autogenerado. |
 | nombre_estado_pago | String | No | UNIQUE | Nombre del estado de pago. |
-| habilita_produccion | Boolean | No | INDEX | Indica si permite avanzar al flujo productivo. |
-| orden_estado_pago | Int | No | UNIQUE | Orden visual o logico del estado. |
-| estado_catalogo | Boolean | No | INDEX | Indica si el valor esta activo. |
+| habilita_produccion | Boolean | No |  | Indica si permite avanzar al flujo productivo. |
+| orden_estado_pago | Int | No | UNIQUE | Orden visual o logico del estado dentro del catalogo. |
+| estado_catalogo | Boolean | No |  | Indica si el valor del catalogo esta activo para uso operativo. |
 
-Indices:
+Reglas:
 
-- `idx_estado_pago_estado_catalogo` sobre `estado_catalogo`.
+- `orden_estado_pago` no representa orden de produccion ni prioridad de pedido.
+- `estado_catalogo = false` desactiva el valor para nuevas operaciones sin eliminarlo fisicamente.
+- El estado de pago vigente de un Pedido se registra en `Pedido.id_estado_pago_actual`.
 
 ### 4.6 Pedido
 
 | Columna | Tipo sugerido | Nulo | Clave/Restriccion | Comentario |
 |---|---|---:|---|---|
-| id_pedido | Int | No | PK | Identificador interno autogenerado. |
+| id_pedido | Int | No | PK, AUTOINCREMENT | Identificador interno autogenerado. |
 | numero_nota_venta | String | No | FK, UNIQUE | NotaVenta origen del Pedido. |
 | rut_usuario_ventas | String | No | FK, INDEX | Usuario de ventas que crea o registra el Pedido. |
 | id_estado_pago_actual | Int | No | FK, INDEX | Estado de pago vigente. |
 | fecha_hora_creacion | DateTime | No | INDEX | Fecha de creacion del Pedido. |
 | prioridad_pedido | String | Si | INDEX | Prioridad operativa. |
-| estado_pedido | String | No | INDEX | Estado general del Pedido. |
+| estado_pedido | String | No | INDEX | Vigencia operativa general del Pedido. |
 | fecha_hora_ultima_actualizacion | DateTime | No |  | Ultima actualizacion operacional. |
 
 Relaciones:
@@ -184,6 +205,12 @@ Reglas referenciales:
 - No eliminar fisicamente un Pedido si tiene Producciones, historiales o archivos asociados.
 - Si un Usuario queda inactivo, sus Pedidos se conservan.
 
+Reglas de negocio:
+
+- Una NotaVenta puede originar un unico Pedido en v1.
+- `estado_pedido` no reemplaza `id_estado_pago_actual`.
+- Los cambios de pago se registran en `RegistroPago`.
+
 Indices:
 
 - `idx_pedido_estado_pago_actual` sobre `id_estado_pago_actual`.
@@ -195,20 +222,22 @@ Indices:
 
 | Columna | Tipo sugerido | Nulo | Clave/Restriccion | Comentario |
 |---|---|---:|---|---|
-| id_estado_kanban | Int | No | PK | Identificador interno autogenerado. |
+| id_estado_kanban | Int | No | PK, AUTOINCREMENT | Identificador interno autogenerado. |
 | nombre_estado_kanban | String | No | UNIQUE | Nombre del estado Kanban. |
 | orden_estado_kanban | Int | No | UNIQUE | Orden visual del tablero. |
-| estado_catalogo | Boolean | No | INDEX | Indica si el valor esta activo. |
+| estado_catalogo | Boolean | No |  | Indica si el valor del catalogo esta activo para uso operativo. |
 
-Indices:
+Reglas:
 
-- `idx_estado_kanban_estado_catalogo` sobre `estado_catalogo`.
+- `orden_estado_kanban` define el orden de columnas del tablero.
+- `estado_catalogo = false` desactiva el valor para nuevas operaciones sin eliminarlo fisicamente.
+- El estado Kanban vigente de una Produccion se registra en `Produccion.id_estado_kanban_actual`.
 
 ### 4.8 Produccion
 
 | Columna | Tipo sugerido | Nulo | Clave/Restriccion | Comentario |
 |---|---|---:|---|---|
-| id_produccion | Int | No | PK | Identificador interno autogenerado. |
+| id_produccion | Int | No | PK, AUTOINCREMENT | Identificador interno autogenerado. |
 | id_pedido | Int | No | FK, INDEX | Pedido al que pertenece la Produccion. |
 | codigo_op | String | Si | UNIQUE | Codigo externo de produccion registrado en Manager. |
 | id_estado_kanban_actual | Int | No | FK, INDEX | Estado Kanban vigente. |
@@ -217,27 +246,32 @@ Indices:
 | subfamilia_producto | String | Si | INDEX | Subfamilia de producto como snapshot operativo. |
 | codigo_producto_referencia | String | Si | INDEX | Codigo de producto de referencia. |
 | descripcion_producto_referencia | String | Si |  | Descripcion de producto de referencia. |
-| cantidad_planificada | Decimal | Si |  | Cantidad planificada para la produccion. |
+| cantidad_planificada | Decimal(12,2) | Si |  | Cantidad planificada para la produccion. |
 | datos_para_fabricacion | Text | Si |  | Datos operativos no estructurados en v1. |
 | responsable_actual | String | Si | FK, INDEX | Usuario responsable actual, si aplica. |
 | fecha_estimada_termino | DateTime | Si | INDEX | Fecha estimada de termino. |
 | fecha_hora_creacion | DateTime | No | INDEX | Fecha de creacion de la Produccion. |
 | fecha_hora_inicio_produccion | DateTime | Si |  | Inicio real productivo. |
 | fecha_hora_termino_produccion | DateTime | Si |  | Termino real productivo. |
-| estado_documental | String | No | INDEX | Estado de documentos requeridos. |
+| estado_documental | String | No | INDEX | Estado de documentos requeridos para la Produccion. |
 
 Relaciones:
 
 - `id_pedido` referencia a `Pedido(id_pedido)`.
 - `id_estado_kanban_actual` referencia a `EstadoKanban(id_estado_kanban)`.
-- `responsable_actual` referencia a `Usuario(rut_usuario)`.
+- `responsable_actual` referencia a `Usuario(rut_usuario)` cuando exista responsable asignado.
 
 Reglas referenciales:
 
 - No eliminar fisicamente un Pedido si tiene Producciones asociadas.
 - Si un Usuario responsable queda inactivo, la Produccion se conserva.
+- `responsable_actual` puede quedar nulo cuando no exista responsable asignado.
+
+Reglas de negocio:
+
 - `codigo_op` puede ser nulo antes del inicio productivo.
 - Para pasar a estado `En produccion`, `codigo_op` debe tener valor.
+- Los datos de producto en Produccion son snapshot operativo, no catalogo maestro.
 
 Indices:
 
@@ -252,7 +286,7 @@ Indices:
 
 | Columna | Tipo sugerido | Nulo | Clave/Restriccion | Comentario |
 |---|---|---:|---|---|
-| id_registro_pago | Int | No | PK | Identificador interno autogenerado. |
+| id_registro_pago | Int | No | PK, AUTOINCREMENT | Identificador interno autogenerado. |
 | id_pedido | Int | No | FK, INDEX | Pedido asociado al cambio de pago. |
 | id_estado_pago_anterior | Int | Si | FK, INDEX | Estado anterior, si existia. |
 | id_estado_pago_nuevo | Int | No | FK, INDEX | Estado nuevo registrado. |
@@ -264,15 +298,16 @@ Indices:
 Relaciones:
 
 - `id_pedido` referencia a `Pedido(id_pedido)`.
-- `id_estado_pago_anterior` referencia a `EstadoPago(id_estado_pago)`.
+- `id_estado_pago_anterior` referencia a `EstadoPago(id_estado_pago)` cuando exista estado anterior.
 - `id_estado_pago_nuevo` referencia a `EstadoPago(id_estado_pago)`.
 - `rut_usuario_responsable` referencia a `Usuario(rut_usuario)`.
-- `referencia_firma_documental` referencia a `ArchivoDocumental(id_archivo_documental)`.
+- `referencia_firma_documental` referencia a `ArchivoDocumental(id_archivo_documental)` cuando exista documento firmado.
 
 Reglas referenciales:
 
 - Los registros historicos no deben eliminarse fisicamente.
 - Si un usuario queda inactivo, el historial se conserva.
+- `id_estado_pago_anterior` puede ser nulo solo para el primer registro historico del Pedido.
 
 Indices:
 
@@ -283,7 +318,7 @@ Indices:
 
 | Columna | Tipo sugerido | Nulo | Clave/Restriccion | Comentario |
 |---|---|---:|---|---|
-| id_registro_etapa_kanban | Int | No | PK | Identificador interno autogenerado. |
+| id_registro_etapa_kanban | Int | No | PK, AUTOINCREMENT | Identificador interno autogenerado. |
 | id_produccion | Int | No | FK, INDEX | Produccion asociada al cambio. |
 | id_estado_kanban_anterior | Int | Si | FK, INDEX | Estado anterior, si existia. |
 | id_estado_kanban_nuevo | Int | No | FK, INDEX | Estado nuevo registrado. |
@@ -294,13 +329,14 @@ Indices:
 Relaciones:
 
 - `id_produccion` referencia a `Produccion(id_produccion)`.
-- `id_estado_kanban_anterior` referencia a `EstadoKanban(id_estado_kanban)`.
+- `id_estado_kanban_anterior` referencia a `EstadoKanban(id_estado_kanban)` cuando exista estado anterior.
 - `id_estado_kanban_nuevo` referencia a `EstadoKanban(id_estado_kanban)`.
 - `rut_usuario_responsable` referencia a `Usuario(rut_usuario)`.
 
 Reglas referenciales:
 
 - Los registros historicos no deben eliminarse fisicamente.
+- `id_estado_kanban_anterior` puede ser nulo solo para el primer registro historico de la Produccion.
 
 Indices:
 
@@ -311,27 +347,31 @@ Indices:
 
 | Columna | Tipo sugerido | Nulo | Clave/Restriccion | Comentario |
 |---|---|---:|---|---|
-| id_subproceso_produccion | Int | No | PK | Identificador interno autogenerado. |
+| id_subproceso_produccion | Int | No | PK, AUTOINCREMENT | Identificador interno autogenerado. |
 | tipo_producto | String | No | INDEX | Tipo productivo al que aplica. |
 | nombre_subproceso | String | No |  | Nombre del subproceso. |
 | orden_subproceso | Int | No | INDEX | Orden del subproceso para el tipo productivo. |
-| estado_catalogo | Boolean | No | INDEX | Indica si el subproceso esta activo. |
+| estado_catalogo | Boolean | No |  | Indica si el subproceso esta activo para uso operativo. |
 
 Unicidades:
 
 - `tipo_producto`, `nombre_subproceso`.
 - `tipo_producto`, `orden_subproceso`.
 
+Reglas:
+
+- `estado_catalogo = false` desactiva el subproceso para nuevas operaciones sin eliminarlo fisicamente.
+- `orden_subproceso` ordena los subprocesos dentro de cada `tipo_producto`.
+
 Indices:
 
 - `idx_subproceso_tipo_producto` sobre `tipo_producto`.
-- `idx_subproceso_estado_catalogo` sobre `estado_catalogo`.
 
 ### 4.12 AvanceSubproceso
 
 | Columna | Tipo sugerido | Nulo | Clave/Restriccion | Comentario |
 |---|---|---:|---|---|
-| id_avance_subproceso | Int | No | PK | Identificador interno autogenerado. |
+| id_avance_subproceso | Int | No | PK, AUTOINCREMENT | Identificador interno autogenerado. |
 | id_produccion | Int | No | FK, INDEX | Produccion asociada. |
 | id_subproceso_produccion | Int | No | FK, INDEX | Subproceso asociado. |
 | rut_usuario_responsable | String | No | FK, INDEX | Usuario que registra el avance. |
@@ -345,7 +385,7 @@ Relaciones:
 - `id_produccion` referencia a `Produccion(id_produccion)`.
 - `id_subproceso_produccion` referencia a `SubprocesoProduccion(id_subproceso_produccion)`.
 - `rut_usuario_responsable` referencia a `Usuario(rut_usuario)`.
-- `referencia_firma_documental` referencia a `ArchivoDocumental(id_archivo_documental)`.
+- `referencia_firma_documental` referencia a `ArchivoDocumental(id_archivo_documental)` cuando exista documento firmado.
 
 Reglas referenciales:
 
@@ -362,7 +402,7 @@ Indices:
 
 | Columna | Tipo sugerido | Nulo | Clave/Restriccion | Comentario |
 |---|---|---:|---|---|
-| id_archivo_documental | Int | No | PK | Identificador interno autogenerado. |
+| id_archivo_documental | Int | No | PK, AUTOINCREMENT | Identificador interno autogenerado. |
 | tipo_archivo | String | No | INDEX | Tipo documental. |
 | nombre_archivo | String | No |  | Nombre original o asignado. |
 | formato_archivo | String | No | INDEX | Extension o formato del archivo. |
@@ -371,21 +411,22 @@ Indices:
 | id_produccion | Int | Si | FK, INDEX | Produccion asociada, si corresponde. |
 | rut_usuario_carga | String | No | FK, INDEX | Usuario que carga el archivo. |
 | fecha_hora_carga | DateTime | No | INDEX | Fecha y hora de carga. |
-| estado_archivo | String | No | INDEX | Estado documental. |
+| estado_archivo | String | No | INDEX | Estado documental del archivo. |
 | version_archivo | Int | No |  | Version del documento. |
 | observacion_archivo | Text | Si |  | Observacion documental. |
 
 Relaciones:
 
-- `id_pedido` referencia a `Pedido(id_pedido)`.
-- `id_produccion` referencia a `Produccion(id_produccion)`.
+- `id_pedido` referencia a `Pedido(id_pedido)` cuando el documento pertenece al Pedido.
+- `id_produccion` referencia a `Produccion(id_produccion)` cuando el documento pertenece a una Produccion.
 - `rut_usuario_carga` referencia a `Usuario(rut_usuario)`.
 
 Reglas referenciales:
 
-- El archivo debe tener al menos un contexto documental cuando aplique: Pedido o Produccion.
 - El contenido binario no se almacena en MySQL.
 - La ruta debe apuntar al repositorio persistente de archivos.
+- Un archivo puede estar asociado directamente a Pedido, Produccion o ser usado como referencia documental desde otra tabla.
+- Las firmas de usuario pueden registrarse como `ArchivoDocumental` y ser referenciadas desde `Usuario.referencia_firma_electronica`.
 - Si un Pedido o Produccion conserva documentos, no debe eliminarse fisicamente.
 
 Indices:
@@ -405,8 +446,20 @@ Indices:
 | NotaVenta con Pedido o detalles | Restringir eliminacion fisica. |
 | Pedido con Producciones, historiales o archivos | Restringir eliminacion fisica. |
 | Produccion con historiales, avances o archivos | Restringir eliminacion fisica. |
+| Registros historicos | No eliminar fisicamente en operacion normal. |
 | Referencias documentales opcionales | Permitir nulo cuando el documento no exista o no aplique. |
 | Estados anteriores en historiales | Permitir nulo para el primer registro historico. |
+
+### 5.1 Acciones referenciales recomendadas para Prisma
+
+| Tipo de relacion | `onDelete` recomendado | `onUpdate` recomendado |
+|---|---|---|
+| FK obligatoria hacia catalogo | Restrict | Cascade |
+| FK obligatoria hacia entidad operativa | Restrict | Cascade |
+| FK historica hacia Usuario, EstadoPago o EstadoKanban | Restrict | Cascade |
+| FK opcional de estado anterior | Restrict | Cascade |
+| FK opcional documental | SetNull | Cascade |
+| FK opcional de responsable actual | SetNull | Cascade |
 
 ## 6. Seeds iniciales
 
@@ -449,6 +502,17 @@ Indices:
 | Tarjeta | Ordenar informacion | 2 | true |
 | Tarjeta | Cargar datos | 3 | true |
 
+### 6.5 Valores iniciales sugeridos
+
+| Campo | Valor inicial recomendado |
+|---|---|
+| `Usuario.estado_cuenta_usuario` | Activa |
+| `Pedido.prioridad_pedido` | Normal |
+| `Pedido.estado_pedido` | Abierto |
+| `Produccion.estado_documental` | Pendiente |
+| `ArchivoDocumental.estado_archivo` | Activo |
+| `AvanceSubproceso.estado_avance` | Pendiente |
+
 ## 7. Validaciones de negocio que no dependen solo de la base
 
 | Regla | Lugar recomendado |
@@ -460,6 +524,9 @@ Indices:
 | Guardar archivo fisico y metadata en una operacion consistente | Servicio backend |
 | Crear historiales sin sobrescribir eventos anteriores | Servicio backend |
 | Derivar Producciones desde detalles de NotaVenta | Servicio backend |
+| Validar dominios controlados cuando se implementen como `String` | Servicio backend |
+| Evitar uso operativo de catalogos con `estado_catalogo = false` | Servicio backend |
+| Mantener sincronizado el estado vigente con su registro historico correspondiente | Servicio backend |
 
 ## 8. Verificacion del modelo fisico
 
@@ -473,10 +540,13 @@ Indices:
 | `NotaVenta.numero_nota_venta` identifica fisicamente la NotaVenta | Cumple |
 | `Pedido.numero_nota_venta` es FK unica | Cumple |
 | `Produccion.codigo_op` es nullable y unico cuando exista | Cumple |
+| `Pedido.id_estado_pago_actual` conserva el estado de pago vigente | Cumple |
+| `Produccion.id_estado_kanban_actual` conserva el estado Kanban vigente | Cumple |
+| Los historiales no reemplazan estados vigentes | Cumple |
 | ArchivoDocumental guarda metadata y ruta, no binarios | Cumple |
 | Incluye seeds de roles, estados de pago, estados Kanban y subprocesos | Cumple |
 | No se crea `schema.prisma` ni migraciones | Cumple |
 
 ## 9. Siguiente artefacto
 
-El siguiente paso es crear `schema.prisma` a partir de este modelo fisico, definiendo modelos, relaciones, atributos de unicidad, indices, tipos nativos necesarios y seeds iniciales.
+El siguiente paso es crear `schema.prisma` a partir de este modelo fisico, definiendo modelos, relaciones, atributos de unicidad, indices, tipos nativos necesarios, acciones referenciales y seeds iniciales.
