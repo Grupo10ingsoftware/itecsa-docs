@@ -10,6 +10,7 @@ ehthumbs.db
 # Generic temporary files
 *.tmp
 *.temp
+docs.zip
 
 # Python cache
 __pycache__/
