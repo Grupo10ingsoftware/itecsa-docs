@@ -434,411 +434,324 @@ Recuerden que hay un estilo para las figuras para que tengan en cuenta cuando es
 
 “””
 
+Tabla 4.1: “Validando unicidad de nota de venta”
+
 ### Table 6
 
-| Caso de uso N°1 | Ingresando credenciales de inicio de sesión |
+| Nombre | Iniciando sesión mediante formulario de autenticación 01 |
 | --- | --- |
-| Actores | Usuario de cualquier rol |
-| Propósito | La autenticación de los usuarios mediante el ingreso de correo y contraseña en el formulario |
-| Precondiciones | El usuario debe tener una cuenta previamente registrada <br> El estado de la cuenta debe ser ‘Vinculado’ |
-| Resumen | El Usuario ingresa su correo y contraseña en el formulario de ingreso, para posteriormente el sistema valide ambos campos antes de procesar el envío |
-| Postcondiciones | El usuario está correctamente autenticado |
-| Tipos | Principal |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario accede a la pantalla de inicio de sesión | 2. El sistema muestra el formulario con los campos ‘Correo electrónico’ y ‘Contraseña’ |
-| 3. El usuario ingresa su correo electrónico y contraseña | 4. El sistema valida que el correo cumpla el formato texto@dominio.extension y la contraseña cumpla: mínimo 8 caracteres, al menos una letra mayúscula, al menos una letra minúscula, al menos un número, al menos un símbolo especial |
-| 5. El usuario envía el formulario | 6. El sistema procesa las credenciales y continúa con la autenticación |
+| Actores | Usuarios de cualquier rol. |
+| Resumen | El usuario ingresa sus credenciales en el formulario de autenticación, para ingresar al sistema. |
+| Frecuencia | Alta. Cada vez que un usuario desee iniciar sesión en el sistema. |
+| Precondiciones | Un usuario de cualquier rol con cuenta válida y estado vinculado. |
+| Descripción | Un usuario desea ingresar al sistema, por lo que agrega sus datos al formulario de autenticación, el sistema recibe los datos y valida los campos ingresados. [Excepción 1] [Excepción 2]. |
+| Excepciones | Excepción 1: Las credenciales ingresadas pertenecen a un usuario con cuenta en estado desvinculado. El sistema no permite el acceso al usuario. <br> Excepción 2: El sistema debe mostrar al usuario autorizado el mensaje “Correo o contraseña incorrectos” cuando las credenciales ingresadas sean incorrectas. |
+| Postcondiciones | El usuario es autenticado correctamente |
+| Dependencias | RF02, RF05 |
+
+Tabla 4.2: “Validando unicidad de nota de venta”
 
 ### Table 7
 
-| Caso de uso N° 5 | Visualizando error de autenticación |
+| Nombre | Cambiando la contraseña después del primer ingreso 02 |
 | --- | --- |
-| Actores | Usuario de cualquier rol |
-| Propósito | Notificar al usuario un error a la hora de ingresar: <br> Correo inexistente en la base de datos <br> Contraseña incorrecta para el correo registrado |
-| Precondiciones | El usuario debe estar registrado previamente en el sistema |
-| Resumen | Al enviar un formulario de inicio de sesión con correo o contraseña incorrecta, el sistema va a notificar mostrando el mensaje ‘Correo o contraseña incorrecta’ |
-| Postcondiciones | El usuario es notificado de que las credenciales ingresadas son incorrectas y permanece en la pantalla de inicio de sesión con la posibilidad de reintentar |
-| Tipos | Secundario. |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario envía el formulario de ingreso con su correo y contraseña ingresados. | 2. El sistema valida el formato de los campos. |
-| 3. El usuario espera la respuesta del sistema. | 4. El sistema no encuentra coincidencia debido a un correo ingresado inexistente o una contraseña ingresada incorrecta, mostrando el mensaje ‘Correo o contraseña incorrecta’. |
-| 5. El usuario visualiza el mensaje de error. | 6. El sistema mantiene el formulario disponible para nuevo intento. |
+| Actores | Usuario de cualquier rol con cuenta en estado vinculado. |
+| Resumen | El sistema obligará a los usuarios a cambiar su contraseña después del primer inicio de sesión en el sistema. |
+| Frecuencia | Media. Cada vez que un usuario nuevo inicie sesión por primera vez. |
+| Precondiciones | El usuario debe tener una cuenta en estado vinculada <br> Es el primer ingreso del usuario al sistema. |
+| Descripción | El usuario ingresa por primera vez al sistema, [Excepción 1]el sistema detecta que es el primer ingreso del usuario y solo le muestra la vista de cambio de contraseña. En dicha vista el usuario debe ingresar una contraseña que cumpla con las condiciones mínimas de formato, el sistema valida que las condiciones se cumplan antes de considerar como valida la nueva contraseña [Excepción 2]. |
+| Excepciones | Excepción 1: Al usuario no se le redirige automáticamente a la vista de cambio de contraseña. <br> Excepción 2: La contraseña ingresada por el usuario no cumple las condiciones mínimas para ser considerada valida, el sistema le avisa por medio de un mensaje “la contraseña no cumple con los requisitos mínimos” |
+| Postcondiciones | El usuario guarda una contraseña validada y segura, asociada a su cuenta. |
+| Dependencias | RF01 |
+
+Tabla 4.3: “Validando unicidad de nota de venta”
 
 ### Table 8
 
-| Caso de uso N° 6 | Consultando matriz de permisos por rol |
+| Nombre | Registrando un nuevo usuario bajo el rol de administrador RF33 |
 | --- | --- |
-| Actores | Administrador |
-| Propósito | Permitir al Administrador revisar los permisos asignados a cada rol del sistema |
-| Precondiciones | El Administrador se encuentra autenticado con estado 'Vinculado'. <br> Los roles del sistema están configurados: Administrador, Gerencia, Operario, Ventas y Cobranzas. |
-| Resumen | El Administrador accede a la sección de gestión de roles y selecciona un rol para revisar los permisos que tiene asociados según la matriz definida en el sistema. |
-| Postcondiciones | El administrador obtiene acceso a la visualización de permisos asociados al rol consultado |
-| Tipos | Principal. |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El Administrador accede a la sección de gestión de roles. | 2. El sistema muestra el listado de roles disponibles: Administrador, Gerencia, Operario, Ventas y Cobranzas. |
-| 3. El Administrador selecciona un rol de la lista. | 4. El sistema despliega los permisos asociados al rol seleccionado según la matriz de permisos definida. |
-| 5. El Administrador revisa los permisos del rol consultado. | 6. El sistema mantiene la información visible mientras el Administrador permanezca en la vista. |
+| Actores | Usuario con rol de Administrador |
+| Resumen | El sistema habilita una interfaz al administrador para que pueda crear usuarios nuevos del sistema. |
+| Frecuencia | Media. Cada vez que el administrador ingrese un nuevo usuario |
+| Precondiciones | Un usuario con rol de administrador con cuenta validada y en estado vinculado |
+| Descripción | El Administrador necesita registrar un nuevo usuario en el sistema, ingresa al módulo de usuario solo visible para su rol, selecciona “Crear usuario”. El sistema detecta la acción y despliega un formulario con los campos que se deben rellenar, Primer nombre, Apellido paterno, Rut, Correo electrónico, Rol, Contraseña, Firma electrónica. El usuario ingresa uno por uno la información en los campos solicitados. El sistema verifica que la información ingresada cumpla con las condiciones mínimas de formato para ser validada. [Excepción 1] |
+| Excepciones | Excepción 1: La información ingresada por el usuario no cumple las condiciones mínimas para ser considerada valida, el sistema le avisa por medio de un mensaje abajo de cada campo mal ingresado. |
+| Postcondiciones | El sistema integra un nuevo usuario a su base de datos. |
+| Dependencias | RF05 |
+
+Tabla 4.4: “Validando unicidad de nota de venta”
 
 ### Table 9
 
-| Caso de uso N° 9 | Visualizando perfil de usuario. |
+| Nombre | Filtrando usuarios por el administrador RF35 |
 | --- | --- |
-| Actores | Usuario de cualquier rol. |
-| Propósito | Permitir al usuario consultar su información de perfil y sus registros recientes según sus permisos. |
-| Precondiciones | -El usuario debe haber iniciado sesión en el sistema. |
-| Resumen | El usuario accede a la sección “Mi perfil”, donde puede visualizar su primer nombre, apellido paterno, correo electrónico y rol. |
-| Postcondiciones | -El usuario visualiza correctamente su información personal y registros recientes. |
-| Tipos | Principal. |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario accede a la opción “Mi perfil”. | 2. El sistema abre la pantalla de perfil del usuario. |
-| 3. El usuario revisa la información mostrada. | 4. El sistema presenta primer nombre, apellido paterno, correo electrónico y rol. |
+| Actores | Usuario con rol de Administrador |
+| Resumen | El sistema habilita una sección (No me gusta la palabra sección, ¿que opinamos?) de filtros en la vista de Gestión de usuario para que el administrador pueda navegar de forma rápida por medio de esta interfaz. |
+| Frecuencia | Alta. Cada vez que el administrador se vea en la necesidad de buscar un usuario en el sistema. |
+| Precondiciones | Un usuario con rol de administrador con cuenta validada y en estado vinculado |
+| Descripción | El Administrador necesita buscar un usuario en el sistema, se dirige a la sección de filtros del sistema, El sistema despliega los filtros que se dividen por estado, “Todos”, “Vinculados”, “Desvinculados” y rol “Todos”, “Administrador”, “Gerencia”, “Operario”, “Ventas”, “Cobranza”. El usuario administrador elige uno de los filtros. El sistema detecta esto y en la lista de usuarios solo muestra aquellos con la característica previamente seleccionada. |
+| Excepciones | Excepción 1: No existen usuarios con las características buscadas, el sistema simplemente no muestra usuarios en la lista. <br> Excepción 2: El sistema no detecta el filtro aplicado y se queda en la lista inicial (jajaja no sé, no se me ocurrió otra wea) |
+| Postcondiciones | El Administrador es capaz de localizar rápidamente al usuario que está buscando. |
+| Dependencias | RF34; RF36 |
+
+Tabla 4.5: “Validando unicidad de nota de venta”
 
 ### Table 10
 
-| Caso de uso N° 10 | Visualizando historial en perfil de usuario. |
+| Nombre | Ingresando a módulo de usuarios |
 | --- | --- |
-| Actores | Usuario de cualquier rol. |
-| Propósito | Permitir al usuario revisar los últimos registros de actividad asociados a su cuenta teniendo en cuenta sus permisos |
-| Precondiciones | El usuario debe encontrarse registrado en el sistema con estado ‘Vinculado’ <br> El usuario se encuentra en la vista ‘Mi perfil’ |
-| Resumen | El usuario accede a la sección “Mi perfil”, donde puede visualizar su historial de actividad mostrando los últimos 10 registros asociados según sus permisos. |
-| Postcondiciones | El usuario visualiza correctamente su actividad en el sistema. |
-| Tipos | Principal. |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario accede a la opción “Mi perfil”. <br> 3. El usuario revisa la información mostrada. <br> 5. El usuario consulta sus registros recientes. | 2. El sistema abre la pantalla de perfil del usuario. <br> 4. El sistema muestra su información de perfil <br> 6. El sistema muestra los últimos 10 registros asociados según sus permisos. |
+| Actores | Administrador |
+| Resumen | El Administrador accede a la sección “Gestión usuarios” para visualizar el listado de usuarios registrados en el sistema. |
+| Frecuencia | Media. Cada vez que el Administrador necesite consultar o gestionar usuarios |
+| Precondiciones | El usuario debe teber rol Administrador <br> El usuario debe estar previamente autenticado |
+| Descripción | El Administrador selecciona la opción “Gestión usuarios” desde el menú del sistema. El sistema valida los permisos del usuario[Excepción 1]. El sistema recupera el listado de usuario registrador y lo muestra en pantalla [Excepción 2] |
+| Excepciones | Excepción 1: El usuario no posee permisos de Administrador. El sistema informa que no tiene autorización y redirige a la vista principal <br> Excepción 2: No existen usuarios registrados para mostrar. El sistema muestra un mensaje indicando que no hay usuarios disponibles. |
+| Postcondiciones | El Administrador visualiza el listado de usuarioss registrados. |
+| Dependencias | RF34: Listado de usuarios registrados. |
 
 ### Table 11
 
-| Caso de uso N° ## | Iniciando sesión de manera exitosa |
+| Nombre | Recuperando contraseña mediante correo electrónico RF06 |
 | --- | --- |
 | Actores | Usuario de cualquier rol |
-| Propósito | Permitir que un usuario registrado acceda al sistema y sea redirigido a la vista principal del tablero Kanban |
-| Precondiciones | El usuario debe estar registrado previamente en el sistema <br> El estado del usuario debe ser “vinculado” <br> El usuario debe encontrarse en la vista de inicio de sesión |
-| Resumen | El usuario envía el formulario de inicio de sesión con sus credenciales. El sistema valida las credenciales y el estado del usuario, iniciando la sesión y mostrando la vista principal del tablero Kanban |
-| Postcondiciones | El usuario queda autenticado en el sistema |
-| Tipos | Principal. |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario envía el formulario de inicio de sesión | 2. El sistema valida que el correo electrónico y la contraseña correspondan a un usuario registrado |
-| 3. El usuario espera el resultado de la autenticación | 4. El sistema verifica que el estado del usuario sea “vinculado” |
-| 5. El usuario accede al sistema autenticado | 6. El sistema inicia la sesión y redirige al usuario hacia la vista principal del tablero Kanban |
+| Resumen | El sistema les permite a los usuarios recuperar su contraseña por medio del correo electrónico. |
+| Frecuencia | Alta. Cada vez que a un usuario se le olvidé su contraseña |
+| Precondiciones | Un usuario de cualquier rol con cuenta validada y en estado vinculado. <br> Un correo de usuario valido. |
+| Descripción | El usuario es incapaz de acceder al sistema porque no escribe bien su contraseña debido a que la olvidó, presiona el botón “Olvide mi contraseña”, el sistema detecta esto y redirige al usuario a un formulario en el que se le solícita su correo. El usuario ingresa su correo en el campo rellenable. El sistema corrobora que el correo ingresado sea válido y corresponda a un usuario del sistema con cuenta vinculada, para proceder a mandar un correo electrónico con el hipervínculo de restablecer contraseña. El usuario recibe el correo electrónico del sistema, hace click en “Confirma”, esto lo redirige a una vista donde debe crear una nueva contraseña que cumpla con las condiciones mínimas de validación, una vez termina presiona el botón “cambiar contraseña”. El sistema detecta la acción y valida que la contraseña cumpla con las condiciones antes de considerar como válida. |
+| Excepciones | Excepción 1: El correo ingresado corresponde a un usuario desvinculado. El sistema le muestra al usuario una alerta que dice “Este correo está asociado a un usuario desvinculado” <br> Excepción 2: El correo ingresado no corresponde al de un usuario del sistema, el sistema le muestra al usuario un mensaje que dice “correo invalido”. <br> Excepción 3: La contraseña ingresada por el usuario no cumple las condiciones mínimas para ser considerada valida, el sistema le avisa por medio de un mensaje “la contraseña no cumple con los requisitos mínimos” |
+| Postcondiciones | El usuario queda con una nueva contraseña funcional. |
+| Dependencias | RF01; RF07 RF06 |
 
 ### Table 12
 
-| Caso de uso N° ## | Registrando usuario con correo anteriormente registrado |
+| Nombre | Cerrando sesión desde cualquier interfaz |
 | --- | --- |
-| Actores | Usuario con rol Administrador |
-| Propósito | Informar al actor que el correo ingresado para el registro de un usuario ha sido registrado anteriormente |
-| Precondiciones | El administrador se encuentra autenticado con rol Administrador y estado “Vinculado”. |
-| Resumen | El administrador intenta registrar un usuario utilizando un correo electrónico existente dentro de la base de datos. El sistema detecta la duplicidad e impide el registro de usuario, notificando la duplicidad del correo |
-| Postcondiciones | El sistema no crea ningún registro nuevo de usuario en la base de datos <br> El sistema mantiene el formulario visible, destacando la necesidad de ingresar otro correo |
-| Tipos | Principal. |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| El usuario accede al módulo de gestión de usuarios | 2. El sistema muestra el formulario de creación de usuario. |
-| 3. El administrador ingresa dentro de los campos solicitados un correo existente en el sistema y envía el formulario | 4. El sistema detecta el correo duplicado y muestra el mensaje “El correo ingresado ya está asociado a una cuenta” |
-| 5. El administrador observa el mensaje en pantalla. | 6. El sistema impide registrar el nuevo usuario. |
+| Actores | Usuarios de cualquier rol |
+| Resumen | El sistema permite a los usuarios cerrar su sesión desde cualquier vista. |
+| Frecuencia | Alta. Cada vez que un usuario quiera salir de su cuenta. |
+| Precondiciones | Un usuario de cualquier rol con cuenta válida y estado vinculado. |
+| Descripción | El usuario quiere salir del sistema por lo que presiona el botón “cerrar sesión”, en la barra de navegación. El sistema detecta la acción y redirige al usuario al a vista de inicio de sesión. |
+| Excepciones | Excepción 1: El botón no redirige al usuario fuera del sistema, por lo que el sistema mantiene al usuario dentro. |
+| Postcondiciones | El usuario es capaz de salir exitosamente del sistema. |
+| Dependencias | RF01 |
 
 ### Table 13
 
-| Caso de uso N°13 | Accediendo a una URL protegida según rol |
+| Nombre | Accediendo a funcionalidades según rol |
 | --- | --- |
-| Actores | Usuario de cualquier rol |
-| Propósito | Permitir que el sistema controle el acceso a una URL protegida verificando si el rol del usuario autenticado posee permisos para acceder al recurso solicitado. |
-| Precondiciones | El usuario debe encontrarse autenticado en el sistema. La cuenta del usuario debe estar en estado “Vinculado”. La URL solicitada debe estar definida como recurso protegido dentro del sistema. Debe existir una matriz de permisos asociadas a los roles del sistema. |
-| Resumen | El usuario autentificado intenta ingresar a una URL protegida, ya sea desde el menú del sistema o mediante acceso directo desde el navegador. El sistema valida el rol del usuario y determina si posee permisos para acceder al recurso solicitado. Si el rol tiene autorización, el sistema permite el acceso a la URL protegida. |
-| Postcondiciones | El usuario accede al recurso protegido únicamente si su rol posee permisos asociados. El intento del acceso queda sujeto a las reglas de autorización definida por el sistema. |
-| Tipos | Principal |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario autenticado solicita acceder a una URL protegida del sistema. | 2. El sistema identifica la sesión activa del usuario y obtiene su rol asociado. |
-| 3. El usuario espera la carga del recurso solicitado. | 4. El sistema consulta la matriz de permisos para verificar si el rol del usuario tiene autorización sobre la URL solicitada. |
-| 5. El usuario mantiene la solicitud de acceso al recurso. | 6. El sistema determina que el rol del usuario posee permisos para acceder a la URL protegida. |
-| 7. El usuario visualiza el contenido del módulo o recurso solicitado. | 8. El sistema carga la vista correspondiente y permite la interacción con las funcionalidades autorizadas. |
+| Actores | Usuarios de cualquier rol |
+| Resumen | El sistema debe redirigir a los usuarios solo a la interfaces para las cuales tiene autorización según su rol. |
+| Frecuencia | Alta. Cada vez que ingresa un usuario |
+| Precondiciones | Un Usuario con cualquier rol. <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. |
+| Descripción | El usuario ingresa sus credenciales en el formulario de autenticación. [Excepcion 1], [Excepcion 2], [Excepción 3] El sistema detecta la acción y valida el rol del usuario. El usuario es capaz de ingresar al sistema. El sistema deja visible las interfaces que le corresponden según su rol. |
+| Excepciones | Excepción 1: El correo ingresado corresponde a un usuario desvinculado. El sistema le muestra al usuario una alerta que dice “Este correo está asociado a un usuario desvinculado” <br> Excepción 2: El correo ingresado no corresponde al de un usuario del sistema, el sistema le muestra al usuario un mensaje que dice “correo invalido”. <br> Excepción 3: La contraseña ingresada por el usuario no cumple las condiciones mínimas para ser considerada válida, el sistema le avisa por medio de un mensaje “la contraseña no cumple con los requisitos mínimos” |
+| Postcondiciones | El usuario ingresa a una interfaz con permisos personalizados según su rol. |
+| Dependencias | [EMPTY] |
 
 ### Table 14
 
-| Caso de uso N°14 | Visualizando acceso denegado por permisos insuficientes |
+| Nombre | Editando usuarios por Administrador |
 | --- | --- |
-| Actores | Usuario de cualquier rol |
-| Propósito | Informar al usuario que no posee autorización para acceder a un recurso protegido del sistema. |
-| Precondiciones | El usuario debe encontrarse autenticado. La cuenta del usuario debe estar en un estado “Vinculado”. El usuario debe intentar acceder a un recurso para el cual su rol no posee permisos. |
-| Resumen | El usuario autenticado intenta ingresar a una vista, modulo o URL protegida que no corresponde a los permisos de su rol. El sistema valida la matriz de permisos, detecta la falta de autorización y redirige al usuario a una página de “Acceso denegado” |
-| Postcondiciones | El usuario no accede al recurso solicitado. El sistema muestra la página de “Acceso denegado” y conserva la sesión activa del usuario. |
-| Tipos | Secundario. |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario autenticado intenta acceder a un recurso protegido del sistema. | 2. El sistema identifica el rol asociado a la sesión activa del usuario. |
-| 3. El usuario espera la respuesta del sistema. | 4. El sistema consulta la matriz de permisos y detecta que el rol no tiene autorización para el recurso solicitado. |
-| 5. El usuario permanece en espera de la carga del recurso. | 6. El sistema bloquea el acceso al recurso solicitado. |
-| 7. El usuario visualiza la respuesta del sistema. | 8. El sistema redirige al usuario a la página de “Acceso denegado”. |
+| Actores | Usuario con rol de Administrador. |
+| Resumen | El sistema permite al administrador modificar la información de los usuarios registrados en el sistema. |
+| Frecuencia | Media. Cada vez que el administrador quiera cambiar los datos de un usuario. |
+| Precondiciones | Un usuario con rol de administrador <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. |
+| Descripción | El administrador requiere cambiar informacion de otro usuario del sistema, hace click en el boton “editar” de la interfaz “Gestion de usuario”. El sistema detecta esta acción y abre el modal de edición de usuario. El administrador edita uno o mas campos del usuario y guarda los cambios con el boton “Guardar cambios” [Excepción 1]. El sistema detecta la acción y guarda los cambios. |
+| Excepciones | Excepción 1: Los nuevos datos ingresados no cumplen con las condiciones mínimas de formato para ser válidas. El sistema le avisa al usuario por medio de un mensaje abajo de cada campo mal ingresado. |
+| Postcondiciones | El Administrador modifica con éxito los datos de un usuario |
+| Dependencias | [EMPTY] |
 
 ### Table 15
 
-| Caso de uso N°15 | Recuperando la contraseña mediante correo electrónico |
+| Nombre | Visualizando detalle del pedido |
 | --- | --- |
-| Actores | Usuario de cualquier rol |
-| Propósito | Permitir que un usuario restablezca su contraseña mediante un enlace único, temporal y de un solo uso enviado a su correo electrónico registrado. |
-| Precondiciones | El usuario debe encontrarse en la pantalla de inicio de sesión. El usuario debe conocer el correo electrónico asociado a su cuenta. El sistema debe contar con un mecanismo de envío de correo electrónico habilitado. |
-| Resumen | El usuario selecciona la opción “Olvidé mi contraseña”, ingresa su correo electrónico y solicita la recuperación. Si el correo existe en el sistema, se envía un enlace único y temporal para establecer una nueva contraseña. Si el correo no existe, el sistema informa que no se encontró una cuenta asociada. |
-| Postcondiciones | Si el proceso finaliza correctamente, la contraseña del usuario queda actualizada y el enlace utilizado queda invalidado. Si el correo no existe, no se genera enlace de recuperación. |
-| Tipos | Principal |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario selecciona la opción “Olvidé mi contraseña” desde la pantalla de inicio de sesión. | 2. El sistema muestra el formulario de recuperación de contraseña solicitando el correo electrónico. |
-| 3. El usuario ingresa su correo electrónico y envía la solicitud. | 4. El sistema valida el formato del correo electrónico ingresado. |
-| 5. El usuario espera la respuesta del sistema. | 6. El sistema verifica que el correo exista en la base de datos de usuarios. |
-| 7. El usuario revisa su correo electrónico. | 8. El sistema genera un enlace URL único, temporal y de un solo uso, y lo envía al correo registrado. |
-| 9. El usuario accede al enlace recibido. | 10. El sistema valida que el enlace esté vigente y no haya sido utilizado previamente. |
-| 11. El usuario ingresa una nueva contraseña y la confirma. | 12. El sistema valida que la nueva contraseña tenga mínimo 8 caracteres, al menos una letra mayúscula, una letra minúscula, un número y un símbolo especial. |
-| 13. El usuario confirma el cambio de contraseña. | 14. El sistema actualiza la contraseña, invalida el enlace utilizado y muestra un mensaje de confirmación. |
+| Actores | Usuarios de cualquier rol |
+| Resumen | El sistema le permite a los usuarios ver el detalle del pedido |
+| Frecuencia | Alta. Cada vez que un usuario quiera ver un detalle de pedido. |
+| Precondiciones | Un Usuario con cualquier rol. <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. |
+| Descripción | Los usuarios requieren ver el detalle de un pedido dentro de una etapa del tablero kanban, hacen click sobre uno de ellos y presionan el botón “Detalle” [Excepción 1], El sistema detecta esta acción y despliega el modal de detalle del pedido. |
+| Excepciones | Excepción 1: El sistema no muestra detalle del pedido debido a que este fue cancelado. El sistema ridirigue al usuario al tablero kanban. |
+| Postcondiciones | El usuario es capaz de ver sin problema el detalle de un pedido. |
+| Dependencias | [EMPTY] |
 
 ### Table 16
 
-| Caso de uso N°18 | Cerrando sesión desde cualquier interfaz de usuario |
+| Nombre | Cambiando manualmente el estado del pedido por arrastrar y soltar |
 | --- | --- |
-| Actores | Usuario autenticado de cualquier rol |
-| Propósito | Permitir que cualquier usuario autenticado cierre su sesión de forma segura desde cualquier vista del sistema. |
-| Precondiciones | El usuario debe haber iniciado sesión correctamente. La sesión del usuario debe encontrarse activa. La interfaz actual debe mostrar la opción de cierre de sesión. |
-| Resumen | El usuario selecciona la opción “Cerrar sesión” desde cualquier vista del sistema. El sistema invalida la sesión activa, elimina el acceso a los recursos protegidos y redirige al usuario al formulario de inicio de sesión. |
-| Postcondiciones | La sesión del usuario queda cerrada. El usuario no puede acceder a recursos protegidos sin iniciar sesión nuevamente. |
-| Tipos | Principal |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario autenticado se encuentra en cualquier vista del sistema. | 2. El sistema mantiene visible la opción “Cerrar sesión” en la interfaz. |
-| 3. El usuario selecciona la opción “Cerrar sesión”. | 4. El sistema recibe la solicitud de cierre de sesión. |
-| 5. El usuario espera la salida del sistema. | 6. El sistema invalida la sesión activa del usuario. |
-| 7. El usuario es retirado de la interfaz interna. | 8. El sistema redirige al usuario al formulario de inicio de sesión. |
-| 9. El usuario intenta acceder nuevamente a una vista interna sin autenticarse. | 10. El sistema bloquea el acceso y mantiene al usuario en la pantalla de inicio de sesión. |
+| Actores | Usuarios con rol de Administrador <br> Usuarios con rol de Producción |
+| Resumen | El sistema debe permitir a los usuarios con los permisos correspondientes, cambiar la etapa del pedido mediante la acción de arrastrar y soltar. |
+| Frecuencia | Alta. Cada vez que un usuario tenga la necesidad de cambiar de etapa de un pedido. |
+| Precondiciones | El Usuario debe tener rol ‘Administrador’ <br> El Usuario debe tener rol “Producción” <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. <br> El usuario debe encontrarse en la vista Kanban <br> El Kanban debe tener por lo menos un pedido |
+| Descripción | El usuario se ve en la necesidad de cambiar el estado de un pedido dentro del tablero kanban, por lo que lo arrastra hasta la siguiente columna. El sistema detecta esta acción y valida los permisos del usuario, congela la acción momentáneamente y por medio de un modal pide segunda confirmación de la acción. [Excepción 1] El usuario hace click en el botón “aceptar” [Excepción 2]. El sistema responde concretando el cambio de etapa del pedido. |
+| Excepciones | Excepción 1: El usuario presiona el botón “cancelar”, no concretando la acción solicitada. <br> Excepción 2: El sistema no cambia el pedido de estado aun cuando se presione el botón “aceptar”, por lo que no se concreta la acción solicitada. |
+| Postcondiciones | El usuario cambia con éxito la etapa de un pedido dentro del tablero Kanban. |
+| Dependencias | RF05: Accediendo a funcionalidades según el rol <br> RF10: Actualizando automáticamente el estado del pedido. |
+| Nombre | Ingresando a vista previa de edición de estado de pago |
+| Actores | Cobranzas |
+| Resumen | El usuario con rol Cobranzas selecciona el botón ‘Gestionar’ |
+| Frecuencia | Alta. Cada vez que cobranzas necesite revisar o modificar el estado de pago de un pedido |
+| Precondiciones | El usuario debe estar autenticado. <br> El usuario debe tener rol Cobranzas. <br> El usuario debe encontrarse en el módulo de cobranzas. <br> El usuario debe tener una cuenta con estado vinculado. <br> Debe existir un pedido. |
+| Descripción | El usuario presiona el botón “Gestionar” en las acciones del pedido. El sistema despliega un menú con las opciones “Rechazar” y “Confirmar”. El usuario selecciona una de las opciones disponibles. [Excepción 1] El sistema despliega la vista previa de edición de estado de pago según la opción seleccionada. |
+| Excepciones | Excepción 1: El usuario cierra el menú sin seleccionar una opción. El sistema cancela la acción y mantiene al usuario en la misma vista |
+| Postcondiciones | El menú de gestión queda desplegado correctamente. <br> La vista previa de edición de estado de pago queda abierta según la opción seleccionada por el usuario. |
+| Dependencias | RF17: Vista previa edición estado pago. |
 
 ### Table 17
 
-| Caso de uso N°19 | Generando pedido desde el módulo de ventas |
+| Nombre | Actualizando automáticamente el estado del pedido |
 | --- | --- |
-| Actores | Usuario con rol Ventas |
-| Propósito | Permitir que el usuario con rol Ventas acceda a una interfaz destinada a la generación de pedidos dentro del sistema. |
-| Precondiciones | El usuario debe estar autenticado. El usuario debe tener rol Ventas. La cuenta del usuario debe estar en estado “Vinculado”. El módulo de generación de pedidos debe encontrarse disponible. |
-| Resumen | El usuario con rol Ventas ingresa al módulo de pedidos y selecciona la opción para generar un nuevo pedido. El sistema valida los permisos del usuario y muestra la interfaz correspondiente para iniciar el registro del pedido. |
-| Postcondiciones | El usuario con rol Ventas accede correctamente a la interfaz de generación de pedidos. El sistema queda preparado para recibir los datos necesarios del pedido. |
-| Tipos | Principal |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario con rol Ventas inicia sesión en el sistema. | 2. El sistema valida las credenciales, el estado de la cuenta y el rol del usuario. |
-| 3. El usuario accede al menú principal del sistema. | 4. El sistema muestra las opciones disponibles según los permisos del rol Ventas. |
-| 5. El usuario selecciona la opción “Generar pedido”. | 6. El sistema verifica que el rol Ventas tenga permiso para acceder al módulo de generación de pedidos. |
-| 7. El usuario espera la carga de la interfaz. | 8. El sistema muestra la interfaz para generar un nuevo pedido. |
-| 9. El usuario visualiza la pantalla de generación de pedidos. | 10. El sistema deja disponible el formulario inicial para comenzar el registro del pedido. |
+| Actores | Cobranzas |
+| Resumen | Luego de que el usuario actualice el estado de pago a ‘Confirmado’, el sistema actualiza automáticamente el estado de pedido a ‘Listo para producción’ |
+| Frecuencia | Alta. Cada vez que se confirme el pago de un pedido |
+| Precondiciones | El usuario debe tener rol Cobranzas <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. <br> El pedido debe existir en el sistema |
+| Descripción | El usuario selecciona un pedido y confirma el estado de pago del pedido. El sistema registra el estado Confirmado y aplica la firma digital a la nota de venta asociada y actualiza automáticamente el estado del pedido a ‘Listo para producción’, registrando el cambio realizado [Excepción 1]. |
+| Excepciones | Excepción 1: El usuario cancela la confirmación del cambio de estado de pago. El sistema mantiene el estado de pago y el estado del pedido sin modificaciones. |
+| Postcondiciones | El pedido queda en estado “Listo para producción”. <br> El cambio queda registrado en el sistema. |
+| Dependencias | RF09: Actualización automática de estado del pedido. <br> RF17: Actualización de estado de pago. |
 
 ### Table 18
 
-| Caso de uso N°20 | Registrando pedido mediante formulario de Nota de Venta |
+| Nombre | Filtrando por estado de pago |
 | --- | --- |
-| Actores | Usuario con rol Ventas |
-| Propósito | Permitir que el usuario con rol Ventas cree un pedido mediante un formulario que solicite el número de Nota de Venta y el archivo correspondiente a la Nota de Venta en formato PDF. |
-| Precondiciones | El usuario debe estar autenticado. El usuario debe tener rol Ventas. El usuario debe encontrarse en la interfaz de generación de pedidos. La Nota de Venta debe estar disponible en formato PDF. |
-| Resumen | El usuario con rol Ventas completa el formulario de registro de pedido ingresando el número de Nota de Venta y adjuntando el archivo PDF correspondiente. El sistema valida los campos obligatorios, verifica el formato del archivo y registra el pedido si la información cumple las condiciones establecidas. |
-| Postcondiciones | El pedido queda creado en el sistema con su número de Nota de Venta y archivo PDF asociado. |
-| Tipos | Principal |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario con rol Ventas accede a la interfaz de generación de pedidos | 2. El sistema muestra el formulario de registro de pedido. |
-| 3. El usuario ingresa el número de Nota de Venta. | 4. El sistema recibe el número ingresado y valida que el campo no esté vacío. |
-| 5. El usuario adjunta el archivo correspondiente a la Nota de Venta en formato PDF. | 6. El sistema valida que el archivo adjunto tenga formato PDF. |
-| 7. El usuario confirma el registro del pedido. | 8. El sistema valida que el número de Nota de Venta y el archivo PDF estén presentes. |
-| 9. El usuario espera la confirmación del sistema. | 10. El sistema crea el pedido y asocia el archivo PDF a la entidad correspondiente. |
-| 11. El usuario visualiza el resultado del registro. | 12. El sistema muestra un mensaje de registro exitoso y deja el pedido disponible dentro del flujo correspondiente. |
+| Actores | Usuario con rol de Cobranzas |
+| Resumen | El usuario filtra en el módulo de cobranzas mediante botones definidos como ‘Confirmado’, ‘Rechazado’ o ‘Pendiente’ |
+| Frecuencia | Media. Cada vez que el usuario de Cobranzas deba filtrar por estado de pago específico |
+| Precondiciones | El usuario debe tener rol Cobranzas <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. <br> Deben existir pedidos en el sistema |
+| Descripción | El usuario accede al módulo de cobranzas. El sistema muestra los filtros rápidos de estado de pago. El usuario selecciona un botón entre Confirmado, Rechazado o Pendiente. El sistema aplica el filtro seleccionado y muestra únicamente los pedidos que coinciden con ese estado [Excepción 1]. |
+| Excepciones | Excepción 1: No existen pedidos asociados al estado seleccionado. El sistema muestra un mensaje indicando que no se encontraron pedidos con el estado de pago seleccionado |
+| Postcondiciones | La vista muestra solos los pedidos con el estado de pago seleccionado |
+| Dependencias | RF25: Filtrado rápido por estado de pago. |
 
 ### Table 19
 
-| Caso de uso N°26 | Actualizando el estado de pago del pedido |
+| Nombre | Buscando pedidos mediante filtros avanzados |
 | --- | --- |
-| Actores | Usuario con rol Cobranzas |
-| Propósito | Permitir que el usuario con rol Cobranzas actualice el estado de pago de un pedido desde el detalle del pedido en el tablero Kanban. |
-| Precondiciones | El usuario debe estar autenticado. El usuario debe tener rol Cobranzas. El pedido debe existir en el sistema. El pedido debe estar visible o accesible desde el tablero Kanban. |
-| Resumen | El usuario con rol Cobranzas accede al tablero Kanban, selecciona un pedido y abre su detalle. Desde el detalle del pedido, utiliza un menú desplegable para actualizar el estado de pago a “Confirmado”, “Rechazado” o “Pendiente”. El sistema valida el rol, registra el nuevo estado y actualiza la información del pedido. |
-| Postcondiciones | El estado de pago del pedido queda actualizado según la opción seleccionada. El cambio queda registrado en el sistema. |
-| Tipos | Principal |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario con rol Cobranzas accede al tablero Kanban. | 2. El sistema valida que el usuario tenga permisos para consultar pedidos y actualizar estados de pago. |
-| 3. El usuario selecciona un pedido del tablero Kanban. | 4. El sistema muestra el detalle del pedido seleccionado. |
-| 5. El usuario ubica el campo “Estado de pago”. | 6. El sistema muestra un menú desplegable con los estados “Confirmado”, “Rechazado” y “Pendiente”. |
-| 7. El usuario selecciona uno de los estados disponibles. | 8. El sistema recibe el nuevo estado seleccionado. |
-| 9. El usuario confirma la actualización del estado de pago. | 10. El sistema actualiza el estado de pago del pedido en la base de datos. |
-| 11. El usuario visualiza la actualización realizada. | 12. El sistema muestra el nuevo estado de pago en el detalle del pedido. |
-
-3. Actualización automática de estado pedido.
-
-RF28: El sistema debe actualizar el estado del pedido a 'Listo para producción' de forma automática luego de que el usuario con rol Cobranzas actualice el estado de pago a ‘Confirmado’
-
-7. Restricción de cambio manual a “Listo para producción”.
-
-RF32: El sistema no debe permitir cambiar manualmente el estado de una orden de producción a “Listo para producción” mientras el estado de pago asociado a dicha orden sea distinto de “Confirmado”, y debe mostrar el mensaje ‘Pedido en espera de confirmación de pago’.
-
-1. Visualización del tablero Kanban.
-
-RF42: El sistema debe permitir a los usuarios autorizados visualizar un tablero Kanban que muestre los pedidos organizados según su estado actual dentro del flujo de trabajo.
-
-2. Visualización del detalle del pedido.
-
-RF43: El sistema debe proporcionar el detalle del pedido al hacer clic sobre un pedido del Kanban.
+| Actores | Cobranzas |
+| Resumen | El usuario busca pedidos usando criterios como RUT de empresa, número de nota de venta, nombre de empresa o fecha en la que se adjuntó la nota de venta |
+| Frecuencia | Alta. Cada vez que cobranzas necesite buscar pedidos específicos |
+| Precondiciones | El usuario debe tener rol Cobranzas <br> El usuario debe encontrarse previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. <br> Deben existir pedidos registrados <br> El usuario se encuentra en el módulo de Cobranzas |
+| Descripción | El usuario selecciona la barra de búsqueda avanzada y selecciona uno o más criterios de búsqueda [Excepción 1]. El sistema valida los criterios ingresados. El sistema filtra los pedidos y muestra los resultados. [Excepción 2] |
+| Excepciones | Excepción 1: El usuario busca sin ingresar criterios. El sistema no aplica ningún filtro de búsqueda <br> Excepción 2: No existen pedidos que coincidan con la búsqueda. El sistema muestra un mensaje indicando que no se encontraron pedidos que coincidan con los filtros aplicados |
+| Postcondiciones | La vista muestra los pedidos que cumplen con los criterios ingresados. |
+| Dependencias | RF19: Filtros de búsqueda avanzado. |
 
 ### Table 20
 
-| Caso de uso N° 44 | Observando el flujo general de un pedido |
+| Nombre | Visualizando nota de venta en modal |
 | --- | --- |
-| Actores | Usuario de cualquier rol autenticado |
-| Propósito | Permitir al usuario visualizar la etapa en la que se encuentran los pedidos mediante la distribución de columnas del tablero Kanban |
-| Precondiciones | Debe existir un pedido dentro del sistema <br> El usuario debe estar previamente autenticado |
-| Resumen | El usuario ingresa al tablero Kanban y visualiza este organizado en columnas fijas que representan las etapas del flujo general de producción de los pedidos |
-| Postcondiciones | El usuario visualiza correctamente en qué estado están los pedidos dentro del flujo general de producción |
-| Tipos | Principal |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario aacede al tablero Kanban | 2. El sistema muestra las columnas asociadas al flujo general de producción |
-| 3. El usuario visualiza las columnas del tablero según las etapas definidas | 4. El sistema organiza los pedidos según el estado correspondiente |
-
-4. Cambio manual de estado de pedido por arrastrar y soltar.
-
-RF45: El sistema debe permitir al usuario autorizado cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar hacia otra columna del tablero Kanban, siempre que el estado de destino no esté definido como automático por las reglas del sistema.
+| Actores | Usuario con rol de Cobranzas |
+| Resumen | El usuario visualiza la nota de venta asociada a un pedido mediante un modal de vista previa |
+| Frecuencia | Media. Cada vez que cobranzas revise la nota de venta de un pedido |
+| Precondiciones | El usuario debe tener rol Cobranzas <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. <br> Deben haber pedidos registrados <br> El pedido debe tener una Nota de Venta adjunta <br> El usuario se encuentra en el módulo de cobranzas |
+| Descripción | El usuario escoge un pedido de la lista y presiona el botón “Nota de venta”. El sistema recupera el archivo asociado y despliega la vista previa en un modal [Excepción 1]. |
+| Excepciones | Excepción 1: Vista previa no disponible. El sistema informa al usuario que la vista previa no se encuentra disponible y mantiene la lista de pedidos visible. |
+| Postcondiciones | El sistema despliega el modal con la nota de venta correctamente |
+| Dependencias | RF20: Vista previa de nota de venta. |
 
 ### Table 21
 
-| Caso de uso N° 46 | Visualizando subproceso productivo en stepper |
+| Nombre | Descargando Nota de Venta |
 | --- | --- |
-| Actores | Usuario de cualquier rol autenticado |
-| Propósito | Permitir al usuario visualizar el estado del subproceso productivo en el que se encuentra el pedido |
-| Precondiciones | Un pedido dentro del flujo de producción <br> El usuario debe estar previamente autenticado |
-| Resumen | El sistema debe permitir a los usuarios autorizados visualizar dentro del detalle del pedido el estado del subproceso productivo en el que se encuentra el pedido dependiendo del producto que se esté produciendo |
-| Postcondiciones | Un pedido en una etapa distinta del flujo Kanban |
-| Tipos | Principal |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario selecciona un pedido dentro del tablero Kanban | 2. El sistema muestra al cliente el detalle del pedido seleccionado |
-| 3. El usuario visualiza la sección de subprocesos productivos | 4. El sistema identifica el tipo de producto asociado al pedido |
-| 5. El usuario espera la carga de la información | 6. El sistema muestra el Stepper respecto al tipo de producto resaltando el estado actual del subproceso productivo |
+| Actores | Usuario con rol de Cobranzas |
+| Resumen | El usuario descarga la nota de venta desde el modal de vista previa de nota de venta |
+| Frecuencia | Media. Cada vez que Cobranzas requiere descargar la nota de venta |
+| Precondiciones | El usuario debe tener rol Cobranzas. <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. <br> Deben haber pedidos registrados. <br> El pedido debe tener una Nota de Venta adjunta. <br> El usuario se encuentra en el módulo de cobranzas. |
+| Descripción | El usuario visualiza la nota de venta en el modal. El sistema muestra la opción “Descargar”. El usuario presiona el botón “Descargar” [Excepción 1]. El sistema genera la descarga del archivo asociado. |
+| Excepciones | Excepción 1: El usuario cancela la descarga antes de finalizar. El sistema detiene la descarga y mantiene abierto el modal de vista previa de la nota de venta. |
+| Postcondiciones | La Nota de venta queda correctamente descargada por el usuario |
+| Dependencias | RF20: Vista previa de nota de venta. <br> RF21: Descarga de nota de venta. |
 
-6. Actualización de estado de subproceso de producción.
-
-RF47: El sistema debe permitir al usuario con rol Operario actualizar el estado del subproceso de producción mediante un Stepper interactivo según el tipo de producto.
+Tabla 3.23: “Validando unicidad de nota de venta”
 
 ### Table 22
 
-| Caso de uso N° 29 | Actualizando automáticamente el estado del pedido |
+| Nombre | Actualizando estado de pago |
 | --- | --- |
 | Actores | Usuario con rol de Cobranzas |
-| Propósito | Cambiar el estado de pago de un pedido para que entre en el flujo principal del Kanban |
-| Precondiciones | Un pedido generado en base a la nota de ventas con estado de “pago pendiente” <br> El pedido debe tener adjuntado el PDF de la Nota de Venta |
-| Resumen | El usuario con rol de cobranza cambia el estado de pago de un pedido, haciendo que este pase automáticamente al flujo de estados del Kanban. |
-| Postcondiciones | Un pedido con pago confirmado en la etapa “listo para producción” |
-| Tipos | Principal |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario ve la lista de pedidos. | 2. El sistema muestra el estado de pago de los pedidos. |
-| 3. El usuario cambia el estado de pago de uno de los pedidos. | 4. El sistema registra el cambio en el pedido. |
-| [EMPTY] | 6. El sistema cambia el estado del pedido de forma automática a “listo para producción”. |
+| Resumen | El usuario con rol Cobranzas actualiza el estado de pago de un pedido manteniendo presionado el botón “Mantener para confirmar cambio”. |
+| Frecuencia | Alta. Cada vez que Cobranzas necesite confirmar o rechazar el estado de pago de un pedido. |
+| Precondiciones | - El usuario debe tener rol Cobranzas <br> - El usuario debe estar previamente autenticado <br> - Deben haber pedidos registrados <br> - El usuario se encuentra en el módulo de cobranzas con un pedido seleccionado |
+| Descripción | El usuario revisa la vista previa de edición de estado de pago. El sistema muestra la acción seleccionada para el pedido. El usuario mantiene presionado el botón “Mantener para confirmar cambio” [Excepción 1]. El sistema valida que la acción se haya mantenido durante el tiempo requerido. El sistema actualiza el estado de pago del pedido según la acción seleccionada. El sistema muestra el nuevo estado de pago en el pedido. |
+| Excepciones | Excepción 1: El usuario suelta el botón antes de completar la confirmación. El sistema cancela la acción y mantiene el estado de pago anterior del pedido. |
+| Postcondiciones | El estado de pago del pedido queda actualizado. <br> El nuevo estado queda visible en el detalle del pedido. |
+| Dependencias | RF23: Actualización de estado de pago. <br> RF17: Vista previa de edición de estado de pago. |
 
 ### Table 23
 
-| Caso de uso N° 33 | Restringiendo el cambio manual |
+| Nombre | Ajustando tamaño del modal de vista previa |
 | --- | --- |
-| Actores | Usuario con rol de cobranza |
-| Propósito | Impedir que el usuario con rol de cobranza cambie de forma manual el estado de un pedido sin la debida confirmación de pago. |
-| Precondiciones | Un pedido generado en base a la nota de ventas con estado de “pago pendiente” <br> El pedido debe tener adjuntado el PDF de la Nota de Venta |
-| Resumen | El sistema impide el cambio de estado de forma manual |
-| Postcondiciones | Un pedido con estado de pago “pendiente” o “rechazado” |
-| Tipos | Principal |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario intenta cambiar manualmente el estado del pedido | 2. El sistema detecta los esfuerzos del usuario y no permite la acción |
-| 3. El usuario ve frustrada su acción | 4. El sistema registra el cambio en el pedido. |
-
-### Table 24
-
-| Caso de uso N° 43 | Visualizando el tablero de Kanban |
-| --- | --- |
-| Actores | Usuarios de cualquier rol |
-| Propósito | Que los usuarios tengan una referencia visual del Kanban |
-| Precondiciones | Pedidos con estado de pago confirmado |
-| Resumen | El sistema debe permitir a los usuarios visualizar el tablero Kanban |
-| Postcondiciones | Pedidos visibles dentro del flujo productivo |
-| Tipos | Principal |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario ve la interfaz del Kanban. | 2. El sistema muestra el Kanban con los pedidos en tiempo real. |
-
-### Table 25
-
-| Caso de uso N° 44 | Visualizando el detalle del pedido |
-| --- | --- |
-| Actores | Usuarios con cualquier rol |
-| Propósito | Visualizar a detalle el estado del pedido |
-| Precondiciones | Un pedido con estado de pago confirmado dentro del flujo |
-| Resumen | El sistema debe permitir visualizar el detalle del pedido |
-| Postcondiciones | Un pedido con su información detallada visible para el usuario |
-| Tipos | Principal |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario ve la lista de pedidos. | 2. El sistema el permite hacer click al usuario sobre el pedido |
-| 3. El usuario es capaz de ver el detalle del pedido | 4. El sistema muestra el detalle del pedido |
-
-### Table 26
-
-| Caso de uso N° 46 | Cambiando manualmente el estado del pedido |
-| --- | --- |
-| Actores | Usuario autorizado |
-| Propósito | Permitir al usuario autorizado cambiar manualmente el estado del pedido |
-| Precondiciones | Un pedido dentro del flujo de producción <br> Un usuario autorizado |
-| Resumen | El sistema debe permitir a los usuarios autorizados cambiar manualmente el estado del pedido |
-| Postcondiciones | Un pedido en una etapa distinta del flujo Kanban |
-| Tipos | Principal |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario autorizado termina de trabajar el pedido en su etapa del proceso | 2. El sistema le da la posibilidad de arrastrar el pedido hacia el estado siguiente. |
-| 3. El usuario arrastra el pedido hasta el siguiente estado | 4. El sistema ancla el pedido al siguiente estado |
-
-### Table 27
-
-| Caso de uso N° 48 | Actualizando el estado del sub-proceso de producción |
-| --- | --- |
-| Actores | Usuario con rol de operario de producción |
-| Propósito | Permitir a los operarios actualizar el estado de los subprocesos de un pedido |
-| Precondiciones | Debe existir un pedido dentro del flujo de producción, en el estado de “En producción” |
-| Resumen | El sistema le permite al usuario con rol de operario cambiar el estado del subproceso del pedido |
-| Postcondiciones | El estado del subproceso dentro del pedido queda actualizado |
-| Tipos | Principal |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario con rol de operario interactúa con un pedido en estado “en producción” . | 2.El sistema muestra el detalle de estado del subproceso en el que se encuentra este. |
-| 3. El usuario con rol de operario, cambia el estado del subproceso del pedido. | 4. El sistema detecta el intento de cambio y cambia el estado. |
-
-### Table 28
-
-| Caso de uso N° 29 | [EMPTY] |
-| --- | --- |
-| Actores | Usuario con rol de Cobranzas |
-| Propósito | Cambiar el estado de pago de un pedido para que entre en el flujo principal del Kanban |
-| Precondiciones | Un pedido generado en base a la nota de ventas con estado de “pago pendiente” <br> El pedido debe tener adjuntado el PDF de la Nota de Venta |
-| Resumen | El usuario con rol de cobranza cambia el estado de pago de un pedido, haciendo que este pase automáticamente al flujo de estados del Kanban. |
-| Postcondiciones | Un pedido con pago confirmado en la etapa “listo para producción” |
-| Tipos | Principal |
-| Curso normal de eventos | Curso normal de eventos |
-| Acciones de los actores | Respuesta del sistema |
-| 1. El usuario ve la lista de pedidos. | 2. El sistema muestra el estado de pago de los pedidos. |
-| 3. El usuario cambia el estado de pago de uno de los pedidos. | 4. El sistema registra el cambio en el pedido. |
-| [EMPTY] | 6. El sistema cambia el estado del pedido de forma automática a “listo para producción”. |
+| Actores | Cobranzas |
+| Resumen | El usuario con rol Cobranzas ajusta manualmente el tamaño del modal de vista previa para revisar mejor la nota de venta. |
+| Frecuencia | Baja. Cada vez que el usuario necesite ampliar o reducir la visualización del modal. |
+| Precondiciones | El usuario debe estar autenticado. <br> El usuario debe tener rol Cobranzas. <br> El usuario debe tener una cuenta en estado vinculado. |
+| Descripción | El usuario abre la vista previa de la nota de venta. El sistema muestra el modal con su tamaño inicial. El usuario ajusta manualmente el tamaño del modal. [Excepción 1] El sistema actualiza la dimensión del modal y mantiene visible su contenido. |
+| Excepciones | Excepción 1: El usuario intenta ajustar el modal fuera de los límites permitidos. |
+| Postcondiciones | El modal queda ajustado al gusto del usuario |
+| Dependencias | RF24: Ajuste manual del tamaño del modal de vista previa |
 
 # VISTA LÓGICA
 
+5.1 Diagrama de clases
+
+5.2 Modelo de datos
+
+A continuación, se dispone el modelo de datos. El modelo considera las entidades principales del sistema para el primer sprint, atributos, claves primarias, claves foráneas y las relaciones entre ellas, como se ilustra en la Figura #.#:
+
+Figura 3.24: “Modelo de datos primer sprint.”
+
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
 # VISTA PROCESO
+
+6.1 Diagrama de secuencia
+
+Los diagramas de secuencia ayudan a observar el flujo entre los distintos actores y componentes del sistema. En el presente proyecto, los diagramas nos permitirán visualizar como interactúan los usuarios de los roles Operario, Administrador, Cobranzas y Ventas con el sistema en sus respectivos casos de uso
+
+Caso de uso N°1: Iniciando sesión mediante formulario de autenticación
+
+Caso de uso N°2: Cambiando la contraseña después del primer ingreso
+
+Caso de uso N°3: Registrando un nuevo usuario
+
+Caso de uso N°4: Filtrando usuarios por el administrador
+
+Caso de uso N°5: Ingresando a módulo de usuarios
+
+Caso de uso N°6: Recuperando contraseña mediante correo electrónico
+
+Caso de uso N°7: Cerrando sesión desde cualquier interfaz
+
+Caso de uso N°8: Accediendo a funcionalidades según rol
+
+Caso de uso N°9: Editando usuarios por administrador
+
+Caso de uso N°10: Visualizando detalle del pedido
+
+Caso de uso N°12: Cambiando manualmente el estado del pedido por arrastrar y soltar
+
+Caso de uso N°13: Ingresando a la vista previa de edición de estado de pago
+
+Caso de uso N°14: Actualizando automáticamente el estado del pedido
+
+Caso de uso N°15: Filtrando por estado de pago
+
+Caso de uso N°16: Buscando pedidos mediante filtros avanzados
+
+Caso de uso N°17: Visualizando nota de venta en modal
+
+Caso de uso N°18: Descargando Nota de Venta
+
+Caso de uso N°19: Actualizando estado de pago
+
+Caso de uso N°20: Ajustando tamaño del modal de vista previa
 
 # VISTA DESARROLLO
 
+7.1 Diagrama de componentes
+
 # VISTA FISICA
+
+8.1 Diagrama de despliegue
 
 # ÁRBOL DE NAVEGACION
 
@@ -854,7 +767,7 @@ RF47: El sistema debe permitir al usuario con rol Operario actualizar el estado 
 
 ## Footer 1
 
-### Table 29
+### Table 24
 
 | [EMPTY] | 1 | [EMPTY] |
 | --- | --- | --- |
