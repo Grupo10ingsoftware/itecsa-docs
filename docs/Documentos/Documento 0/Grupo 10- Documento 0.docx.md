@@ -771,41 +771,119 @@ Los requisitos del sistema describen de forma general las necesidades que debe s
 
 7.1. Requerimientos Funcionales
 
-Modulo 1: Inicio de sesión y Gestión de usuario
+Módulo 1: Gestión de usuario
 
-1- Inicio de sesión mediante formulario de autenticación P1
-
-RF01: El sistema debe proporcionar un formulario de inicio de sesión que solicite correo electrónico y contraseña como campos obligatorios. El formulario de inicio de sesión se puede encontrar en el Anexo H en la figura 6.11 referente al “Mockup RF01”.
+1- Inicio de sesión mediante formulario de autenticación <br> RF01: El sistema debe proporcionar un formulario de inicio de sesión que solicite correo electrónico y contraseña como campos obligatorios. El formulario de inicio de sesión se puede encontrar en el Anexo H en la figura 6.11 referente al “Mockup RF01”.
 
 El sistema debe validar que:
 
-El correo electrónico cumpla el: texto@dominio.extensión, sin espacios ni múltiples arrobas.
+El correo electrónico cumpla el formato: texto@dominio.extensión, sin espacios ni múltiples arrobas.
 
-La contraseña sea la misma guardada en los datos del usuario.
+La contraseña cumpla:
 
-2. Cambio obligatorio de contraseña en el primer inicio de sesión. P1
+mínimo 8 caracteres
 
-RF02: Después de que el Administrador cree un usuario el sistema le manda un correo al nuevo usuario solicitando que cree su contraseña para su cuenta. La contraseña debe cumplir el siguiente formato: mínimo 8 caracteres, con al menos una letra mayúscula, una letra minúscula, un número y un símbolo especial.
+al menos una letra mayúscula
 
-3. Visualización del perfil de usuario
+al menos una letra minúscula
 
-RF03: El sistema debe permitir al usuario autenticado acceder a la sección “Mi perfil” desde cualquier vista, mostrando la información: primer nombre, apellido paterno, correo electrónico y rol.
+al menos un número
 
-4. Visualizando historial en perfil de usuario.
+al menos un símbolo especial
 
-RF04: El sistema debe permitir al usuario seleccionar la opción “Mis movimientos”, desde la sección “Mi perfil”, mostrando un listado de los últimos diez registros asociados según los permisos del usuario. Para cada registro el sistema debe mostrar su identificador, su fecha en formato DD-MM-YYYY y su estado.
+Si el formato no es válido, el sistema debe impedir el envío del formulario.
 
-5. Acceso a funcionalidades según rol. P1
+2- Alerta de cuenta desvinculada
 
-RF05: El sistema debe permitir al usuario autenticado acceder únicamente a las vistas, módulos y acciones autorizadas según su rol: Administrador, Gerencia, Operario, Ventas o Cobranzas. Si el usuario intenta acceder a una URL, vista o funcionalidad para la cual no posee permisos, el sistema debe mostrar o redirigir a una página de “Acceso denegado”.
+RF02: El sistema debe mostrar el mensaje “Cuenta desactivada” al usuario cuando este ingrese credenciales válidas y su cuenta tenga estado “desvinculado”.
 
-6. Recuperación de contraseña mediante correo electrónico P1
+3- Alerta de error en autenticación
 
-RF06: El sistema debe proveer un flujo de “Recuperar contraseña” que solicite el correo electrónico. Si el correo existe en el sistema y no está desvinculado debe enviar un enlace URL único y temporal al correo existente para establecer una nueva contraseña. El enlace debe ser de un solo uso y tener una validez limitada en el tiempo. La nueva contraseña debe cumplir el formato: mínimo 8 caracteres, con al menos una letra mayúscula, una letra minúscula, un número y un símbolo especial.
+RF03: El sistema debe mostrar al usuario autorizado el mensaje “Correo o contraseña incorrectos” cuando:
 
-7. Conservar datos de Usuario “desvinculado”
+El correo ingresado no corresponda a un usuario registrado
 
-RF07: Al desvincular un usuario, el sistema debe mantener íntegros los registros asociados a su comportamiento, incluyendo bitácoras, órdenes de producción y ventas. Estos datos deben permanecer visibles en reportes, métricas y gráficos del sistema.
+La contraseña no coincida con la almacenada
+
+4. Lógica de roles mínimos.
+
+RF04: El sistema debe definir los roles: Administrador, Gerencia, Operario, Ventas y Cobranzas. Cada rol debe tener un conjunto de permisos asociados según la matriz definida en el anexo correspondiente.
+
+5. Registro de nuevos usuarios por Administrador
+
+RF05: El sistema debe permitir al usuario con rol Administrador registrar nuevos usuarios ingresando los siguientes datos obligatorios:
+
+Primer nombre: solo letras y espacios.
+
+Apellido paterno: solo letras y espacios.
+
+RUT: Se compone de 8 o 9 dígitos numéricos, seguidos de un guion y un dígito verificador que se basa en un número del 0 al 9 o la letra K, estructurado como XX.XXX.XXX-X.
+
+Correo electrónico: con un formato válido, compuesto por una parte local, el símbolo “@” y un dominio que incluya al menos un punto. Único en el sistema, sin importar el estado del usuario
+
+Rol: selección desde lista desplegable con los valores Administrador, Gerencia, Operario, Ventas y Cobranzas.
+
+Contraseña: mínimo 8 caracteres, con al menos una letra mayúscula, una letra minúscula, un número y un símbolo especial.
+
+Firma electrónica en formato XML, CMS o PDF
+
+6. Cambio obligatorio de contraseña en el primer inicio de sesión.
+
+RF06: El sistema debe obligar al usuario a cambiar su contraseña en el primer inicio de sesión después de la creación de su cuenta por parte de un Administrador, limitando el acceso únicamente a la vista de cambio de contraseña. La contraseña debe cumplir el siguiente formato: mínimo 8 caracteres, con al menos una letra mayúscula, una letra minúscula, un número y un símbolo especial.
+
+7. Visualización del perfil de usuario
+
+RF07: El sistema debe mostrar al usuario autenticado la información de la sección “Mi perfil” desde cualquier vista, mostrando primer nombre, apellido paterno, correo y rol
+
+8. Visualizando historial en perfil de usuario.
+
+RF08: El sistema debe mostrar un listado de los últimos diez registros asociados según los permisos del usuario, indicando para cada registro su identificador, su fecha en formato DD-MM-YYYY y su estado.
+
+9. Bloqueo de acceso a usuarios desvinculados.
+
+RF09: El sistema debe impedir el acceso a la interfaz web, puntos de conexión de API y operaciones internas cuando el usuario tenga estado “Desvinculado”
+
+10. Ingreso de usuario validado.
+
+RF10: El sistema debe permitir el acceso y redirigir al usuario a la vista de principal del tablero Kanban del sistema cuando el correo electrónico y la contraseña correspondan a un usuario registrado y su estado sea “vinculado”.
+
+11. Validación de correo electrónico único.
+
+RF11: El sistema debe validar que el correo electrónico no esté previamente registrado en la tabla de usuarios, independientemente de si el usuario está vinculado o desvinculado. En caso de duplicado, debe mostrar el mensaje “El correo ingresado ya está asociado a una cuenta”.
+
+12. Restricción de acceso por rol.
+
+RF12: El sistema debe restringir el acceso a una URL protegida según el rol del usuario autenticado
+
+13. Mensaje Acceso denegado por rol
+
+RF13: El sistema debe redirigir al usuario a una página de “Acceso denegado” si este intenta acceder a un recurso para el cual no tenga permisos
+
+14. Recuperación de contraseña mediante correo electrónico
+
+RF14: El sistema debe proveer un flujo de “Olvidé mi contraseña” que solicite el correo electrónico. Si el correo existe en el sistema, debe enviar un enlace URL único y temporal al correo existente para establecer una nueva contraseña. Si el correo no existe, el sistema debe informar que no se encontró una cuenta asociada. El enlace debe ser de un solo uso y tener una validez limitada en el tiempo. La nueva contraseña debe cumplir el formato: mínimo 8 caracteres, con al menos una letra mayúscula, una letra minúscula, un número y un símbolo especial.
+
+15. Edición de usuarios por Administrador
+
+RF15: El sistema debe permitir al usuario con rol Administrador modificar atributos de un usuario como:
+
+Nombre
+
+Apellido
+
+Correo electrónico, validando unicidad del nuevo correo
+
+Rol
+
+Estado
+
+Firma electrónica
+
+Cada modificación se debe registrar en la bitácora
+
+16. Conservar datos de Usuario “desvinculado”
+
+RF16: El sistema debe mantener íntegros los registros asociados a un usuario desvinculado, incluyendo:
 
 bitácoras
 
@@ -815,31 +893,153 @@ ventas
 
 Estos datos deben permanecer visibles en reportes.
 
-8. Cierre de sesión desde cualquier interfaz P1
+17. Cierre de sesión desde cualquier interfaz
 
-RF08: El sistema debe permitir a cualquier usuario autenticado cerrar su sesión desde cualquier vista del sistema.
+RF17: El sistema debe permitir a cualquier usuario autenticado cerrar su sesión desde cualquier vista del sistema.
 
-Modulo 2: Interfaz Tablero Kanban
+Módulo 2: Ingreso y validación de Nota de Venta, ficha de cliente y orden de producción
 
-1. Actualización automática del estado del pedido. (P1)
+1. Generación de pedidos.
 
-RF09: El sistema debe actualizar el estado del pedido a 'Listo para producción' de forma automática luego de que el usuario con rol Cobranzas actualice el estado de pago a ‘Confirmado’ y firme digitalmente la nota de venta.
+RF18: El sistema debe proporcionar a los usuarios con rol Ventas una interfaz para generar pedidos dentro del sistema
 
-2. Acceder al tablero Kanban. P1
+2. Registro de pedidos.
 
-RF10: El sistema debe permitir a los usuarios de cualquier rol con cuentas en estado vinculado acceder al tablero Kanban desde cualquier interfaz del sistema, por medio del botón “Principal” ubicado en la barra de navegación.
+RF19: El sistema debe permitir al usuario crear un pedido por medio de una interfaz que muestre una estructura tipo formulario que solicite Número de nota de Venta y archivo correspondiente a la Nota de Venta en formato PDF.
 
-3. Visualización del detalle del pedido. P1
+3. Creación de pedido.
 
-RF11: El sistema debe proporcionar el detalle del pedido al hacer clic sobre un pedido del Kanban.
+RF20: El sistema debe completar automáticamente mediante una búsqueda asociada al número de Nota de Venta los campos Razón social, RUT Cliente, Descripción de Producto, Cantidad y Datos para Fabricación.
 
-4. Cambio manual de estado de pedido por arrastrar y soltar. P1
+4. Registro automático de fecha y hora de creación de pedido
 
-RF12: El sistema debe permitir al usuario autorizado cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar hacia otra columna del tablero Kanban, siempre que el estado de destino no esté definido como automático por las reglas del sistema.
+RF21: El sistema debe registrar la fecha de creación de un pedido en formato DD-MM-YYYY y la hora en formato HH:MM:SS.
 
-5. Visualizando subtareas de producción.
+5. Identificación de productos asociados al pedido
 
-RF13: El sistema debe mostrar en el detalle de pedido los siguientes subprocesos según el tipo de producto:
+RF22: El sistema debe identificar el producto de la nota de venta, sea este lanyard o tarjeta
+
+6. Validación de unicidad del código único de Nota de Venta.
+
+RF23: El sistema debe corroborar en la base de datos si el número de nota de venta asociado al pedido ya existe, con el fin de evitar duplicados y errores.
+
+7. Mensaje de duplicación de Nota de Venta.
+
+RF24: Si el sistema detecta un número de Nota de venta duplicado mostrara el mensaje: "Ya existe una Nota de Venta con el código ingresado. No se permite duplicar"
+
+8. Adjuntar archivos de diseño al pedido.
+
+RF25: El sistema debe permitir a los usuarios con rol de administrador y ventas adjuntar archivos de diseño directamente en la entidad que corresponde al pedido.
+
+Módulo 3: Confirmación de Pago y Transición a Producción
+
+1. Actualización del estado de pago del pedido.
+
+RF26: El sistema debe permitir al usuario con rol Cobranzas actualizar el estado de pago en el detalle de pedido del Kanban mediante un menú desplegable con los estados ‘Confirmado’, ‘Rechazado’ y ‘Pendiente’
+
+2. Registro de firma digital al actualizar estado de pago.
+
+RF27: El sistema debe firmar digitalmente la nota de venta a la hora de que el usuario con rol cobranzas actualice el estado de pago a ‘Confirmado’
+
+3. Actualización automática de estado pedido.
+
+RF28: El sistema debe actualizar el estado del pedido a 'Listo para producción' de forma automática luego de que el usuario con rol Cobranzas actualice el estado de pago a ‘Confirmado’
+
+4. Trazabilidad de los cambios de estado de pago.
+
+RF29: El sistema debe registrar automáticamente la fecha en formato DD-MM-YYYY, la hora en formato HH:MM:SS y el identificador del usuario que confirma el pago al momento de realizar la acción de confirmación.
+
+5. Asociación de documentos al pedido.
+
+RF30: El sistema debe permitir al usuario con rol de Administrador adjuntar la o las Ordenes de producción y la ficha de cliente a la entidad del pedido dentro del flujo cuando su pago haya sido confirmado
+
+6. Actualización automática de capacidad de producción.
+
+RF31: El sistema debe actualizar automáticamente la capacidad de producción diaria disponible al generarse el pedido.
+
+7. Restricción de cambio manual a “Listo para producción”.
+
+RF32: El sistema no debe permitir cambiar manualmente el estado de una orden de producción a “Listo para producción” mientras el estado de pago asociado a dicha orden sea distinto de “Confirmado”, y debe mostrar el mensaje ‘Pedido en espera de confirmación de pago’.
+
+Módulo 4: Gestión de capacidad instalada y reglas de negocio
+
+1. Configuración de capacidad de producción.
+
+RF33: El sistema debe permitir al usuario con rol Administrador configurar y ajustar la capacidad máxima diaria de producción, diferenciada como mínimo entre tarjetas y lanyards.
+
+2. Estimación de carga laboral automática.
+
+RF34: El sistema debe mostrar al usuario la carga de trabajo diaria, definida como la cantidad de órdenes de producción asignadas por día en relación con la capacidad productiva definida.
+
+3. Alerta por sobrecarga en producción.
+
+RF35: El sistema debe mostrar una alerta visual al usuario con rol Ventas a la hora de ingresar una Nota de venta cuando la capacidad disponible de producción para la fecha solicitada sea mayor o igual al 90%.
+
+4. Cálculo de fecha de entrega en función de la capacidad productiva.
+
+RF36: El sistema debe mostrar al usuario una fecha de entrega alternativa en formato DD-MM-YYYY cuando la fecha solicitada no disponga de capacidad disponible,
+
+5. Registro de ingreso de pedido bajo sobrecarga operativa.
+
+RF37: El sistema debe guardar un registro en el historial, cuando un usuario con el rol de ventas ingrese un pedido bajo condición de sobrecarga operativa.
+
+6. Extracción de información desde la Nota de Venta para estimación de entrega.
+
+RF38: El sistema debe extraer la información del tipo de producto y la cantidad de estos, desde la Nota de Venta, para realizar el cálculo de fecha estimada de entrega.
+
+7. Cálculo de fecha estimada de entrega.
+
+RF39: El sistema debe mostrar al usuario la fecha de termino estimada del pedido calculada en función del tipo de producto y la cantidad solicitada. Para el cálculo, se va a considerar los siguientes parámetros por defecto:
+
+Lanyards:
+
+0 a 100 Lanyards: 5 Días hábiles
+
+100 a 500 Lanyards: 10 Días hábiles
+
+500 a 1000 Lanyards: 15 Días hábiles
+
+Tarjetas:
+
+7 días hábiles para cualquier tipo de tarjeta por cualquier tamaño de lote.
+
+8. Configuración de parámetros de estimación por cantidad y tipo de producto.
+
+RF40: El sistema debe permitir al usuario con rol Administrador ajustar los parámetros de estimación asociados a cada tipo de producto y rango de unidades solicitadas.
+
+9. Mostrar calendario de planificación
+
+RF41: El sistema debe mostrar al usuario con rol de administrador la fecha estimada de término en un calendario de planificación, permitiendo su reajuste por parte del usuario con rol de Administrador.
+
+Módulo 5: Tablero Kanban y seguimiento de estados
+
+1. Visualización del tablero Kanban.
+
+RF42: El sistema debe permitir a los usuarios autorizados visualizar un tablero Kanban que muestre los pedidos organizados según su estado actual dentro del flujo de trabajo.
+
+2. Visualización del detalle del pedido.
+
+RF43: El sistema debe proporcionar el detalle del pedido al hacer clic sobre un pedido del Kanban.
+
+3. Estructura de columnas del tablero.
+
+RF44: El sistema debe mostrar en el tablero Kanban las siguientes columnas fijas, cada una asociada a una parte del flujo del proceso de producción:
+
+Confirmación de pago
+
+Listo para producción
+
+En producción
+
+Listo para entrega
+
+4. Cambio manual de estado de pedido por arrastrar y soltar.
+
+RF45: El sistema debe permitir al usuario autorizado cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar hacia otra columna del tablero Kanban, siempre que el estado de destino no esté definido como automático por las reglas del sistema.
+
+5. Registro de subtareas de producción.
+
+RF46: El sistema debe mostrar en el detalle de pedido los siguientes subprocesos según el tipo de producto:
 
 Lanyard:
 
@@ -861,321 +1061,159 @@ Cargar datos
 
 6. Actualización de estado de subproceso de producción.
 
-RF14: El sistema debe permitir al usuario con rol Operario actualizar el estado del subproceso de producción mediante un Stepper interactivo según el tipo de producto.
+RF47: El sistema debe permitir al usuario con rol Operario actualizar el estado del subproceso de producción mediante un Stepper interactivo según el tipo de producto.
 
 7. Registrar comentarios en subproceso.
 
-RF15: El sistema debe permitir al usuario agregar un comentario al cambiar el estado del subproceso dentro del estado de producción.
+RF48: El sistema debe permitir al usuario agregar un comentario al cambiar el estado del subproceso dentro del estado de producción.
 
 8. Registro de firma electrónica en producción.
 
-RF16: El sistema debe agregar la firma electrónica del usuario a la ficha del cliente cuando éste actualice el estado del subproceso del estado de producción
+RF49: El sistema debe agregar la firma electrónica del usuario a la ficha del cliente cuando éste actualice el estado del subproceso del estado de producción
 
-Modulo 3: Interfaz de cobranza.
+9. Trazabilidad de estados de producción.
 
-1. Vista previa edición estado pago P1
+RF50: El sistema debe almacenar el historial completo de cambios de estado subproceso de producción de cada pedido guardando campos como La fecha en formato “DD-MM-YYYY” la hora en formato “HH:MM:SS” y el usuario responsable de la modificación, sin sobrescribir registros previos.
 
-RF17: El sistema debe permitir al usuario con rol Cobranzas extender un menú al clickear el botón ‘Gestionar’ con las opciones ‘Rechazar’ y ‘Confirmar’, los cuales al seleccionar uno despliega una vista previa de edición de estado de pago.
+10. Filtrado de pedidos.
 
-2. Registro de firma digital al actualizar estado de pago.
+RF51: El sistema debe permitir al usuario autorizado filtrar los pedidos visibles bajo los siguientes índices de búsqueda:
 
-RF18: El sistema permite al usuario con rol de cobranza firmar automáticamente la nota de venta una vez el estado de pago de esta sea cambiado a “Confirmado”
+Número de nota de venta
 
-3. Filtros de búsqueda avanzada: P1
+Número de orden de producción
 
-RF19: El sistema proporciona al usuario con rol de cobranza una barra de búsqueda para filtrar los pedidos mediante los criterios.
+Nombre del cliente
 
-Rut de empresa
+Vendedor que emitió la nota de venta
 
-Numero de nota de venta
+11. Asignación de etiquetas visuales a pedidos.
 
-Nombre de empresa
-
-Fecha en la que se adjuntó la nota de venta
-
-4. Vista previa de nota de venta: P1
-
-RF20: El sistema despliega al usuario con rol de cobranza una vista previa de la nota de venta en un modal por medio del botón “Nota de venta”
-
-5. Descarga de Nota de venta P1
-
-RF21: Dentro del modal de vista previa el sistema le permite al usuario con rol de cobranza descargar la Nota de venta, por medio del botón “Descargar”
-
-6. Imprimir “nota de venta” P1
-
-RF22: Dentro del modal de vista previa el sistema le permite al usuario con rol de cobranza imprimir la Nota de venta por medio del botón “Imprimir”.
-
-7. Actualizar estado de pago. P1
-
-RF23: El sistema debe permitir actualizar el estado de pago de un pedido mediante el botón “mantener para confirmar cambio” disponible en la vista previa de edición de estado de pago. El usuario con rol de cobranza deberá mantener el clic para hacer valido el cambio de estado de pago del pedido.
-
-8. Ajuste manual del tamaño del modal de vista previa P1
-
-RF24: El sistema permite al usuario con rol de cobranza ajustar el tamaño del modal de la vista previa.
-
-9. Filtrado rápido por estado de pago. P1
-
-RF25: El sistema proporciona al usuario con rol de cobranza una serie de filtros rápidos en modalidad chips que hagan alusión a los tres posibles estados de pago de un pedido. Al hacer click sobre uno de ellos el usuario verá solo los pedidos ingresados con el estado de pago elegido.
-
-Confirmado
-
-Rechazado
-
-Pendiente
-
-Modulo 4: Interfaz de Ventas
-
-1. Búsqueda automática de campos de creación de pedido.
-
-RF26: El sistema debe completar automáticamente mediante una búsqueda asociada al número de Nota de Venta los campos Razón social, RUT Cliente, Descripción de Producto, Cantidad y Datos para Fabricación.
-
-Modulo 5: Calendarios de planificación y estimación
-
-1. Extracción de información desde detalle de pedido.
-
-RF27: El sistema debe calcular la fecha estimada de entrega de una posible producción, a partir del tipo de producto y cantidad extraído desde el detalle del pedido, utilizando la siguiente métrica:
-
-Lanyard:
-
-0 a 100 lanyards: 5 Días hábiles
-
-101 a 1000 lanyards: 10 Días hábiles
-
-1001 a 2000 Lanyards: 15 Días hábiles
-
-Tarjetas:
-
-7 días hábiles para cualquier tipo de tarjeta por cualquier tamaño de lote
-
-2. Mostrar calendario de planificación Producción.
-
-RF28: El sistema debe proporcionar al usuario con rol de administrador un calendario en donde pueda ver en tiempo real las fechas de entrega tanto de los pedidos en la etapa “listo para producción” como los pedidos en la etapa “en producción”
-
-3. Modificación de fechas de entrega por parte del administrador
-
-RF29: El sistema debe permitirle al usuario con rol de administrador modificar la fecha de entrega de un pedido dentro del calendario.
-
-4. Mostrar porcentaje del nivel de carga operativa.
-
-RF30: El sistema debe proporcionar un porcentaje en tiempo real del nivel de carga productiva, en el paso de revisión y registro de pedido.
-
-Modulo 6: Poderes del administrador
-
-1. Registro de nuevos usuarios por Administrador P1
-
-RF31: El sistema debe permitir al usuario con rol Administrador registrar nuevos usuarios ingresando los siguientes datos obligatorios:
-
-Primer nombre: solo letras y espacios.
-
-Apellido paterno: solo letras y espacios.
-
-RUT: Se compone de 8 o 9 dígitos numéricos, seguidos de un guion y un dígito verificador que se basa en un número del 0 al 9 o la letra K, estructurado como XX.XXX.XXX-X.
-
-Correo electrónico: con un formato válido, compuesto por una parte local, el símbolo “@” y un dominio que incluya al menos un punto. Único en el sistema, sin importar el estado del usuario
-
-Rol: selección desde lista desplegable con los valores Administrador, Gerencia, Operario, Ventas y Cobranzas.
-
-Firma electrónica en formato XML, CMS o PDF
-
-2. Listado de usuarios registrados. P1
-
-RF32: El sistema debe permitir al usuario con rol Administrador acceder a la sección “Gestión de usuarios”, mostrando un listado de los usuarios registrados del sistema.
-
-3. Filtrado rápido de usuarios por el Administrador P1
-
-RF33: En la vista de “Gestión de usuario” el sistema debe permitir localizar usuarios a través de una sección de filtros predefinidos que se divide en:
-
-Estado:
-
-Vinculado
-
-Desvinculado
-
-Rol:
-
-Administrador
-
-Gerencia
-
-Producción
-
-Ventas
-
-Cobranzas
-
-4. Filtros avanzados alternativo de usuarios por el Administrador.
-
-RF34: En la vista de “Gestión de usuario” el sistema debe permitir localizar usuarios por medio de un campo de búsqueda rellenable que el usuario con rol de administrador deberá ingresar a mano dicho campo recibe, nombre del usuario, Rut o correo.
-
-5. Limpieza de filtros seleccionados.
-
-RF35: En la sección de filtros de la vista de “Gestión de usuarios” el sistema habilita para el usuario con rol de administrador un botón “limpiar filtros” el cual elimina los filtros aplicados sobre la interfaz.
-
-6. Edición de usuarios por Administrador P1
-
-RF36: El sistema debe permitir al usuario con rol Administrador modificar atributos de un usuario como:
-
-Nombre
-
-Apellido
-
-Correo electrónico, validando unicidad del nuevo correo
-
-Rol
-
-Estado
-
-Firma electrónica
-
-7. Asociación de documentos al pedido.
-
-RF37: El sistema debe permitir al usuario con rol de Administrador adjuntar la o las Ordenes de producción y la ficha de cliente a la entidad del pedido dentro del flujo cuando su pago haya sido confirmado
-
-8. Configuración de parámetros de estimación por cantidad y tipo de producto.
-
-RF38: El sistema debe permitir al usuario con rol Administrador ajustar los parámetros de los plazos estándar, de cada tipo de producto y rango de unidades solicitadas.
-
-9. Organización de pedidos en el tablero Kanban.
-
-RF39: El sistema debe permitir al usuario con rol de administrador, organizar los pedidos en el tablero Kanban a voluntad bajo una de estas dos etiquetas, que serán visibles en el detalle:
+RF52: El sistema debe permitir a los usuarios con rol Administrador y Operario asignar etiquetas visuales a los pedidos para facilitar su categorización. Las etiquetas son:
 
 Urgencia
 
-Prioridad por contrato
+Atraso
 
-10. Ajuste de prioridad de pedidos.
+12. Organización de pedidos en el tablero Kanban.
 
-RF40: El sistema debe permitir al administrador modificar la prioridad de atención de uno o más pedidos seleccionados dentro del flujo de producción.
+RF53: El sistema debe permitir al usuario con rol de administrador, organizar los pedidos en el tablero Kanban a voluntad bajo una de estas tres etiquetas.
 
-11. Remoción de etiquetas visuales de pedidos
+Urgencia
 
-RF41: El sistema debe permitir a los usuarios con rol Administrador remover etiquetas visuales de los pedidos.
+Atraso
 
-Modulo 7: Gestión, Comunicaciones y notificaciones interdepartamentales
+13. Ajuste de prioridad de pedidos.
 
-1. Adjuntar archivos de diseño al pedido.
+RF54: El sistema debe permitir al administrador modificar la prioridad de atención de uno o más pedidos seleccionados dentro del flujo de producción.
 
-RF42: El sistema debe permitir a los usuarios con rol de ventas adjuntar archivos de diseño directamente en la entidad que corresponde al pedido.
+14. Calcular tiempo real transcurrido por etapa.
 
-2. Actualización automática de capacidad de producción.
+RF55: El sistema debe calcular y guardar automáticamente el tiempo real trascurrido desde que un pedido entra a una etapa y sale de ella. Utilizando como marcadores la fecha en formato DD-MM-YYYY y hora en formato HH:MM:SS de ingreso a dicha etapa.
 
-RF43: El sistema debe actualizar automáticamente el nivel de carga productiva diaria en función a los pedidos que estén en la etapa “Listo para producción”
+15. Visualizar diferencia entre tiempo estimado y tiempo real.
 
-3. Restricción de cambio manual a “Listo para producción”. P1
+RF56: El sistema debe calcular automáticamente la diferencia entre el tiempo estimado predefinido de una etapa y el tiempo real transcurrido del pedido en dicha etapa, de forma que pueda ser visible para usuario autorizado.
 
-RF44: El sistema debe impedir cambiar manualmente el estado de una orden de producción a “Listo para producción” mientras el estado de pago asociado a dicha orden sea distinto de “Confirmado”.
+16. Indicador visual de retraso
 
-4. Configuración de capacidad de producción.
+RF57: El sistema debe mostrar en la esquina superior de la figura que representa el pedido, dentro del tablero Kanban, un indicador visual que represente su nivel de retraso.
 
-RF45: El sistema debe permitir al usuario con rol Administrador configurar y ajustar la capacidad máxima diaria de producción.
+Módulo 6: Gestión de muestras y aprobaciones
 
-5. Estimación de carga laboral automática.
+1. Notificación de nuevo pedido a jefatura.
 
-RF46: El sistema debe mostrar a los usuarios de cualquier rol el nivel de carga productiva diario, que representa la relación entre la producción asignada y su capacidad máxima diaria de producción.
+RF58: El sistema debe emitir una notificación automática, ya sea dentro de la aplicación o por correo electrónico, a la cuenta con el rol de Administrador inmediatamente después de que se cree y guarde un nuevo pedido.
 
-6. Visualizar diferencia entre tiempo estimado y tiempo real.
+2. Historial de trazabilidad de producción.
 
-RF47: El sistema debe mostrarle al usuario de cualquier rol el tiempo real transcurrido del pedido en dicha etapa en su respectivo detalle de pedido.
+RF59: El sistema debe proporcionar una vista de historial de trazabilidad para cada pedido, mostrando de forma cronológica los eventos y cambios realizados, incluyendo identificador del pedido, estado, fecha en formato DD-MM-YYYY, hora en formato HH:MM:SS y el usuario que ejecutó cada acción.
 
-7. Notificación de nuevo pedido a jefatura.
+3. Historial consolidado de pedido.
 
-RF48: El sistema debe emitir una notificación automática, ya sea dentro de la aplicación o por correo electrónico, a la cuenta con el rol de Administrador inmediatamente después de que se cree y guarde un nuevo pedido.
+RF60: El sistema debe permitir visualizar el historial cronológico de eventos asociados en el detalle de un pedido utilizando los eventos registrados en la trazabilidad del sistema. Los eventos deben mostrarse en secuencia temporal, del más reciente al más antiguo.
 
-8. Indicador visual de retraso
+Módulo 7: Notificaciones y comunicación interdepartamental
 
-RF49: El sistema debe mostrar en la esquina superior de la figura que representa el pedido, dentro del tablero Kanban, un indicador visual que represente su nivel de retraso.
+1. Notificación de disponibilidad para despacho
 
-9. Notificación de disponibilidad para despacho
+RF61: El sistema debe enviar automáticamente una notificación por correo electrónico a la dirección de correo registrada en el sistema del usuario con rol Ventas asignado al pedido cuando el estado del pedido cambie a “Listo para entrega”.
 
-RF50: El sistema debe enviar automáticamente una notificación por correo electrónico a la dirección de correo registrada en el sistema del usuario con rol Ventas asignado al pedido cuando el estado del pedido cambie a “Listo para entrega”.
+2. Registro de comentarios y alertas
 
-10. Realizar observaciones de pedidos.
+RF62: El sistema debe permitir a todos los usuarios del sistema registrar comentarios, observaciones o alertas asociados a un pedido.
 
-RF51: El sistema debe permitir a todos los usuarios autenticados en estado vinculado registrar observaciones asociados a un pedido.
+3. Trazabilidad de comentarios, observaciones y alertas
 
-11. Indicador de urgencia
+RF63: El sistema debe registrar, para cada comentario, observación o alerta asociado a un pedido, la fecha en formato DD-MM-YYYY, la hora en formato HH:MM:SS y el autor del registro.
 
-RF52: Cuando se ingrese una Nota de Venta clasificada como urgente, el sistema debe generar una notificación interna visible en el panel de notificaciones para todos los usuarios con rol de ventas.
+4. Remoción de etiquetas visuales de pedidos
 
-12. Panel de anuncios internos
+RF64: El sistema debe permitir a los usuarios con rol Administrador y Operario remover etiquetas visuales de los pedidos.
 
-RF53: El sistema debe contar con una pestaña independiente dedicada a un panel de anuncios internos la cual es visible por un usuario de cualquier rol con estado vinculado.
+5. Indicador de urgencia
 
-13. Publicación de anuncios internos
+RF65: Cuando se ingrese una Nota de Venta clasificada como urgente, el sistema debe generar una notificación interna visible en el panel de notificaciones del sistema para todos los usuarios con rol Operario.
 
-RF54: El sistema debe permitir a los usuarios con rol Administrador publicar comunicados y novedades en el panel de anuncios internos.
+6. Panel de anuncios internos
 
-Modulo 8: Registro e historial de actividades
+RF66: El sistema debe contar con una pestaña independiente dedicada a un panel de anuncios internos la cual es visible por un usuario de cualquier rol definido.
 
-1. Registro de ingreso de pedido bajo sobrecarga operativa.
+7. Publicación de anuncios internos
 
-RF55: El sistema debe guardar un registro en el historial, cuando un usuario con el rol de ventas ingrese un pedido bajo condición de sobrecarga operativa.
+RF67: El sistema debe permitir a los usuarios con rol Administrador publicar comunicados y novedades en el panel de anuncios internos.
 
-2. Trazabilidad de estados de producción.
+Módulo 8: Reportes, indicadores y analítica
 
-RF56: El sistema debe almacenar el historial completo de cambios de estado subproceso de producción de cada pedido guardando campos como La fecha en formato “DD-MM-YYYY” la hora en formato “HH:MM:SS” y el usuario responsable de la modificación, sin sobrescribir registros previos.
+1. Generando reporte de cumplimiento de entregas.
 
-3. Calcular tiempo real transcurrido por etapa.
+RF68: El sistema debe permitir que el usuario de rol de Gerencia pueda seleccionar un rango de fechas en formato DD-MM-YYY y este debe generar un reporte se los pedidos que fueron entregados a tiempo y la cantidad de pedidos entregados fuera de plazo dentro del periodo solicitado.
 
-RF57: El sistema debe calcular y guardar automáticamente el tiempo real trascurrido desde que un pedido entra a una etapa y sale de ella. Utilizando como parámetros la fecha en formato DD-MM-YYYY y hora en formato HH:MM:SS de ingreso y salida a dicha etapa.
+El reporte debe incluir los porcentajes correspondientes a cada categoría y un gráfico de barras correspondiente a la información del reporte.
 
-4. Historial de trazabilidad de producción.
+2. Exportando reporte de pedidos entregados a tiempo y fuera de plazo a Excel.
 
-RF58: El sistema debe proporcionar una vista de historial de trazabilidad para cada pedido, mostrando de forma cronológica los eventos y cambios realizados, incluyendo identificador del pedido, estado, fecha en formato DD-MM-YYYY, hora en formato HH:MM:SS y el usuario que ejecutó cada acción.
+RF69: El sistema debe permitir al usuario con rol de gerencia el poder exportar a Excel el reporte de pedidos, estos deben estar filtrados por:
 
-5. Historial consolidado de pedido.
+Pedidos entregados a tiempo.
 
-RF59: El sistema debe permitir visualizar el historial cronológico de eventos asociados en el detalle de un pedido utilizando los eventos registrados en la trazabilidad del sistema. Los eventos deben mostrarse en secuencia temporal, del más reciente al más antiguo.
+Pedidos no entregados a tiempo.
 
-6. Trazabilidad de comentarios, observaciones y alertas
+3. Exportación de reportes de producción.
 
-RF60: El sistema debe registrar, para cada comentario, observación o alerta asociado a un pedido, la fecha en formato DD-MM-YYYY, la hora en formato HH:MM:SS y el autor del registro.
+RF70: El sistema debe permitir al usuario seleccionar un rango de fechas en formato DD-MM-YYY y un apartado para poder exportar en formato Excel y CSV, reportes de producción donde se especifiquen los tiempos o entregas generadas para dicho período.
 
-Modulo 9: Reportes y estadística.
+4. Cálculo del tiempo de ciclo promedio.
 
-1. Generando reporte de rendimiento de producción.
+RF71: El sistema debe calcular automáticamente el tiempo de ciclo promedio de los pedidos que alcancen el estado "Listo para entrega", esto calculando como la diferencia en horas entre la fecha y hora de creación de nota de ventas y la fecha y hora en que la orden cambie al estado "Listo para entrega", el resultado debe actualizarse diariamente y mostrando un gráfico de tendencia.
 
-RF61: El sistema debe darla la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción por medio del Botón “Generar reporte” en la sección “Rendimiento de producción”. El reporte debe detallar la cantidad de pedidos entregados a tiempo y la cantidad de pedidos entregados fuera del plazo solicitado.
+5. Mapa de carga de producción por día de la semana.
 
-2. Exportar reporte de cumplimiento.
+RF72: El sistema debe mostrar el mapa de carga de producción por día de la semana, para el rango de fechas seleccionado en formato DD-MM-YYYY, indicando el porcentaje de capacidad utilizada en cada día.
 
-RF62: El sistema debe permitir al usuario con rol de Gerencia y Administrador el poder exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar”
+6. Filtro por rango de fechas en todas las vistas de reportes.
 
-3. Cálculo del tiempo de producción.
+RF73: El sistema debe permitir seleccionar un rango de fechas especifico en el formato DD-MM-YYYY para así poder filtrar los reportes e indicadores gráficos del módulo de analítica. El sistema debe mostrar únicamente la información correspondiente al periodo seleccionado.
 
-RF63: El sistema debe calcular el tiempo total que pasa un pedido dentro del flujo del sistema, desde que el usuario con rol de ventas lo crea, hasta que el usuario con rol de producción lo pasa a la etapa “Listo para entrega”
+7. Panel de control exclusivo para gerencia.
 
-4. Mapa de carga de producción por día de la semana.
+RF74: El sistema debe mostrar un panel de control gerencial accesible únicamente para usuarios con el rol Gerencia.
 
-RF64: El sistema debe mostrar un mapa de carga de producción por día de la semana, para el rango de fechas seleccionado en formato DD-MM-YYYY, indicando el porcentaje de capacidad utilizada en cada día.
+8. Ranking de productos más solicitados.
 
-5. Filtro por rango de fechas para generar los reportes.
+RF75: El sistema debe mostrar un ranking de los productos más solicitados dentro del rango de fechas en formato DD-MM-YYYY seleccionado.
 
-RF65: El sistema debe permitir a los usuarios con rol de Gerencia y Administrador seleccionar un rango de fechas especifico en el formato DD-MM-YYYY para así poder filtrar los reportes e indicadores gráficos del módulo de analítica. El sistema debe mostrar únicamente la información correspondiente al periodo seleccionado.
+9. Reporte de órdenes agrupadas por estado.
 
-6. Ranking de productos más solicitados.
+RF76: El sistema debe generar un reporte que muestre la cantidad total de órdenes de producción agrupadas por estado dentro del rango de fechas en formato DD-MM-YYYY seleccionado. El reporte debe incluir obligatoriamente los estados definidos en el flujo del tablero Kanban y debe presentarse mediante una tabla resumen y una visualización gráfica.
 
-RF66: El sistema debe generar un ranking de los productos más solicitados dentro del rango de fechas en formato DD-MM-YYYY seleccionado por el usuario con rol de Administrador y Gerencia.
+10. Indicador de cumplimiento por usuario de rol ventas.
 
-7. Reporte de órdenes agrupadas por estado.
-
-RF67: El sistema debe generar un reporte de “Vista general” que muestre la cantidad total de pedidos agrupados por estados. Para los usuarios de con rol de Gerencia y Administrador. El reporte debe incluir obligatoriamente los estados definidos en el flujo del tablero Kanban y debe presentarse mediante una tabla resumen y una visualización gráfica.
-
-8. Indicador de cumplimiento por vendedor.
-
-RF68: El sistema debe generar una lista de “cumplimiento por vendedor”. A los usuarios con rol de Gerencia y administrador cuando presionen el botón “Generar Lista”. La lista debe mostrar por vendedor las siguientes métricas:
-
-Cantidad de Notas de Venta registradas.
-
-Cantidad de pedidos aprobados por el vendedor entregados a tiempo.
-
-Cantidad de pedidos aprobados por el vendedor entregados fuera de plazo.
-
-Cantidad de pedidos ingresados en periodos con niveles altos de carga productiva.
+RF77: El sistema debe generar un indicador de cumplimiento por vendedor para el rango de fechas en formato DD-MM-YYYY seleccionado. El indicador debe mostrar la cantidad total de Notas de Venta registradas, la cantidad total de órdenes asociadas entregadas a tiempo, la cantidad de órdenes ingresadas en condición de sobrecarga operativa y la cantidad total de órdenes asociadas entregadas fuera de plazo.
 
 7.2. Requerimientos No Funcionales
 
-Módulo 10: Seguridad y control de acceso
+Módulo 9: Seguridad y control de acceso
 
 1. Invalidación de sesiones activas.
 
@@ -1201,7 +1239,7 @@ RNF05- El sistema monitorea la actividad del usuario. Si no detecta actividad du
 
 RNF06: El sistema debe almacenar un tiempo estimado predefinido para cada una de las etapas del proceso de producción.
 
-Módulo 11: Auditoría y conservación de información
+Módulo 10: Auditoría y conservación de información
 
 1. Registro de fecha y hora del servidor
 
@@ -1213,7 +1251,7 @@ RNF08: El sistema debe conservar el historial completo de acciones asociadas a u
 
 El sistema debe permitir al usuario acceder a su perfil desde cualquier módulo.
 
-Módulo 12: Rendimiento y compatibilidad técnica
+Módulo 11: Rendimiento y compatibilidad técnica
 
 1. Compatibilidad con navegadores web
 
@@ -1227,7 +1265,7 @@ RNF10- El sistema debe ser compatible con los sistemas operativos Windows, macOS
 
 RNF11- El sistema debe responder a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos.
 
-Módulo 13: Usabilidad, diseño y administración interna
+Módulo 12: Usabilidad, diseño y administración interna
 
 1. Usabilidad visual para operación.
 
@@ -1245,194 +1283,208 @@ Tabla 2.1: “Requerimientos para el software de ITECSA”
 
 ### Table 3
 
-| [EMPTY] | ID | ID | ID | Descripción | Descripción | Descripción | Necesidad | Necesidad | Prioridad | Prioridad | Estabilidad | Estabilidad | Claridad | Claridad | Verificabilidad | Verificabilidad | Fuente | Fuente |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1.- | Inicio de sesión y Gestión de Usuario | Inicio de sesión y Gestión de Usuario | Inicio de sesión y Gestión de Usuario | Inicio de sesión y Gestión de Usuario | Inicio de sesión y Gestión de Usuario | Inicio de sesión y Gestión de Usuario | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
-| UR | 1.1 | 1.1 | 1.1 | Inicio de sesión mediante formulario de autenticación | Inicio de sesión mediante formulario de autenticación | Inicio de sesión mediante formulario de autenticación | 2 | 2 | 1 | 1 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 3 |
-| [EMPTY] | El usuario podrá validar sus credenciales para acceder al sistema | El usuario podrá validar sus credenciales para acceder al sistema | El usuario podrá validar sus credenciales para acceder al sistema | El usuario podrá validar sus credenciales para acceder al sistema | El usuario podrá validar sus credenciales para acceder al sistema | El usuario podrá validar sus credenciales para acceder al sistema | El usuario podrá validar sus credenciales para acceder al sistema | El usuario podrá validar sus credenciales para acceder al sistema | El usuario podrá validar sus credenciales para acceder al sistema | El usuario podrá validar sus credenciales para acceder al sistema | El usuario podrá validar sus credenciales para acceder al sistema | El usuario podrá validar sus credenciales para acceder al sistema | El usuario podrá validar sus credenciales para acceder al sistema | El usuario podrá validar sus credenciales para acceder al sistema | El usuario podrá validar sus credenciales para acceder al sistema | El usuario podrá validar sus credenciales para acceder al sistema | El usuario podrá validar sus credenciales para acceder al sistema | El usuario podrá validar sus credenciales para acceder al sistema |
-| UR | 1.2 | 1.2 | 1.2 | Cambio de contraseña antes del primer ingreso. | Cambio de contraseña antes del primer ingreso. | Cambio de contraseña antes del primer ingreso. | 2 | 2 | 1 | 1 | 2 | 2 | 1 | 1 | 2 | 2 | 2 | 2 |
-| [EMPTY] | El Sistema manda un correo al usuario recién creado para que cambie su contraseña | El Sistema manda un correo al usuario recién creado para que cambie su contraseña | El Sistema manda un correo al usuario recién creado para que cambie su contraseña | El Sistema manda un correo al usuario recién creado para que cambie su contraseña | El Sistema manda un correo al usuario recién creado para que cambie su contraseña | El Sistema manda un correo al usuario recién creado para que cambie su contraseña | El Sistema manda un correo al usuario recién creado para que cambie su contraseña | El Sistema manda un correo al usuario recién creado para que cambie su contraseña | El Sistema manda un correo al usuario recién creado para que cambie su contraseña | El Sistema manda un correo al usuario recién creado para que cambie su contraseña | El Sistema manda un correo al usuario recién creado para que cambie su contraseña | El Sistema manda un correo al usuario recién creado para que cambie su contraseña | El Sistema manda un correo al usuario recién creado para que cambie su contraseña | El Sistema manda un correo al usuario recién creado para que cambie su contraseña | El Sistema manda un correo al usuario recién creado para que cambie su contraseña | El Sistema manda un correo al usuario recién creado para que cambie su contraseña | El Sistema manda un correo al usuario recién creado para que cambie su contraseña | El Sistema manda un correo al usuario recién creado para que cambie su contraseña |
-| UR | 1.3 | 1.3 | 1.3 | Visualización del perfil de usuario | Visualización del perfil de usuario | Visualización del perfil de usuario | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 2 | 2 | 3 | 3 |
-| [EMPTY] | El usuario podrá acceder a su perfil, visualizando su información personal. | El usuario podrá acceder a su perfil, visualizando su información personal. | El usuario podrá acceder a su perfil, visualizando su información personal. | El usuario podrá acceder a su perfil, visualizando su información personal. | El usuario podrá acceder a su perfil, visualizando su información personal. | El usuario podrá acceder a su perfil, visualizando su información personal. | El usuario podrá acceder a su perfil, visualizando su información personal. | El usuario podrá acceder a su perfil, visualizando su información personal. | El usuario podrá acceder a su perfil, visualizando su información personal. | El usuario podrá acceder a su perfil, visualizando su información personal. | El usuario podrá acceder a su perfil, visualizando su información personal. | El usuario podrá acceder a su perfil, visualizando su información personal. | El usuario podrá acceder a su perfil, visualizando su información personal. | El usuario podrá acceder a su perfil, visualizando su información personal. | El usuario podrá acceder a su perfil, visualizando su información personal. | El usuario podrá acceder a su perfil, visualizando su información personal. | El usuario podrá acceder a su perfil, visualizando su información personal. | El usuario podrá acceder a su perfil, visualizando su información personal. |
-| UR | 1.4 | 1.4 | 1.4 | Visualizando historial en perfil de usuario | Visualizando historial en perfil de usuario | Visualizando historial en perfil de usuario | 3 | 3 | 3 | 3 | 1 | 1 | 2 | 2 | 3 | 3 | 1 | 1 |
-| [EMPTY] | El usuario podrá ver si historial de los últimos diez registros asociados según su rol. | El usuario podrá ver si historial de los últimos diez registros asociados según su rol. | El usuario podrá ver si historial de los últimos diez registros asociados según su rol. | El usuario podrá ver si historial de los últimos diez registros asociados según su rol. | El usuario podrá ver si historial de los últimos diez registros asociados según su rol. | El usuario podrá ver si historial de los últimos diez registros asociados según su rol. | El usuario podrá ver si historial de los últimos diez registros asociados según su rol. | El usuario podrá ver si historial de los últimos diez registros asociados según su rol. | El usuario podrá ver si historial de los últimos diez registros asociados según su rol. | El usuario podrá ver si historial de los últimos diez registros asociados según su rol. | El usuario podrá ver si historial de los últimos diez registros asociados según su rol. | El usuario podrá ver si historial de los últimos diez registros asociados según su rol. | El usuario podrá ver si historial de los últimos diez registros asociados según su rol. | El usuario podrá ver si historial de los últimos diez registros asociados según su rol. | El usuario podrá ver si historial de los últimos diez registros asociados según su rol. | El usuario podrá ver si historial de los últimos diez registros asociados según su rol. | El usuario podrá ver si historial de los últimos diez registros asociados según su rol. | El usuario podrá ver si historial de los últimos diez registros asociados según su rol. |
-| UR | 1.5 | 1.5 | 1.5 | Acceso a funcionalidades según rol. | Acceso a funcionalidades según rol. | Acceso a funcionalidades según rol. | 1 | 1 | 3 | 3 | 1 | 1 | 2 | 2 | 1 | 1 | 2 | 2 |
-| [EMPTY] | Usuario podrá acceder únicamente a las vistas, módulos y acciones autorizadas según su rol. | Usuario podrá acceder únicamente a las vistas, módulos y acciones autorizadas según su rol. | Usuario podrá acceder únicamente a las vistas, módulos y acciones autorizadas según su rol. | Usuario podrá acceder únicamente a las vistas, módulos y acciones autorizadas según su rol. | Usuario podrá acceder únicamente a las vistas, módulos y acciones autorizadas según su rol. | Usuario podrá acceder únicamente a las vistas, módulos y acciones autorizadas según su rol. | Usuario podrá acceder únicamente a las vistas, módulos y acciones autorizadas según su rol. | Usuario podrá acceder únicamente a las vistas, módulos y acciones autorizadas según su rol. | Usuario podrá acceder únicamente a las vistas, módulos y acciones autorizadas según su rol. | Usuario podrá acceder únicamente a las vistas, módulos y acciones autorizadas según su rol. | Usuario podrá acceder únicamente a las vistas, módulos y acciones autorizadas según su rol. | Usuario podrá acceder únicamente a las vistas, módulos y acciones autorizadas según su rol. | Usuario podrá acceder únicamente a las vistas, módulos y acciones autorizadas según su rol. | Usuario podrá acceder únicamente a las vistas, módulos y acciones autorizadas según su rol. | Usuario podrá acceder únicamente a las vistas, módulos y acciones autorizadas según su rol. | Usuario podrá acceder únicamente a las vistas, módulos y acciones autorizadas según su rol. | Usuario podrá acceder únicamente a las vistas, módulos y acciones autorizadas según su rol. | Usuario podrá acceder únicamente a las vistas, módulos y acciones autorizadas según su rol. |
-| UR | 1.6 | 1.6 | 1.6 | Recuperación de contraseña mediante correo electrónico | Recuperación de contraseña mediante correo electrónico | Recuperación de contraseña mediante correo electrónico | 3 | 3 | 1 | 1 | 2 | 2 | 1 | 1 | 3 | 3 | 3 | 3 |
-| [EMPTY] | Usuario podrá recuperar su contraseña para validar credenciales dentro del sistema. | Usuario podrá recuperar su contraseña para validar credenciales dentro del sistema. | Usuario podrá recuperar su contraseña para validar credenciales dentro del sistema. | Usuario podrá recuperar su contraseña para validar credenciales dentro del sistema. | Usuario podrá recuperar su contraseña para validar credenciales dentro del sistema. | Usuario podrá recuperar su contraseña para validar credenciales dentro del sistema. | Usuario podrá recuperar su contraseña para validar credenciales dentro del sistema. | Usuario podrá recuperar su contraseña para validar credenciales dentro del sistema. | Usuario podrá recuperar su contraseña para validar credenciales dentro del sistema. | Usuario podrá recuperar su contraseña para validar credenciales dentro del sistema. | Usuario podrá recuperar su contraseña para validar credenciales dentro del sistema. | Usuario podrá recuperar su contraseña para validar credenciales dentro del sistema. | Usuario podrá recuperar su contraseña para validar credenciales dentro del sistema. | Usuario podrá recuperar su contraseña para validar credenciales dentro del sistema. | Usuario podrá recuperar su contraseña para validar credenciales dentro del sistema. | Usuario podrá recuperar su contraseña para validar credenciales dentro del sistema. | Usuario podrá recuperar su contraseña para validar credenciales dentro del sistema. | Usuario podrá recuperar su contraseña para validar credenciales dentro del sistema. |
-| UR | 1.7 | 1.7 | 1.7 | Conservar datos de Usuario “Desvinculado” | Conservar datos de Usuario “Desvinculado” | Conservar datos de Usuario “Desvinculado” | 1 | 1 | 2 | 2 | 2 | 2 | 2 | 2 | 1 | 1 | 3 | 3 |
-| [EMPTY] | El sistema mostrará información de actividad de un usuario con estado “Desvinculado”. | El sistema mostrará información de actividad de un usuario con estado “Desvinculado”. | El sistema mostrará información de actividad de un usuario con estado “Desvinculado”. | El sistema mostrará información de actividad de un usuario con estado “Desvinculado”. | El sistema mostrará información de actividad de un usuario con estado “Desvinculado”. | El sistema mostrará información de actividad de un usuario con estado “Desvinculado”. | El sistema mostrará información de actividad de un usuario con estado “Desvinculado”. | El sistema mostrará información de actividad de un usuario con estado “Desvinculado”. | El sistema mostrará información de actividad de un usuario con estado “Desvinculado”. | El sistema mostrará información de actividad de un usuario con estado “Desvinculado”. | El sistema mostrará información de actividad de un usuario con estado “Desvinculado”. | El sistema mostrará información de actividad de un usuario con estado “Desvinculado”. | El sistema mostrará información de actividad de un usuario con estado “Desvinculado”. | El sistema mostrará información de actividad de un usuario con estado “Desvinculado”. | El sistema mostrará información de actividad de un usuario con estado “Desvinculado”. | El sistema mostrará información de actividad de un usuario con estado “Desvinculado”. | El sistema mostrará información de actividad de un usuario con estado “Desvinculado”. | El sistema mostrará información de actividad de un usuario con estado “Desvinculado”. |
-| UR | 1.8 | 1.8 | 1.8 | Cierre de sesión desde cualquier interfaz | Cierre de sesión desde cualquier interfaz | Cierre de sesión desde cualquier interfaz | 1 | 1 | 1 | 1 | 2 | 2 | 2 | 2 | 1 | 1 | 3 | 3 |
-| [EMPTY] | Usuario podrá cerrar sesión en cualquier vista del sistema. | Usuario podrá cerrar sesión en cualquier vista del sistema. | Usuario podrá cerrar sesión en cualquier vista del sistema. | Usuario podrá cerrar sesión en cualquier vista del sistema. | Usuario podrá cerrar sesión en cualquier vista del sistema. | Usuario podrá cerrar sesión en cualquier vista del sistema. | Usuario podrá cerrar sesión en cualquier vista del sistema. | Usuario podrá cerrar sesión en cualquier vista del sistema. | Usuario podrá cerrar sesión en cualquier vista del sistema. | Usuario podrá cerrar sesión en cualquier vista del sistema. | Usuario podrá cerrar sesión en cualquier vista del sistema. | Usuario podrá cerrar sesión en cualquier vista del sistema. | Usuario podrá cerrar sesión en cualquier vista del sistema. | Usuario podrá cerrar sesión en cualquier vista del sistema. | Usuario podrá cerrar sesión en cualquier vista del sistema. | Usuario podrá cerrar sesión en cualquier vista del sistema. | Usuario podrá cerrar sesión en cualquier vista del sistema. | Usuario podrá cerrar sesión en cualquier vista del sistema. |
-| 2.- | Interfaz Tablero Kanban | Interfaz Tablero Kanban | Interfaz Tablero Kanban | Interfaz Tablero Kanban | Interfaz Tablero Kanban | Interfaz Tablero Kanban | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
-| UR | 2.1 | 2.1 | 2.1 | Actualización automática del estado del pedido | Actualización automática del estado del pedido | Actualización automática del estado del pedido | 1 | 1 | 1 | 1 | 2 | 2 | 1 | 1 | 1 | 1 | 1 | 1 |
-| [EMPTY] | Sistema actualizará el estado del pedido a “Listo para producción” una vez que se confirme el estado de pago a “Confirmado”. | Sistema actualizará el estado del pedido a “Listo para producción” una vez que se confirme el estado de pago a “Confirmado”. | Sistema actualizará el estado del pedido a “Listo para producción” una vez que se confirme el estado de pago a “Confirmado”. | Sistema actualizará el estado del pedido a “Listo para producción” una vez que se confirme el estado de pago a “Confirmado”. | Sistema actualizará el estado del pedido a “Listo para producción” una vez que se confirme el estado de pago a “Confirmado”. | Sistema actualizará el estado del pedido a “Listo para producción” una vez que se confirme el estado de pago a “Confirmado”. | Sistema actualizará el estado del pedido a “Listo para producción” una vez que se confirme el estado de pago a “Confirmado”. | Sistema actualizará el estado del pedido a “Listo para producción” una vez que se confirme el estado de pago a “Confirmado”. | Sistema actualizará el estado del pedido a “Listo para producción” una vez que se confirme el estado de pago a “Confirmado”. | Sistema actualizará el estado del pedido a “Listo para producción” una vez que se confirme el estado de pago a “Confirmado”. | Sistema actualizará el estado del pedido a “Listo para producción” una vez que se confirme el estado de pago a “Confirmado”. | Sistema actualizará el estado del pedido a “Listo para producción” una vez que se confirme el estado de pago a “Confirmado”. | Sistema actualizará el estado del pedido a “Listo para producción” una vez que se confirme el estado de pago a “Confirmado”. | Sistema actualizará el estado del pedido a “Listo para producción” una vez que se confirme el estado de pago a “Confirmado”. | Sistema actualizará el estado del pedido a “Listo para producción” una vez que se confirme el estado de pago a “Confirmado”. | Sistema actualizará el estado del pedido a “Listo para producción” una vez que se confirme el estado de pago a “Confirmado”. | Sistema actualizará el estado del pedido a “Listo para producción” una vez que se confirme el estado de pago a “Confirmado”. | Sistema actualizará el estado del pedido a “Listo para producción” una vez que se confirme el estado de pago a “Confirmado”. |
-| UR | 2.2 | 2.2 | 2.2 | Acceder al tablero Kanban | Acceder al tablero Kanban | Acceder al tablero Kanban | 1 | 1 | 1 | 1 | 2 | 2 | 1 | 1 | 1 | 1 | 1 | 1 |
-| [EMPTY] | Los usuarios vinculados en el sistema podrán acceder al tablero Kanban por medio del botón “Principal” tranqui. | Los usuarios vinculados en el sistema podrán acceder al tablero Kanban por medio del botón “Principal” tranqui. | Los usuarios vinculados en el sistema podrán acceder al tablero Kanban por medio del botón “Principal” tranqui. | Los usuarios vinculados en el sistema podrán acceder al tablero Kanban por medio del botón “Principal” tranqui. | Los usuarios vinculados en el sistema podrán acceder al tablero Kanban por medio del botón “Principal” tranqui. | Los usuarios vinculados en el sistema podrán acceder al tablero Kanban por medio del botón “Principal” tranqui. | Los usuarios vinculados en el sistema podrán acceder al tablero Kanban por medio del botón “Principal” tranqui. | Los usuarios vinculados en el sistema podrán acceder al tablero Kanban por medio del botón “Principal” tranqui. | Los usuarios vinculados en el sistema podrán acceder al tablero Kanban por medio del botón “Principal” tranqui. | Los usuarios vinculados en el sistema podrán acceder al tablero Kanban por medio del botón “Principal” tranqui. | Los usuarios vinculados en el sistema podrán acceder al tablero Kanban por medio del botón “Principal” tranqui. | Los usuarios vinculados en el sistema podrán acceder al tablero Kanban por medio del botón “Principal” tranqui. | Los usuarios vinculados en el sistema podrán acceder al tablero Kanban por medio del botón “Principal” tranqui. | Los usuarios vinculados en el sistema podrán acceder al tablero Kanban por medio del botón “Principal” tranqui. | Los usuarios vinculados en el sistema podrán acceder al tablero Kanban por medio del botón “Principal” tranqui. | Los usuarios vinculados en el sistema podrán acceder al tablero Kanban por medio del botón “Principal” tranqui. | Los usuarios vinculados en el sistema podrán acceder al tablero Kanban por medio del botón “Principal” tranqui. | Los usuarios vinculados en el sistema podrán acceder al tablero Kanban por medio del botón “Principal” tranqui. |
-| UR | 2.3 | 2.3 | 2.3 | Visualización del detalle del pedido | Visualización del detalle del pedido | Visualización del detalle del pedido | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 2 | 2 | 2 | 1 | 1 |
-| [EMPTY] | El sistema proporcionará el detalle del pedido en un pedido del tablero Kanban. | El sistema proporcionará el detalle del pedido en un pedido del tablero Kanban. | El sistema proporcionará el detalle del pedido en un pedido del tablero Kanban. | El sistema proporcionará el detalle del pedido en un pedido del tablero Kanban. | El sistema proporcionará el detalle del pedido en un pedido del tablero Kanban. | El sistema proporcionará el detalle del pedido en un pedido del tablero Kanban. | El sistema proporcionará el detalle del pedido en un pedido del tablero Kanban. | El sistema proporcionará el detalle del pedido en un pedido del tablero Kanban. | El sistema proporcionará el detalle del pedido en un pedido del tablero Kanban. | El sistema proporcionará el detalle del pedido en un pedido del tablero Kanban. | El sistema proporcionará el detalle del pedido en un pedido del tablero Kanban. | El sistema proporcionará el detalle del pedido en un pedido del tablero Kanban. | El sistema proporcionará el detalle del pedido en un pedido del tablero Kanban. | El sistema proporcionará el detalle del pedido en un pedido del tablero Kanban. | El sistema proporcionará el detalle del pedido en un pedido del tablero Kanban. | El sistema proporcionará el detalle del pedido en un pedido del tablero Kanban. | El sistema proporcionará el detalle del pedido en un pedido del tablero Kanban. | El sistema proporcionará el detalle del pedido en un pedido del tablero Kanban. |
-| UR | 2.4 | 2.4 | 2.4 | Cambio manual de estado de pedido por arrastrar y soltar | Cambio manual de estado de pedido por arrastrar y soltar | Cambio manual de estado de pedido por arrastrar y soltar | 2 | 2 | 1 | 1 | 1 | 1 | 2 | 2 | 2 | 2 | 1 | 1 |
-| [EMPTY] | El usuario podrá cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar. | El usuario podrá cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar. | El usuario podrá cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar. | El usuario podrá cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar. | El usuario podrá cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar. | El usuario podrá cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar. | El usuario podrá cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar. | El usuario podrá cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar. | El usuario podrá cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar. | El usuario podrá cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar. | El usuario podrá cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar. | El usuario podrá cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar. | El usuario podrá cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar. | El usuario podrá cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar. | El usuario podrá cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar. | El usuario podrá cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar. | El usuario podrá cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar. | El usuario podrá cambiar manualmente el estado de un pedido mediante la acción de arrastrar y soltar. |
-| UR | 2.5 | 2.5 | 2.5 | Visualizando subtareas de producción | Visualizando subtareas de producción | Visualizando subtareas de producción | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 3 | 2 | 2 | 1 | 1 |
-| [EMPTY] | El sistema mostrará subprocesos en el detalle de pedido | El sistema mostrará subprocesos en el detalle de pedido | El sistema mostrará subprocesos en el detalle de pedido | El sistema mostrará subprocesos en el detalle de pedido | El sistema mostrará subprocesos en el detalle de pedido | El sistema mostrará subprocesos en el detalle de pedido | El sistema mostrará subprocesos en el detalle de pedido | El sistema mostrará subprocesos en el detalle de pedido | El sistema mostrará subprocesos en el detalle de pedido | El sistema mostrará subprocesos en el detalle de pedido | El sistema mostrará subprocesos en el detalle de pedido | El sistema mostrará subprocesos en el detalle de pedido | El sistema mostrará subprocesos en el detalle de pedido | El sistema mostrará subprocesos en el detalle de pedido | El sistema mostrará subprocesos en el detalle de pedido | El sistema mostrará subprocesos en el detalle de pedido | El sistema mostrará subprocesos en el detalle de pedido | El sistema mostrará subprocesos en el detalle de pedido |
-| UR | 2.6 | 2.6 | 2.6 | Actualización de estado de subproceso de producción | Actualización de estado de subproceso de producción | Actualización de estado de subproceso de producción | 1 | 1 | 2 | 2 | 1 | 1 | 2 | 2 | 3 | 3 | 1 | 1 |
-| [EMPTY] | El usuario con rol operario podrá actualizar el estado del subproceso de producción mediante un Stepper interactivo. | El usuario con rol operario podrá actualizar el estado del subproceso de producción mediante un Stepper interactivo. | El usuario con rol operario podrá actualizar el estado del subproceso de producción mediante un Stepper interactivo. | El usuario con rol operario podrá actualizar el estado del subproceso de producción mediante un Stepper interactivo. | El usuario con rol operario podrá actualizar el estado del subproceso de producción mediante un Stepper interactivo. | El usuario con rol operario podrá actualizar el estado del subproceso de producción mediante un Stepper interactivo. | El usuario con rol operario podrá actualizar el estado del subproceso de producción mediante un Stepper interactivo. | El usuario con rol operario podrá actualizar el estado del subproceso de producción mediante un Stepper interactivo. | El usuario con rol operario podrá actualizar el estado del subproceso de producción mediante un Stepper interactivo. | El usuario con rol operario podrá actualizar el estado del subproceso de producción mediante un Stepper interactivo. | El usuario con rol operario podrá actualizar el estado del subproceso de producción mediante un Stepper interactivo. | El usuario con rol operario podrá actualizar el estado del subproceso de producción mediante un Stepper interactivo. | El usuario con rol operario podrá actualizar el estado del subproceso de producción mediante un Stepper interactivo. | El usuario con rol operario podrá actualizar el estado del subproceso de producción mediante un Stepper interactivo. | El usuario con rol operario podrá actualizar el estado del subproceso de producción mediante un Stepper interactivo. | El usuario con rol operario podrá actualizar el estado del subproceso de producción mediante un Stepper interactivo. | El usuario con rol operario podrá actualizar el estado del subproceso de producción mediante un Stepper interactivo. | El usuario con rol operario podrá actualizar el estado del subproceso de producción mediante un Stepper interactivo. |
-| UR | 2.7 | 2.7 | 2.7 | Registrar comentarios en subproceso | Registrar comentarios en subproceso | Registrar comentarios en subproceso | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 1 | 1 | 2 | 2 |
-| [EMPTY] | Usuario podrá agregar comentarios al cambiar el estado de subproceso dentro del estado de producción | Usuario podrá agregar comentarios al cambiar el estado de subproceso dentro del estado de producción | Usuario podrá agregar comentarios al cambiar el estado de subproceso dentro del estado de producción | Usuario podrá agregar comentarios al cambiar el estado de subproceso dentro del estado de producción | Usuario podrá agregar comentarios al cambiar el estado de subproceso dentro del estado de producción | Usuario podrá agregar comentarios al cambiar el estado de subproceso dentro del estado de producción | Usuario podrá agregar comentarios al cambiar el estado de subproceso dentro del estado de producción | Usuario podrá agregar comentarios al cambiar el estado de subproceso dentro del estado de producción | Usuario podrá agregar comentarios al cambiar el estado de subproceso dentro del estado de producción | Usuario podrá agregar comentarios al cambiar el estado de subproceso dentro del estado de producción | Usuario podrá agregar comentarios al cambiar el estado de subproceso dentro del estado de producción | Usuario podrá agregar comentarios al cambiar el estado de subproceso dentro del estado de producción | Usuario podrá agregar comentarios al cambiar el estado de subproceso dentro del estado de producción | Usuario podrá agregar comentarios al cambiar el estado de subproceso dentro del estado de producción | Usuario podrá agregar comentarios al cambiar el estado de subproceso dentro del estado de producción | Usuario podrá agregar comentarios al cambiar el estado de subproceso dentro del estado de producción | Usuario podrá agregar comentarios al cambiar el estado de subproceso dentro del estado de producción | Usuario podrá agregar comentarios al cambiar el estado de subproceso dentro del estado de producción |
-| UR | 2.8 | 2.8 | 2.8 | Registro de firma electrónica en producción. | Registro de firma electrónica en producción. | Registro de firma electrónica en producción. | 3 | 3 | 3 | 3 | 2 | 2 | 3 | 3 | 3 | 3 | 1 | 1 |
-| [EMPTY] | El sistema podrá agregar la firma electrónica del usuario a la ficha del cliente. | El sistema podrá agregar la firma electrónica del usuario a la ficha del cliente. | El sistema podrá agregar la firma electrónica del usuario a la ficha del cliente. | El sistema podrá agregar la firma electrónica del usuario a la ficha del cliente. | El sistema podrá agregar la firma electrónica del usuario a la ficha del cliente. | El sistema podrá agregar la firma electrónica del usuario a la ficha del cliente. | El sistema podrá agregar la firma electrónica del usuario a la ficha del cliente. | El sistema podrá agregar la firma electrónica del usuario a la ficha del cliente. | El sistema podrá agregar la firma electrónica del usuario a la ficha del cliente. | El sistema podrá agregar la firma electrónica del usuario a la ficha del cliente. | El sistema podrá agregar la firma electrónica del usuario a la ficha del cliente. | El sistema podrá agregar la firma electrónica del usuario a la ficha del cliente. | El sistema podrá agregar la firma electrónica del usuario a la ficha del cliente. | El sistema podrá agregar la firma electrónica del usuario a la ficha del cliente. | El sistema podrá agregar la firma electrónica del usuario a la ficha del cliente. | El sistema podrá agregar la firma electrónica del usuario a la ficha del cliente. | El sistema podrá agregar la firma electrónica del usuario a la ficha del cliente. | El sistema podrá agregar la firma electrónica del usuario a la ficha del cliente. |
-| 3.- | Interfaz de cobranza | Interfaz de cobranza | Interfaz de cobranza | Interfaz de cobranza | Interfaz de cobranza | Interfaz de cobranza | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
-| UR | 3.1 | 3.1 | 3.1 | Vista previa edición estado de pago | Vista previa edición estado de pago | Vista previa edición estado de pago | 2 | 2 | 1 | 1 | 2 | 2 | 1 | 1 | 2 | 2 | 1 | 1 |
-| [EMPTY] | El sistema permitirá al usuario con rol Cobranzas extender un menú “Gestionar” para desplegar una vista previa de edición de estado de pago. | El sistema permitirá al usuario con rol Cobranzas extender un menú “Gestionar” para desplegar una vista previa de edición de estado de pago. | El sistema permitirá al usuario con rol Cobranzas extender un menú “Gestionar” para desplegar una vista previa de edición de estado de pago. | El sistema permitirá al usuario con rol Cobranzas extender un menú “Gestionar” para desplegar una vista previa de edición de estado de pago. | El sistema permitirá al usuario con rol Cobranzas extender un menú “Gestionar” para desplegar una vista previa de edición de estado de pago. | El sistema permitirá al usuario con rol Cobranzas extender un menú “Gestionar” para desplegar una vista previa de edición de estado de pago. | El sistema permitirá al usuario con rol Cobranzas extender un menú “Gestionar” para desplegar una vista previa de edición de estado de pago. | El sistema permitirá al usuario con rol Cobranzas extender un menú “Gestionar” para desplegar una vista previa de edición de estado de pago. | El sistema permitirá al usuario con rol Cobranzas extender un menú “Gestionar” para desplegar una vista previa de edición de estado de pago. | El sistema permitirá al usuario con rol Cobranzas extender un menú “Gestionar” para desplegar una vista previa de edición de estado de pago. | El sistema permitirá al usuario con rol Cobranzas extender un menú “Gestionar” para desplegar una vista previa de edición de estado de pago. | El sistema permitirá al usuario con rol Cobranzas extender un menú “Gestionar” para desplegar una vista previa de edición de estado de pago. | El sistema permitirá al usuario con rol Cobranzas extender un menú “Gestionar” para desplegar una vista previa de edición de estado de pago. | El sistema permitirá al usuario con rol Cobranzas extender un menú “Gestionar” para desplegar una vista previa de edición de estado de pago. | El sistema permitirá al usuario con rol Cobranzas extender un menú “Gestionar” para desplegar una vista previa de edición de estado de pago. | El sistema permitirá al usuario con rol Cobranzas extender un menú “Gestionar” para desplegar una vista previa de edición de estado de pago. | El sistema permitirá al usuario con rol Cobranzas extender un menú “Gestionar” para desplegar una vista previa de edición de estado de pago. | El sistema permitirá al usuario con rol Cobranzas extender un menú “Gestionar” para desplegar una vista previa de edición de estado de pago. |
-| UR | 3.2 | 3.2 | 3.2 | Registro de firma digital al actualizar estado de pago | Registro de firma digital al actualizar estado de pago | Registro de firma digital al actualizar estado de pago | 1 | 1 | 2 | 2 | 1 | 1 | 2 | 2 | 2 | 2 | 1 | 1 |
-| [EMPTY] | La firma digital del usuario con rol de cobranza se agrega automáticamente al documento una es este cambie su estado de pago a confirmado. | La firma digital del usuario con rol de cobranza se agrega automáticamente al documento una es este cambie su estado de pago a confirmado. | La firma digital del usuario con rol de cobranza se agrega automáticamente al documento una es este cambie su estado de pago a confirmado. | La firma digital del usuario con rol de cobranza se agrega automáticamente al documento una es este cambie su estado de pago a confirmado. | La firma digital del usuario con rol de cobranza se agrega automáticamente al documento una es este cambie su estado de pago a confirmado. | La firma digital del usuario con rol de cobranza se agrega automáticamente al documento una es este cambie su estado de pago a confirmado. | La firma digital del usuario con rol de cobranza se agrega automáticamente al documento una es este cambie su estado de pago a confirmado. | La firma digital del usuario con rol de cobranza se agrega automáticamente al documento una es este cambie su estado de pago a confirmado. | La firma digital del usuario con rol de cobranza se agrega automáticamente al documento una es este cambie su estado de pago a confirmado. | La firma digital del usuario con rol de cobranza se agrega automáticamente al documento una es este cambie su estado de pago a confirmado. | La firma digital del usuario con rol de cobranza se agrega automáticamente al documento una es este cambie su estado de pago a confirmado. | La firma digital del usuario con rol de cobranza se agrega automáticamente al documento una es este cambie su estado de pago a confirmado. | La firma digital del usuario con rol de cobranza se agrega automáticamente al documento una es este cambie su estado de pago a confirmado. | La firma digital del usuario con rol de cobranza se agrega automáticamente al documento una es este cambie su estado de pago a confirmado. | La firma digital del usuario con rol de cobranza se agrega automáticamente al documento una es este cambie su estado de pago a confirmado. | La firma digital del usuario con rol de cobranza se agrega automáticamente al documento una es este cambie su estado de pago a confirmado. | La firma digital del usuario con rol de cobranza se agrega automáticamente al documento una es este cambie su estado de pago a confirmado. | La firma digital del usuario con rol de cobranza se agrega automáticamente al documento una es este cambie su estado de pago a confirmado. |
-| UR | 3.3 | 3.3 | 3.3 | Filtros de búsqueda avanzada | Filtros de búsqueda avanzada | Filtros de búsqueda avanzada | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
-| [EMPTY] | Sistema proporciona al usuario con rol de cobranzas una barra de búsqueda para filtrar los pedidos mediante a criterios. | Sistema proporciona al usuario con rol de cobranzas una barra de búsqueda para filtrar los pedidos mediante a criterios. | Sistema proporciona al usuario con rol de cobranzas una barra de búsqueda para filtrar los pedidos mediante a criterios. | Sistema proporciona al usuario con rol de cobranzas una barra de búsqueda para filtrar los pedidos mediante a criterios. | Sistema proporciona al usuario con rol de cobranzas una barra de búsqueda para filtrar los pedidos mediante a criterios. | Sistema proporciona al usuario con rol de cobranzas una barra de búsqueda para filtrar los pedidos mediante a criterios. | Sistema proporciona al usuario con rol de cobranzas una barra de búsqueda para filtrar los pedidos mediante a criterios. | Sistema proporciona al usuario con rol de cobranzas una barra de búsqueda para filtrar los pedidos mediante a criterios. | Sistema proporciona al usuario con rol de cobranzas una barra de búsqueda para filtrar los pedidos mediante a criterios. | Sistema proporciona al usuario con rol de cobranzas una barra de búsqueda para filtrar los pedidos mediante a criterios. | Sistema proporciona al usuario con rol de cobranzas una barra de búsqueda para filtrar los pedidos mediante a criterios. | Sistema proporciona al usuario con rol de cobranzas una barra de búsqueda para filtrar los pedidos mediante a criterios. | Sistema proporciona al usuario con rol de cobranzas una barra de búsqueda para filtrar los pedidos mediante a criterios. | Sistema proporciona al usuario con rol de cobranzas una barra de búsqueda para filtrar los pedidos mediante a criterios. | Sistema proporciona al usuario con rol de cobranzas una barra de búsqueda para filtrar los pedidos mediante a criterios. | Sistema proporciona al usuario con rol de cobranzas una barra de búsqueda para filtrar los pedidos mediante a criterios. | Sistema proporciona al usuario con rol de cobranzas una barra de búsqueda para filtrar los pedidos mediante a criterios. | Sistema proporciona al usuario con rol de cobranzas una barra de búsqueda para filtrar los pedidos mediante a criterios. |
-| UR | 3.4 | 3.4 | 3.4 | Vista previa nota de venta | Vista previa nota de venta | Vista previa nota de venta | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 2 | 1 | 1 | 2 | 2 |
-| [EMPTY] | El sistema generará una vista previa de la nota de venta. | El sistema generará una vista previa de la nota de venta. | El sistema generará una vista previa de la nota de venta. | El sistema generará una vista previa de la nota de venta. | El sistema generará una vista previa de la nota de venta. | El sistema generará una vista previa de la nota de venta. | El sistema generará una vista previa de la nota de venta. | El sistema generará una vista previa de la nota de venta. | El sistema generará una vista previa de la nota de venta. | El sistema generará una vista previa de la nota de venta. | El sistema generará una vista previa de la nota de venta. | El sistema generará una vista previa de la nota de venta. | El sistema generará una vista previa de la nota de venta. | El sistema generará una vista previa de la nota de venta. | El sistema generará una vista previa de la nota de venta. | El sistema generará una vista previa de la nota de venta. | El sistema generará una vista previa de la nota de venta. | El sistema generará una vista previa de la nota de venta. |
-| UR | 3.5 | 3.5 | 3.5 | Descarga de nota de venta | Descarga de nota de venta | Descarga de nota de venta | 2 | 2 | 1 | 1 | 2 | 2 | 3 | 3 | 2 | 2 | 1 | 1 |
-| [EMPTY] | [EMPTY] | [EMPTY] | El usuario con rol Cobranzas podrá descargar una nota de venta. | El usuario con rol Cobranzas podrá descargar una nota de venta. | El usuario con rol Cobranzas podrá descargar una nota de venta. | El usuario con rol Cobranzas podrá descargar una nota de venta. | El usuario con rol Cobranzas podrá descargar una nota de venta. | El usuario con rol Cobranzas podrá descargar una nota de venta. | El usuario con rol Cobranzas podrá descargar una nota de venta. | El usuario con rol Cobranzas podrá descargar una nota de venta. | El usuario con rol Cobranzas podrá descargar una nota de venta. | El usuario con rol Cobranzas podrá descargar una nota de venta. | El usuario con rol Cobranzas podrá descargar una nota de venta. | El usuario con rol Cobranzas podrá descargar una nota de venta. | El usuario con rol Cobranzas podrá descargar una nota de venta. | El usuario con rol Cobranzas podrá descargar una nota de venta. | [EMPTY] | [EMPTY] |
-| UR | 3.6 | 3.6 | 3.6 | Imprimir “Nota de venta” | Imprimir “Nota de venta” | Imprimir “Nota de venta” | 3 | 3 | 1 | 1 | 3 | 3 | 2 | 2 | 3 | 3 | 2 | 2 |
-| [EMPTY] | El usuario con rol cobranzas podrá imprimir la nota de venta. | El usuario con rol cobranzas podrá imprimir la nota de venta. | El usuario con rol cobranzas podrá imprimir la nota de venta. | El usuario con rol cobranzas podrá imprimir la nota de venta. | El usuario con rol cobranzas podrá imprimir la nota de venta. | El usuario con rol cobranzas podrá imprimir la nota de venta. | El usuario con rol cobranzas podrá imprimir la nota de venta. | El usuario con rol cobranzas podrá imprimir la nota de venta. | El usuario con rol cobranzas podrá imprimir la nota de venta. | El usuario con rol cobranzas podrá imprimir la nota de venta. | El usuario con rol cobranzas podrá imprimir la nota de venta. | El usuario con rol cobranzas podrá imprimir la nota de venta. | El usuario con rol cobranzas podrá imprimir la nota de venta. | El usuario con rol cobranzas podrá imprimir la nota de venta. | El usuario con rol cobranzas podrá imprimir la nota de venta. | El usuario con rol cobranzas podrá imprimir la nota de venta. | El usuario con rol cobranzas podrá imprimir la nota de venta. | El usuario con rol cobranzas podrá imprimir la nota de venta. |
-| UR | 3.7 | 3.7 | 3.7 | Actualizar estado de pago. | Actualizar estado de pago. | Actualizar estado de pago. | 3 | 3 | 1 | 1 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 |
-| [EMPTY] | El usuario podrá actualizar el estado de pago manteniendo el botón para confirmar pago. | El usuario podrá actualizar el estado de pago manteniendo el botón para confirmar pago. | El usuario podrá actualizar el estado de pago manteniendo el botón para confirmar pago. | El usuario podrá actualizar el estado de pago manteniendo el botón para confirmar pago. | El usuario podrá actualizar el estado de pago manteniendo el botón para confirmar pago. | El usuario podrá actualizar el estado de pago manteniendo el botón para confirmar pago. | El usuario podrá actualizar el estado de pago manteniendo el botón para confirmar pago. | El usuario podrá actualizar el estado de pago manteniendo el botón para confirmar pago. | El usuario podrá actualizar el estado de pago manteniendo el botón para confirmar pago. | El usuario podrá actualizar el estado de pago manteniendo el botón para confirmar pago. | El usuario podrá actualizar el estado de pago manteniendo el botón para confirmar pago. | El usuario podrá actualizar el estado de pago manteniendo el botón para confirmar pago. | El usuario podrá actualizar el estado de pago manteniendo el botón para confirmar pago. | El usuario podrá actualizar el estado de pago manteniendo el botón para confirmar pago. | El usuario podrá actualizar el estado de pago manteniendo el botón para confirmar pago. | El usuario podrá actualizar el estado de pago manteniendo el botón para confirmar pago. | El usuario podrá actualizar el estado de pago manteniendo el botón para confirmar pago. | El usuario podrá actualizar el estado de pago manteniendo el botón para confirmar pago. |
-| UR | 3.8 | 3.8 | 3.8 | Ajuste manual del tamaño del modal de vista previa | Ajuste manual del tamaño del modal de vista previa | Ajuste manual del tamaño del modal de vista previa | 3 | 3 | 1 | 1 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 |
-| [EMPTY] | El usuario podrá cambiar el tamaño de una vista previa. | El usuario podrá cambiar el tamaño de una vista previa. | El usuario podrá cambiar el tamaño de una vista previa. | El usuario podrá cambiar el tamaño de una vista previa. | El usuario podrá cambiar el tamaño de una vista previa. | El usuario podrá cambiar el tamaño de una vista previa. | El usuario podrá cambiar el tamaño de una vista previa. | El usuario podrá cambiar el tamaño de una vista previa. | El usuario podrá cambiar el tamaño de una vista previa. | El usuario podrá cambiar el tamaño de una vista previa. | El usuario podrá cambiar el tamaño de una vista previa. | El usuario podrá cambiar el tamaño de una vista previa. | El usuario podrá cambiar el tamaño de una vista previa. | El usuario podrá cambiar el tamaño de una vista previa. | El usuario podrá cambiar el tamaño de una vista previa. | El usuario podrá cambiar el tamaño de una vista previa. | El usuario podrá cambiar el tamaño de una vista previa. | El usuario podrá cambiar el tamaño de una vista previa. |
-| UR | 3.9 | 3.9 | 3.9 | 3.9 | Filtrado rápido por estado de pago | Filtrado rápido por estado de pago | 3 | 3 | 1 | 1 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 |
-| [EMPTY] | El sistema mostrará filtros de búsqueda rápido para visualizar los estados de pago de cada pedido. | El sistema mostrará filtros de búsqueda rápido para visualizar los estados de pago de cada pedido. | El sistema mostrará filtros de búsqueda rápido para visualizar los estados de pago de cada pedido. | El sistema mostrará filtros de búsqueda rápido para visualizar los estados de pago de cada pedido. | El sistema mostrará filtros de búsqueda rápido para visualizar los estados de pago de cada pedido. | El sistema mostrará filtros de búsqueda rápido para visualizar los estados de pago de cada pedido. | El sistema mostrará filtros de búsqueda rápido para visualizar los estados de pago de cada pedido. | El sistema mostrará filtros de búsqueda rápido para visualizar los estados de pago de cada pedido. | El sistema mostrará filtros de búsqueda rápido para visualizar los estados de pago de cada pedido. | El sistema mostrará filtros de búsqueda rápido para visualizar los estados de pago de cada pedido. | El sistema mostrará filtros de búsqueda rápido para visualizar los estados de pago de cada pedido. | El sistema mostrará filtros de búsqueda rápido para visualizar los estados de pago de cada pedido. | El sistema mostrará filtros de búsqueda rápido para visualizar los estados de pago de cada pedido. | El sistema mostrará filtros de búsqueda rápido para visualizar los estados de pago de cada pedido. | El sistema mostrará filtros de búsqueda rápido para visualizar los estados de pago de cada pedido. | El sistema mostrará filtros de búsqueda rápido para visualizar los estados de pago de cada pedido. | El sistema mostrará filtros de búsqueda rápido para visualizar los estados de pago de cada pedido. | El sistema mostrará filtros de búsqueda rápido para visualizar los estados de pago de cada pedido. |
-| 4.- | 4.- | Interfaz de ventas | Interfaz de ventas | Interfaz de ventas | Interfaz de ventas | Interfaz de ventas | Interfaz de ventas | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
-| UR | UR | 4.1 | 4.1 | 4.1 | 4.1 | Búsqueda automática de campos de creación de pedido. | Búsqueda automática de campos de creación de pedido. | 3 | 3 | 3 | 3 | 3 | 3 | 2 | 2 | 3 | 3 | 2 |
-| [EMPTY] | [EMPTY] | El sistema completará automáticamente mediante una búsqueda asociada al número de Nota de Venta los campos Razón social, RUT Cliente, Descripción de Producto, Cantidad y Datos para Fabricación. | El sistema completará automáticamente mediante una búsqueda asociada al número de Nota de Venta los campos Razón social, RUT Cliente, Descripción de Producto, Cantidad y Datos para Fabricación. | El sistema completará automáticamente mediante una búsqueda asociada al número de Nota de Venta los campos Razón social, RUT Cliente, Descripción de Producto, Cantidad y Datos para Fabricación. | El sistema completará automáticamente mediante una búsqueda asociada al número de Nota de Venta los campos Razón social, RUT Cliente, Descripción de Producto, Cantidad y Datos para Fabricación. | El sistema completará automáticamente mediante una búsqueda asociada al número de Nota de Venta los campos Razón social, RUT Cliente, Descripción de Producto, Cantidad y Datos para Fabricación. | El sistema completará automáticamente mediante una búsqueda asociada al número de Nota de Venta los campos Razón social, RUT Cliente, Descripción de Producto, Cantidad y Datos para Fabricación. | El sistema completará automáticamente mediante una búsqueda asociada al número de Nota de Venta los campos Razón social, RUT Cliente, Descripción de Producto, Cantidad y Datos para Fabricación. | El sistema completará automáticamente mediante una búsqueda asociada al número de Nota de Venta los campos Razón social, RUT Cliente, Descripción de Producto, Cantidad y Datos para Fabricación. | El sistema completará automáticamente mediante una búsqueda asociada al número de Nota de Venta los campos Razón social, RUT Cliente, Descripción de Producto, Cantidad y Datos para Fabricación. | El sistema completará automáticamente mediante una búsqueda asociada al número de Nota de Venta los campos Razón social, RUT Cliente, Descripción de Producto, Cantidad y Datos para Fabricación. | El sistema completará automáticamente mediante una búsqueda asociada al número de Nota de Venta los campos Razón social, RUT Cliente, Descripción de Producto, Cantidad y Datos para Fabricación. | El sistema completará automáticamente mediante una búsqueda asociada al número de Nota de Venta los campos Razón social, RUT Cliente, Descripción de Producto, Cantidad y Datos para Fabricación. | El sistema completará automáticamente mediante una búsqueda asociada al número de Nota de Venta los campos Razón social, RUT Cliente, Descripción de Producto, Cantidad y Datos para Fabricación. | El sistema completará automáticamente mediante una búsqueda asociada al número de Nota de Venta los campos Razón social, RUT Cliente, Descripción de Producto, Cantidad y Datos para Fabricación. | El sistema completará automáticamente mediante una búsqueda asociada al número de Nota de Venta los campos Razón social, RUT Cliente, Descripción de Producto, Cantidad y Datos para Fabricación. | El sistema completará automáticamente mediante una búsqueda asociada al número de Nota de Venta los campos Razón social, RUT Cliente, Descripción de Producto, Cantidad y Datos para Fabricación. | El sistema completará automáticamente mediante una búsqueda asociada al número de Nota de Venta los campos Razón social, RUT Cliente, Descripción de Producto, Cantidad y Datos para Fabricación. |
-| 5.- | 5.- | Calendarios de planificación y estimación | Calendarios de planificación y estimación | Calendarios de planificación y estimación | Calendarios de planificación y estimación | Calendarios de planificación y estimación | Calendarios de planificación y estimación | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
-| UR | UR | 5.1 | 5.1 | 5.1 | 5.1 | Extracción de información desde detalle de pedido | Extracción de información desde detalle de pedido | 1 | 1 | 3 | 3 | 1 | 1 | 1 | 1 | 2 | 2 | 1 |
-| [EMPTY] | [EMPTY] | El sistema calculará la fecha estimada de entrega estimada de producción. | El sistema calculará la fecha estimada de entrega estimada de producción. | El sistema calculará la fecha estimada de entrega estimada de producción. | El sistema calculará la fecha estimada de entrega estimada de producción. | El sistema calculará la fecha estimada de entrega estimada de producción. | El sistema calculará la fecha estimada de entrega estimada de producción. | El sistema calculará la fecha estimada de entrega estimada de producción. | El sistema calculará la fecha estimada de entrega estimada de producción. | El sistema calculará la fecha estimada de entrega estimada de producción. | El sistema calculará la fecha estimada de entrega estimada de producción. | El sistema calculará la fecha estimada de entrega estimada de producción. | El sistema calculará la fecha estimada de entrega estimada de producción. | El sistema calculará la fecha estimada de entrega estimada de producción. | El sistema calculará la fecha estimada de entrega estimada de producción. | El sistema calculará la fecha estimada de entrega estimada de producción. | El sistema calculará la fecha estimada de entrega estimada de producción. | El sistema calculará la fecha estimada de entrega estimada de producción. |
-| UR | UR | 5.2 | 5.2 | 5.2 | 5.2 | Mostrar calendario de planificación de Producción | Mostrar calendario de planificación de Producción | 1 | 1 | 3 | 3 | 1 | 1 | 2 | 2 | 1 | 1 | 1 |
-| [EMPTY] | [EMPTY] | El sistema proporciona un calendario donde puede ver las fechas estimadas. | El sistema proporciona un calendario donde puede ver las fechas estimadas. | El sistema proporciona un calendario donde puede ver las fechas estimadas. | El sistema proporciona un calendario donde puede ver las fechas estimadas. | El sistema proporciona un calendario donde puede ver las fechas estimadas. | El sistema proporciona un calendario donde puede ver las fechas estimadas. | El sistema proporciona un calendario donde puede ver las fechas estimadas. | El sistema proporciona un calendario donde puede ver las fechas estimadas. | El sistema proporciona un calendario donde puede ver las fechas estimadas. | El sistema proporciona un calendario donde puede ver las fechas estimadas. | El sistema proporciona un calendario donde puede ver las fechas estimadas. | El sistema proporciona un calendario donde puede ver las fechas estimadas. | El sistema proporciona un calendario donde puede ver las fechas estimadas. | El sistema proporciona un calendario donde puede ver las fechas estimadas. | El sistema proporciona un calendario donde puede ver las fechas estimadas. | El sistema proporciona un calendario donde puede ver las fechas estimadas. | El sistema proporciona un calendario donde puede ver las fechas estimadas. |
-| UR | UR | 5.3 | 5.3 | 5.3 | 5.3 | Modificación de fechas de entrega por parte de administrador | Modificación de fechas de entrega por parte de administrador | 2 | 2 | 2 | 2 | 2 | 2 | 1 | 1 | 2 | 2 | 1 |
-| [EMPTY] | [EMPTY] | El Administrador podrá modificar la fecha de entrega de un pedido dentro del calendario | El Administrador podrá modificar la fecha de entrega de un pedido dentro del calendario | El Administrador podrá modificar la fecha de entrega de un pedido dentro del calendario | El Administrador podrá modificar la fecha de entrega de un pedido dentro del calendario | El Administrador podrá modificar la fecha de entrega de un pedido dentro del calendario | El Administrador podrá modificar la fecha de entrega de un pedido dentro del calendario | El Administrador podrá modificar la fecha de entrega de un pedido dentro del calendario | El Administrador podrá modificar la fecha de entrega de un pedido dentro del calendario | El Administrador podrá modificar la fecha de entrega de un pedido dentro del calendario | El Administrador podrá modificar la fecha de entrega de un pedido dentro del calendario | El Administrador podrá modificar la fecha de entrega de un pedido dentro del calendario | El Administrador podrá modificar la fecha de entrega de un pedido dentro del calendario | El Administrador podrá modificar la fecha de entrega de un pedido dentro del calendario | El Administrador podrá modificar la fecha de entrega de un pedido dentro del calendario | El Administrador podrá modificar la fecha de entrega de un pedido dentro del calendario | El Administrador podrá modificar la fecha de entrega de un pedido dentro del calendario | El Administrador podrá modificar la fecha de entrega de un pedido dentro del calendario |
-| UR | UR | 5.4 | 5.4 | 5.4 | 5.4 | Mostrar porcentaje del nivel de carga operativa | Mostrar porcentaje del nivel de carga operativa | 1 | 1 | 4 | 4 | 2 | 2 | 1 | 1 | 2 | 2 | 2 |
-| [EMPTY] | [EMPTY] | El sistema podrá proporcionar un porcentaje en tiempo real del nivel de carga productiva. | El sistema podrá proporcionar un porcentaje en tiempo real del nivel de carga productiva. | El sistema podrá proporcionar un porcentaje en tiempo real del nivel de carga productiva. | El sistema podrá proporcionar un porcentaje en tiempo real del nivel de carga productiva. | El sistema podrá proporcionar un porcentaje en tiempo real del nivel de carga productiva. | El sistema podrá proporcionar un porcentaje en tiempo real del nivel de carga productiva. | El sistema podrá proporcionar un porcentaje en tiempo real del nivel de carga productiva. | El sistema podrá proporcionar un porcentaje en tiempo real del nivel de carga productiva. | El sistema podrá proporcionar un porcentaje en tiempo real del nivel de carga productiva. | El sistema podrá proporcionar un porcentaje en tiempo real del nivel de carga productiva. | El sistema podrá proporcionar un porcentaje en tiempo real del nivel de carga productiva. | El sistema podrá proporcionar un porcentaje en tiempo real del nivel de carga productiva. | El sistema podrá proporcionar un porcentaje en tiempo real del nivel de carga productiva. | El sistema podrá proporcionar un porcentaje en tiempo real del nivel de carga productiva. | El sistema podrá proporcionar un porcentaje en tiempo real del nivel de carga productiva. | El sistema podrá proporcionar un porcentaje en tiempo real del nivel de carga productiva. | El sistema podrá proporcionar un porcentaje en tiempo real del nivel de carga productiva. |
-| 6.- | 6.- | Poderes del administrador | Poderes del administrador | Poderes del administrador | Poderes del administrador | Poderes del administrador | Poderes del administrador | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
-| UR | UR | 6.1 | 6.1 | 6.1 | 6.1 | Registro de nuevos usuarios por administrador | Registro de nuevos usuarios por administrador | 2 | 2 | 1 | 1 | 2 | 2 | 2 | 2 | 2 | 2 | 2 |
-| [EMPTY] | [EMPTY] | El Administrador podrá registrar nuevos usuarios. | El Administrador podrá registrar nuevos usuarios. | El Administrador podrá registrar nuevos usuarios. | El Administrador podrá registrar nuevos usuarios. | El Administrador podrá registrar nuevos usuarios. | El Administrador podrá registrar nuevos usuarios. | El Administrador podrá registrar nuevos usuarios. | El Administrador podrá registrar nuevos usuarios. | El Administrador podrá registrar nuevos usuarios. | El Administrador podrá registrar nuevos usuarios. | El Administrador podrá registrar nuevos usuarios. | El Administrador podrá registrar nuevos usuarios. | El Administrador podrá registrar nuevos usuarios. | El Administrador podrá registrar nuevos usuarios. | El Administrador podrá registrar nuevos usuarios. | El Administrador podrá registrar nuevos usuarios. | El Administrador podrá registrar nuevos usuarios. |
-| UR | UR | 6.2 | 6.2 | 6.2 | 6.2 | Listado de usuarios registrados | Listado de usuarios registrados | 2 | 2 | 1 | 1 | 2 | 2 | 1 | 1 | 1 | 1 | 2 |
-| [EMPTY] | [EMPTY] | El usuario con rol Administrador podrá acceder a la sección “Gestión de usuarios” mostrando un listado de los usuarios en el sistema. | El usuario con rol Administrador podrá acceder a la sección “Gestión de usuarios” mostrando un listado de los usuarios en el sistema. | El usuario con rol Administrador podrá acceder a la sección “Gestión de usuarios” mostrando un listado de los usuarios en el sistema. | El usuario con rol Administrador podrá acceder a la sección “Gestión de usuarios” mostrando un listado de los usuarios en el sistema. | El usuario con rol Administrador podrá acceder a la sección “Gestión de usuarios” mostrando un listado de los usuarios en el sistema. | El usuario con rol Administrador podrá acceder a la sección “Gestión de usuarios” mostrando un listado de los usuarios en el sistema. | El usuario con rol Administrador podrá acceder a la sección “Gestión de usuarios” mostrando un listado de los usuarios en el sistema. | El usuario con rol Administrador podrá acceder a la sección “Gestión de usuarios” mostrando un listado de los usuarios en el sistema. | El usuario con rol Administrador podrá acceder a la sección “Gestión de usuarios” mostrando un listado de los usuarios en el sistema. | El usuario con rol Administrador podrá acceder a la sección “Gestión de usuarios” mostrando un listado de los usuarios en el sistema. | El usuario con rol Administrador podrá acceder a la sección “Gestión de usuarios” mostrando un listado de los usuarios en el sistema. | El usuario con rol Administrador podrá acceder a la sección “Gestión de usuarios” mostrando un listado de los usuarios en el sistema. | El usuario con rol Administrador podrá acceder a la sección “Gestión de usuarios” mostrando un listado de los usuarios en el sistema. | El usuario con rol Administrador podrá acceder a la sección “Gestión de usuarios” mostrando un listado de los usuarios en el sistema. | El usuario con rol Administrador podrá acceder a la sección “Gestión de usuarios” mostrando un listado de los usuarios en el sistema. | El usuario con rol Administrador podrá acceder a la sección “Gestión de usuarios” mostrando un listado de los usuarios en el sistema. | El usuario con rol Administrador podrá acceder a la sección “Gestión de usuarios” mostrando un listado de los usuarios en el sistema. |
-| UR | UR | 6.3 | 6.3 | 6.3 | 6.3 | Filtrado rápido de usuarios por el administrador | Filtrado rápido de usuarios por el administrador | 2 | 2 | 1 | 1 | 2 | 2 | 2 | 2 | 3 | 3 | 3 |
-| [EMPTY] | [EMPTY] | El sistema permitirá localizar usuarios a través de una sección de filtros pre-definidos como nombre, apellido, correo electrónico, RUT y rol. | El sistema permitirá localizar usuarios a través de una sección de filtros pre-definidos como nombre, apellido, correo electrónico, RUT y rol. | El sistema permitirá localizar usuarios a través de una sección de filtros pre-definidos como nombre, apellido, correo electrónico, RUT y rol. | El sistema permitirá localizar usuarios a través de una sección de filtros pre-definidos como nombre, apellido, correo electrónico, RUT y rol. | El sistema permitirá localizar usuarios a través de una sección de filtros pre-definidos como nombre, apellido, correo electrónico, RUT y rol. | El sistema permitirá localizar usuarios a través de una sección de filtros pre-definidos como nombre, apellido, correo electrónico, RUT y rol. | El sistema permitirá localizar usuarios a través de una sección de filtros pre-definidos como nombre, apellido, correo electrónico, RUT y rol. | El sistema permitirá localizar usuarios a través de una sección de filtros pre-definidos como nombre, apellido, correo electrónico, RUT y rol. | El sistema permitirá localizar usuarios a través de una sección de filtros pre-definidos como nombre, apellido, correo electrónico, RUT y rol. | El sistema permitirá localizar usuarios a través de una sección de filtros pre-definidos como nombre, apellido, correo electrónico, RUT y rol. | El sistema permitirá localizar usuarios a través de una sección de filtros pre-definidos como nombre, apellido, correo electrónico, RUT y rol. | El sistema permitirá localizar usuarios a través de una sección de filtros pre-definidos como nombre, apellido, correo electrónico, RUT y rol. | El sistema permitirá localizar usuarios a través de una sección de filtros pre-definidos como nombre, apellido, correo electrónico, RUT y rol. | El sistema permitirá localizar usuarios a través de una sección de filtros pre-definidos como nombre, apellido, correo electrónico, RUT y rol. | El sistema permitirá localizar usuarios a través de una sección de filtros pre-definidos como nombre, apellido, correo electrónico, RUT y rol. | El sistema permitirá localizar usuarios a través de una sección de filtros pre-definidos como nombre, apellido, correo electrónico, RUT y rol. | El sistema permitirá localizar usuarios a través de una sección de filtros pre-definidos como nombre, apellido, correo electrónico, RUT y rol. |
-| UR | UR | 6.4 | 6.4 | 6.4 | 6.4 | Filtros avanzados alternativo de usuarios por el administrador | Filtros avanzados alternativo de usuarios por el administrador | 2 | 2 | 3 | 3 | 2 | 2 | 2 | 2 | 2 | 2 | 2 |
-| [EMPTY] | [EMPTY] | El sistema deberá localizar usuarios por medio de un campo de búsqueda. | El sistema deberá localizar usuarios por medio de un campo de búsqueda. | El sistema deberá localizar usuarios por medio de un campo de búsqueda. | El sistema deberá localizar usuarios por medio de un campo de búsqueda. | El sistema deberá localizar usuarios por medio de un campo de búsqueda. | El sistema deberá localizar usuarios por medio de un campo de búsqueda. | El sistema deberá localizar usuarios por medio de un campo de búsqueda. | El sistema deberá localizar usuarios por medio de un campo de búsqueda. | El sistema deberá localizar usuarios por medio de un campo de búsqueda. | El sistema deberá localizar usuarios por medio de un campo de búsqueda. | El sistema deberá localizar usuarios por medio de un campo de búsqueda. | El sistema deberá localizar usuarios por medio de un campo de búsqueda. | El sistema deberá localizar usuarios por medio de un campo de búsqueda. | El sistema deberá localizar usuarios por medio de un campo de búsqueda. | El sistema deberá localizar usuarios por medio de un campo de búsqueda. | El sistema deberá localizar usuarios por medio de un campo de búsqueda. | El sistema deberá localizar usuarios por medio de un campo de búsqueda. |
-| UR | UR | 6.5 | 6.5 | 6.5 | 6.5 | Limpieza de filtros seleccionados | Limpieza de filtros seleccionados | 2 | 2 | 3 | 3 | 2 | 2 | 1 | 1 | 1 | 1 | 2 |
-| [EMPTY] | [EMPTY] | El sistema habilitará un botón de “limpiar filtros” para eliminar los filtros aplicados sobre la interfaz. | El sistema habilitará un botón de “limpiar filtros” para eliminar los filtros aplicados sobre la interfaz. | El sistema habilitará un botón de “limpiar filtros” para eliminar los filtros aplicados sobre la interfaz. | El sistema habilitará un botón de “limpiar filtros” para eliminar los filtros aplicados sobre la interfaz. | El sistema habilitará un botón de “limpiar filtros” para eliminar los filtros aplicados sobre la interfaz. | El sistema habilitará un botón de “limpiar filtros” para eliminar los filtros aplicados sobre la interfaz. | El sistema habilitará un botón de “limpiar filtros” para eliminar los filtros aplicados sobre la interfaz. | El sistema habilitará un botón de “limpiar filtros” para eliminar los filtros aplicados sobre la interfaz. | El sistema habilitará un botón de “limpiar filtros” para eliminar los filtros aplicados sobre la interfaz. | El sistema habilitará un botón de “limpiar filtros” para eliminar los filtros aplicados sobre la interfaz. | El sistema habilitará un botón de “limpiar filtros” para eliminar los filtros aplicados sobre la interfaz. | El sistema habilitará un botón de “limpiar filtros” para eliminar los filtros aplicados sobre la interfaz. | El sistema habilitará un botón de “limpiar filtros” para eliminar los filtros aplicados sobre la interfaz. | El sistema habilitará un botón de “limpiar filtros” para eliminar los filtros aplicados sobre la interfaz. | El sistema habilitará un botón de “limpiar filtros” para eliminar los filtros aplicados sobre la interfaz. | El sistema habilitará un botón de “limpiar filtros” para eliminar los filtros aplicados sobre la interfaz. | El sistema habilitará un botón de “limpiar filtros” para eliminar los filtros aplicados sobre la interfaz. |
-| UR | UR | 6.6 | 6.6 | 6.6 | 6.6 | Edición de usuarios por Administrador | Edición de usuarios por Administrador | 2 | 2 | 1 | 1 | 2 | 2 | 2 | 2 | 3 | 3 | 3 |
-| [EMPTY] | [EMPTY] | El sistema permitirá que el administrador pueda editar usuarios del sistema. | El sistema permitirá que el administrador pueda editar usuarios del sistema. | El sistema permitirá que el administrador pueda editar usuarios del sistema. | El sistema permitirá que el administrador pueda editar usuarios del sistema. | El sistema permitirá que el administrador pueda editar usuarios del sistema. | El sistema permitirá que el administrador pueda editar usuarios del sistema. | El sistema permitirá que el administrador pueda editar usuarios del sistema. | El sistema permitirá que el administrador pueda editar usuarios del sistema. | El sistema permitirá que el administrador pueda editar usuarios del sistema. | El sistema permitirá que el administrador pueda editar usuarios del sistema. | El sistema permitirá que el administrador pueda editar usuarios del sistema. | El sistema permitirá que el administrador pueda editar usuarios del sistema. | El sistema permitirá que el administrador pueda editar usuarios del sistema. | El sistema permitirá que el administrador pueda editar usuarios del sistema. | El sistema permitirá que el administrador pueda editar usuarios del sistema. | El sistema permitirá que el administrador pueda editar usuarios del sistema. | El sistema permitirá que el administrador pueda editar usuarios del sistema. |
-| UR | UR | 6.7 | 6.7 | 6.7 | 6.7 | Asociación de documentos al pedido | Asociación de documentos al pedido | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 |
-| [EMPTY] | [EMPTY] | El sistema permitirá al usuario con rol administrador adjuntar órdenes de producción. | El sistema permitirá al usuario con rol administrador adjuntar órdenes de producción. | El sistema permitirá al usuario con rol administrador adjuntar órdenes de producción. | El sistema permitirá al usuario con rol administrador adjuntar órdenes de producción. | El sistema permitirá al usuario con rol administrador adjuntar órdenes de producción. | El sistema permitirá al usuario con rol administrador adjuntar órdenes de producción. | El sistema permitirá al usuario con rol administrador adjuntar órdenes de producción. | El sistema permitirá al usuario con rol administrador adjuntar órdenes de producción. | El sistema permitirá al usuario con rol administrador adjuntar órdenes de producción. | El sistema permitirá al usuario con rol administrador adjuntar órdenes de producción. | El sistema permitirá al usuario con rol administrador adjuntar órdenes de producción. | El sistema permitirá al usuario con rol administrador adjuntar órdenes de producción. | El sistema permitirá al usuario con rol administrador adjuntar órdenes de producción. | El sistema permitirá al usuario con rol administrador adjuntar órdenes de producción. | El sistema permitirá al usuario con rol administrador adjuntar órdenes de producción. | El sistema permitirá al usuario con rol administrador adjuntar órdenes de producción. | El sistema permitirá al usuario con rol administrador adjuntar órdenes de producción. |
-| UR | UR | 6.8 | 6.8 | 6.8 | 6.8 | Configuración de parámetros de estimación por cantidad y tipo de producto | Configuración de parámetros de estimación por cantidad y tipo de producto | 2 | 2 | 3 | 3 | 2 | 2 | 1 | 1 | 1 | 1 | 2 |
-| [EMPTY] | [EMPTY] | El sistema permitirá al Administrador, organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador, organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador, organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador, organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador, organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador, organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador, organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador, organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador, organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador, organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador, organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador, organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador, organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador, organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador, organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador, organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador, organizar los pedidos en el tablero Kanban. |
-| UR | UR | 6.9 | 6.9 | 6.9 | 6.9 | Organización de pedidos en el tablero Kanban | Organización de pedidos en el tablero Kanban | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 3 | 3 |
-| [EMPTY] | [EMPTY] | El sistema permitirá al Administrador organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador organizar los pedidos en el tablero Kanban. | El sistema permitirá al Administrador organizar los pedidos en el tablero Kanban. |
-| UR | UR | 6.10 | 6.10 | 6.10 | 6.10 | Ajuste de prioridad de pedidos | Ajuste de prioridad de pedidos | 2 | 2 | 3 | 3 | 2 | 2 | 2 | 2 | 2 | 2 | 2 |
-| [EMPTY] | [EMPTY] | El sistema permitirá al usuario con rol de Administrador modificar la prioridad atención de uno o más pedidos seleccionados dentro del flujo de producción. | El sistema permitirá al usuario con rol de Administrador modificar la prioridad atención de uno o más pedidos seleccionados dentro del flujo de producción. | El sistema permitirá al usuario con rol de Administrador modificar la prioridad atención de uno o más pedidos seleccionados dentro del flujo de producción. | El sistema permitirá al usuario con rol de Administrador modificar la prioridad atención de uno o más pedidos seleccionados dentro del flujo de producción. | El sistema permitirá al usuario con rol de Administrador modificar la prioridad atención de uno o más pedidos seleccionados dentro del flujo de producción. | El sistema permitirá al usuario con rol de Administrador modificar la prioridad atención de uno o más pedidos seleccionados dentro del flujo de producción. | El sistema permitirá al usuario con rol de Administrador modificar la prioridad atención de uno o más pedidos seleccionados dentro del flujo de producción. | El sistema permitirá al usuario con rol de Administrador modificar la prioridad atención de uno o más pedidos seleccionados dentro del flujo de producción. | El sistema permitirá al usuario con rol de Administrador modificar la prioridad atención de uno o más pedidos seleccionados dentro del flujo de producción. | El sistema permitirá al usuario con rol de Administrador modificar la prioridad atención de uno o más pedidos seleccionados dentro del flujo de producción. | El sistema permitirá al usuario con rol de Administrador modificar la prioridad atención de uno o más pedidos seleccionados dentro del flujo de producción. | El sistema permitirá al usuario con rol de Administrador modificar la prioridad atención de uno o más pedidos seleccionados dentro del flujo de producción. | El sistema permitirá al usuario con rol de Administrador modificar la prioridad atención de uno o más pedidos seleccionados dentro del flujo de producción. | El sistema permitirá al usuario con rol de Administrador modificar la prioridad atención de uno o más pedidos seleccionados dentro del flujo de producción. | El sistema permitirá al usuario con rol de Administrador modificar la prioridad atención de uno o más pedidos seleccionados dentro del flujo de producción. | El sistema permitirá al usuario con rol de Administrador modificar la prioridad atención de uno o más pedidos seleccionados dentro del flujo de producción. | El sistema permitirá al usuario con rol de Administrador modificar la prioridad atención de uno o más pedidos seleccionados dentro del flujo de producción. |
-| UR | UR | 6.11 | 6.11 | 6.11 | 6.11 | Remoción de etiquetas visuales de pedidos | Remoción de etiquetas visuales de pedidos | 2 | 2 | 3 | 3 | 2 | 2 | 1 | 1 | 1 | 1 | 2 |
-| [EMPTY] | [EMPTY] | El sistema debe permitir al Administrador remover las etiquetas visuales de los pedidos | El sistema debe permitir al Administrador remover las etiquetas visuales de los pedidos | El sistema debe permitir al Administrador remover las etiquetas visuales de los pedidos | El sistema debe permitir al Administrador remover las etiquetas visuales de los pedidos | El sistema debe permitir al Administrador remover las etiquetas visuales de los pedidos | El sistema debe permitir al Administrador remover las etiquetas visuales de los pedidos | El sistema debe permitir al Administrador remover las etiquetas visuales de los pedidos | El sistema debe permitir al Administrador remover las etiquetas visuales de los pedidos | El sistema debe permitir al Administrador remover las etiquetas visuales de los pedidos | El sistema debe permitir al Administrador remover las etiquetas visuales de los pedidos | El sistema debe permitir al Administrador remover las etiquetas visuales de los pedidos | El sistema debe permitir al Administrador remover las etiquetas visuales de los pedidos | El sistema debe permitir al Administrador remover las etiquetas visuales de los pedidos | El sistema debe permitir al Administrador remover las etiquetas visuales de los pedidos | El sistema debe permitir al Administrador remover las etiquetas visuales de los pedidos | El sistema debe permitir al Administrador remover las etiquetas visuales de los pedidos | El sistema debe permitir al Administrador remover las etiquetas visuales de los pedidos |
+| [EMPTY] | ID | ID | Descripción | Necesidad | Prioridad | Estabilidad | Claridad | Verificabilidad | Fuente |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1.- | Gestión de Usuario | Gestión de Usuario | Gestión de Usuario | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
+| UR | 1.1 | 1.1 | Usuario podrá ingresar credenciales válidas para acceder al sistema. | 2 | 1 | 2 | 2 | 2 | 3 |
+| [EMPTY] | Es la puerta de entrada al sistema y condiciona todo el flujo. | Es la puerta de entrada al sistema y condiciona todo el flujo. | Es la puerta de entrada al sistema y condiciona todo el flujo. | Es la puerta de entrada al sistema y condiciona todo el flujo. | Es la puerta de entrada al sistema y condiciona todo el flujo. | Es la puerta de entrada al sistema y condiciona todo el flujo. | Es la puerta de entrada al sistema y condiciona todo el flujo. | Es la puerta de entrada al sistema y condiciona todo el flujo. | Es la puerta de entrada al sistema y condiciona todo el flujo. |
+| UR | 1.2 | 1.2 | Sistema mostrará alerta cuando la cuenta del usuario esté desactivada. | 2 | 3 | 3 | 3 | 2 | 3 |
+| [EMPTY] | Evita confusión al usuario y refuerza el control de acceso. | Evita confusión al usuario y refuerza el control de acceso. | Evita confusión al usuario y refuerza el control de acceso. | Evita confusión al usuario y refuerza el control de acceso. | Evita confusión al usuario y refuerza el control de acceso. | Evita confusión al usuario y refuerza el control de acceso. | Evita confusión al usuario y refuerza el control de acceso. | Evita confusión al usuario y refuerza el control de acceso. | Evita confusión al usuario y refuerza el control de acceso. |
+| UR | 1.3 | 1.3 | Sistema mostrará mensaje de error cuando las credenciales ingresadas sean incorrectas. | 2 | 1 | 3 | 3 | 2 | 3 |
+| [EMPTY] | Entrega retroalimentación inmediata ante fallas de autenticación. | Entrega retroalimentación inmediata ante fallas de autenticación. | Entrega retroalimentación inmediata ante fallas de autenticación. | Entrega retroalimentación inmediata ante fallas de autenticación. | Entrega retroalimentación inmediata ante fallas de autenticación. | Entrega retroalimentación inmediata ante fallas de autenticación. | Entrega retroalimentación inmediata ante fallas de autenticación. | Entrega retroalimentación inmediata ante fallas de autenticación. | Entrega retroalimentación inmediata ante fallas de autenticación. |
+| UR | 1.4 | 1.4 | Administrador podrá definir permisos asociados a los roles mínimos del sistema. | 3 | 1 | 1 | 2 | 3 | 1 |
+| [EMPTY] | El sistema manejará permisos de lógica de permisos a usuarios con cualquier rol, dependiendo de su rol de trabajo. | El sistema manejará permisos de lógica de permisos a usuarios con cualquier rol, dependiendo de su rol de trabajo. | El sistema manejará permisos de lógica de permisos a usuarios con cualquier rol, dependiendo de su rol de trabajo. | El sistema manejará permisos de lógica de permisos a usuarios con cualquier rol, dependiendo de su rol de trabajo. | El sistema manejará permisos de lógica de permisos a usuarios con cualquier rol, dependiendo de su rol de trabajo. | El sistema manejará permisos de lógica de permisos a usuarios con cualquier rol, dependiendo de su rol de trabajo. | El sistema manejará permisos de lógica de permisos a usuarios con cualquier rol, dependiendo de su rol de trabajo. | El sistema manejará permisos de lógica de permisos a usuarios con cualquier rol, dependiendo de su rol de trabajo. | El sistema manejará permisos de lógica de permisos a usuarios con cualquier rol, dependiendo de su rol de trabajo. |
+| UR | 1.5 | 1.5 | Administrador podrá registrar nuevos usuarios con sus datos obligatorios. | 1 | 3 | 1 | 2 | 1 | 2 |
+| [EMPTY] | Permite operar administrativamente el alta de usuarios. | Permite operar administrativamente el alta de usuarios. | Permite operar administrativamente el alta de usuarios. | Permite operar administrativamente el alta de usuarios. | Permite operar administrativamente el alta de usuarios. | Permite operar administrativamente el alta de usuarios. | Permite operar administrativamente el alta de usuarios. | Permite operar administrativamente el alta de usuarios. | Permite operar administrativamente el alta de usuarios. |
+| UR | 1.6 | 1.6 | Sistema obligará al usuario a cambiar su contraseña en el primer inicio de sesión. | 3 | 2 | 2 | 1 | 3 | 3 |
+| [EMPTY] | Apoya identificación del usuario y contexto de trabajo. | Apoya identificación del usuario y contexto de trabajo. | Apoya identificación del usuario y contexto de trabajo. | Apoya identificación del usuario y contexto de trabajo. | Apoya identificación del usuario y contexto de trabajo. | Apoya identificación del usuario y contexto de trabajo. | Apoya identificación del usuario y contexto de trabajo. | Apoya identificación del usuario y contexto de trabajo. | Apoya identificación del usuario y contexto de trabajo. |
+| UR | 1.7 | 1.7 | Usuario autenticado podrá visualizar la información de su perfil desde cualquier interfaz. | 1 | 1 | 2 | 2 | 1 | 3 |
+| [EMPTY] | Sistema mostrará un listado de los últimos diez registros asociados según los permisos del usuario | Sistema mostrará un listado de los últimos diez registros asociados según los permisos del usuario | Sistema mostrará un listado de los últimos diez registros asociados según los permisos del usuario | Sistema mostrará un listado de los últimos diez registros asociados según los permisos del usuario | Sistema mostrará un listado de los últimos diez registros asociados según los permisos del usuario | Sistema mostrará un listado de los últimos diez registros asociados según los permisos del usuario | Sistema mostrará un listado de los últimos diez registros asociados según los permisos del usuario | Sistema mostrará un listado de los últimos diez registros asociados según los permisos del usuario | Sistema mostrará un listado de los últimos diez registros asociados según los permisos del usuario |
+| UR | 1.8 | 1.8 | Sistema mostrará el historial reciente de permisos asociados al usuario. | 1 | 2 | 2 | 2 | 1 | 3 |
+| [EMPTY] | Aporta trazabilidad personal, aunque no afecta el inicio del proceso. | Aporta trazabilidad personal, aunque no afecta el inicio del proceso. | Aporta trazabilidad personal, aunque no afecta el inicio del proceso. | Aporta trazabilidad personal, aunque no afecta el inicio del proceso. | Aporta trazabilidad personal, aunque no afecta el inicio del proceso. | Aporta trazabilidad personal, aunque no afecta el inicio del proceso. | Aporta trazabilidad personal, aunque no afecta el inicio del proceso. | Aporta trazabilidad personal, aunque no afecta el inicio del proceso. | Aporta trazabilidad personal, aunque no afecta el inicio del proceso. |
+| UR | 1.9 | 1.9 | Sistema bloqueará el acceso a usuarios con estado desvinculado. | 2 | 3 | 3 | 3 | 2 | 2 |
+| [EMPTY] | Protege la información evitando acceso de cuentas no vigentes. | Protege la información evitando acceso de cuentas no vigentes. | Protege la información evitando acceso de cuentas no vigentes. | Protege la información evitando acceso de cuentas no vigentes. | Protege la información evitando acceso de cuentas no vigentes. | Protege la información evitando acceso de cuentas no vigentes. | Protege la información evitando acceso de cuentas no vigentes. | Protege la información evitando acceso de cuentas no vigentes. | Protege la información evitando acceso de cuentas no vigentes. |
+| UR | 1.10 | 1.10 | Sistema validará correo y contraseña contra usuarios registrados. | 2 | 1 | 3 | 1 | 2 | 1 |
+| [EMPTY] | Es un control básico y obligatorio para la autenticación. | Es un control básico y obligatorio para la autenticación. | Es un control básico y obligatorio para la autenticación. | Es un control básico y obligatorio para la autenticación. | Es un control básico y obligatorio para la autenticación. | Es un control básico y obligatorio para la autenticación. | Es un control básico y obligatorio para la autenticación. | Es un control básico y obligatorio para la autenticación. | Es un control básico y obligatorio para la autenticación. |
+| UR | 1.11 | 1.11 | Sistema permitirá ingresar solo a usuarios validados y con cuenta vinculada. | 3 | 1 | 3 | 2 | 2 | 3 |
+| [EMPTY] | Garantiza que solo usuarios habilitados entren al sistema. | Garantiza que solo usuarios habilitados entren al sistema. | Garantiza que solo usuarios habilitados entren al sistema. | Garantiza que solo usuarios habilitados entren al sistema. | Garantiza que solo usuarios habilitados entren al sistema. | Garantiza que solo usuarios habilitados entren al sistema. | Garantiza que solo usuarios habilitados entren al sistema. | Garantiza que solo usuarios habilitados entren al sistema. | Garantiza que solo usuarios habilitados entren al sistema. |
+| UR | 1.12 | 1.12 | Sistema impedirá registrar o actualizar correos electrónicos duplicados. | 1 | 1 | 2 | 1 | 2 | 2 |
+| [EMPTY] | Evita duplicidad de cuentas y problemas de identificación. | Evita duplicidad de cuentas y problemas de identificación. | Evita duplicidad de cuentas y problemas de identificación. | Evita duplicidad de cuentas y problemas de identificación. | Evita duplicidad de cuentas y problemas de identificación. | Evita duplicidad de cuentas y problemas de identificación. | Evita duplicidad de cuentas y problemas de identificación. | Evita duplicidad de cuentas y problemas de identificación. | Evita duplicidad de cuentas y problemas de identificación. |
+| UR | 1.13 | 1.13 | Sistema restringirá el acceso a URL protegidas según el rol del usuario. | 1 | 1 | 2 | 1 | 2 | 2 |
+| [EMPTY] | Evita accesos indebidos incluso por rutas directas. | Evita accesos indebidos incluso por rutas directas. | Evita accesos indebidos incluso por rutas directas. | Evita accesos indebidos incluso por rutas directas. | Evita accesos indebidos incluso por rutas directas. | Evita accesos indebidos incluso por rutas directas. | Evita accesos indebidos incluso por rutas directas. | Evita accesos indebidos incluso por rutas directas. | Evita accesos indebidos incluso por rutas directas. |
+| UR | 1.14 | 1.14 | Sistema mostrará acceso denegado cuando el rol no tenga permisos. | 3 | 1 | 2 | 3 | 2 | 2 |
+| [EMPTY] | Mejora control y comprensión frente a permisos insuficientes. | Mejora control y comprensión frente a permisos insuficientes. | Mejora control y comprensión frente a permisos insuficientes. | Mejora control y comprensión frente a permisos insuficientes. | Mejora control y comprensión frente a permisos insuficientes. | Mejora control y comprensión frente a permisos insuficientes. | Mejora control y comprensión frente a permisos insuficientes. | Mejora control y comprensión frente a permisos insuficientes. | Mejora control y comprensión frente a permisos insuficientes. |
+| UR | 1.15 | 1.15 | Usuario podrá recuperar contraseña mediante enlace enviado a su correo registrado. | 1 | 1 | 2 | 3 | 2 | 3 |
+| [EMPTY] | Asegura continuidad de uso sin intervención manual del administrador. | Asegura continuidad de uso sin intervención manual del administrador. | Asegura continuidad de uso sin intervención manual del administrador. | Asegura continuidad de uso sin intervención manual del administrador. | Asegura continuidad de uso sin intervención manual del administrador. | Asegura continuidad de uso sin intervención manual del administrador. | Asegura continuidad de uso sin intervención manual del administrador. | Asegura continuidad de uso sin intervención manual del administrador. | Asegura continuidad de uso sin intervención manual del administrador. |
+| UR | 1.16 | 1.16 | Administrador podrá editar datos de usuario manteniendo trazabilidad en bitácora. | 2 | 3 | 2 | 3 | 2 | 2 |
+| [EMPTY] | Permite mantener actualizada la información y control administrativo. | Permite mantener actualizada la información y control administrativo. | Permite mantener actualizada la información y control administrativo. | Permite mantener actualizada la información y control administrativo. | Permite mantener actualizada la información y control administrativo. | Permite mantener actualizada la información y control administrativo. | Permite mantener actualizada la información y control administrativo. | Permite mantener actualizada la información y control administrativo. | Permite mantener actualizada la información y control administrativo. |
+| UR | 1.17 | 1.17 | Sistema conservará registros históricos asociados a usuarios desvinculados. | 3 | 3 | 2 | 3 | 2 | 3 |
+| [EMPTY] | Es importante para auditoría y trazabilidad histórica. | Es importante para auditoría y trazabilidad histórica. | Es importante para auditoría y trazabilidad histórica. | Es importante para auditoría y trazabilidad histórica. | Es importante para auditoría y trazabilidad histórica. | Es importante para auditoría y trazabilidad histórica. | Es importante para auditoría y trazabilidad histórica. | Es importante para auditoría y trazabilidad histórica. | Es importante para auditoría y trazabilidad histórica. |
+| UR | 1.18 | 1.18 | Usuario autenticado podrá cerrar su sesión desde cualquier interfaz. | 3 | 1 | 2 | 3 | 2 | 3 |
+| [EMPTY] | Aporta seguridad operativa y control de sesión activa. | Aporta seguridad operativa y control de sesión activa. | Aporta seguridad operativa y control de sesión activa. | Aporta seguridad operativa y control de sesión activa. | Aporta seguridad operativa y control de sesión activa. | Aporta seguridad operativa y control de sesión activa. | Aporta seguridad operativa y control de sesión activa. | Aporta seguridad operativa y control de sesión activa. | Aporta seguridad operativa y control de sesión activa. |
+| 2.- | Ingreso y validación de Nota de Venta, ficha de cliente y orden de producción. | Ingreso y validación de Nota de Venta, ficha de cliente y orden de producción. | Ingreso y validación de Nota de Venta, ficha de cliente y orden de producción. | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
+| UR | 2.1 | 2.1 | Ventas podrá registrar pedidos mediante interfaz de generación de Nota de Venta. | 1 | 1 | 2 | 1 | 1 | 1 |
+| [EMPTY] | Digitaliza el inicio formal del proceso productivo. | Digitaliza el inicio formal del proceso productivo. | Digitaliza el inicio formal del proceso productivo. | Digitaliza el inicio formal del proceso productivo. | Digitaliza el inicio formal del proceso productivo. | Digitaliza el inicio formal del proceso productivo. | Digitaliza el inicio formal del proceso productivo. | Digitaliza el inicio formal del proceso productivo. | Digitaliza el inicio formal del proceso productivo. |
+| UR | 2.2 | 2.2 | Usuario podrá crear un pedido a través de un formulario. | 1 | 1 | 2 | 1 | 1 | 1 |
+| [EMPTY] | Vincula respaldo documental obligatorio al pedido creado. | Vincula respaldo documental obligatorio al pedido creado. | Vincula respaldo documental obligatorio al pedido creado. | Vincula respaldo documental obligatorio al pedido creado. | Vincula respaldo documental obligatorio al pedido creado. | Vincula respaldo documental obligatorio al pedido creado. | Vincula respaldo documental obligatorio al pedido creado. | Vincula respaldo documental obligatorio al pedido creado. | Vincula respaldo documental obligatorio al pedido creado. |
+| UR | 2.3 | 2.3 | Sistema completará automáticamente los datos asociados a la Nota de Venta. | 1 | 2 | 1 | 2 | 2 | 1 |
+| [EMPTY] | Reduce errores y evita doble digitación de datos comerciales. | Reduce errores y evita doble digitación de datos comerciales. | Reduce errores y evita doble digitación de datos comerciales. | Reduce errores y evita doble digitación de datos comerciales. | Reduce errores y evita doble digitación de datos comerciales. | Reduce errores y evita doble digitación de datos comerciales. | Reduce errores y evita doble digitación de datos comerciales. | Reduce errores y evita doble digitación de datos comerciales. | Reduce errores y evita doble digitación de datos comerciales. |
+| UR | 2.4 | 2.4 | Sistema registrará la fecha y hora de creación del pedido. | 2 | 2 | 1 | 2 | 2 | 1 |
+| [EMPTY] | Permite trazabilidad temporal desde el origen del pedido. | Permite trazabilidad temporal desde el origen del pedido. | Permite trazabilidad temporal desde el origen del pedido. | Permite trazabilidad temporal desde el origen del pedido. | Permite trazabilidad temporal desde el origen del pedido. | Permite trazabilidad temporal desde el origen del pedido. | Permite trazabilidad temporal desde el origen del pedido. | Permite trazabilidad temporal desde el origen del pedido. | Permite trazabilidad temporal desde el origen del pedido. |
+| UR | 2.5 | 2.5 | Sistema identificará el producto asociado a la Nota de Venta. | 2 | 2 | 2 | 3 | 2 | 1 |
+| [EMPTY] | Define el flujo productivo aplicable al pedido. | Define el flujo productivo aplicable al pedido. | Define el flujo productivo aplicable al pedido. | Define el flujo productivo aplicable al pedido. | Define el flujo productivo aplicable al pedido. | Define el flujo productivo aplicable al pedido. | Define el flujo productivo aplicable al pedido. | Define el flujo productivo aplicable al pedido. | Define el flujo productivo aplicable al pedido. |
+| UR | 2.6 | 2.6 | Sistema verificará si el número de Nota de Venta ya existe. | 1 | 2 | 1 | 2 | 3 | 1 |
+| [EMPTY] | Evita duplicidad de registros antes de avanzar el pedido. | Evita duplicidad de registros antes de avanzar el pedido. | Evita duplicidad de registros antes de avanzar el pedido. | Evita duplicidad de registros antes de avanzar el pedido. | Evita duplicidad de registros antes de avanzar el pedido. | Evita duplicidad de registros antes de avanzar el pedido. | Evita duplicidad de registros antes de avanzar el pedido. | Evita duplicidad de registros antes de avanzar el pedido. | Evita duplicidad de registros antes de avanzar el pedido. |
+| UR | 2.7 | 2.7 | Sistema bloqueará la duplicación de Nota de Venta y mostrará mensaje de alerta. | 2 | 2 | 2 | 2 | 1 | 2 |
+| [EMPTY] | Controla errores críticos de ingreso y mantiene datos únicos. | Controla errores críticos de ingreso y mantiene datos únicos. | Controla errores críticos de ingreso y mantiene datos únicos. | Controla errores críticos de ingreso y mantiene datos únicos. | Controla errores críticos de ingreso y mantiene datos únicos. | Controla errores críticos de ingreso y mantiene datos únicos. | Controla errores críticos de ingreso y mantiene datos únicos. | Controla errores críticos de ingreso y mantiene datos únicos. | Controla errores críticos de ingreso y mantiene datos únicos. |
+| UR | 2.8 | 2.8 | Administrador y Ventas podrán adjuntar archivos de diseño asociados al pedido. | 3 | 3 | 2 | 3 | 3 | 1 |
+| [EMPTY] | Apoya la preparación del trabajo, aunque no es el cierre del flujo. | Apoya la preparación del trabajo, aunque no es el cierre del flujo. | Apoya la preparación del trabajo, aunque no es el cierre del flujo. | Apoya la preparación del trabajo, aunque no es el cierre del flujo. | Apoya la preparación del trabajo, aunque no es el cierre del flujo. | Apoya la preparación del trabajo, aunque no es el cierre del flujo. | Apoya la preparación del trabajo, aunque no es el cierre del flujo. | Apoya la preparación del trabajo, aunque no es el cierre del flujo. | Apoya la preparación del trabajo, aunque no es el cierre del flujo. |
+| 3.- | Confirmación de Pago y Transición a Producción | Confirmación de Pago y Transición a Producción | Confirmación de Pago y Transición a Producción | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
+| UR | 3.1 | 3.1 | Cobranzas podrá clasificar el estado de pago del pedido. | 2 | 1 | 2 | 1 | 2 | 1 |
+| [EMPTY] | Es clave para liberar o detener el avance hacia producción. | Es clave para liberar o detener el avance hacia producción. | Es clave para liberar o detener el avance hacia producción. | Es clave para liberar o detener el avance hacia producción. | Es clave para liberar o detener el avance hacia producción. | Es clave para liberar o detener el avance hacia producción. | Es clave para liberar o detener el avance hacia producción. | Es clave para liberar o detener el avance hacia producción. | Es clave para liberar o detener el avance hacia producción. |
+| UR | 3.2 | 3.2 | Sistema firmará digitalmente la Nota de Venta al confirmar el pago. | 1 | 2 | 1 | 2 | 2 | 1 |
+| [EMPTY] | Entrega respaldo formal de la validación de pago. | Entrega respaldo formal de la validación de pago. | Entrega respaldo formal de la validación de pago. | Entrega respaldo formal de la validación de pago. | Entrega respaldo formal de la validación de pago. | Entrega respaldo formal de la validación de pago. | Entrega respaldo formal de la validación de pago. | Entrega respaldo formal de la validación de pago. | Entrega respaldo formal de la validación de pago. |
+| UR | 3.3 | 3.3 | Sistema cambiará automáticamente el pedido a Listo para producción. | 1 | 1 | 1 | 1 | 1 | 1 |
+| [EMPTY] | Automatiza la transición del flujo operativo tras el pago. | Automatiza la transición del flujo operativo tras el pago. | Automatiza la transición del flujo operativo tras el pago. | Automatiza la transición del flujo operativo tras el pago. | Automatiza la transición del flujo operativo tras el pago. | Automatiza la transición del flujo operativo tras el pago. | Automatiza la transición del flujo operativo tras el pago. | Automatiza la transición del flujo operativo tras el pago. | Automatiza la transición del flujo operativo tras el pago. |
+| UR | 3.4 | 3.4 | Sistema registrará trazabilidad de cada cambio de estado de pago. | 1 | 2 | 1 | 2 | 1 | 2 |
+| [EMPTY] | Permite auditar quién confirmó pagos y cuándo lo hizo. | Permite auditar quién confirmó pagos y cuándo lo hizo. | Permite auditar quién confirmó pagos y cuándo lo hizo. | Permite auditar quién confirmó pagos y cuándo lo hizo. | Permite auditar quién confirmó pagos y cuándo lo hizo. | Permite auditar quién confirmó pagos y cuándo lo hizo. | Permite auditar quién confirmó pagos y cuándo lo hizo. | Permite auditar quién confirmó pagos y cuándo lo hizo. | Permite auditar quién confirmó pagos y cuándo lo hizo. |
+| UR | 3.5 | 3.5 | Administrador podrá asociar orden de producción y ficha de cliente al pedido. | 2 | 3 | 2 | 3 | 2 | 1 |
+| [EMPTY] | [EMPTY] | Asegura que producción cuente con documentos completos. | Asegura que producción cuente con documentos completos. | Asegura que producción cuente con documentos completos. | Asegura que producción cuente con documentos completos. | Asegura que producción cuente con documentos completos. | Asegura que producción cuente con documentos completos. | Asegura que producción cuente con documentos completos. | [EMPTY] |
+| UR | 3.6 | 3.6 | Sistema actualizará automáticamente la capacidad diaria al generar el pedido. | 3 | 2 | 3 | 2 | 3 | 2 |
+| [EMPTY] | Asegura coherencia entre pagos confirmados y planificación productiva. | Asegura coherencia entre pagos confirmados y planificación productiva. | Asegura coherencia entre pagos confirmados y planificación productiva. | Asegura coherencia entre pagos confirmados y planificación productiva. | Asegura coherencia entre pagos confirmados y planificación productiva. | Asegura coherencia entre pagos confirmados y planificación productiva. | Asegura coherencia entre pagos confirmados y planificación productiva. | Asegura coherencia entre pagos confirmados y planificación productiva. | Asegura coherencia entre pagos confirmados y planificación productiva. |
+| UR | 3.7 | 3.7 | Sistema impedirá mover un pedido a Listo para producción sin pago confirmado. | 3 | 1 | 2 | 2 | 3 | 3 |
+| [EMPTY] | Evita iniciar producción sin validación comercial esencial. | Evita iniciar producción sin validación comercial esencial. | Evita iniciar producción sin validación comercial esencial. | Evita iniciar producción sin validación comercial esencial. | Evita iniciar producción sin validación comercial esencial. | Evita iniciar producción sin validación comercial esencial. | Evita iniciar producción sin validación comercial esencial. | Evita iniciar producción sin validación comercial esencial. | Evita iniciar producción sin validación comercial esencial. |
+| 4.- | Gestión de capacidad instalada y reglas de negocio | Gestión de capacidad instalada y reglas de negocio | Gestión de capacidad instalada y reglas de negocio | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
+| UR | 4.1 | 4.1 | Administrador podrá configurar y ajustar la capacidad máxima diaria de producción. | 3 | 3 | 3 | 2 | 3 | 2 |
+| [EMPTY] | Define el límite operativo para la planificación diaria. | Define el límite operativo para la planificación diaria. | Define el límite operativo para la planificación diaria. | Define el límite operativo para la planificación diaria. | Define el límite operativo para la planificación diaria. | Define el límite operativo para la planificación diaria. | Define el límite operativo para la planificación diaria. | Define el límite operativo para la planificación diaria. | Define el límite operativo para la planificación diaria. |
+| UR | 4.2 | 4.2 | Sistema estimará la carga laboral diaria según capacidad productiva definida. | 2 | 3 | 2 | 3 | 2 | 2 |
+| [EMPTY] | Aporta visibilidad del uso de capacidad y evita saturación. | Aporta visibilidad del uso de capacidad y evita saturación. | Aporta visibilidad del uso de capacidad y evita saturación. | Aporta visibilidad del uso de capacidad y evita saturación. | Aporta visibilidad del uso de capacidad y evita saturación. | Aporta visibilidad del uso de capacidad y evita saturación. | Aporta visibilidad del uso de capacidad y evita saturación. | Aporta visibilidad del uso de capacidad y evita saturación. | Aporta visibilidad del uso de capacidad y evita saturación. |
+| UR | 4.3 | 4.3 | Sistema mostrará alerta visual cuando la capacidad disponible sea menor o igual al 10%. | 2 | 2 | 2 | 1 | 1 | 2 |
+| [EMPTY] | Advierte sobre sobrecarga antes de comprometer nuevas fechas. | Advierte sobre sobrecarga antes de comprometer nuevas fechas. | Advierte sobre sobrecarga antes de comprometer nuevas fechas. | Advierte sobre sobrecarga antes de comprometer nuevas fechas. | Advierte sobre sobrecarga antes de comprometer nuevas fechas. | Advierte sobre sobrecarga antes de comprometer nuevas fechas. | Advierte sobre sobrecarga antes de comprometer nuevas fechas. | Advierte sobre sobrecarga antes de comprometer nuevas fechas. | Advierte sobre sobrecarga antes de comprometer nuevas fechas. |
+| UR | 4.4 | 4.4 | Sistema calculará fecha de entrega según capacidad productiva disponible. | 2 | 2 | 1 | 2 | 2 | 2 |
+| [EMPTY] | [EMPTY] | Permite entregar plazos realistas al área comercial. | Permite entregar plazos realistas al área comercial. | Permite entregar plazos realistas al área comercial. | Permite entregar plazos realistas al área comercial. | Permite entregar plazos realistas al área comercial. | Permite entregar plazos realistas al área comercial. | Permite entregar plazos realistas al área comercial. | Permite entregar plazos realistas al área comercial. |
+| UR | 4.5 | 4.5 | Sistema registrará en historial los pedidos ingresados con sobrecarga operativa. | 2 | 3 | 2 | 2 | 1 | 2 |
+| [EMPTY] | Deja evidencia de pedidos aceptados bajo condición especial. | Deja evidencia de pedidos aceptados bajo condición especial. | Deja evidencia de pedidos aceptados bajo condición especial. | Deja evidencia de pedidos aceptados bajo condición especial. | Deja evidencia de pedidos aceptados bajo condición especial. | Deja evidencia de pedidos aceptados bajo condición especial. | Deja evidencia de pedidos aceptados bajo condición especial. | Deja evidencia de pedidos aceptados bajo condición especial. | Deja evidencia de pedidos aceptados bajo condición especial. |
+| UR | 4.6 | 4.6 | Sistema extraerá tipo de producto y cantidad desde la Nota de Venta. | 2 | 2 | 2 | 2 | 1 | 2 |
+| [EMPTY] | Alimenta automáticamente el cálculo de fechas de entrega. | Alimenta automáticamente el cálculo de fechas de entrega. | Alimenta automáticamente el cálculo de fechas de entrega. | Alimenta automáticamente el cálculo de fechas de entrega. | Alimenta automáticamente el cálculo de fechas de entrega. | Alimenta automáticamente el cálculo de fechas de entrega. | Alimenta automáticamente el cálculo de fechas de entrega. | Alimenta automáticamente el cálculo de fechas de entrega. | Alimenta automáticamente el cálculo de fechas de entrega. |
+| UR | 4.7 | 4.7 | Sistema calculará fecha estimada de entrega según cantidad y tipo de producto. | 2 | 2 | 2 | 3 | 2 | 3 |
+| [EMPTY] | Aplica reglas de negocio directas para definir compromisos. | Aplica reglas de negocio directas para definir compromisos. | Aplica reglas de negocio directas para definir compromisos. | Aplica reglas de negocio directas para definir compromisos. | Aplica reglas de negocio directas para definir compromisos. | Aplica reglas de negocio directas para definir compromisos. | Aplica reglas de negocio directas para definir compromisos. | Aplica reglas de negocio directas para definir compromisos. | Aplica reglas de negocio directas para definir compromisos. |
+| UR | 4.8 | 4.8 | Administrador podrá ajustar parámetros de estimación por tipo y rango de unidades. | 2 | 3 | 3 | 2 | 2 | 2 |
+| [EMPTY] | Mantiene actualizadas las reglas cuando cambie la operación. | Mantiene actualizadas las reglas cuando cambie la operación. | Mantiene actualizadas las reglas cuando cambie la operación. | Mantiene actualizadas las reglas cuando cambie la operación. | Mantiene actualizadas las reglas cuando cambie la operación. | Mantiene actualizadas las reglas cuando cambie la operación. | Mantiene actualizadas las reglas cuando cambie la operación. | Mantiene actualizadas las reglas cuando cambie la operación. | Mantiene actualizadas las reglas cuando cambie la operación. |
+| UR | 4.9 | 4.9 | Administrador podrá visualizar y ajustar fechas estimadas en calendario de planificación. | 3 | 3 | 3 | 3 | 3 | 3 |
+| [EMPTY] | Mejora la gestión del calendario, aunque depende de reglas definidas. | Mejora la gestión del calendario, aunque depende de reglas definidas. | Mejora la gestión del calendario, aunque depende de reglas definidas. | Mejora la gestión del calendario, aunque depende de reglas definidas. | Mejora la gestión del calendario, aunque depende de reglas definidas. | Mejora la gestión del calendario, aunque depende de reglas definidas. | Mejora la gestión del calendario, aunque depende de reglas definidas. | Mejora la gestión del calendario, aunque depende de reglas definidas. | Mejora la gestión del calendario, aunque depende de reglas definidas. |
+| 5.- | Tablero Kanban y seguimiento de estados. | Tablero Kanban y seguimiento de estados. | Tablero Kanban y seguimiento de estados. | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
+| UR | 5.1 | 5.1 | Usuario autorizado podrá visualizar un tablero Kanban de pedidos. | 1 | 1 | 1 | 1 | 2 | 1 |
+| [EMPTY] | Es el principal punto de visibilidad operativa del sistema. | Es el principal punto de visibilidad operativa del sistema. | Es el principal punto de visibilidad operativa del sistema. | Es el principal punto de visibilidad operativa del sistema. | Es el principal punto de visibilidad operativa del sistema. | Es el principal punto de visibilidad operativa del sistema. | Es el principal punto de visibilidad operativa del sistema. | Es el principal punto de visibilidad operativa del sistema. | Es el principal punto de visibilidad operativa del sistema. |
+| UR | 5.2 | 5.2 | Sistema mostrará columnas fijas del tablero Kanban. | 1 | 1 | 1 | 2 | 1 | 1 |
+| [EMPTY] | Define la estructura mínima para representar el proceso. | Define la estructura mínima para representar el proceso. | Define la estructura mínima para representar el proceso. | Define la estructura mínima para representar el proceso. | Define la estructura mínima para representar el proceso. | Define la estructura mínima para representar el proceso. | Define la estructura mínima para representar el proceso. | Define la estructura mínima para representar el proceso. | Define la estructura mínima para representar el proceso. |
+| UR | 5.3 | 5.3 | Usuario podrá consultar el detalle del pedido al seleccionarlo. | 2 | 1 | 2 | 1 | 2 | 1 |
+| [EMPTY] | Facilita revisar información sin salir del tablero. | Facilita revisar información sin salir del tablero. | Facilita revisar información sin salir del tablero. | Facilita revisar información sin salir del tablero. | Facilita revisar información sin salir del tablero. | Facilita revisar información sin salir del tablero. | Facilita revisar información sin salir del tablero. | Facilita revisar información sin salir del tablero. | Facilita revisar información sin salir del tablero. |
+| UR | 5.4 | 5.4 | Usuario autorizado podrá cambiar manualmente estados mediante arrastrar y soltar. | 1 | 1 | 2 | 1 | 2 | 2 |
+| [EMPTY] | Permite operar el flujo de forma directa y controlada. | Permite operar el flujo de forma directa y controlada. | Permite operar el flujo de forma directa y controlada. | Permite operar el flujo de forma directa y controlada. | Permite operar el flujo de forma directa y controlada. | Permite operar el flujo de forma directa y controlada. | Permite operar el flujo de forma directa y controlada. | Permite operar el flujo de forma directa y controlada. | Permite operar el flujo de forma directa y controlada. |
+| UR | 5.5 | 5.5 | Sistema mostrará subprocesos de producción según tipo de producto. | 1 | 1 | 1 | 2 | 2 | 1 |
+| [EMPTY] | Representa el detalle operativo necesario para producir correctamente. | Representa el detalle operativo necesario para producir correctamente. | Representa el detalle operativo necesario para producir correctamente. | Representa el detalle operativo necesario para producir correctamente. | Representa el detalle operativo necesario para producir correctamente. | Representa el detalle operativo necesario para producir correctamente. | Representa el detalle operativo necesario para producir correctamente. | Representa el detalle operativo necesario para producir correctamente. | Representa el detalle operativo necesario para producir correctamente. |
+| UR | 5.6 | 5.6 | Operario podrá actualizar estados de subprocesos de producción. | 2 | 1 | 2 | 3 | 3 | 3 |
+| [EMPTY] | Permite reflejar el avance real dentro de producción. | Permite reflejar el avance real dentro de producción. | Permite reflejar el avance real dentro de producción. | Permite reflejar el avance real dentro de producción. | Permite reflejar el avance real dentro de producción. | Permite reflejar el avance real dentro de producción. | Permite reflejar el avance real dentro de producción. | Permite reflejar el avance real dentro de producción. | Permite reflejar el avance real dentro de producción. |
+| UR | 5.7 | 5.7 | Usuario podrá registrar comentarios al cambiar estados de subprocesos. | 3 | 3 | 3 | 2 | 3 | 2 |
+| [EMPTY] | Agrega contexto y respaldo a los cambios realizados. | Agrega contexto y respaldo a los cambios realizados. | Agrega contexto y respaldo a los cambios realizados. | Agrega contexto y respaldo a los cambios realizados. | Agrega contexto y respaldo a los cambios realizados. | Agrega contexto y respaldo a los cambios realizados. | Agrega contexto y respaldo a los cambios realizados. | Agrega contexto y respaldo a los cambios realizados. | Agrega contexto y respaldo a los cambios realizados. |
+| UR | 5.8 | 5.8 | Sistema agregará firma electrónica al actualizar sub-estados de producción. | 2 | 2 | 3 | 2 | 2 | 1 |
+| [EMPTY] | Aporta responsabilidad y evidencia del usuario que ejecuta cambios. | Aporta responsabilidad y evidencia del usuario que ejecuta cambios. | Aporta responsabilidad y evidencia del usuario que ejecuta cambios. | Aporta responsabilidad y evidencia del usuario que ejecuta cambios. | Aporta responsabilidad y evidencia del usuario que ejecuta cambios. | Aporta responsabilidad y evidencia del usuario que ejecuta cambios. | Aporta responsabilidad y evidencia del usuario que ejecuta cambios. | Aporta responsabilidad y evidencia del usuario que ejecuta cambios. | Aporta responsabilidad y evidencia del usuario que ejecuta cambios. |
+| UR | 5.9 | 5.9 | Sistema almacenará historial completo de cambios de estado de producción. | 2 | 2 | 3 | 3 | 2 | 1 |
+| [EMPTY] | Permite control, auditoría y análisis del avance productivo. | Permite control, auditoría y análisis del avance productivo. | Permite control, auditoría y análisis del avance productivo. | Permite control, auditoría y análisis del avance productivo. | Permite control, auditoría y análisis del avance productivo. | Permite control, auditoría y análisis del avance productivo. | Permite control, auditoría y análisis del avance productivo. | Permite control, auditoría y análisis del avance productivo. | Permite control, auditoría y análisis del avance productivo. |
+| UR | 5.10 | 5.10 | Usuario autorizado podrá filtrar pedidos mediante criterios de búsqueda. | 2 | 2 | 3 | 3 | 2 | 1 |
+| [EMPTY] | Agiliza la consulta del tablero, pero no cambia el flujo central. | Agiliza la consulta del tablero, pero no cambia el flujo central. | Agiliza la consulta del tablero, pero no cambia el flujo central. | Agiliza la consulta del tablero, pero no cambia el flujo central. | Agiliza la consulta del tablero, pero no cambia el flujo central. | Agiliza la consulta del tablero, pero no cambia el flujo central. | Agiliza la consulta del tablero, pero no cambia el flujo central. | Agiliza la consulta del tablero, pero no cambia el flujo central. | Agiliza la consulta del tablero, pero no cambia el flujo central. |
+| UR | 5.11 | 5.11 | Administrador y Operario podrán asignar etiquetas visuales a pedidos. | 1 | 3 | 2 | 3 | 1 | 2 |
+| [EMPTY] | Ayuda a categorizar y priorizar pedidos de forma visual. | Ayuda a categorizar y priorizar pedidos de forma visual. | Ayuda a categorizar y priorizar pedidos de forma visual. | Ayuda a categorizar y priorizar pedidos de forma visual. | Ayuda a categorizar y priorizar pedidos de forma visual. | Ayuda a categorizar y priorizar pedidos de forma visual. | Ayuda a categorizar y priorizar pedidos de forma visual. | Ayuda a categorizar y priorizar pedidos de forma visual. | Ayuda a categorizar y priorizar pedidos de forma visual. |
+| UR | 5.12 | 5.12 | Administrador podrá organizar pedidos bajo etiquetas del tablero Kanban. | 2 | 3 | 2 | 3 | 2 | 1 |
+| [EMPTY] | Aporta orden visual y priorización operativa. | Aporta orden visual y priorización operativa. | Aporta orden visual y priorización operativa. | Aporta orden visual y priorización operativa. | Aporta orden visual y priorización operativa. | Aporta orden visual y priorización operativa. | Aporta orden visual y priorización operativa. | Aporta orden visual y priorización operativa. | Aporta orden visual y priorización operativa. |
+| UR | 5.13 | 5.13 | Administrador podrá modificar prioridad de atención de pedidos seleccionados. | 3 | 3 | 2 | 3 | 3 | 2 |
+| [EMPTY] | Permite ajustar la atención según urgencia del negocio. | Permite ajustar la atención según urgencia del negocio. | Permite ajustar la atención según urgencia del negocio. | Permite ajustar la atención según urgencia del negocio. | Permite ajustar la atención según urgencia del negocio. | Permite ajustar la atención según urgencia del negocio. | Permite ajustar la atención según urgencia del negocio. | Permite ajustar la atención según urgencia del negocio. | Permite ajustar la atención según urgencia del negocio. |
+| UR | 5.14 | 5.14 | Sistema calculará y guardará el tiempo real transcurrido por etapa. | 3 | 2 | 2 | 3 | 3 | 2 |
+| [EMPTY] | Base para medir desempeño y tiempos del proceso. | Base para medir desempeño y tiempos del proceso. | Base para medir desempeño y tiempos del proceso. | Base para medir desempeño y tiempos del proceso. | Base para medir desempeño y tiempos del proceso. | Base para medir desempeño y tiempos del proceso. | Base para medir desempeño y tiempos del proceso. | Base para medir desempeño y tiempos del proceso. | Base para medir desempeño y tiempos del proceso. |
+| UR | 5.15 | 5.15 | Sistema calculará diferencia entre tiempo estimado y tiempo real. | 3 | 3 | 2 | 3 | 3 | 2 |
+| [EMPTY] | Permite detectar desviaciones y atrasos por etapa. | Permite detectar desviaciones y atrasos por etapa. | Permite detectar desviaciones y atrasos por etapa. | Permite detectar desviaciones y atrasos por etapa. | Permite detectar desviaciones y atrasos por etapa. | Permite detectar desviaciones y atrasos por etapa. | Permite detectar desviaciones y atrasos por etapa. | Permite detectar desviaciones y atrasos por etapa. | Permite detectar desviaciones y atrasos por etapa. |
+| UR | 5.16 | 5.16 | Sistema mostrará indicador visual del nivel de retraso del pedido. | 3 | 3 | 2 | 1 | 2 | 1 |
+| [EMPTY] | Facilita actuar rápidamente ante pedidos con atraso. | Facilita actuar rápidamente ante pedidos con atraso. | Facilita actuar rápidamente ante pedidos con atraso. | Facilita actuar rápidamente ante pedidos con atraso. | Facilita actuar rápidamente ante pedidos con atraso. | Facilita actuar rápidamente ante pedidos con atraso. | Facilita actuar rápidamente ante pedidos con atraso. | Facilita actuar rápidamente ante pedidos con atraso. | Facilita actuar rápidamente ante pedidos con atraso. |
+| 6.- | Gestión de muestras y aprobaciones. | Gestión de muestras y aprobaciones. | Gestión de muestras y aprobaciones. | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
+| UR | 6.1 | 6.1 | Sistema notificará automáticamente a jefatura cuando se cree un nuevo pedido. | 2 | 3 | 2 | 2 | 2 | 2 |
+| [EMPTY] | Apoya supervisión temprana sin intervenir el flujo transaccional. | Apoya supervisión temprana sin intervenir el flujo transaccional. | Apoya supervisión temprana sin intervenir el flujo transaccional. | Apoya supervisión temprana sin intervenir el flujo transaccional. | Apoya supervisión temprana sin intervenir el flujo transaccional. | Apoya supervisión temprana sin intervenir el flujo transaccional. | Apoya supervisión temprana sin intervenir el flujo transaccional. | Apoya supervisión temprana sin intervenir el flujo transaccional. | Apoya supervisión temprana sin intervenir el flujo transaccional. |
+| UR | 6.2 | 6.2 | Sistema mostrará historial de trazabilidad de producción por pedido. | 2 | 3 | 2 | 1 | 1 | 2 |
+| [EMPTY] | Es fundamental para revisar el recorrido completo del pedido. | Es fundamental para revisar el recorrido completo del pedido. | Es fundamental para revisar el recorrido completo del pedido. | Es fundamental para revisar el recorrido completo del pedido. | Es fundamental para revisar el recorrido completo del pedido. | Es fundamental para revisar el recorrido completo del pedido. | Es fundamental para revisar el recorrido completo del pedido. | Es fundamental para revisar el recorrido completo del pedido. | Es fundamental para revisar el recorrido completo del pedido. |
+| UR | 6.3 | 6.3 | Sistema permitirá visualizar historial consolidado cronológico del pedido. | 2 | 2 | 2 | 2 | 3 | 3 |
+| [EMPTY] | Resume la trazabilidad para consulta y control del proceso. | Resume la trazabilidad para consulta y control del proceso. | Resume la trazabilidad para consulta y control del proceso. | Resume la trazabilidad para consulta y control del proceso. | Resume la trazabilidad para consulta y control del proceso. | Resume la trazabilidad para consulta y control del proceso. | Resume la trazabilidad para consulta y control del proceso. | Resume la trazabilidad para consulta y control del proceso. | Resume la trazabilidad para consulta y control del proceso. |
+| 7.- | Notificaciones y comunicación interdepartamental. | Notificaciones y comunicación interdepartamental. | Notificaciones y comunicación interdepartamental. | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
+| [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
+| UR | 7.1 | 7.1 | Sistema notificará a Ventas cuando un pedido cambie a Listo para entrega. | 2 | 2 | 3 | 2 | 2 | 3 |
+| [EMPTY] | Mejora la coordinación entre producción y área comercial. | Mejora la coordinación entre producción y área comercial. | Mejora la coordinación entre producción y área comercial. | Mejora la coordinación entre producción y área comercial. | Mejora la coordinación entre producción y área comercial. | Mejora la coordinación entre producción y área comercial. | Mejora la coordinación entre producción y área comercial. | Mejora la coordinación entre producción y área comercial. | Mejora la coordinación entre producción y área comercial. |
+| UR | 7.2 | 7.2 | Usuario del sistema podrá registrar comentarios, observaciones o alertas. | 2 | 2 | 3 | 2 | 2 | 3 |
+| [EMPTY] | Apoya comunicación operativa sobre incidencias del pedido. | Apoya comunicación operativa sobre incidencias del pedido. | Apoya comunicación operativa sobre incidencias del pedido. | Apoya comunicación operativa sobre incidencias del pedido. | Apoya comunicación operativa sobre incidencias del pedido. | Apoya comunicación operativa sobre incidencias del pedido. | Apoya comunicación operativa sobre incidencias del pedido. | Apoya comunicación operativa sobre incidencias del pedido. | Apoya comunicación operativa sobre incidencias del pedido. |
+| UR | 7.3 | 7.3 | Sistema registrará fecha, hora, autor y contenido de comentarios y alertas. | 2 | 2 | 2 | 2 | 2 | 3 |
+| [EMPTY] | Asegura trazabilidad de la comunicación entre áreas. | Asegura trazabilidad de la comunicación entre áreas. | Asegura trazabilidad de la comunicación entre áreas. | Asegura trazabilidad de la comunicación entre áreas. | Asegura trazabilidad de la comunicación entre áreas. | Asegura trazabilidad de la comunicación entre áreas. | Asegura trazabilidad de la comunicación entre áreas. | Asegura trazabilidad de la comunicación entre áreas. | Asegura trazabilidad de la comunicación entre áreas. |
+| UR | 7.4 | 7.4 | Administrador y Producción podrán remover etiquetas visuales de pedidos. | 2 | 3 | 2 | 2 | 2 | 3 |
+| [EMPTY] | Es útil, pero menos crítico que crear o seguir pedidos. | Es útil, pero menos crítico que crear o seguir pedidos. | Es útil, pero menos crítico que crear o seguir pedidos. | Es útil, pero menos crítico que crear o seguir pedidos. | Es útil, pero menos crítico que crear o seguir pedidos. | Es útil, pero menos crítico que crear o seguir pedidos. | Es útil, pero menos crítico que crear o seguir pedidos. | Es útil, pero menos crítico que crear o seguir pedidos. | Es útil, pero menos crítico que crear o seguir pedidos. |
+| UR | 7.5 | 7.5 | Sistema generará notificación interna para pedidos urgentes. | 2 | 3 | 2 | 2 | 2 | 3 |
+| [EMPTY] | Ayuda a reaccionar rápido ante pedidos urgentes. | Ayuda a reaccionar rápido ante pedidos urgentes. | Ayuda a reaccionar rápido ante pedidos urgentes. | Ayuda a reaccionar rápido ante pedidos urgentes. | Ayuda a reaccionar rápido ante pedidos urgentes. | Ayuda a reaccionar rápido ante pedidos urgentes. | Ayuda a reaccionar rápido ante pedidos urgentes. | Ayuda a reaccionar rápido ante pedidos urgentes. | Ayuda a reaccionar rápido ante pedidos urgentes. |
+| UR | 7.6 | 7.6 | Sistema contará con panel interno de anuncios visible por roles definidos. | 1 | 2 | 1 | 2 | 2 | 2 |
+| [EMPTY] | Aporta comunicación general, pero no afecta el núcleo productivo. | Aporta comunicación general, pero no afecta el núcleo productivo. | Aporta comunicación general, pero no afecta el núcleo productivo. | Aporta comunicación general, pero no afecta el núcleo productivo. | Aporta comunicación general, pero no afecta el núcleo productivo. | Aporta comunicación general, pero no afecta el núcleo productivo. | Aporta comunicación general, pero no afecta el núcleo productivo. | Aporta comunicación general, pero no afecta el núcleo productivo. | Aporta comunicación general, pero no afecta el núcleo productivo. |
+| UR | 7.7 | 7.7 | Administrador podrá publicar comunicados y novedades en el panel interno. | 2 | 3 | 3 | 2 | 3 | 3 |
+| [EMPTY] | Es una función de soporte organizacional y transversal. | Es una función de soporte organizacional y transversal. | Es una función de soporte organizacional y transversal. | Es una función de soporte organizacional y transversal. | Es una función de soporte organizacional y transversal. | Es una función de soporte organizacional y transversal. | Es una función de soporte organizacional y transversal. | Es una función de soporte organizacional y transversal. | Es una función de soporte organizacional y transversal. |
+| 8.- | Reportes, indicadores y analítica | Reportes, indicadores y analítica | Reportes, indicadores y analítica | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
+| [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
+| UR | 8.1 | 8.1 | Gerencia podrá generar reporte de cumplimiento de entregas por rango de fechas. | 2 | 4 | 3 | 2 | 3 | 3 |
+| [EMPTY] | Entrega visibilidad gerencial sobre desempeño de entregas. | Entrega visibilidad gerencial sobre desempeño de entregas. | Entrega visibilidad gerencial sobre desempeño de entregas. | Entrega visibilidad gerencial sobre desempeño de entregas. | Entrega visibilidad gerencial sobre desempeño de entregas. | Entrega visibilidad gerencial sobre desempeño de entregas. | Entrega visibilidad gerencial sobre desempeño de entregas. | Entrega visibilidad gerencial sobre desempeño de entregas. | Entrega visibilidad gerencial sobre desempeño de entregas. |
+| UR | 8.2 | 8.2 | Gerencia podrá exportar a Excel reporte de pedidos a tiempo y fuera de plazo. | 2 | 4 | 3 | 2 | 3 | 3 |
+| [EMPTY] | Facilita explotación externa del reporte ya generado. | Facilita explotación externa del reporte ya generado. | Facilita explotación externa del reporte ya generado. | Facilita explotación externa del reporte ya generado. | Facilita explotación externa del reporte ya generado. | Facilita explotación externa del reporte ya generado. | Facilita explotación externa del reporte ya generado. | Facilita explotación externa del reporte ya generado. | Facilita explotación externa del reporte ya generado. |
+| UR | 8.3 | 8.3 | Usuario podrá exportar reportes de producción en formato Excel o CSV. | 2 | 4 | 1 | 2 | 1 | 1 |
+| [EMPTY] | Apoya análisis externo y respaldo de información productiva. | Apoya análisis externo y respaldo de información productiva. | Apoya análisis externo y respaldo de información productiva. | Apoya análisis externo y respaldo de información productiva. | Apoya análisis externo y respaldo de información productiva. | Apoya análisis externo y respaldo de información productiva. | Apoya análisis externo y respaldo de información productiva. | Apoya análisis externo y respaldo de información productiva. | Apoya análisis externo y respaldo de información productiva. |
+| UR | 8.4 | 8.4 | Sistema calculará automáticamente el tiempo de ciclo promedio. | 2 | 4 | 1 | 2 | 1 | 1 |
+| [EMPTY] | Aporta análisis de desempeño, aunque requiere datos consolidados. | Aporta análisis de desempeño, aunque requiere datos consolidados. | Aporta análisis de desempeño, aunque requiere datos consolidados. | Aporta análisis de desempeño, aunque requiere datos consolidados. | Aporta análisis de desempeño, aunque requiere datos consolidados. | Aporta análisis de desempeño, aunque requiere datos consolidados. | Aporta análisis de desempeño, aunque requiere datos consolidados. | Aporta análisis de desempeño, aunque requiere datos consolidados. | Aporta análisis de desempeño, aunque requiere datos consolidados. |
+| UR | 8.5 | 8.5 | Sistema mostrará mapa de carga de producción por día de la semana. | 1 | 3 | 2 | 2 | 1 | 1 |
+| [EMPTY] | Ayuda a analizar ocupación y detectar concentración de carga. | Ayuda a analizar ocupación y detectar concentración de carga. | Ayuda a analizar ocupación y detectar concentración de carga. | Ayuda a analizar ocupación y detectar concentración de carga. | Ayuda a analizar ocupación y detectar concentración de carga. | Ayuda a analizar ocupación y detectar concentración de carga. | Ayuda a analizar ocupación y detectar concentración de carga. | Ayuda a analizar ocupación y detectar concentración de carga. | Ayuda a analizar ocupación y detectar concentración de carga. |
 
 ### Table 4
 
-| 7.- | Notificaciones y comunicación interdepartamental. | Notificaciones y comunicación interdepartamental. | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
-| UR | 7.1 | Adjuntar archivos de diseño al pedido | 2 | 2 | 3 | 2 | 2 | 3 |
-| [EMPTY] | El sistema permitirá al Administrador y ventas adjuntar archivos de diseño. | El sistema permitirá al Administrador y ventas adjuntar archivos de diseño. | El sistema permitirá al Administrador y ventas adjuntar archivos de diseño. | El sistema permitirá al Administrador y ventas adjuntar archivos de diseño. | El sistema permitirá al Administrador y ventas adjuntar archivos de diseño. | El sistema permitirá al Administrador y ventas adjuntar archivos de diseño. | El sistema permitirá al Administrador y ventas adjuntar archivos de diseño. | El sistema permitirá al Administrador y ventas adjuntar archivos de diseño. |
-| UR | 7.2 | Actualización automática de capacidad de producción | 2 | 2 | 3 | 2 | 2 | 3 |
-| [EMPTY] | El sistema actualizará automáticamente el nivel de carga productiva diaria en función a los pedidos que estén en la etapa “Listo para producción”. | El sistema actualizará automáticamente el nivel de carga productiva diaria en función a los pedidos que estén en la etapa “Listo para producción”. | El sistema actualizará automáticamente el nivel de carga productiva diaria en función a los pedidos que estén en la etapa “Listo para producción”. | El sistema actualizará automáticamente el nivel de carga productiva diaria en función a los pedidos que estén en la etapa “Listo para producción”. | El sistema actualizará automáticamente el nivel de carga productiva diaria en función a los pedidos que estén en la etapa “Listo para producción”. | El sistema actualizará automáticamente el nivel de carga productiva diaria en función a los pedidos que estén en la etapa “Listo para producción”. | El sistema actualizará automáticamente el nivel de carga productiva diaria en función a los pedidos que estén en la etapa “Listo para producción”. | El sistema actualizará automáticamente el nivel de carga productiva diaria en función a los pedidos que estén en la etapa “Listo para producción”. |
-| UR | 7.3 | Restricción de cambio manual a “Listo para producción” | 2 | 1 | 2 | 2 | 2 | 3 |
-| [EMPTY] | El sistema impedirá cambiar automáticamente el estado de una orden de producción “Listo para producción” mientras no sea confirmado el pago. | El sistema impedirá cambiar automáticamente el estado de una orden de producción “Listo para producción” mientras no sea confirmado el pago. | El sistema impedirá cambiar automáticamente el estado de una orden de producción “Listo para producción” mientras no sea confirmado el pago. | El sistema impedirá cambiar automáticamente el estado de una orden de producción “Listo para producción” mientras no sea confirmado el pago. | El sistema impedirá cambiar automáticamente el estado de una orden de producción “Listo para producción” mientras no sea confirmado el pago. | El sistema impedirá cambiar automáticamente el estado de una orden de producción “Listo para producción” mientras no sea confirmado el pago. | El sistema impedirá cambiar automáticamente el estado de una orden de producción “Listo para producción” mientras no sea confirmado el pago. | El sistema impedirá cambiar automáticamente el estado de una orden de producción “Listo para producción” mientras no sea confirmado el pago. |
-| UR | 7.4 | Configuración de capacidad de producción | 2 | 3 | 2 | 2 | 2 | 3 |
-| [EMPTY] | El sistema permitirá al usuario al administrador configurar y ajustar la capacidad máxima diaria de producción. | El sistema permitirá al usuario al administrador configurar y ajustar la capacidad máxima diaria de producción. | El sistema permitirá al usuario al administrador configurar y ajustar la capacidad máxima diaria de producción. | El sistema permitirá al usuario al administrador configurar y ajustar la capacidad máxima diaria de producción. | El sistema permitirá al usuario al administrador configurar y ajustar la capacidad máxima diaria de producción. | El sistema permitirá al usuario al administrador configurar y ajustar la capacidad máxima diaria de producción. | El sistema permitirá al usuario al administrador configurar y ajustar la capacidad máxima diaria de producción. | El sistema permitirá al usuario al administrador configurar y ajustar la capacidad máxima diaria de producción. |
-| UR | 7.5 | Estimación de carga laboral automática | 2 | 3 | 2 | 2 | 2 | 3 |
-| [EMPTY] | El sistema mostrará a los usuarios de cualquier rol, el nivel de carga productiva diario, que representa la relación entre la producción asignada y su capacidad máxima diaria de producción. | El sistema mostrará a los usuarios de cualquier rol, el nivel de carga productiva diario, que representa la relación entre la producción asignada y su capacidad máxima diaria de producción. | El sistema mostrará a los usuarios de cualquier rol, el nivel de carga productiva diario, que representa la relación entre la producción asignada y su capacidad máxima diaria de producción. | El sistema mostrará a los usuarios de cualquier rol, el nivel de carga productiva diario, que representa la relación entre la producción asignada y su capacidad máxima diaria de producción. | El sistema mostrará a los usuarios de cualquier rol, el nivel de carga productiva diario, que representa la relación entre la producción asignada y su capacidad máxima diaria de producción. | El sistema mostrará a los usuarios de cualquier rol, el nivel de carga productiva diario, que representa la relación entre la producción asignada y su capacidad máxima diaria de producción. | El sistema mostrará a los usuarios de cualquier rol, el nivel de carga productiva diario, que representa la relación entre la producción asignada y su capacidad máxima diaria de producción. | El sistema mostrará a los usuarios de cualquier rol, el nivel de carga productiva diario, que representa la relación entre la producción asignada y su capacidad máxima diaria de producción. |
-| UR | 7.6 | Visualizar diferencia entre tiempo estimado y tiempo real | 1 | 2 | 1 | 2 | 2 | 2 |
-| [EMPTY] | El sistema mostrará al usuario de cualquier rol el tiempo real transcurrido de un pedido. | El sistema mostrará al usuario de cualquier rol el tiempo real transcurrido de un pedido. | El sistema mostrará al usuario de cualquier rol el tiempo real transcurrido de un pedido. | El sistema mostrará al usuario de cualquier rol el tiempo real transcurrido de un pedido. | El sistema mostrará al usuario de cualquier rol el tiempo real transcurrido de un pedido. | El sistema mostrará al usuario de cualquier rol el tiempo real transcurrido de un pedido. | El sistema mostrará al usuario de cualquier rol el tiempo real transcurrido de un pedido. | El sistema mostrará al usuario de cualquier rol el tiempo real transcurrido de un pedido. |
-| UR | 7.7 | Notificación de nuevo pedido a jefatura | 2 | 3 | 3 | 2 | 3 | 3 |
-| [EMPTY] | El sistema emitirá una notificación automática, al administrador cuando se cree y guarde un nuevo pedido. | El sistema emitirá una notificación automática, al administrador cuando se cree y guarde un nuevo pedido. | El sistema emitirá una notificación automática, al administrador cuando se cree y guarde un nuevo pedido. | El sistema emitirá una notificación automática, al administrador cuando se cree y guarde un nuevo pedido. | El sistema emitirá una notificación automática, al administrador cuando se cree y guarde un nuevo pedido. | El sistema emitirá una notificación automática, al administrador cuando se cree y guarde un nuevo pedido. | El sistema emitirá una notificación automática, al administrador cuando se cree y guarde un nuevo pedido. | El sistema emitirá una notificación automática, al administrador cuando se cree y guarde un nuevo pedido. |
-| UR | 7.8 | Indicador visual de retraso | 2 | 2 | 3 | 2 | 2 | 3 |
-| [EMPTY] | El sistema mostrará un indicador visual que represente su nivel de retraso. | El sistema mostrará un indicador visual que represente su nivel de retraso. | El sistema mostrará un indicador visual que represente su nivel de retraso. | El sistema mostrará un indicador visual que represente su nivel de retraso. | El sistema mostrará un indicador visual que represente su nivel de retraso. | El sistema mostrará un indicador visual que represente su nivel de retraso. | El sistema mostrará un indicador visual que represente su nivel de retraso. | El sistema mostrará un indicador visual que represente su nivel de retraso. |
-| UR | 7.9 | Notificación de disponibilidad para despacho | 2 | 2 | 3 | 2 | 2 | 3 |
-| [EMPTY] | El sistema enviará automáticamente una notificación por correo electrónico al pedido cuando está en estado a “Listo para producción”. | El sistema enviará automáticamente una notificación por correo electrónico al pedido cuando está en estado a “Listo para producción”. | El sistema enviará automáticamente una notificación por correo electrónico al pedido cuando está en estado a “Listo para producción”. | El sistema enviará automáticamente una notificación por correo electrónico al pedido cuando está en estado a “Listo para producción”. | El sistema enviará automáticamente una notificación por correo electrónico al pedido cuando está en estado a “Listo para producción”. | El sistema enviará automáticamente una notificación por correo electrónico al pedido cuando está en estado a “Listo para producción”. | El sistema enviará automáticamente una notificación por correo electrónico al pedido cuando está en estado a “Listo para producción”. | El sistema enviará automáticamente una notificación por correo electrónico al pedido cuando está en estado a “Listo para producción”. |
-| UR | 7.10 | Realizar observaciones de pedidos | 2 | 2 | 2 | 2 | 2 | 3 |
-| [EMPTY] | El sistema permitirá a todos los usuarios registrar observaciones asociados a un pedido. | El sistema permitirá a todos los usuarios registrar observaciones asociados a un pedido. | El sistema permitirá a todos los usuarios registrar observaciones asociados a un pedido. | El sistema permitirá a todos los usuarios registrar observaciones asociados a un pedido. | El sistema permitirá a todos los usuarios registrar observaciones asociados a un pedido. | El sistema permitirá a todos los usuarios registrar observaciones asociados a un pedido. | El sistema permitirá a todos los usuarios registrar observaciones asociados a un pedido. | El sistema permitirá a todos los usuarios registrar observaciones asociados a un pedido. |
-| UR | 7.11 | Indicador de urgencia | 2 | 3 | 2 | 2 | 2 | 3 |
-| [EMPTY] | El sistema generará una notificación interna visible en el panel de notificaciones para todos los usuarios con rol de ventas. | El sistema generará una notificación interna visible en el panel de notificaciones para todos los usuarios con rol de ventas. | El sistema generará una notificación interna visible en el panel de notificaciones para todos los usuarios con rol de ventas. | El sistema generará una notificación interna visible en el panel de notificaciones para todos los usuarios con rol de ventas. | El sistema generará una notificación interna visible en el panel de notificaciones para todos los usuarios con rol de ventas. | El sistema generará una notificación interna visible en el panel de notificaciones para todos los usuarios con rol de ventas. | El sistema generará una notificación interna visible en el panel de notificaciones para todos los usuarios con rol de ventas. | El sistema generará una notificación interna visible en el panel de notificaciones para todos los usuarios con rol de ventas. |
-| UR | 7.12 | Panel de anuncios internos | 2 | 3 | 2 | 2 | 2 | 3 |
-| [EMPTY] | El sistema debe contar con una pestaña independiente dedicada a un panel de anuncios internos. | El sistema debe contar con una pestaña independiente dedicada a un panel de anuncios internos. | El sistema debe contar con una pestaña independiente dedicada a un panel de anuncios internos. | El sistema debe contar con una pestaña independiente dedicada a un panel de anuncios internos. | El sistema debe contar con una pestaña independiente dedicada a un panel de anuncios internos. | El sistema debe contar con una pestaña independiente dedicada a un panel de anuncios internos. | El sistema debe contar con una pestaña independiente dedicada a un panel de anuncios internos. | El sistema debe contar con una pestaña independiente dedicada a un panel de anuncios internos. |
-| UR | 7.13 | Publicación de anuncios internos | 1 | 2 | 1 | 2 | 2 | 2 |
-| [EMPTY] | El sistema permitirá a los usuarios con rol Administrador publicar comunicados y novedades en el panel de anuncios. | El sistema permitirá a los usuarios con rol Administrador publicar comunicados y novedades en el panel de anuncios. | El sistema permitirá a los usuarios con rol Administrador publicar comunicados y novedades en el panel de anuncios. | El sistema permitirá a los usuarios con rol Administrador publicar comunicados y novedades en el panel de anuncios. | El sistema permitirá a los usuarios con rol Administrador publicar comunicados y novedades en el panel de anuncios. | El sistema permitirá a los usuarios con rol Administrador publicar comunicados y novedades en el panel de anuncios. | El sistema permitirá a los usuarios con rol Administrador publicar comunicados y novedades en el panel de anuncios. | El sistema permitirá a los usuarios con rol Administrador publicar comunicados y novedades en el panel de anuncios. |
-
-### Table 5
-
-| 8.- | Registro e historial de actividades | Registro e historial de actividades | Registro e historial de actividades | Registro e historial de actividades | Registro e historial de actividades | Registro e historial de actividades | Registro e historial de actividades | Registro e historial de actividades | Registro e historial de actividades | Registro e historial de actividades | Registro e historial de actividades | Registro e historial de actividades | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
-| UR | 8.1 | 8.1 | 8.1 | 8.1 | Registro de ingreso de pedido bajo sobrecarga operativa | Registro de ingreso de pedido bajo sobrecarga operativa | Registro de ingreso de pedido bajo sobrecarga operativa | Registro de ingreso de pedido bajo sobrecarga operativa | Registro de ingreso de pedido bajo sobrecarga operativa | Registro de ingreso de pedido bajo sobrecarga operativa | Registro de ingreso de pedido bajo sobrecarga operativa | Registro de ingreso de pedido bajo sobrecarga operativa | 2 | 2 | 2 | 2 | 2 | 4 | 4 | 4 | 4 | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 |
-| [EMPTY] | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. | El sistema guardará un registro en el historial, cuando un usuario de Ventas ingrese un pedido bajo condición de sobrecarga operativa. |
-| UR | 8.2 | 8.2 | 8.2 | 8.2 | Trazabilidad de estados de producción | Trazabilidad de estados de producción | Trazabilidad de estados de producción | Trazabilidad de estados de producción | Trazabilidad de estados de producción | Trazabilidad de estados de producción | Trazabilidad de estados de producción | Trazabilidad de estados de producción | 2 | 2 | 2 | 2 | 2 | 4 | 4 | 4 | 4 | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 |
-| [EMPTY] | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. | El sistema deberá almacenar el historial completo de cambios de estado de subproceso de producción de cada pedido. |
-| UR | 8.3 | 8.3 | 8.3 | 8.3 | Cálculo del tiempo real transcurrido por etapa | Cálculo del tiempo real transcurrido por etapa | Cálculo del tiempo real transcurrido por etapa | Cálculo del tiempo real transcurrido por etapa | Cálculo del tiempo real transcurrido por etapa | Cálculo del tiempo real transcurrido por etapa | Cálculo del tiempo real transcurrido por etapa | Cálculo del tiempo real transcurrido por etapa | 2 | 2 | 2 | 2 | 2 | 4 | 4 | 4 | 4 | 1 | 1 | 1 | 1 | 2 | 2 | 2 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
-| [EMPTY] | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. | El sistema deberá calcular y guardar automáticamente el tiempo real transcurrido desde que un pedido entra a una etapa y sale de ella. |
-| UR | 8.4 | 8.4 | 8.4 | 8.4 | Historial de trazabilidad de producción | Historial de trazabilidad de producción | Historial de trazabilidad de producción | Historial de trazabilidad de producción | Historial de trazabilidad de producción | Historial de trazabilidad de producción | Historial de trazabilidad de producción | Historial de trazabilidad de producción | 2 | 2 | 2 | 2 | 2 | 4 | 4 | 4 | 4 | 1 | 1 | 1 | 1 | 2 | 2 | 2 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
-| [EMPTY] | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. | El sistema deberá proporcionar una vista de historial de trazabilidad para cada pedido. |
-| UR | 8.5 | 8.5 | 8.5 | 8.5 | Historial consolidado de pedido | Historial consolidado de pedido | Historial consolidado de pedido | Historial consolidado de pedido | Historial consolidado de pedido | Historial consolidado de pedido | Historial consolidado de pedido | Historial consolidado de pedido | 1 | 1 | 1 | 1 | 1 | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
-| [EMPTY] | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. | El sistema permitirá a los usuarios visualizar el historial cronológico de eventos asociados en el detalle de un pedido. |
-| UR | 8.6 | 8.6 | 8.6 | 8.6 | 8.6 | Trazabilidad de comentarios, observaciones y alertas | Trazabilidad de comentarios, observaciones y alertas | Trazabilidad de comentarios, observaciones y alertas | Trazabilidad de comentarios, observaciones y alertas | 2 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 3 | 3 | 3 |
-| [EMPTY] | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. | El sistema registrará cada comentario, observación o alerta asociado a un pedido con fecha y hora. |
-| 9.- | Reportes y estadística | Reportes y estadística | Reportes y estadística | Reportes y estadística | Reportes y estadística | Reportes y estadística | Reportes y estadística | Reportes y estadística | Reportes y estadística | Reportes y estadística | Reportes y estadística | Reportes y estadística | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
-| [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
-| UR | 9.1 | 9.1 | 9.1 | 9.1 | Generando reporte de rendimiento de producción | Generando reporte de rendimiento de producción | Generando reporte de rendimiento de producción | Generando reporte de rendimiento de producción | Generando reporte de rendimiento de producción | Generando reporte de rendimiento de producción | Generando reporte de rendimiento de producción | Generando reporte de rendimiento de producción | 2 | 2 | 2 | 2 | 2 | 4 | 4 | 4 | 4 | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 |
-| [EMPTY] | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. | El sistema deberá dar la opción al usuario con rol de Gerencia de generar un reporte de rendimiento de producción. |
-| UR | 9.2 | 9.2 | 9.2 | 9.2 | Exportar reporte de cumplimiento | Exportar reporte de cumplimiento | Exportar reporte de cumplimiento | Exportar reporte de cumplimiento | Exportar reporte de cumplimiento | Exportar reporte de cumplimiento | Exportar reporte de cumplimiento | Exportar reporte de cumplimiento | 2 | 2 | 2 | 2 | 2 | 4 | 4 | 4 | 4 | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 |
-| [EMPTY] | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” | El sistema permitirá al usuario de gerencia y administrador exportar los distintos reportes generados por el sistema, en formato Excel, PDF, JPG, SVG, por medio del botón “Exportar” |
-| UR | 9.3 | 9.3 | 9.3 | 9.3 | Cálculo del tiempo de producción | Cálculo del tiempo de producción | Cálculo del tiempo de producción | Cálculo del tiempo de producción | Cálculo del tiempo de producción | Cálculo del tiempo de producción | Cálculo del tiempo de producción | Cálculo del tiempo de producción | 2 | 2 | 2 | 2 | 2 | 4 | 4 | 4 | 4 | 1 | 1 | 1 | 1 | 2 | 2 | 2 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
-| [EMPTY] | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. | El sistema deberá calcular el tiempo total que pasa un pedido dentro del flujo del sistema. |
-| UR | 9.4 | 9.4 | 9.4 | 9.4 | Mapa de carga de producción por día de la semana | Mapa de carga de producción por día de la semana | Mapa de carga de producción por día de la semana | Mapa de carga de producción por día de la semana | Mapa de carga de producción por día de la semana | Mapa de carga de producción por día de la semana | Mapa de carga de producción por día de la semana | Mapa de carga de producción por día de la semana | 2 | 2 | 2 | 2 | 2 | 4 | 4 | 4 | 4 | 1 | 1 | 1 | 1 | 2 | 2 | 2 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
-| [EMPTY] | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. | El sistema deberá mostrar un mapa de carga de producción por día de la semana. |
-| UR | 9.5 | 9.5 | 9.5 | 9.5 | Filtro por rango de fechas para generar los reportes | Filtro por rango de fechas para generar los reportes | Filtro por rango de fechas para generar los reportes | Filtro por rango de fechas para generar los reportes | Filtro por rango de fechas para generar los reportes | Filtro por rango de fechas para generar los reportes | Filtro por rango de fechas para generar los reportes | Filtro por rango de fechas para generar los reportes | 1 | 1 | 1 | 1 | 1 | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
-| [EMPTY] | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes | El sistema permitirá seleccionar un rango de fechas para filtrar reportes |
-| UR | 9.6 | 9.6 | 9.6 | 9.6 | 9.6 | Ranking de productos más solicitados | Ranking de productos más solicitados | Ranking de productos más solicitados | Ranking de productos más solicitados | 2 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 3 | 3 | 3 |
-| [EMPTY] | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. | El sistema generará un ranking de los productos más solicitados. |
-| UR | 9.7 | 9.7 | 9.7 | 9.7 | Reporte de órdenes agrupadas por estado | Reporte de órdenes agrupadas por estado | Reporte de órdenes agrupadas por estado | Reporte de órdenes agrupadas por estado | Reporte de órdenes agrupadas por estado | Reporte de órdenes agrupadas por estado | Reporte de órdenes agrupadas por estado | Reporte de órdenes agrupadas por estado | 1 | 1 | 1 | 1 | 1 | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
-| [EMPTY] | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. | El sistema permitirá generar un reporte que muestre la cantidad total de pedidos agrupados por estados. |
-| UR | 9.8 | 9.8 | 9.8 | 9.8 | 9.8 | Indicador de cumplimiento por usuario de rol ventas | Indicador de cumplimiento por usuario de rol ventas | Indicador de cumplimiento por usuario de rol ventas | Indicador de cumplimiento por usuario de rol ventas | 2 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 3 | 3 | 3 |
-| [EMPTY] | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador | El sistema generará una lista de cumplimiento por vendedor a los usuarios con rol Gerencia y administrador |
-| 10.- | 10.- | Seguridad y control de acceso | Seguridad y control de acceso | Seguridad y control de acceso | Seguridad y control de acceso | Seguridad y control de acceso | Seguridad y control de acceso | Seguridad y control de acceso | Seguridad y control de acceso | Seguridad y control de acceso | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
-| UR | UR | 10.1 | 10.1 | 10.1 | 10.1 | 10.1 | Invalidación de sesiones activas | Invalidación de sesiones activas | Invalidación de sesiones activas | Invalidación de sesiones activas | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 1 | 1 | 1 | 1 | 1 | 2 |
-| [EMPTY] | [EMPTY] | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. |
-| UR | UR | 10.2 | 10.2 | 10.2 | 10.2 | 10.2 | Restricción de desbloqueo de cuentas bloqueadas | Restricción de desbloqueo de cuentas bloqueadas | Restricción de desbloqueo de cuentas bloqueadas | Restricción de desbloqueo de cuentas bloqueadas | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 1 |
-| [EMPTY] | [EMPTY] | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. |
-| UR | UR | 10.3 | 10.3 | 10.3 | 10.3 | 10.3 | Política mínima de contraseñas | Política mínima de contraseñas | Política mínima de contraseñas | Política mínima de contraseñas | 2 | 2 | 2 | 2 | 2 | 1 | 1 | 1 | 1 | 1 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 2 | 2 | 3 |
-| [EMPTY] | [EMPTY] | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. |
-| UR | UR | 10.4 | 10.4 | 10.4 | 10.4 | 10.4 | Tiempo máximo de inicio de sesión | Tiempo máximo de inicio de sesión | Tiempo máximo de inicio de sesión | Tiempo máximo de inicio de sesión | 3 | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 2 | 2 | 2 |
-| [EMPTY] | [EMPTY] | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. |
-| UR | UR | UR | UR | 10.5 | 10.5 | 10.5 | 10.5 | 10.5 | Cierre de sesión por inactividad | Cierre de sesión por inactividad | Cierre de sesión por inactividad | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 2 | 2 | 3 | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 2 |
-| [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. |
-| UR | UR | UR | UR | 10.6 | 10.6 | 10.6 | 10.6 | 10.6 | Definición de tiempos estimados por etapa | Definición de tiempos estimados por etapa | Definición de tiempos estimados por etapa | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 2 | 2 | 3 | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 2 |
-| [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. |
-| 11.- | 11.- | 11.- | Auditoría y conservación de información | Auditoría y conservación de información | Auditoría y conservación de información | Auditoría y conservación de información | Auditoría y conservación de información | Auditoría y conservación de información | Auditoría y conservación de información | Auditoría y conservación de información | Auditoría y conservación de información | Auditoría y conservación de información | Auditoría y conservación de información | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
-| UR | UR | UR | 11.1 | 11.1 | 11.1 | 11.1 | 11.1 | Registro de fecha y hora del servidor | Registro de fecha y hora del servidor | Registro de fecha y hora del servidor | Registro de fecha y hora del servidor | Registro de fecha y hora del servidor | Registro de fecha y hora del servidor | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 2 | 2 | 3 | 3 | 3 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 |
-| [EMPTY] | [EMPTY] | [EMPTY] | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. |
-| UR | UR | UR | 11.2 | 11.2 | 11.2 | 11.2 | 11.2 | Conservación del historial de usuarios desactivados | Conservación del historial de usuarios desactivados | Conservación del historial de usuarios desactivados | Conservación del historial de usuarios desactivados | Conservación del historial de usuarios desactivados | Conservación del historial de usuarios desactivados | 2 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 2 | 2 | 1 | 1 | 1 | 2 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 3 |
-| [EMPTY] | [EMPTY] | [EMPTY] | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados |
-| 12.- | 12.- | 12.- | Rendimiento y compatibilidad técnica | Rendimiento y compatibilidad técnica | Rendimiento y compatibilidad técnica | Rendimiento y compatibilidad técnica | Rendimiento y compatibilidad técnica | Rendimiento y compatibilidad técnica | Rendimiento y compatibilidad técnica | Rendimiento y compatibilidad técnica | Rendimiento y compatibilidad técnica | Rendimiento y compatibilidad técnica | Rendimiento y compatibilidad técnica | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
-| UR | UR | UR | 12.1 | 12.1 | 12.1 | 12.1 | 12.1 | Compatibilidad con navegadores web | Compatibilidad con navegadores web | Compatibilidad con navegadores web | Compatibilidad con navegadores web | Compatibilidad con navegadores web | Compatibilidad con navegadores web | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 2 | 1 | 1 | 1 | 2 | 2 | 2 | 2 | 2 | 1 | 1 | 1 | 1 | 1 |
-| [EMPTY] | [EMPTY] | [EMPTY] | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web |
-| UR | UR | UR | 12.2 | 12.2 | 12.2 | 12.2 | 12.2 | Compatibilidad con sistemas operativos | Compatibilidad con sistemas operativos | Compatibilidad con sistemas operativos | Compatibilidad con sistemas operativos | Compatibilidad con sistemas operativos | Compatibilidad con sistemas operativos | 1 | 1 | 1 | 1 | 1 | 2 | 2 | 2 | 2 | 1 | 1 | 2 | 2 | 2 | 1 | 1 | 1 | 1 | 1 | 2 | 2 | 2 | 2 | 2 |
-| [EMPTY] | [EMPTY] | [EMPTY] | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos |
-| UR | UR | UR | 12.3 | 12.3 | 12.3 | 12.3 | 12.3 | Tiempo máximo de respuesta en navegación | Tiempo máximo de respuesta en navegación | Tiempo máximo de respuesta en navegación | Tiempo máximo de respuesta en navegación | Tiempo máximo de respuesta en navegación | Tiempo máximo de respuesta en navegación | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 1 | 1 | 1 | 1 | 1 | 2 | 2 | 2 | 2 | 2 |
-| [EMPTY] | [EMPTY] | [EMPTY] | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. |
-| 13.- | 13.- | 13.- | Usabilidad, diseño y administración interna | Usabilidad, diseño y administración interna | Usabilidad, diseño y administración interna | Usabilidad, diseño y administración interna | Usabilidad, diseño y administración interna | Usabilidad, diseño y administración interna | Usabilidad, diseño y administración interna | Usabilidad, diseño y administración interna | Usabilidad, diseño y administración interna | Usabilidad, diseño y administración interna | Usabilidad, diseño y administración interna | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
-| UR | UR | UR | 13.1 | 13.1 | 13.1 | 13.1 | 13.1 | Usabilidad visual para operación | Usabilidad visual para operación | Usabilidad visual para operación | Usabilidad visual para operación | Usabilidad visual para operación | Usabilidad visual para operación | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 |
-| [EMPTY] | [EMPTY] | [EMPTY] | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil |
-| UR | UR | UR | 13.2 | 13.2 | 13.2 | 13.2 | 13.2 | Identidad visual institucional | Identidad visual institucional | Identidad visual institucional | Identidad visual institucional | Identidad visual institucional | Identidad visual institucional | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 |
-| [EMPTY] | [EMPTY] | [EMPTY] | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa |
+| UR | 8.6 | 8.6 | 8.6 | 8.6 | Usuario podrá filtrar reportes e indicadores por rango de fechas. | Usuario podrá filtrar reportes e indicadores por rango de fechas. | Usuario podrá filtrar reportes e indicadores por rango de fechas. | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 3 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| [EMPTY] | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. | Es transversal para consultar correctamente la analítica del módulo. |
+| UR | 8.7 | 8.7 | 8.7 | 8.7 | Gerencia podrá acceder a panel de control exclusivo con información analítica. | Gerencia podrá acceder a panel de control exclusivo con información analítica. | Gerencia podrá acceder a panel de control exclusivo con información analítica. | 3 | 3 | 3 | 4 | 4 | 4 | 2 | 2 | 1 | 1 | 1 | 1 | 2 | 2 | 2 | 3 | 3 |
+| [EMPTY] | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. | Concentra información estratégica para la toma de decisiones. |
+| UR | 8.8 | 8.8 | 8.8 | 8.8 | Sistema mostrará ranking de productos más solicitados por periodo. | Sistema mostrará ranking de productos más solicitados por periodo. | Sistema mostrará ranking de productos más solicitados por periodo. | 3 | 3 | 3 | 4 | 4 | 4 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 2 | 2 |
+| [EMPTY] | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. | Es útil para análisis comercial, pero no prioritario para operar. |
+| UR | 8.9 | 8.9 | 8.9 | 8.9 | Sistema generará reporte de órdenes de producción agrupadas por estado. | Sistema generará reporte de órdenes de producción agrupadas por estado. | Sistema generará reporte de órdenes de producción agrupadas por estado. | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 1 | 1 |
+| [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | Resume la situación operativa del flujo de pedidos. | Resume la situación operativa del flujo de pedidos. | Resume la situación operativa del flujo de pedidos. | Resume la situación operativa del flujo de pedidos. | Resume la situación operativa del flujo de pedidos. | Resume la situación operativa del flujo de pedidos. | Resume la situación operativa del flujo de pedidos. | Resume la situación operativa del flujo de pedidos. | Resume la situación operativa del flujo de pedidos. | Resume la situación operativa del flujo de pedidos. | Resume la situación operativa del flujo de pedidos. | Resume la situación operativa del flujo de pedidos. | Resume la situación operativa del flujo de pedidos. | Resume la situación operativa del flujo de pedidos. | Resume la situación operativa del flujo de pedidos. | Resume la situación operativa del flujo de pedidos. | Resume la situación operativa del flujo de pedidos. | Resume la situación operativa del flujo de pedidos. | Resume la situación operativa del flujo de pedidos. | [EMPTY] | [EMPTY] |
+| UR | 8.10 | 8.10 | 8.10 | 8.10 | Sistema generará indicador de cumplimiento por vendedor. | Sistema generará indicador de cumplimiento por vendedor. | Sistema generará indicador de cumplimiento por vendedor. | 1 | 1 | 1 | 4 | 4 | 4 | 2 | 2 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 2 | 2 |
+| [EMPTY] | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. | Aporta control comercial y seguimiento de desempeño por usuario. |
+| 9.- | Seguridad y control de acceso | Seguridad y control de acceso | Seguridad y control de acceso | Seguridad y control de acceso | Seguridad y control de acceso | Seguridad y control de acceso | Seguridad y control de acceso | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
+| UR | 9.1 | 9.1 | 9.1 | 9.1 | Invalidación de sesiones activas | Invalidación de sesiones activas | Invalidación de sesiones activas | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 3 | 2 | 2 | 2 | 2 | 1 | 1 | 1 | 2 | 2 |
+| [EMPTY] | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. | Sistema permitirá invalidar las sesiones activas de un usuario en un plazo máximo de 5 segundos después de que dicho usuario solicite el cierre de sesión. |
+| UR | 9.2 | 9.2 | 9.2 | 9.2 | Restricción de desbloqueo de cuentas bloqueadas | Restricción de desbloqueo de cuentas bloqueadas | Restricción de desbloqueo de cuentas bloqueadas | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 3 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 1 | 1 |
+| [EMPTY] | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. | Sistema garantizará que el desbloqueo de cuentas bloqueadas esté restringido exclusivamente a usuarios con rol Administrador. |
+| UR | 9.3 | 9.3 | 9.3 | 9.3 | Política mínima de contraseñas | Política mínima de contraseñas | Política mínima de contraseñas | 2 | 2 | 2 | 1 | 1 | 1 | 2 | 2 | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 3 | 3 |
+| [EMPTY] | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. | Sistema exigirá normas para ingresar una contraseña. |
+| UR | 9.4 | 9.4 | 9.4 | 9.4 | Tiempo máximo de inicio de sesión | Tiempo máximo de inicio de sesión | Tiempo máximo de inicio de sesión | 3 | 3 | 3 | 2 | 2 | 2 | 2 | 2 | 3 | 3 | 3 | 3 | 2 | 2 | 2 | 2 | 2 |
+| [EMPTY] | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. | Sistema completará el proceso de inicio de sesión en un tiempo de 3 segundos. |
+| UR | UR | UR | 9.5 | 9.5 | 9.5 | 9.5 | Cierre de sesión por inactividad | Cierre de sesión por inactividad | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 3 | 2 | 2 | 3 | 3 | 3 | 2 | 2 | 2 |
+| [EMPTY] | [EMPTY] | [EMPTY] | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. | El sistema cerrará sesión de un usuario por estar inactivo por un tiempo de 10 minutos. |
+| UR | UR | UR | 9.6 | 9.6 | 9.6 | 9.6 | Definición de tiempos estimados por etapa | Definición de tiempos estimados por etapa | 2 | 2 | 2 | 2 | 2 | 2 | 3 | 3 | 2 | 2 | 3 | 3 | 3 | 2 | 2 | 2 |
+| [EMPTY] | [EMPTY] | [EMPTY] | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. | El sistema almacenará un tiempo estimado predefinido para cada una de las etapas del proceso de producción. |
+| 10.- | 10.- | Auditoría y conservación de información | Auditoría y conservación de información | Auditoría y conservación de información | Auditoría y conservación de información | Auditoría y conservación de información | Auditoría y conservación de información | Auditoría y conservación de información | Auditoría y conservación de información | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
+| UR | UR | 10.1 | 10.1 | 10.1 | 10.1 | Registro de fecha y hora del servidor | Registro de fecha y hora del servidor | Registro de fecha y hora del servidor | Registro de fecha y hora del servidor | 3 | 3 | 3 | 3 | 3 | 2 | 3 | 3 | 2 | 2 | 2 | 2 | 2 | 2 | [EMPTY] |
+| [EMPTY] | [EMPTY] | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | Sistema registrará la fecha y hora del servidor en todos los eventos de auditoría, cambios de estado y confirmaciones de pago. | [EMPTY] |
+| UR | UR | 10.2 | 10.2 | 10.2 | 10.2 | Conservación del historial de usuarios desactivados | Conservación del historial de usuarios desactivados | Conservación del historial de usuarios desactivados | Conservación del historial de usuarios desactivados | 2 | 2 | 2 | 3 | 3 | 2 | 1 | 1 | 2 | 2 | 2 | 3 | 3 | 3 | [EMPTY] |
+| [EMPTY] | [EMPTY] | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | Sistema conservará el historial completo de acciones asociadas a usuarios desactivados | [EMPTY] |
+| 11.- | 11.- | Rendimiento y compatibilidad técnica | Rendimiento y compatibilidad técnica | Rendimiento y compatibilidad técnica | Rendimiento y compatibilidad técnica | Rendimiento y compatibilidad técnica | Rendimiento y compatibilidad técnica | Rendimiento y compatibilidad técnica | Rendimiento y compatibilidad técnica | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
+| UR | UR | 11.1 | 11.1 | 11.1 | 11.1 | Compatibilidad con navegadores web | Compatibilidad con navegadores web | Compatibilidad con navegadores web | Compatibilidad con navegadores web | 1 | 1 | 1 | 1 | 1 | 2 | 1 | 1 | 2 | 2 | 2 | 1 | 1 | 1 | [EMPTY] |
+| [EMPTY] | [EMPTY] | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | Sistema soportará diferentes navegadores web | [EMPTY] |
+| UR | UR | 11.2 | 11.2 | 11.2 | 11.2 | Compatibilidad con sistemas operativos | Compatibilidad con sistemas operativos | Compatibilidad con sistemas operativos | Compatibilidad con sistemas operativos | 1 | 1 | 1 | 2 | 2 | 1 | 2 | 2 | 1 | 1 | 1 | 2 | 2 | 2 | [EMPTY] |
+| [EMPTY] | [EMPTY] | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | Sistema soportará con diferentes sistemas operativos | [EMPTY] |
+| UR | UR | 11.3 | 11.3 | 11.3 | 11.3 | Tiempo máximo de respuesta en navegación | Tiempo máximo de respuesta en navegación | Tiempo máximo de respuesta en navegación | Tiempo máximo de respuesta en navegación | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 2 | 1 | 1 | 1 | 2 | 2 | 2 | [EMPTY] |
+| [EMPTY] | [EMPTY] | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | Sistema responderá a cada acción de navegación ejecutada por el usuario en un tiempo máximo de 3 segundos. | [EMPTY] |
+| 12.- | 12.- | Usabilidad, diseño y administración interna | Usabilidad, diseño y administración interna | Usabilidad, diseño y administración interna | Usabilidad, diseño y administración interna | Usabilidad, diseño y administración interna | Usabilidad, diseño y administración interna | Usabilidad, diseño y administración interna | Usabilidad, diseño y administración interna | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] | [EMPTY] |
+| UR | UR | 12.1 | 12.1 | 12.1 | 12.1 | Usabilidad visual para operación | Usabilidad visual para operación | Usabilidad visual para operación | Usabilidad visual para operación | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 2 | 2 | 2 | 2 | 2 | 2 | [EMPTY] |
+| [EMPTY] | [EMPTY] | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | Sistema utilizará colores diferenciados por módulo, íconos identificables y botones de tamaño adecuado para pantallas táctil | [EMPTY] |
+| UR | UR | 12.2 | 12.2 | 12.2 | 12.2 | Identidad visual institucional | Identidad visual institucional | Identidad visual institucional | Identidad visual institucional | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | 3 | [EMPTY] |
+| [EMPTY] | [EMPTY] | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | Sistema incorporará los colores institucionales principales de la empresa | [EMPTY] |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
@@ -1442,1156 +1494,1527 @@ Los casos de uso extendidos describen escenarios específicos de interacción en
 
 Cada caso de uso especifica las condiciones de inicio, el flujo principal de eventos, las posibles variaciones o excepciones y las respuestas del sistema frente a las acciones del usuario, permitiendo representar de manera estructurada el comportamiento esperado del sistema.
 
-El conjunto de casos de uso desarrollados se presenta en las Tablas 3.1 a 3.68.
+El conjunto de casos de uso desarrollados se presenta en las Tablas 3.1 a 3.77.
 
-Tabla 3.1:” CDU 01 Iniciando sesión mediante formulario de autenticación”
+Módulo 1: Gestión de usuario
+
+Tabla 3.1: “Ingresando credenciales de inicio de sesión”
+
+### Table 5
+
+| Caso de uso N°1 | Ingresando credenciales de inicio de sesión. |
+| --- | --- |
+| Actores | Usuario de cualquier rol. |
+| Propósito | La autenticación de los usuarios mediante el ingreso de correo y contraseña en el formulario. |
+| Precondiciones | El usuario debe tener una cuenta previamente registrada. <br> El estado de la cuenta debe ser ‘Vinculado’. |
+| Resumen | El Usuario ingresa su correo y contraseña en el formulario de ingreso, para posteriormente el sistema valide ambos campos antes de procesar el envío. |
+| Postcondiciones | El usuario está correctamente autenticado. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario accede a la pantalla de inicio de sesión. | 2. El sistema muestra el formulario con los campos ‘Correo electrónico’ y ‘Contraseña’. |
+| 3. El usuario ingresa su correo electrónico y contraseña. | 4. El sistema valida que el correo cumpla el formato texto@dominio.extension y la contraseña cumpla: mínimo 8 caracteres, al menos una letra mayúscula, al menos una letra minúscula, al menos un número, al menos un símbolo especial. |
+| 5. El usuario envía el formulario. | 6. El sistema procesa las credenciales y continúa con la autenticación. |
+
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
+Tabla 3.2: “Mostrando alerta de cuenta desactivada.”
 
 ### Table 6
 
-| Nombre | Iniciando sesión mediante formulario de autenticación |
+| Caso de uso N°2 | Mostrando alerta de cuenta desactivada. |
 | --- | --- |
-| Actores | Usuarios de cualquier rol. |
-| Resumen | El usuario ingresa sus credenciales en el formulario de autenticación, para ingresar al sistema. |
-| Frecuencia | Alta. Cada vez que un usuario desee iniciar sesión en el sistema. |
-| Precondiciones | Un usuario de cualquier rol con cuenta en estado vinculado. <br> El usuario debe estar previamente registrado en el sistema. |
-| Descripción | Un usuario desea ingresar al sistema, por lo que agrega sus datos al formulario de autenticación, el sistema recibe los datos y valida los campos ingresados. [Excepción 1] [Excepción 2]. |
-| Excepciones | Excepción 1: Campos Obligatorios vacíos. El sistema debe mostrar al usuario el mensaje “este campo es obligatorio” bajo los campos de correo y contraseña <br> Excepción 2: El sistema debe mostrar al usuario autorizado el mensaje “Correo o contraseña incorrectos” cuando las credenciales ingresadas sean incorrectas o cuando el correo no pertenezca a un usuario registrado. |
-| Postcondiciones | El usuario es autenticado correctamente |
-| Dependencias | RF02: Cambiando contraseña después del primer ingreso <br> RF05: Accediendo a funcionalidades según rol |
+| Actores | Usuario de cualquier rol. |
+| Propósito | Informar al usuario que su cuenta se encuentra desactivada y restringir su acceso al sistema. |
+| Precondiciones | Usuario con cuenta en estado “Desvinculado”. |
+| Resumen | El sistema valida las credenciales del usuario, verifica el estado de la cuenta y muestra el mensaje “Cuenta desactivada” cuando corresponda. |
+| Postcondiciones | El usuario no puede acceder al sistema. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario ingresa su correo electrónico y contraseña. <br> 3. El usuario selecciona la opción “Iniciar sesión”. <br> 5. El usuario espera el acceso al sistema. <br> 7. El usuario visualiza el resultado del inicio de sesión. | 2. El sistema recibe los datos ingresados. <br> 4. El sistema valida que las credenciales ingresadas sean correctas. <br> 6. El sistema verifica que la cuenta del usuario tiene estado “Desvinculado”. <br> 8. El sistema muestra el mensaje “Cuenta desactivada” y restringe el acceso al sistema. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.2:” CDU 02 Cambiando la contraseña en el primer ingreso”
+Tabla 3.3: “Visualizando error de autenticación.”
 
 ### Table 7
 
-| Nombre | Cambiando la contraseña en el primer ingreso RF02 |
+| Caso de uso N°3 | Visualizando error de autenticación. |
 | --- | --- |
-| Actores | Usuario de cualquier rol |
-| Resumen | El sistema manda un correo a los nuevos usuarios para que cambien sus contraseñas. |
-| Frecuencia | Media. Cada vez que un usuario inicie sesión por primera vez |
-| Precondiciones | El usuario debe tener una cuenta en estado vinculada <br> El usuario aún no ingresa al sistema por primera vez |
-| Descripción | El usuario con rol de administrador crea un nuevo usuario. El sistema detecta esta acción y envía un correo al usuario recién registrado solicitando que cambie su contraseña. El usuario registra una nueva contraseña y presiona el botón “cambiar contraseña”. [Excepción 1] El sistema valida que la contraseña ingresada cumpla con las condiciones mínimas de formato para ser validado. |
-| Excepciones | Excepción 1: La contraseña ingresada por el usuario no cumple las condiciones mínimas para ser considerada válida, el sistema le avisa por medio de un mensaje “la contraseña no cumple con los requisitos mínimos” |
-| Postcondiciones | El usuario guarda una contraseña válida y segura, asociada a su cuenta. |
-| Dependencias | RF01: Iniciando sesión mediante formulario de autenticación |
+| Actores | Usuario de cualquier rol. |
+| Propósito | Notificar al usuario un error a la hora de ingresar: <br> Correo inexistente en la base de datos. <br> Contraseña incorrecta para el correo registrado. |
+| Precondiciones | El usuario debe estar registrado previamente en el sistema. |
+| Resumen | Al enviar un formulario de inicio de sesión con correo o contraseña incorrecta, el sistema va a notificar mostrando el mensaje ‘Correo o contraseña incorrecta’. |
+| Postcondiciones | El usuario es notificado de que las credenciales ingresadas son incorrectas y permanece en la pantalla de inicio de sesión con la posibilidad de reintentar. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario envía el formulario de ingreso con su correo y contraseña ingresados. | 2. El sistema valida el formato de los campos. |
+| 3. El usuario espera la respuesta del sistema. | 4. El sistema no encuentra coincidencia debido a un correo ingresado inexistente o una contraseña ingresada incorrecta, mostrando el mensaje ‘Correo o contraseña incorrecta’. |
+| 5. El usuario visualiza el mensaje de error. | 6. El sistema mantiene el formulario disponible para nuevo intento. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.3: “CDU 03 Visualizando perfil de usuario”
+Tabla 3.4: “Consultando matriz de permisos por rol.”
 
 ### Table 8
 
-| Nombre | Visualizando perfil de usuario RF 03 |
+| Caso de uso N° 4 | Consultando matriz de permisos por rol. |
 | --- | --- |
-| Actores | Usuario de cualquier rol. |
-| Resumen | El usuario accede a la sección ‘Mi perfil’ para visualizar su información básica |
-| Frecuencia | Media. Cada vez que el usuario necesita consultar su información de cuenta. |
-| Precondiciones | El usuario debe estar previamente autenticado. |
-| Descripción | El usuario presiona la opción “Mi Perfil” desde cualquier vista del sistema [Excepción 1]. El sistema redirige al usuario a la sección de perfil y recupera los datos asociados a la cuenta autenticada como primer nombre, apellido paterno, correo electrónico y rol. El usuario observa y revisa la información de su perfil. |
-| Excepciones | Excepción 1: Sesión expirada. El sistema detecta que la sesión del usuario está expirada y redirige a la vista de autorización auth0 |
-| Postcondiciones | El usuario visualiza su información de perfil |
-| Dependencias | RF01: Iniciando sesión mediante formulario de autenticación |
+| Actores | Administrador. |
+| Propósito | Permitir al Administrador revisar los permisos asignados a cada rol del sistema. |
+| Precondiciones | El Administrador se encuentra autenticado con estado 'Vinculado'. <br> Los roles del sistema están configurados: Administrador, Gerencia, Operario, Ventas y Cobranzas. |
+| Resumen | El Administrador accede a la sección de gestión de roles y selecciona un rol para revisar los permisos que tiene asociados según la matriz definida en el sistema. |
+| Postcondiciones | El administrador obtiene acceso a la visualización de permisos asociados al rol consultado. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El Administrador accede a la sección de gestión de roles. | 2. El sistema muestra el listado de roles disponibles: Administrador, Gerencia, Operario, Ventas y Cobranzas. |
+| 3. El Administrador selecciona un rol de la lista. | 4. El sistema despliega los permisos asociados al rol seleccionado según la matriz de permisos definida. |
+| 5. El Administrador revisa los permisos del rol consultado. | 6. El sistema mantiene la información visible mientras el Administrador permanezca en la vista. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.4: “CDU 04 Visualizando historial en perfil de usuario”
+Tabla 3.5: “Registrando nuevos usuarios”
 
 ### Table 9
 
-| Nombre | Visualizando historial en perfil de usuario RF 04. |
+| Caso de uso N°5 | Registrando nuevos usuarios. |
 | --- | --- |
-| Actores | Usuario de cualquier rol. |
-| Resumen | El usuario accede a la sección ‘Mis movimientos’ para visualizar los últimos diez registros asociados a su cuenta. |
-| Frecuencia | Media. Cada vez que el usuario necesita revisar su actividad o movimientos registrados. |
-| Precondiciones | El usuario debe estar autenticado previamente. <br> La sesión del usuario debe estar vigente. <br> El usuario debe encontrarse en la sección ‘Mi perfil’. <br> El usuario debe tener registros asociados a su cuenta. |
-| Descripción | El usuario presiona la opción “Mis movimientos” desde la vista ‘Mi perfil’ [Excepción 1]. El sistema rescata los últimos diez registros asociados al usuario y los muestra en pantalla. El usuario observa sus últimos diez registros con su identificador, fecha en formato DD-MM-YYYY y estado. |
-| Excepciones | Excepción 1: El usuario no tiene registros asociados. El sistema debe mostrar el mensaje “No se encontraron movimientos registrados”. |
-| Postcondiciones | El usuario visualiza sus últimos movimientos disponibles. |
-| Dependencias | RF03: Visualización del perfil de usuario. |
+| Actores | -Usuario con rol de Administrador. |
+| Propósito | Registrar nuevos usuarios en el sistema. |
+| Precondiciones | El usuario con rol de administrador. |
+| Resumen | El administrador ingresa los datos obligatorios y el sistema valida el registro. |
+| Postcondiciones | Usuario creado correctamente en el sistema. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El administrador accede al módulo de usuarios. <br> 3. El administrador selecciona “Registrar usuario”. <br> 5. El administrador ingresa los datos obligatorios del usuario. <br> 7. El administrador ingresa contraseña y adjunta firma electrónica. <br> 9. El administrador confirma el registro. | 2. El sistema muestra las opciones de gestión de usuarios. <br> 4. El sistema muestra el formulario de registro. <br> 6. El sistema valida formatos, rol y unicidad del correo. <br> 8. El sistema valida la contraseña y el formato de la firma. <br> 10. El sistema registra el nuevo usuario. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.5: “CDU 05 Accediendo a funcionalidades según rol”
+Tabla 3.6: “Cambiando contraseña en primer inicio de sesión”
 
 ### Table 10
 
-| Nombre | Accediendo a funcionalidades según rol RF05 |
+| Caso de uso N°6 | Cambiando contraseña en primer inicio de sesión. |
 | --- | --- |
-| Actores | Usuarios de cualquier rol |
-| Resumen | El sistema debe redirigir a los usuarios solo a las interfaces para las cuales tiene autorización según su rol. |
-| Frecuencia | Alta. Cada vez que ingresa un usuario al sistema |
-| Precondiciones | El usuario debe estar previamente autenticado. <br> El usuario debe tener una cuenta con estado vinculado. |
-| Descripción | El usuario ingresa sus credenciales en el formulario de autenticación. [Excepción 1], [Excepción 2], El sistema detecta la acción y valida el rol del usuario. El usuario es capaz de ingresar al sistema. El sistema deja visible las interfaces que le corresponden según su rol. |
-| Excepciones | Excepción 1: Campos Obligatorios vacíos. El sistema debe mostrar al usuario el mensaje “este campo es obligatorio” bajo los campos de correo y contraseña <br> Excepción 2: El sistema debe mostrar al usuario autorizado el mensaje “Correo o contraseña incorrectos” cuando las credenciales ingresadas sean incorrectas o cuando el correo no pertenezca a un usuario registrado. |
-| Postcondiciones | El usuario ingresa a una interfaz con permisos personalizados según su rol. |
-| Dependencias | RF01: Iniciando sesión mediante formulario de autenticación |
+| Actores | Usuario de cualquier rol. |
+| Propósito | Cambiar la contraseña inicial del usuario. |
+| Precondiciones | La cuenta debe haber sido creada por un Administrador y estar en su primer inicio de sesión. |
+| Resumen | El sistema limita el acceso y solicita una nueva contraseña segura. |
+| Postcondiciones | Contraseña actualizada y acceso al sistema habilitado. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario ingresa sus credenciales. <br> 3. El usuario intenta acceder al sistema. <br> 5. El usuario visualiza la vista de cambio de contraseña. <br> 7. El usuario ingresa y confirma su nueva contraseña. <br> 9. El usuario confirma el cambio. | 2. El sistema valida el inicio de sesión. <br> 4. El sistema detecta que es el primer inicio de sesión. <br> 6. El sistema limita el acceso solo a esa vista. <br> 8. El sistema valida el formato de seguridad requerido. <br> 10. El sistema actualiza la contraseña y habilita el acceso. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.6: “CDU 06 Recuperando contraseña mediante correo electrónico”
+Tabla 3.7: “Visualizando perfil de usuario.”
 
 ### Table 11
 
-| Nombre | Recuperando contraseña mediante correo electrónico RF06 |
+| Caso de uso N°7 | Visualizando perfil de usuario. |
 | --- | --- |
-| Actores | Usuario de cualquier rol |
-| Resumen | El sistema les permite a los usuarios recuperar su contraseña por medio del correo electrónico. |
-| Frecuencia | Alta. Cada vez que a un usuario se le olvidé su contraseña |
-| Precondiciones | El usuario debe estar previamente registrado en el sistema. <br> La cuenta del usuario debe tener estado ‘Vinculado’. <br> El correo ingresado debe ser válido. |
-| Descripción | El usuario es incapaz de acceder al sistema porque no escribe bien su contraseña, presiona el botón “Recuperar contraseña”, el sistema detecta esto y redirige al usuario a un formulario en el que se le solícita su correo. El usuario ingresa su correo en el campo rellenable [Excepción 1] [Excepción 2]. El sistema corrobora que el correo ingresado sea válido y corresponde a un usuario del sistema con cuenta vinculada, para proceder a mandar un correo electrónico con el hipervínculo de restablecer contraseña. El usuario recibe el correo electrónico del sistema, hace click en “Confirmar”, esto lo redirige a una vista donde debe crear una nueva contraseña que cumpla con las condiciones mínimas de validación, una vez termina presiona el botón “cambiar contraseña [Excepción 3]. El sistema detecta la acción y valida que la contraseña cumpla con las condiciones antes de considerar como válida. |
-| Excepciones | Excepción 1: El correo ingresado corresponde a un usuario desvinculado. El sistema le muestra al usuario una alerta que dice “Este correo está asociado a un usuario desvinculado” <br> Excepción 2: El correo ingresado no corresponde al de un usuario del sistema, el sistema le muestra al usuario un mensaje que dice “correo invalido”. <br> Excepción 3: La contraseña ingresada por el usuario no cumple las condiciones mínimas para ser considerada válida, el sistema le avisa por medio de un mensaje “la contraseña no cumple con los requisitos mínimos” |
-| Postcondiciones | El usuario queda con una nueva contraseña funcional. |
-| Dependencias | RF01: Iniciando sesión mediante formulario de autenticación |
+| Actores | Usuario de cualquier rol. |
+| Propósito | Permitir al usuario consultar su información de perfil y sus registros recientes según sus permisos. |
+| Precondiciones | El usuario debe haber iniciado sesión en el sistema. |
+| Resumen | El usuario accede a la sección “Mi perfil”, donde puede visualizar su primer nombre, apellido paterno, correo electrónico y rol. |
+| Postcondiciones | El usuario visualiza correctamente su información personal y registros recientes. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario accede a la opción “Mi perfil”. | 2. El sistema abre la pantalla de perfil del usuario. |
+| 3. El usuario revisa la información mostrada. | 4. El sistema presenta primer nombre, apellido paterno, correo electrónico y rol. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.7: “CDU 07 Visualizando datos de usuario ”Desvinculado””
+Tabla 3.8: “Visualizando historial en perfil de usuario”
 
 ### Table 12
 
-| Nombre | Visualizando datos de usuario “Desvinculado” RF 07. |
+| Caso de uso N°8 | Visualizando historial en perfil de usuario. |
 | --- | --- |
-| Actores | Usuario con rol Administrador |
-| Resumen | El administrador observa movimientos históricos asociados a un usuario con estado de cuenta ‘Desvinculado’. |
-| Frecuencia | Baja. Cada vez que se necesite tener información de actividad de un usuario desvinculado. |
-| Precondiciones | El usuario debe estar previamente autenticado. <br> El usuario debe tener rol Administrador. |
-| Descripción | El Administrador accede al módulo de “Gestión de usuarios”, el sistema valida los permisos para acceder al módulo [Excepción 1], una vez que esté confirmada el acceso, el Administrador puede visualizar la tabla de las actividades de los usuarios y accede a la tabla de un usuario que se desvinculó para observar su actividad y el sistema le da acceso al usuario autorizado a los detalles correspondientes. |
-| Excepciones | Excepción 1: Permiso de rol no válido. El sistema informa que el rol es invalido para poder generar la acción. |
-| Postcondiciones | El Administrador podrá observar la tabla de detalles de actividad del usuario desvinculado. |
-| Dependencias | RF36: Edición de usuarios por “Administrador”. |
+| Actores | Usuario de cualquier rol. |
+| Propósito | Permitir al usuario revisar los últimos registros de actividad asociados a su cuenta teniendo en cuenta sus permisos. |
+| Precondiciones | El usuario debe encontrarse registrado en el sistema con estado ‘Vinculado’. <br> El usuario se encuentra en la vista ‘Mi perfil’. |
+| Resumen | El usuario accede a la sección “Mi perfil”, donde puede visualizar su historial de actividad mostrando los últimos 10 registros asociados según sus permisos. |
+| Postcondiciones | El usuario visualiza correctamente su actividad en el sistema. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario accede a la opción “Mi perfil”. <br> 3. El usuario revisa la información mostrada. <br> 5. El usuario consulta sus registros recientes. | 2. El sistema abre la pantalla de perfil del usuario. <br> 4. El sistema muestra su información de perfil <br> 6. El sistema muestra los últimos 10 registros asociados según sus permisos. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.8: “CDU 08 Cerrando sesión desde cualquier interfaz”
+Tabla 3.9: “Bloqueando acceso a usuario desvinculado”
 
 ### Table 13
 
-| Nombre | Cerrando sesión desde cualquier interfaz RF 08 |
+| Caso de uso N°9 | Bloqueando acceso a usuario desvinculado. |
 | --- | --- |
-| Actores | Usuarios de de cualquier rol |
-| Resumen | El sistema permite a los usuarios cerrar su sesión desde cualquier vista. |
-| Frecuencia | Alta. Cada vez que un usuario quiera salir de su cuenta. |
-| Precondiciones | El usuario debe estar previamente autenticado. |
-| Descripción | El usuario quiere salir del sistema por lo que presiona el botón “cerrar sesión”, en la barra de navegación. El sistema detecta la acción y redirige al usuario al Login de inicio de sesión. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | El usuario es capaz de salir exitosamente del sistema. |
-| Dependencias | RF01: Iniciando sesión mediante formulario de autenticación |
+| Actores | Usuario con rol: <br> -Producción. <br> -Ventas. <br> -Cobranza. |
+| Propósito | Impedir que un usuario con estado “Desvinculado” acceda a la interfaz web, puntos de conexiónn de API u operaciones internas del sistema. |
+| Precondiciones | El usuario debe existir previamente en el sistema. La cuenta del usuario debe encontrarse registrada con estado “Desvinculado”. El usuario intenta acceder al sistema mediante inicio de sesión, URL directa, petición API u operación interna. |
+| Resumen | El usuario con cuenta desvinculada intenta acceder al sistema. El sistema verifica el estado de la cuenta y bloquea cualquier acceso a recursos protegidos, evitando el ingreso a la interfaz web, el uso de puntos de conexión de API y la ejecución de operaciones internas. |
+| Postcondiciones | El usuario no accede al sistema. La interfaz web, API y operaciones internas permanecen protegidas frente a cuentas desvinculadas. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario intenta iniciar sesión o acceder a un recurso protegido del sistema. | 2. El sistema identifica la cuenta asociada a las credenciales, sesión o solicitud recibida. |
+| 3. El usuario espera la respuesta del sistema. | 4. El sistema verifica el estado actual de la cuenta del usuario. |
+| 5. El usuario mantiene la solicitud de acceso. | 6. El sistema detecta que la cuenta se encuentra en estado “Desvinculado”. |
+| 7. El usuario visualiza que no puede ingresar al sistema. | 8. El sistema bloquea el acceso a la interfaz web, puntos de conexión de API y operaciones internas. |
+| 9. El usuario permanece fuera del sistema. | 10. El sistema impide continuar con la navegación o ejecución de acciones protegidas. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.9: “CDU 09 Actualizando automáticamente el estado del pedido”
+Tabla 3.10: “Iniciando sesión de manera exitosa.”
 
 ### Table 14
 
-| Nombre | Actualizando automáticamente el estado del pedido RF09 |
+| Caso de uso N°10 | Iniciando sesión de manera exitosa. |
 | --- | --- |
-| Actores | Usuario con rol Cobranza |
-| Resumen | Luego de que el usuario actualice el estado de pago a ‘Confirmado’, el sistema actualiza automáticamente el estado de pedido a ‘Listo para producción’ |
-| Frecuencia | Alta. Cada vez que se confirme el pago de un pedido |
-| Precondiciones | El usuario debe tener rol Cobranzas <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. <br> El pedido debe existir en el sistema |
-| Descripción | El usuario selecciona un pedido y confirma el estado de pago del pedido. El sistema registra el estado Confirmado y aplica la firma digital a la nota de venta asociada y actualiza automáticamente el estado del pedido a ‘Listo para producción’, registrando el cambio realizado. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | El pedido queda en estado “Listo para producción”. <br> El cambio queda registrado en el sistema. |
-| Dependencias | RF17: Actualización de estado de pago. |
+| Actores | Usuario de cualquier rol. |
+| Propósito | Permitir que un usuario registrado acceda al sistema y sea redirigido a la vista principal del tablero Kanban. |
+| Precondiciones | El usuario debe estar registrado previamente en el sistema. <br> El estado del usuario debe ser “vinculado”. <br> El usuario debe encontrarse en la vista de inicio de sesión. |
+| Resumen | El usuario envía el formulario de inicio de sesión con sus credenciales. El sistema valida las credenciales y el estado del usuario, iniciando la sesión y mostrando la vista principal del tablero Kanban. |
+| Postcondiciones | El usuario queda autenticado en el sistema. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario envía el formulario de inicio de sesión. | 2. El sistema valida que el correo electrónico y la contraseña correspondan a un usuario registrado. |
+| 3. El usuario espera el resultado de la autenticación. | 4. El sistema verifica que el estado del usuario sea “vinculado”. |
+| 5. El usuario accede al sistema autenticado. | 6. El sistema inicia la sesión y redirige al usuario hacia la vista principal del tablero Kanban. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.10: “CDU 10 Accediendo al tablero Kanban”
+Tabla 3.11: “Registrando usuario con correo anteriormente registrado”
 
 ### Table 15
 
-| Nombre | Accediendo al tablero Kanban RF10 |
+| Caso de uso N°11 | Registrando usuario con correo anteriormente registrado. |
 | --- | --- |
-| Actores | Usuarios de cualquier rol |
-| Resumen | El sistema debe redirigir a los usuarios al tablero Kanban al presionar el botón “Principal”. |
-| Frecuencia | Alta. Cada vez que los usuarios necesitan ver el tablero Kanban. |
-| Precondiciones | Un Usuario con cualquier rol. <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. <br> Botón “Principal” en la barra de navegación |
-| Descripción | El usuario necesita acceder al tablero Kanban, por lo que presiona el botón “Principal” en la barra de navegación. El sistema detecta la acción y redirige al usuario al tablero Kanban del sistema. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | El usuario es capaz de acceder al tablero Kanban desde cualquier interfaz. |
-| Dependencias | RF01 |
+| Actores | Usuario con rol: <br> -Administrador. |
+| Propósito | Informar al actor que el correo ingresado para el registro de un usuario ha sido registrado anteriormente. |
+| Precondiciones | El administrador se encuentra autenticado con rol Administrador y estado “Vinculado”. |
+| Resumen | El administrador intenta registrar un usuario utilizando un correo electrónico existente dentro de la base de datos. El sistema detecta la duplicidad e impide el registro de usuario, notificando la duplicidad del correo. |
+| Postcondiciones | El sistema no crea ningún registro nuevo de usuario en la base de datos <br> El sistema mantiene el formulario visible, destacando la necesidad de ingresar otro correo. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario accede al módulo de gestión de usuarios. | 2. El sistema muestra el formulario de creación de usuario. |
+| 3. El administrador ingresa dentro de los campos solicitados un correo existente en el sistema y envía el formulario. | 4. El sistema detecta el correo duplicado y muestra el mensaje “El correo ingresado ya está asociado a una cuenta”. |
+| 5. El administrador observa el mensaje en pantalla. | 6. El sistema impide registrar el nuevo usuario. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.11: “CDU 11 Visualizando detalle del pedido”
+Tabla 3.12: “Accediendo a una URL protegida según rol”
 
 ### Table 16
 
-| Nombre | Visualizando detalle del pedido RF11 |
+| Caso de uso N°12 | Accediendo a una URL protegida según rol. |
 | --- | --- |
-| Actores | Usuarios de cualquier rol |
-| Resumen | El sistema les permite a los usuarios ver el detalle del pedido |
-| Frecuencia | Alta. Cada vez que un usuario quiera ver un detalle de pedido. |
-| Precondiciones | Un Usuario con cualquier rol. <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. |
-| Descripción | Los usuarios requieren ver el detalle de un pedido dentro de una etapa del tablero kanban, hacen click sobre uno de ellos y presionan el botón “Detalle”, El sistema detecta esta acción y despliega el modal de detalle del pedido. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | El usuario accede al detalle del pedido |
-| Dependencias | RF10: Acceder al tablero Kanban |
+| Actores | Usuario de cualquier rol. |
+| Propósito | Permitir que el sistema controle el acceso a una URL protegida verificando si el rol del usuario autenticado posee permisos para acceder al recurso solicitado. |
+| Precondiciones | El usuario debe encontrarse autenticado en el sistema. La cuenta del usuario debe estar en estado “Vinculado”. La URL solicitada debe estar definida como recurso protegido dentro del sistema. Debe existir una matriz de permisos asociadas a los roles del sistema. |
+| Resumen | El usuario autentificado intenta ingresar a una URL protegida, ya sea desde el menú del sistema o mediante acceso directo desde el navegador. El sistema valida el rol del usuario y determina si posee permisos para acceder al recurso solicitado. Si el rol tiene autorización, el sistema permite el acceso a la URL protegida. |
+| Postcondiciones | El usuario accede al recurso protegido únicamente si su rol posee permisos asociados. El intento del acceso queda sujeto a las reglas de autorización definida por el sistema. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario autenticado solicita acceder a una URL protegida del sistema. | 2. El sistema identifica la sesión activa del usuario y obtiene su rol asociado. |
+| 3. El usuario espera la carga del recurso solicitado. | 4. El sistema consulta la matriz de permisos para verificar si el rol del usuario tiene autorización sobre la URL solicitada. |
+| 5. El usuario mantiene la solicitud de acceso al recurso. | 6. El sistema determina que el rol del usuario posee permisos para acceder a la URL protegida. |
+| 7. El usuario visualiza el contenido del módulo o recurso solicitado. | 8. El sistema carga la vista correspondiente y permite la interacción con las funcionalidades autorizadas. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.12: “CDU 12 Cambiando manualmente el estado del pedido por arrastrar y soltar”
+Tabla 3.13: “Visualizando acceso denegado por permisos insuficientes”
 
 ### Table 17
 
-| Nombre | Cambiando manualmente el estado del pedido por arrastrar y soltar. RF12 |
+| Caso de uso N°13 | Visualizando acceso denegado por permisos insuficientes. |
 | --- | --- |
-| Actores | Usuarios con rol Administrador y Producción |
-| Resumen | El sistema debe permitir a los usuarios con los permisos correspondientes, cambiar la etapa del pedido mediante la acción de arrastrar y soltar. |
-| Frecuencia | Alta. Cada vez que un usuario tenga la necesidad de cambiar de etapa de un pedido. |
-| Precondiciones | El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. <br> El usuario debe encontrarse en la vista Kanban <br> El Kanban debe tener por lo menos un pedido |
-| Descripción | El usuario necesita cambiar el estado de un pedido, por lo que lo arrastra hasta la siguiente columna [Excepción 1]. El sistema detecta esta acción y valida los permisos del usuario, congela la acción momentáneamente y por medio de un modal pide segunda confirmación de la acción. El usuario hace clic en el botón “aceptar”. El sistema responde concretando el cambio de etapa del pedido. |
-| Excepciones | Excepción 1: El usuario sin permisos no puede realizar los cambios de estado de pedido. El sistema impide la acción del usuario. |
-| Postcondiciones | El usuario cambia con éxito la etapa de un pedido dentro del tablero Kanban. |
-| Dependencias | RF05: Accediendo a funcionalidades según el rol <br> RF10: Actualizando automáticamente el estado del pedido. |
+| Actores | Usuario de cualquier rol. |
+| Propósito | Informar al usuario que no posee autorización para acceder a un recurso protegido del sistema. |
+| Precondiciones | El usuario debe encontrarse autenticado. La cuenta del usuario debe estar en un estado “Vinculado”. El usuario debe intentar acceder a un recurso para el cual su rol no posee permisos. |
+| Resumen | El usuario autenticado intenta ingresar a una vista, modulo o URL protegida que no corresponde a los permisos de su rol. El sistema valida la matriz de permisos, detecta la falta de autorización y redirige al usuario a una página de “Acceso denegado”. |
+| Postcondiciones | El usuario no accede al recurso solicitado. El sistema muestra la página de “Acceso denegado” y conserva la sesión activa del usuario. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario autenticado intenta acceder a un recurso protegido del sistema. | 2. El sistema identifica el rol asociado a la sesión activa del usuario. |
+| 3. El usuario espera la respuesta del sistema. | 4. El sistema consulta la matriz de permisos y detecta que el rol no tiene autorización para el recurso solicitado. |
+| 5. El usuario permanece en espera de la carga del recurso. | 6. El sistema bloquea el acceso al recurso solicitado. |
+| 7. El usuario visualiza la respuesta del sistema. | 8. El sistema redirige al usuario a la página de “Acceso denegado”. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.13: “CDU 13 Visualizando subtareas de producción del pedido”
+Tabla 3.14: “Recuperando la contraseña mediante correo electrónico.”
 
 ### Table 18
 
-| Nombre | Visualizando subtareas de producción del pedido RF 13. |
+| Caso de uso N°14 | Recuperando la contraseña mediante correo electrónico. |
 | --- | --- |
-| Actores | Usuario con rol Administrador, Ventas y Producción |
-| Resumen | El usuario selecciona el detalle de un pedido, visualizando los subprocesos de producción del pedido según el tipo de producto. |
-| Frecuencia | Media. Se consulta cuando se requiere revisar el avance interno del proceso productivo. |
-| Precondiciones | -El usuario debe estar autenticado. <br> -El usuario debe tener rol: Administrador, Ventas u Operario. -Debe existir un pedido seleccionado con detalle disponible. <br> -El pedido debe tener un tipo de producto identificado. |
-| Descripción | El usuario ingresa al detalle de un pedido y revisa la sección de subtareas para conocer el flujo productivo asociado. El sistema identifica el tipo de producto del pedido y muestra los subprocesos correspondientes, ya sea para lanyards o tarjetas, dentro del detalle de la orden. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | Las subtareas de producción quedan visibles en el detalle del pedido según el tipo de producto. |
-| Dependencias | RF10: Acceder al tablero Kanban. <br> RF11: Visualización del detalle del pedido. |
+| Actores | Usuario de cualquier rol. |
+| Propósito | Permitir que un usuario restablezca su contraseña mediante un enlace único, temporal y de un solo uso enviado a su correo electrónico registrado. |
+| Precondiciones | El usuario debe encontrarse en la pantalla de inicio de sesión. El usuario debe conocer el correo electrónico asociado a su cuenta. El sistema debe contar con un mecanismo de envío de correo electrónico habilitado. |
+| Resumen | El usuario selecciona la opción “Olvidé mi contraseña”, ingresa su correo electrónico y solicita la recuperación. Si el correo existe en el sistema, se envía un enlace único y temporal para establecer una nueva contraseña. Si el correo no existe, el sistema informa que no se encontró una cuenta asociada. |
+| Postcondiciones | Si el proceso finaliza correctamente, la contraseña del usuario queda actualizada y el enlace utilizado queda invalidado. Si el correo no existe, no se genera enlace de recuperación. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario selecciona la opción “Olvidé mi contraseña” desde la pantalla de inicio de sesión. | 2. El sistema muestra el formulario de recuperación de contraseña solicitando el correo electrónico. |
+| 3. El usuario ingresa su correo electrónico y envía la solicitud. | 4. El sistema valida el formato del correo electrónico ingresado. |
+| 5. El usuario espera la respuesta del sistema. | 6. El sistema verifica que el correo exista en la base de datos de usuarios. |
+| 7. El usuario revisa su correo electrónico. | 8. El sistema genera un enlace URL único, temporal y de un solo uso, y lo envía al correo registrado. |
+| 9. El usuario accede al enlace recibido. | 10. El sistema valida que el enlace esté vigente y no haya sido utilizado previamente. |
+| 11. El usuario ingresa una nueva contraseña y la confirma. | 12. El sistema valida que la nueva contraseña tenga mínimo 8 caracteres, al menos una letra mayúscula, una letra minúscula, un número y un símbolo especial. |
+| 13. El usuario confirma el cambio de contraseña. | 14. El sistema actualiza la contraseña, invalida el enlace utilizado y muestra un mensaje de confirmación. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.14: “CDU 14 Actualizando estado de subproceso de producción”
+Tabla 3.15: “Editando usuarios”
 
 ### Table 19
 
-| Nombre | Actualizando estado de subproceso de producción RF 14. |
+| Caso de uso N°15 | Editando usuarios. |
 | --- | --- |
-| Actores | Usuario con rol Producción |
-| Resumen | El usuario actualiza el estado actual del subproceso de producción de un pedido utilizando un Stepper interactivo, el cual se adapta según el tipo de producto fabricado. |
-| Frecuencia | Alta. Cada vez que el usuario necesite actualizar el estado de subproceso de producción. |
-| Precondiciones | -El usuario debe estar previamente autenticado. <br> -El usuario debe tener rol Producción <br> -El usuario debe estar a la vista del subproceso de producción. |
-| Descripción | El usuario ingresa a la vista de subproceso, el sistema despliega el detalle del pedido, el Usuario realiza un cambio de estado de subproceso de un pedido [Excepción 1] y el sistema valida el cambio realizado una vez que se valide correctamente el cambio, el sistema guarda la información y actualiza el cambio realizado. |
-| Excepciones | Excepción 1: El pedido no tiene pago confirmado. El sistema no permite actualizar el estado de subproceso de producción del pedido |
-| Postcondiciones | Se actualiza el estado del subproceso mostrando visualmente el nuevo estado dentro del Stepper |
-| Dependencias | RF 11: Visualización del detalle del pedido. |
+| Actores | Usuario con rol: <br> -Administrador. |
+| Propósito | Modificar datos de usuario registrado. |
+| Precondiciones | El administrador debe tener sesión iniciada y el usuario a modificar debe existir. |
+| Resumen | El administrador edita atributos del usuario y el sistema registra el cambio. |
+| Postcondiciones | Usuario actualizado y modificación registrada en bitácora. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El administrador accede al módulo de usuarios | 2. El sistema muestra el listado de usuarios. |
+| 3. El administrador selecciona un usuario. | 4. El sistema muestra los datos editables. |
+| 5. El administrador modifica los atributos necesarios. | 6. El sistema valida los datos y la unicidad del correo. |
+| 7. El administrador confirma la modificación. | 8. El sistema actualiza el usuario y registra el cambio en bitácora. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.15: “CDU 15 Registrando comentarios en subprocesos de producción”
+Tabla 3.16: “Conservando datos de usuario “desvinculado””
 
 ### Table 20
 
-| Nombre | Registrando comentarios en subprocesos de producción RF 15. |
+| Caso de uso N°16 | Conservando datos de usuario “desvinculado” |
 | --- | --- |
-| Actores | Usuario con rol Producción |
-| Resumen | El usuario agrega un comentario asociado al cambio de estado de un subproceso de producción. |
-| Frecuencia | Media. Se utiliza cuando es necesario dejar observaciones sobre el avance o incidencias del proceso. |
-| Precondiciones | El usuario debe estar previamente autenticado. <br> Debe existir un pedido en producción con subprocesos visibles. <br> Debe haberse seleccionado un subproceso para actualizarlo. |
-| Descripción | El operario cambia el estado de un subproceso y registra un comentario para dejar constancia del avance, incidencia o condición observada. [Excepción 1] [Excepción 2], El sistema recibe el comentario, lo asocia al subproceso actualizado y lo conserva vinculado al pedido para su posterior consulta. |
-| Excepciones | Excepción 1: El operario intenta continuar sin ingresar contenido cuando el comentario es obligatorio para ese cambio. El sistema solicita completar la observación. <br> Excepción 2: El comentario supera el límite permitido o contiene formato no válido. El sistema pide corregir el contenido antes de guardarlo. |
-| Postcondiciones | El comentario queda asociado al subproceso y disponible en el historial del pedido. |
-| Dependencias | RF 11: Visualización del detalle del pedido. <br> RF 14: Actualización de estado de subproceso de producción. |
+| Actores | Usuario Desvinculado |
+| Propósito | Mantener integro el historial de acciones asociado a cambios en el flujo de datos, incluso si el usuario que realizo dichas acciones ya no forma parte de la empresa. |
+| Precondiciones | Acción realizada por un usuario desvinculado |
+| Resumen | El sistema mantiene el registro de las acciones de usuarios incluso si estos ya no forman parte de la empresa. |
+| Postcondiciones | Visualización y descripción clara de la acción en los historiales del sistema. |
+| Tipos | Principal |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. Un usuario con cuenta en estado “vinculada” realiza una acción | 2. El sistema registra dicha acción, guardándola en el historial |
+| 3. El usuario deja de trabajar en la empresa y su cuenta pasa a estado “desvinculado” | 4. El sistema registra el cambio en el estado de la cuenta, sin hacer cambios en el historial de acciones realizadas por dicho usuario. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.16:” CDU 16 Registrando firma electrónica en producción”
+Tabla 3.17: “Cerrando sesión desde cualquier interfaz de usuario”
 
 ### Table 21
 
-| Nombre | Registrando firma electrónica en producción RF 16. |
+| Caso de uso N°17 | Cerrando sesión desde cualquier interfaz de usuario. |
 | --- | --- |
-| Actores | Usuario con rol Producción |
-| Resumen | El sistema asocia la firma electrónica del usuario a la ficha del cliente al actualizar un subproceso de producción. |
-| Frecuencia | Media. Se ejecuta cuando un cambio de subproceso requiere respaldo formal de conformidad. |
-| Precondiciones | El usuario debe estar autenticado con rol Producción. <br> Debe existir una forma electrónica válida asociada al usuario. <br> El pedido debe contar con ficha de cliente disponible. |
-| Descripción | El operario actualiza el estado de un subproceso de producción y confirma la acción que requiere respaldo de firma electrónica. [Excepción 1], El sistema recupera la forma electrónica asociada al usuario, la vincula a la ficha del cliente correspondiente y registra la operación en el pedido. |
-| Excepciones | Excepción 1: El operario no tiene una firma electrónica registrada en el sistema. El sistema bloquea la asociación hasta completar ese requisito. |
-| Postcondiciones | La firma electrónica del operario queda asociada a la ficha de cliente vinculada al pedido. |
-| Dependencias | RF 14: Actualización de estado de subproceso de producción. |
+| Actores | Usuario autenticado de cualquier rol. |
+| Propósito | Permitir que cualquier usuario autenticado cierre su sesión de forma segura desde cualquier vista del sistema. |
+| Precondiciones | El usuario debe haber iniciado sesión correctamente. La sesión del usuario debe encontrarse activa. La interfaz actual debe mostrar la opción de cierre de sesión. |
+| Resumen | El usuario selecciona la opción “Cerrar sesión” desde cualquier vista del sistema. El sistema invalida la sesión activa, elimina el acceso a los recursos protegidos y redirige al usuario al formulario de inicio de sesión. |
+| Postcondiciones | La sesión del usuario queda cerrada. El usuario no puede acceder a recursos protegidos sin iniciar sesión nuevamente. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario autenticado se encuentra en cualquier vista del sistema. | 2. El sistema mantiene visible la opción “Cerrar sesión” en la interfaz. |
+| 3. El usuario selecciona la opción “Cerrar sesión”. | 4. El sistema recibe la solicitud de cierre de sesión. |
+| 5. El usuario espera la salida del sistema. | 6. El sistema invalida la sesión activa del usuario. |
+| 7. El usuario es retirado de la interfaz interna. | 8. El sistema redirige al usuario al formulario de inicio de sesión. |
+| 9. El usuario intenta acceder nuevamente a una vista interna sin autenticarse. | 10. El sistema bloquea el acceso y mantiene al usuario en la pantalla de inicio de sesión. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.17:” CDU 17 Ingresando a vista previa de edición de estado de pago.”
+Tabla 3.18: “Generando pedido desde el módulo de ventas”
 
 ### Table 22
 
-| Nombre | Ingresando a vista previa de edición de estado de pago RF17 |
+| Caso de uso N°18 | Generando pedido desde el módulo de ventas. |
 | --- | --- |
-| Actores | Usuario con rol de cobranza |
-| Resumen | El usuario con rol Cobranzas selecciona el botón ‘Gestionar’ |
-| Frecuencia | Alta. Cada vez que cobranzas necesite revisar o modificar el estado de pago de un pedido |
-| Precondiciones | El usuario debe estar autenticado. <br> El usuario debe tener rol Cobranzas. <br> El usuario debe encontrarse en el módulo de cobranzas. <br> El usuario debe tener una cuenta con estado vinculado. <br> Debe existir un pedido. |
-| Descripción | El usuario presiona el botón “Gestionar” en las acciones del pedido. El sistema despliega un menú con las opciones “Rechazar” y “Confirmar”. El usuario selecciona una de las opciones disponibles. [Excepción 1] El sistema despliega la vista previa de edición de estado de pago según la opción seleccionada. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | El menú de gestión queda desplegado correctamente. <br> La vista previa de edición de estado de pago queda abierta según la opción seleccionada por el usuario. |
-| Dependencias | RF05: Accediendo a funcionalidades según rol |
+| Actores | Usuario con rol: <br> -Ventas. |
+| Propósito | Permitir que el usuario con rol Ventas acceda a una interfaz destinada a la generación de pedidos dentro del sistema. |
+| Precondiciones | El usuario debe estar autenticado. El usuario debe tener rol Ventas. La cuenta del usuario debe estar en estado “Vinculado”. El módulo de generación de pedidos debe encontrarse disponible. |
+| Resumen | El usuario con rol Ventas ingresa al módulo de pedidos y selecciona la opción para generar un nuevo pedido. El sistema valida los permisos del usuario y muestra la interfaz correspondiente para iniciar el registro del pedido. |
+| Postcondiciones | El usuario con rol Ventas accede correctamente a la interfaz de generación de pedidos. El sistema queda preparado para recibir los datos necesarios del pedido. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario con rol Ventas inicia sesión en el sistema. | 2. El sistema valida las credenciales, el estado de la cuenta y el rol del usuario. |
+| 3. El usuario accede al menú principal del sistema. | 4. El sistema muestra las opciones disponibles según los permisos del rol Ventas. |
+| 5. El usuario selecciona la opción “Generar pedido”. | 6. El sistema verifica que el rol Ventas tenga permiso para acceder al módulo de generación de pedidos. |
+| 7. El usuario espera la carga de la interfaz. | 8. El sistema muestra la interfaz para generar un nuevo pedido. |
+| 9. El usuario visualiza la pantalla de generación de pedidos. | 10. El sistema deja disponible el formulario inicial para comenzar el registro del pedido. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.18: “CDU 18 Registrando firma digital a la nota de venta”
+Tabla 3.19: “Registrando pedido mediante formulario de nota de venta”
 
 ### Table 23
 
-| Nombre | Registrando firma digital a la nota de venta RF18 |
+| Caso de uso N°19 | Registrando pedido mediante formulario de Nota de Venta. |
 | --- | --- |
-| Actores | Usuario con rol Cobranza |
-| Resumen | El usuario firma digitalmente la nota de venta cuando el estado del pago ha sido cambiado a “confirmado”. |
-| Frecuencia | Media. Se ejecuta cuando corresponde formalizar la confirmación de pago mediante firma digital. |
-| Precondiciones | El usuario debe estar autenticado en el sistema. <br> El usuario debe tener rol Cobranza. <br> El estado de pago del pedido debe haberse cambiado a “Confirmado”. |
-| Descripción | El usuario con rol Cobranza mantiene presionado el botón “confirmar” para actualizar el estado de pago de un pedido a ‘Confirmado’. El sistema valida que el pago se encuentre en estado “Confirmado”, ejecuta la firma digital de la nota de venta y registra la acción realizada. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | La nota de venta queda firmada digitalmente. <br> La acción de firma queda registrada en el sistema. |
-| Dependencias | RF 23: Actualizar estado de pago. |
+| Actores | Usuario con rol: <br> -Ventas. |
+| Propósito | Permitir que el usuario con rol Ventas cree un pedido mediante un formulario que solicite el número de Nota de Venta y el archivo correspondiente a la Nota de Venta en formato PDF. |
+| Precondiciones | El usuario debe estar autenticado. El usuario debe tener rol Ventas. El usuario debe encontrarse en la interfaz de generación de pedidos. La Nota de Venta debe estar disponible en formato PDF. |
+| Resumen | El usuario con rol Ventas completa el formulario de registro de pedido ingresando el número de Nota de Venta y adjuntando el archivo PDF correspondiente. El sistema valida los campos obligatorios, verifica el formato del archivo y registra el pedido si la información cumple las condiciones establecidas. |
+| Postcondiciones | El pedido queda creado en el sistema con su número de Nota de Venta y archivo PDF asociado. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario con rol Ventas accede a la interfaz de generación de pedidos | 2. El sistema muestra el formulario de registro de pedido. |
+| 3. El usuario ingresa el número de Nota de Venta. | 4. El sistema recibe el número ingresado y valida que el campo no esté vacío. |
+| 5. El usuario adjunta el archivo correspondiente a la Nota de Venta en formato PDF. | 6. El sistema valida que el archivo adjunto tenga formato PDF. |
+| 7. El usuario confirma el registro del pedido. | 8. El sistema valida que el número de Nota de Venta y el archivo PDF estén presentes. |
+| 9. El usuario espera la confirmación del sistema. | 10. El sistema crea el pedido y asocia el archivo PDF a la entidad correspondiente. |
+| 11. El usuario visualiza el resultado del registro. | 12. El sistema muestra un mensaje de registro exitoso y deja el pedido disponible dentro del flujo correspondiente. |
 
-Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto.
 
-Tabla 3.19:” CDU 19 Buscando pedidos mediante filtros avanzados.”
+Tabla 3.20: “Creando el pedido”
 
 ### Table 24
 
-| Nombre | Buscando pedidos mediante filtros avanzados |
+| Caso de uso N° 20 | Creando el pedido. |
 | --- | --- |
-| Actores | Usuario con rol de cobranza |
-| Resumen | El usuario busca pedidos usando criterios como RUT de empresa, número de nota de venta, nombre de empresa o fecha en la que se adjuntó la nota de venta |
-| Frecuencia | Alta. Cada vez que cobranzas necesite buscar pedidos específicos |
-| Precondiciones | El usuario debe tener rol Cobranzas <br> El usuario debe encontrarse previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. <br> Deben existir pedidos registrados <br> El usuario se encuentra en el módulo de Cobranzas |
-| Descripción | El usuario selecciona la barra de búsqueda avanzada y selecciona uno o más criterios de búsqueda [Excepción 1]. El sistema valida los criterios ingresados. El sistema filtra los pedidos y muestra los resultados.[Excepción 2] |
-| Excepciones | Excepción 1: El usuario busca sin ingresar criterios. El sistema no aplica ningún filtro de búsqueda <br> Excepción 2: No existen pedidos que coincidan con la búsqueda. El sistema muestra un mensaje indicando que no se encontraron pedidos que coincidan con los filtros aplicados |
-| Postcondiciones | La vista muestra los pedidos que cumplen con los criterios ingresados. |
-| Dependencias | [EMPTY] |
+| Actores | Usuario con rol de ventas. |
+| Propósito | Automatizar la creación de la entidad del pedido dentro del sistema. |
+| Precondiciones | Nota de venta. <br> API de búsqueda y escaneo (en la base de datos de mánager, los archivos requeridos). |
+| Resumen | El sistema rellena automáticamente datos críticos para la creación de un pedido en función a una nota de venta especifica. |
+| Postcondiciones | Un pedido claro, identificable y listo para entrar al flujo del sistema. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario con rol de ventas escribe el numero identificador de la nota de ventas en la interfaz y presiona el botón “generar pedido”. | 2. El sistema registra dicha acción, y busca la nota de venta en la base de datos del ERP Manager. |
+| 3. El usuario espera en la interfaz. | 4. El sistema encuentra la nota de venta, la escanea y rellena los campos mínimos para generar la entidad pedido. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.20:” CDU 20 Visualizando nota de venta en modal.”
+Tabla 3.21: “Registrando automáticamente la fecha y hora”
 
 ### Table 25
 
-| Nombre | Visualizando nota de venta en modal RF20 |
+| Caso de uso N°21 | Registrando automáticamente la fecha y hora. |
 | --- | --- |
-| Actores | Usuario con rol de Cobranzas |
-| Resumen | El usuario visualiza la nota de venta asociada a un pedido mediante un modal de vista previa |
-| Frecuencia | Media. Cada vez que cobranzas revise la nota de venta de un pedido |
-| Precondiciones | El usuario debe tener rol Cobranzas <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. <br> Deben haber pedidos registrados <br> El pedido debe tener una Nota de Venta adjunta <br> El usuario se encuentra en el módulo de cobranzas |
-| Descripción | El usuario escoge un pedido de la lista y presiona el botón “Nota de venta”. El sistema recupera el archivo asociado y despliega la vista previa en un modal. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | El sistema despliega el modal con la nota de venta correctamente |
-| Dependencias | [EMPTY] |
+| Actores | Usuario con cualquier rol. |
+| Propósito | Registrar la fecha de creación de un pedido en formato DD-MM-YYYY y la hora del formato HH:MM:SS. |
+| Precondiciones | El usuario debe crear un pedido. |
+| Resumen | El usuario ingresa al módulo de pedidos para crear un pedido y el sistema registra con fecha y la hora la creación del pedido. |
+| Postcondiciones | El usuario visualiza el registro de fecha y hora en el sistema. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario ingresa el módulo de pedido. <br> 3. El usuario crea un nuevo pedido. | 2. El sistema cargar y mostrar el módulo de pedido. <br> 4. El sistema registra los datos con la fecha y hora creada. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.21:” CDU 21 Descargando Nota de Venta.”
+Tabla 3.22: “Identificando los tipos de productos”
 
 ### Table 26
 
-| Nombre | Descargando Nota de Venta |
+| Caso de uso N° 22 | Identificando los tipos de productos. |
 | --- | --- |
-| Actores | Usuario con rol de Cobranzas |
-| Resumen | El usuario descarga la nota de venta desde el modal de vista previa de nota de venta |
-| Frecuencia | Media. Cada vez que Cobranzas requiere descargar la nota de venta |
-| Precondiciones | El usuario debe tener rol Cobranzas. <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. <br> Deben haber pedidos registrados. <br> El pedido debe tener una Nota de Venta adjunta. <br> El usuario se encuentra en el módulo de cobranzas. |
-| Descripción | El usuario visualiza la nota de venta en el modal. El sistema muestra la opción “Descargar”. El usuario presiona el botón “Descargar”. El sistema genera la descarga del archivo asociado. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | La Nota de venta queda correctamente descargada por el usuario |
-| Dependencias | RF20: Vista previa de nota de venta. |
+| Actores | Usuario con rol: <br> -Ventas. <br> -Administrador. |
+| Propósito | Identificar claramente los tipos de productos con los que se está trabajando, para calcular aproximadamente la fecha de término de su eventual producción. |
+| Precondiciones | Un pedido generado. |
+| Resumen | El sistema identifica el tipo de producto con el que se está trabajando. |
+| Postcondiciones | Vista clara del tipo de producto con el que se está trabajando. <br> Registro de un dato reutilizable para futuras operaciones. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario con rol de ventas crea un pedido. | 2. El sistema registra esta acción y destaca el dato “tipo de producto” para futuras acciones. |
+| 3. El usuario con rol de ventas o rol de administrador intenta estimar la posible fecha de termino de un pedido. | 4. El sistema ocupa el dato “tipo de producto” dentro de la entidad del pedido para realizar el cálculo. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.22:” CDU 22 Imprimiendo nota de venta.”
+Tabla 3.23: “Validando unicidad de nota de venta”
 
 ### Table 27
 
-| Nombre | Imprimiendo nota de venta. |
+| Caso de uso N°23 | Validando unicidad de Nota de Venta. |
 | --- | --- |
-| Actores | Usuario con rol Cobranzas |
-| Resumen | El sistema permite al usuario imprimir la nota de venta desde la interfaz de vista previa mediante la acción del botón "Imprimir". |
-| Frecuencia | Media. |
-| Precondiciones | El usuario debe estar autenticado <br> El usuario debe tener rol: Cobranzas. <br> Debe existir una nota de venta registrada. |
-| Descripción | El usuario abre la vista previa de la nota de venta. El sistema despliega la previsualización del documento asociado a la nota de venta. El usuario presiona el botón “Imprimir”. El sistema recibe la solicitud, verifica la integridad de los datos y despliega el cuadro de diálogo de impresión del navegador para que el usuario finalice la acción. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | El modal de vista previa se mantiene abierto y activo en la interfaz del usuario. |
-| Dependencias | RF20: Vista previa de nota de venta. |
+| Actores | Usuario con rol Ventas. |
+| Propósito | Verificar que el número de Nota de venta ingresado no exista previamente en el sistema. |
+| Precondiciones | El usuario debe estar previamente autenticado. <br> El estado del usuario debe ser “Vinculado”. <br> El usuario debe encontrarse en el formulario de creación de pedido. |
+| Resumen | El usuario con rol Ventas ingresa un numero de Nota de Venta, el sistema verifica de forma automática si el número de Nota de Venta ya se encuentra registrado. |
+| El | El sistema determina el si el número de Nota de Venta puede ser ingresado para registrar el pedido. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario accede a la orden de producción | 2. El sistema verifica que el número de Nota de venta no se encuentre previamente registrado. |
+| 3. El usuario continúa con el registro del pedido. | 4. El sistema permite continuar el flujo de creación del pedido. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.23:” CDU 23 Actualizando estado de pago.”
+Tabla 3.24: “Ingresando número de nota de venta ya existente.”
 
 ### Table 28
 
-| Nombre | Actualizando estado de pago RF23 |
+| Caso de uso N°24 | Ingresando número de nota de venta ya existente. |
 | --- | --- |
-| Actores | Usuario con rol de Cobranzas |
-| Resumen | El usuario con rol Cobranzas actualiza el estado de pago de un pedido manteniendo presionado el botón “Mantener para confirmar cambio”. |
-| Frecuencia | Alta. Cada vez que Cobranzas necesite confirmar o rechazar el estado de pago de un pedido. |
-| Precondiciones | El usuario debe tener rol Cobranzas. <br> El usuario debe estar previamente autenticado. Deben haber pedidos registrados. <br> El usuario se encuentra en el módulo de cobranzas con un pedido seleccionado. |
-| Descripción | El usuario revisa la vista previa de edición de estado de pago. El sistema muestra la acción seleccionada para el pedido. El usuario mantiene presionado el botón “Mantener para confirmar cambio” [Excepción 1]. El sistema valida que la acción se haya mantenido durante el tiempo requerido. El sistema actualiza el estado de pago del pedido según la acción seleccionada. El sistema muestra el nuevo estado de pago en el pedido. |
-| Excepciones | Excepción 1: El usuario suelta el botón antes de completar la confirmación. El sistema cancela la acción y mantiene el estado de pago anterior del pedido. |
-| Postcondiciones | El estado de pago del pedido queda actualizado. <br> El nuevo estado queda visible en el detalle del pedido. |
-| Dependencias | RF17: Vista previa de edición de estado de pago. |
+| Actores | Usuario con rol: <br> -Ventas. |
+| Propósito | Informar que se está realizando una duplicación de notas de ventas en el sistema. |
+| Precondiciones | La nota de venta ingresada existe y esta debe estar previamente registrada en el sistema. |
+| Resumen | El usuario con rol Ventas ingresa un numero de Nota de Venta, el sistema detecta que el numero ya existe previamente y muestra el mensaje “Ya existe una Nota de Venta con el código ingresado. No se permite duplicar”. |
+| Postcondiciones | La nota de venta no queda ingresada. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario ingresa el número de Nota de Venta en el sistema. <br> 3. El usuario espera la respuesta del sistema. | 2. El sistema realiza una validación de duplicidad. <br> 4. El sistema detecta una duplicidad y muestra el mensaje “Ya existe una Nota de Venta con el código ingresado. No se permite duplicar”. |
+| 5. El usuario observa la alerta. | 6. El sistema no registra la Nota de Venta duplicada |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.24:” CDU 24 Ajustando tamaño del modal de vista previa.”
+Tabla 3.25: “Adjuntado archivos de diseño al pedido”
 
 ### Table 29
 
-| Nombre | Ajustando tamaño del modal de vista previa. |
+| Caso de uso N°25 | Adjuntando archivos de diseño al pedido. |
 | --- | --- |
-| Actores | Usuario con rol Cobranzas |
-| Resumen | El usuario ajusta manualmente el tamaño de la vista previa para revisar mejor la nota de venta. |
-| Frecuencia | Baja. Cada vez que el usuario necesite ampliar o reducir la visualización del modal. |
-| Precondiciones | El usuario debe estar autenticado. <br> El usuario debe tener rol Cobranzas. <br> El usuario debe tener una cuenta en estado vinculado. |
-| Descripción | El usuario abre la vista previa de la nota de venta. El sistema muestra la vista previa con su tamaño inicial. El usuario ajusta manualmente el tamaño de la vista previa. [Excepción 1] El sistema actualiza la dimensión de la vista previa y mantiene visible su contenido. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | La vista previa queda ajustado al gusto del usuario |
-| Dependencias | RF20: Vista previa Nota de venta |
+| Actores | Usuario con rol: <br> -Administrador. <br> -Ventas. |
+| Propósito | El usuario debe tener sesión iniciada y debe existir un pedido registrado. |
+| Precondiciones | Usuario con cuenta vinculada. <br> Pedido generado. |
+| Resumen | El usuario adjunta archivos de diseño directamente al pedido correspondiente. |
+| Postcondiciones | Archivo de diseño asociado al pedido. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario selecciona un pedido correspondiente. | 2. El sistema muestra el detalle del pedido. |
+| 3. El usuario selecciona la opción para adjuntar de diseño. | 4. El sistema habilita la carga de archivos. |
+| 5. El usuario selecciona el archivo de diseño. | 6. El sistema valida y carga el archivo seleccionado. |
+| 7. El usuario confirma la carga del archivo. | 8. El sistema asocia el archivo al pedido. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.25:” CDU 25 Filtrando por estado de pago.”
+Tabla 3.26: “Actualizando el estado de pago del pedido”
 
 ### Table 30
 
-| Nombre | Filtrando por estado de pago RF25 |
+| Caso de uso N°26 | Actualizando el estado de pago del pedido. |
 | --- | --- |
-| Actores | Usuario con rol de cobranza |
-| Resumen | El usuario filtra en el módulo de cobranzas mediante botones definidos como ‘Confirmado’, ‘Rechazado’ o ‘Pendiente’ |
-| Frecuencia | Media. Cada vez que el usuario de Cobranzas deba filtrar por estado de pago específico |
-| Precondiciones | El usuario debe tener rol Cobranzas <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. <br> Deben existir pedidos en el sistema |
-| Descripción | El usuario accede al módulo de cobranzas. El sistema muestra los filtros rápidos de estado de pago. El usuario selecciona un botón entre Confirmado, Rechazado o Pendiente. El sistema aplica el filtro seleccionado y muestra únicamente los pedidos que coinciden con ese estado [Excepción 1]. |
-| Excepciones | Excepción 1: No existen pedidos asociados al estado seleccionado. El sistema muestra un mensaje indicando que no se encontraron pedidos con el estado de pago seleccionado |
-| Postcondiciones | La vista muestra solos los pedidos con el estado de pago seleccionado |
-| Dependencias | [EMPTY] |
+| Actores | Usuario con rol: <br> -Cobranzas. |
+| Propósito | Permitir que el usuario con rol Cobranzas actualice el estado de pago de un pedido desde el detalle del pedido en el tablero Kanban. |
+| Precondiciones | El usuario debe estar autenticado. El usuario debe tener rol Cobranzas. El pedido debe existir en el sistema. El pedido debe estar visible o accesible desde el tablero Kanban. |
+| Resumen | El usuario con rol Cobranzas accede al tablero Kanban, selecciona un pedido y abre su detalle. Desde el detalle del pedido, utiliza un menú desplegable para actualizar el estado de pago a “Confirmado”, “Rechazado” o “Pendiente”. El sistema valida el rol, registra el nuevo estado y actualiza la información del pedido. |
+| Postcondiciones | El estado de pago del pedido queda actualizado según la opción seleccionada. El cambio queda registrado en el sistema. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario con rol Cobranzas accede al tablero Kanban. | 2. El sistema valida que el usuario tenga permisos para consultar pedidos y actualizar estados de pago. |
+| 3. El usuario selecciona un pedido del tablero Kanban. | 4. El sistema muestra el detalle del pedido seleccionado. |
+| 5. El usuario ubica el campo “Estado de pago”. | 6. El sistema muestra un menú desplegable con los estados “Confirmado”, “Rechazado” y “Pendiente”. |
+| 7. El usuario selecciona uno de los estados disponibles. | 8. El sistema recibe el nuevo estado seleccionado. |
+| 9. El usuario confirma la actualización del estado de pago. | 10. El sistema actualiza el estado de pago del pedido en la base de datos. |
+| 11. El usuario visualiza la actualización realizada. | 12. El sistema muestra el nuevo estado de pago en el detalle del pedido. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.26:” CDU 26 Ingresando pedido mediante número de nota de Venta.”
+Tabla 3.27: “Firmando digitalmente nota de venta”
 
 ### Table 31
 
-| Nombre | Ingresando pedido mediante número de nota de Venta |
+| Caso de uso N°27 | Firmando digitalmente nota de venta. |
 | --- | --- |
-| Actores | Usuario con rol Ventas |
-| Resumen | El sistema ingresa automáticamente la información del pedido mediante el número de la Nota de Venta. |
-| Frecuencia | Alta. Cada vez que el usuario autorizado ingrese el Número de nota de venta para registrar el pedido. |
-| Precondiciones | El usuario debe estar previamente autenticado. <br> El usuario debe estar en el apartado de Registro de orden. <br> El usuario debe tener un número de Nota de Venta. <br> El número de Nota de Venta debe existir. |
-| Descripción | El usuario debe adjuntar el número de la Nota de venta en Modulo de “Registro de orden”. [Excepción 1]. El sistema importa automáticamente la información de la nota de venta en los campos de Razón social, Rut Cliente, Descripción de Producto, Cantidad y Datos para Fabricación. |
-| Excepciones | Excepción 1: El número de nota de venta no existe o no cumple formato. El sistema indica que no se encontró información asociada al número de nota de venta ingresado. |
-| Postcondiciones | El sistema importa correctamente los datos de la nota de venta. |
-| Dependencias | ## |
+| Actores | Usuario con rol: <br> -Cobranza. |
+| Propósito | Firmar de forma digital la nota de venta al confirmar el pago en la entidad del pedido. |
+| Precondiciones | Archivo digital de la Nota de Venta. <br> Pedido generado. |
+| Resumen | El usuario confirma el pago en la entidad del pedido y el sistema firma digitalmente la nota de venta. |
+| Postcondiciones | Nota de venta firmada digitalmente. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario con rol de Cobranza cambia el estado de pago a “confirmado” en un pedido. | 2. El sistema registra la acción y firma digitalmente la Nota de venta asociada al pedido. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.27:” CDU 27 Calculando fecha estimada de entrega al crear pedido.”
+Tabla 3.28: “Actualizando automáticamente el estado del pedido”
 
 ### Table 32
 
-| Nombre | Calculando fecha estimada de entrega al crear pedido. |
+| Caso de uso N°28 | Actualizando automáticamente el estado del pedido. |
 | --- | --- |
-| Actores | Usuario con rol Ventas |
-| Resumen | El sistema calcula una fecha estimada de entrega en base a los datos del detalle del pedido. |
-| Frecuencia | Alta. Cada vez que se crea un pedido. |
-| Precondiciones | El usuario debe tener rol Ventas <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. <br> Deben existir pedidos en el sistema |
-| Descripción | El Vendedor crea un pedido. [Excepción 1], [Excepción 2] El sistema extrae los datos del detalle del pedido que contiene el “Tipo de producto” y “cantidad de producto”, luego calcula una fecha estimada basándose en las métricas de estimación del sistema. |
-| Excepciones | Excepción 1: Hay más de un tipo de producto. El sistema asigna al pedido la fecha con mayor plazo de entrega |
-| Postcondiciones | Los datos fueron ingresados y procesados correctamente calculando una fecha estimada de entrega. |
-| Dependencias | [EMPTY] |
+| Actores | Usuario con rol: <br> -Cobranzas. |
+| Propósito | Cambiar el estado de pago de un pedido para que entre en el flujo principal del Kanban. |
+| Precondiciones | Un pedido generado en base a la nota de ventas con estado de “pago pendiente”. <br> El pedido debe tener adjuntado el PDF de la Nota de Venta. |
+| Resumen | El usuario con rol de cobranza cambia el estado de pago de un pedido, haciendo que este pase automáticamente al flujo de estados del Kanban. |
+| Postcondiciones | Un pedido con pago confirmado en la etapa “listo para producción”. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario ve la lista de pedidos. | 2. El sistema muestra el estado de pago de los pedidos. |
+| 3. El usuario cambia el estado de pago de uno de los pedidos. | 4. El sistema registra el cambio en el pedido. |
+| [EMPTY] | 6. El sistema cambia el estado del pedido de forma automática a “listo para producción”. |
 
-Tabla 3.28:” CDU 28 Consultando el calendario de planificación.”
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
+Tabla 3.29 “Registrando trazabilidad de cambios de estado de pago”
 
 ### Table 33
 
-| Nombre | Consultando el calendario de planificación. |
+| Caso de uso N°29 | Registrando trazabilidad de cambios de estado de pago. |
 | --- | --- |
-| Actores | Usuario con rol Administrador. |
-| Resumen | El sistema proporciona un calendario para el rol administrador donde puede visualizar las fechas de entrega y los pedidos en tiempo real. |
-| Frecuencia | Alta. Cada vez que el Administrador necesite ver las fechas de entrega y los pedidos. |
-| Precondiciones | El usuario debe estar previamente autenticado <br> El usuario debe encontrarse en el apartado de “calendario”. <br> Tienen que haber pedidos registrados en el sistema. |
-| Descripción | El administrador accede al apartado de calendario para visualizar en tiempo real las fechas de entrega de los pedidos que se encuentran en las etapas “Listo para producción” y “En producción”. [Excepción 1] El sistema debe mostrar el calendario con sus respectivas etapas operativas y fechas de entrega. |
-| Excepciones | Excepción 1: No existen pedidos programados en las etapas “listo para producción” o “en producción” para ese periodo. El sistema informa que no hay registros disponibles para visualizar en el calendario. |
-| Postcondiciones | El usuario puede visualizar el calendario con las fechas y pedidos en tiempo real. |
-| Dependencias | RF26: Búsqueda automática de campos de creación de pedido. |
+| Actores | Usuario con rol: <br> -Cobranza. |
+| Propósito | Mantener un registro claro y completo de los pedidos pagados. |
+| Precondiciones | El usuario debe tener sesión iniciada y existir un pago pendiente. |
+| Resumen | El sistema registra fecha, hora e identificación del usuario que confirma el pago. |
+| Postcondiciones | Trazabilidad del pago registrada correctamente. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario accede al módulo de pagos. <br> 3. El usuario selecciona un pago pendiente. <br> 5. El usuario selección “confirmar pago”. <br> 7. El usuario confirma la acción. | 2. El sistema muestra los pagos disponibles. <br> 4. El sistema muestra el detalle del pago. <br> 6. El sistema muestra el detalle del pago. <br> 8. El sistema registra fecha, hora e identificación del usuario. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.29:” CDU 29 Modificando las fechas de entrega.”
+Tabla 3.30.: “Asociando documento al pedido”
 
 ### Table 34
 
-| Nombre | Modificando las fechas de entrega. |
+| Caso de uso N°30 | Asociando documento al pedido. |
 | --- | --- |
-| Actores | Usuario con rol Administrador. |
-| Resumen | El sistema permite que el administrador pueda modificar la fecha de entrega de uno o más pedidos. |
-| Frecuencia | Media. Cada vez que ocurra un percance en la fecha de entrega. |
-| Precondiciones | El usuario debe estar previamente autenticado. <br> Debe haber al menos un pedido registrado. |
-| Descripción | El administrador ingresa al calendario para visualizar las fechas de los pedidos, El sistema muestra las fechas disponibles asociadas a sus respectivos pedidos, El administrador modifica una fecha e ingresa el motivo del cambio de fechas [Excepción 1], El sistema registra los cambios y los guarda. |
-| Excepciones | Excepción 1: La nueva fecha de entrega supera la capacidad productiva diaria. El sistema notifica el conflicto y sugiere otra fecha para la producción. |
-| Postcondiciones | El usuario visualiza la nueva fecha de entrega actualizada en el calendario. |
-| Dependencias | RF28: Mostrar calendario de planificación Producción |
+| Actores | Usuario con rol: <br> -Administrador. |
+| Propósito | Adjuntar documentos relevantes al pedido. |
+| Precondiciones | El administrador debe tener sesión iniciada. <br> Debe existir el pedido en el sistema y tener su estado de pago “confirmado”. |
+| Resumen | El administrador adjunta órdenes de producción y ficha de cliente al pedido. |
+| Postcondiciones | Documentos asociados correctamente al pedido. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El Administrador accede al pedido correspondiente. <br> 3. El administrador selecciona la opción para adjuntar documentos. <br> 5. El administrador adjunta órdenes de producción y ficha de cliente. <br> 7. El administrador confirma la asociación de documentos. | 2. El sistema muestra el detalle del pedido. <br> 4. El sistema verifica que el pago este confirmado. <br> 6. El sistema valida los documentos cargados. <br> 8. El sistema vincula los documentos al pedido. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.30:” CDU 30 Visualizando porcentaje de carga operativa.”
+Tabla 3.31: “Mostrando alerta de cuenta desactivada.”
 
 ### Table 35
 
-| Nombre | Visualizando porcentaje de carga operativa. |
+| Caso de uso N°31 | Actualizando automáticamente la capacidad de producción diaria. |
 | --- | --- |
-| Actores | Usuario con rol Ventas. |
-| Resumen | El sistema proporciona un porcentaje en tiempo real de la carga productiva cuando se esté subiendo un pedido al sistema. |
-| Frecuencia | Alta. Se visualiza cada vez que hay carga productiva en la operación. |
-| Precondiciones | El usuario debe estar previamente autenticado y con cuenta en estado ‘Vinculado’. <br> La capacidad máxima de producción debe estar definida. <br> Se debe registrar una nota de venta. |
-| Descripción | El usuario ingresa un pedido en el sistema y avanza hasta el paso de revisión y registro del pedido. [Excepción 1] El sistema calcula la carga productiva asociada a la fecha seleccionada y muestra en tiempo real el porcentaje de ocupación correspondiente. |
-| Excepciones | Excepción 1: La carga productiva del día consultado alcanza o supera el umbral de la saturación definida. El sistema muestra el porcentaje de carga y advierte que la fecha presenta alta ocupación productiva. |
-| Postcondiciones | El usuario visualiza el porcentaje de carga productiva asociada a la fecha seleccionada. |
-| Dependencias | RF26: Búsqueda automática de campos de creación de pedido. <br> RF27: Extracción de información desde detalle de pedido. <br> RF43: Actualización automática de capacidad de producción. <br> RF45: Configuración de capacidad de producción. |
+| Actores | Usuario con rol: <br> -Ventas. |
+| Propósito | Actualizar de forma automática la capacidad de producción diaria al generar un nuevo pedido. |
+| Precondiciones | El usuario debe estar previamente autenticado. <br> El estado del usuario debe ser “Vinculado”. <br> La capacidad de producción debe estar previamente configurada. |
+| Resumen | Luego de ingresar el pedido, el sistema actualizara de forma automática la capacidad de producción diaria basado en la cantidad y tipo de productos solicitados en el pedido. |
+| Postcondiciones | La capacidad de producción disponible diaria queda actualizada según la demanda ingresada en el pedido. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario registra un nuevo pedido. | 2. El sistema calcula la capacidad de producción requerida por el pedido. |
+| 3. El usuario espera la respuesta del sistema. | 4. El sistema descuenta la capacidad utilizada por la demanda del pedido ingresado. |
+| 5. El usuario continúa con el flujo de producción. | 6. El sistema actualiza la capacidad de producción disponible visible para nuevos pedidos. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.31:” CDU 31 Registrando un nuevo usuario bajo el rol de administrador.”
+Tabla 3.32: “Restringiendo el cambio manual”
 
 ### Table 36
 
-| Nombre | Registrando un nuevo usuario bajo el rol de administrador. |
+| Caso de uso N° 32 | Restringiendo el cambio manual. |
 | --- | --- |
-| Actores | Usuario con rol Administrador |
-| Resumen | El sistema habilita una interfaz al administrador para que pueda crear usuarios nuevos del sistema. |
-| Frecuencia | Media. Cada vez que el administrador ingrese un nuevo usuario |
-| Precondiciones | El usuario debe estar previamente autenticado <br> La cuenta del usuario debe tener estado ‘vinculado’ |
-| Descripción | El Administrador necesita registrar un nuevo usuario en el sistema, ingresa al módulo de usuario solo visible para su rol, selecciona “Crear usuario”. El sistema detecta la acción y despliega un formulario con los campos que se deben rellenar, Primer nombre, Apellido paterno, Rut, Correo electrónico, Rol, Firma electrónica. El usuario ingresa uno por uno la información en los campos solicitados. El sistema verifica que la información ingresada cumpla con las condiciones mínimas de formato para ser validada. [Excepción 1] |
-| Excepciones | Excepción 1: La información ingresada por el usuario no cumple las condiciones mínimas para ser considerada válida, el sistema le avisa por medio de un mensaje abajo de cada campo mal ingresado. |
-| Postcondiciones | El sistema integra un nuevo usuario a su base de datos. |
-| Dependencias | RF05: Accediendo a funcionalidades según rol <br> RF32: Listado de usuarios registrados |
+| Actores | Usuario con rol: <br> -Cobranza. |
+| Propósito | Impedir que el usuario con rol de cobranza cambie de forma manual el estado de un pedido sin la debida confirmación de pago. |
+| Precondiciones | Un pedido generado en base a la nota de ventas con estado de “pago pendiente”. <br> El pedido debe tener adjuntado el PDF de la Nota de Venta. |
+| Resumen | El sistema impide el cambio de estado de forma manual. |
+| Postcondiciones | Un pedido con estado de pago “pendiente” o “rechazado”. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario intenta cambiar manualmente el estado del pedido. | 2. El sistema detecta los esfuerzos del usuario y no permite la acción. |
+| 3. El usuario ve frustrada su acción. | 4. El sistema registra el cambio en el pedido. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.32:” CDU 32 Ingresando a módulo de usuarios.”
+Tabla 3.33: “Configurando capacidad de producción”
 
 ### Table 37
 
-| Nombre | Ingresando a módulo de usuarios RF32 |
+| Caso de uso N°33 | Configurando capacidad de producción. |
 | --- | --- |
-| Actores | Usuario con rol Administrador |
-| Resumen | El Administrador accede a la sección “Gestión usuarios” para visualizar el listado de usuarios registrados en el sistema. |
-| Frecuencia | Media. Cada vez que el Administrador necesite consultar o gestionar usuarios |
-| Precondiciones | El usuario debe tener rol Administrador <br> El usuario debe estar previamente autenticado y con cuenta en estado ‘Vinculado’. |
-| Descripción | El Administrador selecciona la opción “Gestión de usuarios” desde el menú del sistema. El sistema valida los permisos del usuario [Excepción 1]. El sistema recupera el listado de usuarios registrados y lo muestra en pantalla [Excepción 2] |
-| Excepciones | Excepción 1: El usuario no posee permisos de Administrador. El sistema informa que no tiene autorización y redirige a la vista principal <br> Excepción 2: No existen usuarios registrados para mostrar. El sistema muestra un mensaje indicando que no hay usuarios disponibles. |
-| Postcondiciones | El Administrador visualiza el listado de usuarios registrados. |
-| Dependencias | RF05: Accediendo a funcionalidades según rol. |
+| Actores | Usuario con rol: <br> -Administrador. |
+| Propósito | Ajustar la capacidad máxima diaria de producción. |
+| Precondiciones | El administrador debe tener sesión iniciada. |
+| Resumen | El administrador configura la capacidad diaria para tarjetas y lanyards. |
+| Postcondiciones | Capacidad de producción actualizada correctamente. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El administrador accede al módulo de producción. <br> 3. El administrador selecciona editar capacidad. <br> 5. El administrador ingresa la capacidad diaria para tarjetas y lanyards. <br> 7. El administrador confirma la configuración. | 2. El sistema muestra la configuración actual de capacidad. <br> 4. El sistema habilita los campos de configuración. <br> 6. El sistema valida los valores ingresados. <br> 8. El sistema actualiza la capacidad máxima diaria. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.33:” CDU 33 Filtrando rápido los usuarios por el administrador.”
+Tabla 3.34: “Estimando carga laboral diaria”
 
 ### Table 38
 
-| Nombre | Filtrando rápido los usuarios por el administrador RF33 |
+| Caso de uso N°34 | Estimando carga laboral diaria. |
 | --- | --- |
-| Actores | Usuario con rol Administrador |
-| Resumen | El sistema habilita una sección de filtros mediante criterios predefinidos de estado y rol en la vista de Gestión de usuario para que el administrador pueda navegar de forma rápida por medio de esta interfaz. |
-| Frecuencia | Alta. Cada vez que el administrador se vea en la necesidad de buscar un usuario en el sistema. |
-| Precondiciones | El usuario debe tener rol Administrador. <br> El usuario debe estar previamente autenticado y con cuenta en estado ‘Vinculado’. <br> El usuario debe encontrarse en la sección ‘Gestión de usuarios’ |
-| Descripción | El Administrador necesita buscar un usuario en el sistema, se dirige a la sección de filtros del sistema, El sistema despliega los filtros que se dividen por estado, “Todos”, “Vinculados”, “Desvinculados” y rol “Todos”, “Administrador”, “Gerencia”, “Operario”, “Ventas”, “Cobranza”. El usuario administrador elige uno de los filtros. El sistema detecta esto y en la lista de usuarios solo muestra aquellos con la característica previamente seleccionada. |
-| Excepciones | Excepción 1: No existen usuarios con las características buscadas, el sistema no muestra usuarios en la lista e indica que no se encontraron usuarios con los criterios aplicados. |
-| Postcondiciones | El Administrador es capaz de localizar rápidamente al usuario que está buscando. |
-| Dependencias | RF32: Ingresando a módulo de usuarios |
+| Actores | Usuario de cualquier rol. |
+| Propósito | Mostrar al usuario el nivel de trabajo diario. |
+| Precondiciones | El usuario debe estar registrado previamente en el sistema. <br> Deben existir pedidos asignados. <br> La capacidad productiva diaria debe estar definida previamente en el sistema. |
+| Resumen | El usuario accede al módulo de planificación, el sistema toma la cantidad de pedidos programados para una fecha específica, las compara con la capacidad productiva y muestra esta relación visualmente. |
+| Postcondiciones | El usuario visualiza la carga laboral diaria actualizada. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario accede al módulo de planificación. | 2. El sistema compila los datos de pedidos comparados con la capacidad y muestra la carga laboral diaria. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.34:” CDU 34 Filtrado avanzado de usuarios por administrador.”
+Tabla 3.35: “Alertando visualmente sobrecarga en producción”
 
 ### Table 39
 
-| Nombre | Filtrado avanzado de usuarios por administrador RF 34. |
+| Caso de uso N °35 | Alertando visualmente sobrecarga en producción. |
 | --- | --- |
-| Actores | Usuario con rol Administrador. |
-| Resumen | El sistema debe permitir localizar usuarios en el apartado de “Gestión de usuarios” por medio de un campo de búsqueda. |
-| Frecuencia | Media. Se utiliza solo cuando se requiere ubicar a un usuario. |
-| Precondiciones | El usuario debe tener rol Administrador. <br> El usuario debe estar previamente autenticado y con cuenta en estado ‘Vinculado’. <br> El usuario debe encontrarse en la sección ‘Gestión de usuarios’ <br> El sistema debe contener usuarios registrados. |
-| Descripción | El usuario accede al apartado de “Gestión de usuarios” y utiliza el campo de búsqueda avanzada ingresando criterios como RUT, nombre o correo electrónico. [Excepción 1] El sistema procesa la búsqueda y muestra la información detallada del usuario encontrado, incluyendo nombre completo, RUT, correo, rol y estado. [Excepción 2] |
-| Excepciones | Excepción 1: El administrador ingresa un criterio de búsqueda con formato inválido, como un RUT incompleto o un correo mal escrito. El sistema rechaza la búsqueda e indica que debe corregirse el dato ingresado. <br> Excepción 2: No existen usuarios que coincidan con el criterio de búsqueda ingresado. El sistema informa que no se encontraron resultados para la consulta realizada. |
-| Postcondiciones | El administrador visualiza la información detallada del usuario que coincide con el criterio de búsqueda. |
-| Dependencias | RF32: Ingresando a módulo de usuarios <br> RF35: Limpieza de filtros seleccionados. |
+| Actores | Usuario con rol: <br> -Ventas. |
+| Propósito | Prevenir y alertar al usuario sobre posibles retrasos para una fecha específica. |
+| Precondiciones | El usuario debe estar registrado previamente en el sistema con rol “Ventas”. <br> Debe estar ingresado en el sistema la capacidad máxima diaria de producción. |
+| Resumen | Durante el proceso de ingreso de una Nota de venta, si el sistema detecta que con el nuevo pedido la capacidad de producción para la fecha solicitada es mayor o igual al 90%, alertará visualmente al usuario. |
+| Postcondiciones | El usuario con rol de Ventas será notificado visualmente de la capacidad de producción. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario con rol de Ventas inicia el ingreso de una nueva Nota de Venta. | 2. El sistema calcula la capacidad disponible para la fecha solicitada y muestra una alerta visual. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.35:” CDU 35 Limpiando filtros seleccionados.”
+Tabla 3.36: “Calculando fecha de entrega”
 
 ### Table 40
 
-| Nombre | Limpiando filtros seleccionados RF 35. |
+| Caso de uso N°36 | Calculando fecha de entrega. |
 | --- | --- |
-| Actores | Usuario con rol Administrador. |
-| Resumen | El sistema contiene en la sección “Gestión de usuarios” un botón para “Limpiar filtros” el cual despeja el filtro de búsqueda. |
-| Frecuencia | Baja. Se utiliza cuando el Administrador quiere buscar por filtros a un usuario. |
-| Precondiciones | El usuario debe tener rol Administrador. <br> El usuario debe estar previamente autenticado y con cuenta en estado ‘Vinculado’. <br> El usuario debe encontrarse en la sección ‘Gestión de usuarios’ <br> Debe existir al menos un filtro aplicado sobre la vista de usuarios. |
-| Descripción | El administrador realiza una búsqueda de usuarios en la sección “Gestión de usuarios” aplicando uno o más filtros. Luego, selecciona la opción “Limpiar filtros” para eliminar los criterios utilizados. El sistema restablece la vista de usuarios y muestra nuevamente el listado completo sin filtros aplicados. |
-| Excepciones | Excepción 1: No existen filtros en el momento de presionar la opción “Limpiar filtros”. El sistema mantiene la vista actual e informa que no hay filtros activos para eliminar |
-| Postcondiciones | Los filtros aplicados quedan eliminados de la vista de “Gestión de usuarios” y el sistema muestra nuevamente el listado completo de usuarios registrados. |
-| Dependencias | RF34: Filtros avanzados alternativos de usuarios por el Administrador. |
+| Actores | Usuario de cualquier rol. |
+| Propósito | Ofrecer automáticamente una nueva fecha de entrega de un pedido cuando la fecha original ya tiene su capacidad productiva sobrepasada. |
+| Precondiciones | Se debe ingresar un nuevo pedido. <br> El sistema debe tener la capacidad de producción para la fecha de entrega original sobrepasada. |
+| Resumen | Al sobrepasar la capacidad máxima de la fecha de entrega original el sistema calculará una nueva fecha de entrega. |
+| Postcondiciones | El sistema muestra en pantalla la nueva fecha de entrega en formato DD-MM-YYYY. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. Usuario con rol de Venta ingresa un nuevo pedido. | 2. El sistema al sobrecargar la capacidad de producción calculará una nueva fecha de entrega con formato DD-MM-YYYY. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.36:” CDU 36 Editando usuarios por Administrador.”
+Tabla 3.37: “Ingresando pedido bajo sobrecarga operativa”
 
 ### Table 41
 
-| Nombre | Editando usuarios por Administrador RF36 |
+| Caso de uso N°37 | Ingresando pedido bajo sobrecarga operativa. |
 | --- | --- |
-| Actores | Usuario con rol Administrador. |
-| Resumen | El sistema permite al administrador modificar la información de los usuarios registrados en el sistema. |
-| Frecuencia | Media. Cada vez que el administrador quiera cambiar los datos de un usuario. |
-| Precondiciones | El usuario debe tener rol Administrador. <br> El usuario debe estar previamente autenticado y con cuenta en estado ‘Vinculado’. <br> El usuario debe encontrarse en la sección ‘Gestión de usuarios’ |
-| Descripción | El administrador requiere cambiar informacion de otro usuario del sistema, hace click en el boton “editar” de la interfaz “Gestion de usuario”. El sistema detecta esta acción y abre el modal de edición de usuario. El administrador edita uno o mas campos del usuario y guarda los cambios con el boton “Guardar cambios” [Excepción 1]. El sistema detecta la acción y guarda los cambios. |
-| Excepciones | Excepción 1: Los nuevos datos ingresados no cumplen con las condiciones mínimas de formato para ser válidas. El sistema le avisa al usuario por medio de un mensaje abajo de cada campo mal ingresado. |
-| Postcondiciones | El Administrador modifica con éxito los datos de un usuario |
-| Dependencias | RF32: Ingresando a módulo de usuarios |
+| Actores | Usuario con rol: <br> -Ventas. |
+| Propósito | Mantener registro cada vez que un vendedor ingrese un nuevo pedido cuando la capacidad de producción ya se encuentra sobrecargada. |
+| Precondiciones | El usuario debe estar registrado previamente en el sistema con rol “Ventas”. <br> La capacidad de producción debe estar previamente con sobrecarga operativa. |
+| Resumen | El sistema registrará cada vez que un usuario con rol de Ventas ingresa un pedido con sobrecarga operativa. |
+| Postcondiciones | El usuario con rol de Ventas queda registrado en el historial. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario con rol de Ventas ingresa un nuevo pedido. <br> 3. El usuario confirma el ingreso. | 2. El sistema ingresa el pedido y alerta sobre la sobrecarga. <br> 4. El sistema registrará en el historial el ingreso del pedido. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.37:” CDU 37 Asociando documentos al pedido confirmado.”
+Tabla 3.38: “Extrayendo información desde la nota de venta para estimación de entrega”
 
 ### Table 42
 
-| Nombre | Asociando documentos al pedido confirmado RF 37. |
+| Caso de uso N°38 | Extrayendo información desde la Nota de Venta para estimación de entrega. |
 | --- | --- |
-| Actores | Usuario con rol Administrador |
-| Resumen | El usuario con rol administrador adjunta la orden de producción y la ficha de cliente a la entidad del pedido una vez confirmado el pago. |
-| Frecuencia | Media. Se ejecuta cuando el pedido ya cuenta con pago confirmado y requiere sus documentos asociados. |
-| Precondiciones | El usuario debe tener rol Administrador. <br> El usuario debe estar previamente autenticado y con cuenta en estado ‘Vinculado’. <br> Deben existir pedidos en el sistema. <br> El usuario debe encontrarse en el detalle del pedido. <br> El pedido seleccionado debe tener su pago confirmado. |
-| Descripción | El usuario accede al pedido confirmado, Selecciona la opción para adjuntar documentos y carga la orden de producción y la ficha de cliente correspondiente, [Excepción 1][Excepción 2]. El sistema valida que el pedido tenga pago confirmado, recibe los documentos adjuntos y los asocia a la entidad del pedido dentro del flujo. |
-| Excepciones | Excepción 1: El pedido no tiene pago confirmado. El sistema impide adjuntar los documentos. <br> Excepción 2: Los documentos adjuntos no cumplen los formatos solicitados. El sistema impide adjuntar documentos y despliega mensajes de error. |
-| Postcondiciones | La orden de producción y la ficha de cliente quedan asociadas al pedido. <br> La documentación queda disponible dentro del flujo del pedido. |
-| Dependencias | RF09: Actualización automática del estado del pedido. <br> RF18: Registro de firma digital al actualizar estado de pago. <br> RF23: Actualizar estado de pago. <br> RF11: Visualización del detalle del pedido. |
+| Actores | Usuario con rol: <br> -Administrador. <br> -Ventas. |
+| Propósito | Permitir que el sistema extraiga desde la Nota de Venta el tipo de producto y la cantidad solicitada, con el fin de utilizar dichos datos en el cálculo de la fecha estimada de entrega. |
+| Precondiciones | El usuario debe estar autenticado con rol Ventas. Debe existir una Nota de Venta cargada o asociada al pedido. La Nota de Venta debe contener información del producto y cantidad solicitada. |
+| Resumen | El usuario registra o consulta una Nota de Venta dentro del flujo de creación de pedido. El sistema analiza la información de la Nota de Venta y extrae el tipo de producto y la cantidad solicitada, dejando estos datos disponibles para el cálculo posterior de la fecha estimada de entrega. |
+| Postcondiciones | El tipo de producto y la cantidad solicitada quedan identificados y disponibles para el cálculo de fecha estimada de entrega. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario con rol Ventas accede al flujo de creación o revisión de pedido. | 2. El sistema muestra la Nota de Venta asociada al pedido. |
+| 3. El usuario adjunto o selecciona la Nota de Venta correspondiente. | 4. El sistema valida que la Nota de Venta esté disponible para ser procesada. |
+| 5. El usuario confirma la carga o revisión de la Nota de Venta. | 6. El sistema analiza la información contenida en la Nota de Venta. |
+| 7. El usuario espera la respuesta del sistema. | 8. El sistema identifica el tipo de producto y la cantidad del producto indicado en la Nota de Venta. |
+| 9. El usuario continúa con el flujo del pedido. | 10. El sistema deja disponible el tipo de producto y la cantidad para el cálculo de fecha estimada de entrega. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.38:” CDU 38 Ajustando parámetros de estimación por cantidad y producto.”
+Tabla 3.39: “Calculando fecha estimada de entrega del pedido”
 
 ### Table 43
 
-| Nombre | Ajustando parámetros de estimación por cantidad y producto. RF 38. |
+| Caso de uso N°39 | Calculando fecha estimada de entrega del pedido. |
 | --- | --- |
-| Actores | Usuario con rol Administrador. |
-| Resumen | El sistema permite al usuario con rol Administrador modificar los plazos estándar utilizados para calcular fechas estimadas de entrega según tipo de producto y rango de unidades solicitadas. |
-| Frecuencia | Baja. Cada vez que se necesite cambiar los parámetros de estimación. |
-| Precondiciones | El usuario debe estar previamente autenticado y con cuenta en estado ‘Vinculado’. <br> El usuario debe tener rol Administrador. <br> Deben existir parámetros de estimación registrados para los tipos de producto configurables. |
-| Descripción | El administrador ingresa el módulo de parámetros de estimación, el sistema muestra el listado de los parámetros establecidos por defecto, el administrador selecciona y modifica un parámetro específico y el sistema valida el nuevo valor, guardando los datos mostrando un mensaje de confirmación [Excepción 1]. |
-| Excepciones | Excepción 1: El Administrador cancela la modificación antes de confirmar. El sistema conserva los parámetros vigentes sin realizar cambios. |
-| Postcondiciones | Los nuevos parámetros de estimación quedarán registrados, afectando los cálculos automáticos de carga y fechas de entrega. |
-| Dependencias | RF27: Extracción de información desde detalle de pedido. <br> RF28: Mostrar calendario de planificación Producción. <br> RF29: Modificación de fechas de entrega por parte del administrador. |
+| Actores | Usuario con rol: <br> -Administrador. <br> -Ventas. |
+| Propósito | Permitir que el sistema calcule y muestre la fecha de término estimada del pedido en función del tipo de producto y la cantidad solicitada. |
+| Precondiciones | El usuario debe estar autenticado. Debe existir un pedido en proceso de registro o revisión. El sistema debe contar con el tipo de producto y la cantidad solicitada. Deben estar definidos los parámetros de estimación por tipo de producto y rango de unidades. |
+| Resumen | El sistema utiliza el tipo de producto y la cantidad solicitada para calcular la fecha estimada de término del pedido. Para lanyards aplica rangos de 5, 10 o 15 días hábiles según la cantidad; para tarjetas aplica 7 días hábiles para cualquier tamaño de lote. |
+| Postcondiciones | La fecha estimada de término queda calculada y visible para el usuario. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario registra o revisa un pedido con Nota de Venta asociada. | 2. El sistema obtiene desde la Nota de Venta el tipo de producto y la cantidad solicitada. |
+| 3. El usuario solicita visualizar la estimación de entrega del pedido. | 4. El sistema identifica si el producto corresponde a lanyard o tarjeta y evalúa la cantidad según los parámetros definidos. |
+| 5. El usuario revisa la información calculada del pedido. | 6. El sistema calcula los días hábiles correspondientes y muestra la fecha estimada de término en la interfaz. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.39:” CDU 39 Organizando pedidos por etiquetas en el tablero Kanban.”
+Tabla 3.40: “Ajustando parámetros de estimación por cantidad y producto”
 
 ### Table 44
 
-| Nombre | Organizando pedidos por etiquetas en el tablero Kanban CU 39 |
+| Caso de uso N N°40 | Ajustando parámetros de estimación por cantidad y producto. |
 | --- | --- |
-| Actores | Usuario con rol de Administrador. |
-| Resumen | El administrador organiza los pedidos del tablero Kanban utilizando etiquetas para priorizar su seguimiento. |
-| Frecuencia | Media. Se realiza cuando el administrador necesita clasificar o priorizar pedidos visualmente en el tablero. |
-| Precondiciones | El usuario debe estar previamente autenticado y con cuenta en estado ‘Vinculado’. <br> El usuario debe tener rol Administrador. <br> El usuario debe haber accedido al tablero Kanban. <br> El pedido debe estar visible en el tablero.. |
-| Descripción | El administrador accede al tablero Kanban, selecciona un pedido y elige una o más etiquetas de organización para destacarse dentro del flujo de trabajo. [Excepción 1]. El sistema muestra la información del pedido, registra las etiquetas seleccionadas y actualiza su representación visual dentro del tablero. |
-| Excepciones | Excepción 1: El pedido ya posee una etiqueta visual asignada. El sistema permite al Administrador reemplazar la etiqueta existente por una nueva o añadir una extra. |
-| Postcondiciones | El pedido queda asociado a las etiquetas seleccionadas. <br> Las etiquetas asignadas son visibles en la representación del pedido dentro del tablero. |
-| Dependencias | RF10: Acceder al tablero Kanban. <br> RF11: Visualización del detalle del pedido. <br> RF41: Remoción de etiquetas visuales de pedidos. |
+| Actores | Usuario con rol: <br> -Administrador. |
+| Propósito | Permitir al Administrador ajustar las variables que utiliza el sistema para calcular la estimación en función de producto y la cantidad solicitada. |
+| Precondiciones | El usuario debe estar registrado previamente en el sistema con rol “Administrador”. <br> Deben estar registrados los parámetros por defecto necesarios para el cálculo de la fecha estimada. |
+| Resumen | El Administrador puede ingresar y cambiar los parámetros establecidos por defecto. |
+| Postcondiciones | Los nuevos parámetros de estimación quedarán registrados, afectando los cálculos automáticos de carga y fechas de entrega. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El Administrador ingresa al módulo de parámetros de estimación. <br> 3. El Administrador selecciona un parámetro en específico y modifica el valor. | 2. El sistema muestra el listado de los parámetros establecidos por defecto. <br> 4. El sistema valida el nuevo valor y guarda los datos mostrando un mensaje de confirmación. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.40:” CDU 40 Ajustando prioridad de atención de pedidos.”
+Tabla 3.41: “Mostrando calendario de planificación”
 
 ### Table 45
 
-| Nombre | Ajustando prioridad de atención de pedidos. |
+| Caso de uso N N°41 | Mostrando calendario de planificación. |
 | --- | --- |
-| Actores | Usuario con rol de Administrador. |
-| Resumen | El sistema permite al Administrador modificar la prioridad de atención de uno o más pedidos seleccionados dentro del flujo de producción. |
-| Frecuencia | Media. Se ejecuta cuando es necesario modificar la prioridad de un pedido debido a imprevistos. |
-| Precondiciones | El usuario debe estar previamente autenticado y con cuenta en estado ‘Vinculado’. <br> El usuario debe tener rol Administrador. <br> Debe existir al menos un pedido registrado y visible en el tablero. |
-| Descripción | El administrador selecciona uno o más pedidos dentro del flujo productivo y define la nueva prioridad de atención que desea asignar. [Excepción 1]. El sistema valida la selección realizada, registra la nueva prioridad y actualiza la visualización de los pedidos según el orden de atención definido. |
-| Excepciones | Excepción 1: El Administrador cancela el ajuste antes de confirmar el cambio. El sistema conserva la prioridad actual de los pedidos seleccionados sin registrar modificaciones. |
-| Postcondiciones | Los pedidos seleccionados quedan con la nueva prioridad registrada. <br> El flujo refleja el nuevo criterio de atención definido por el administrador. |
-| Dependencias | RF10: Acceder al tablero Kanban. <br> RF11: Visualización del detalle del pedido. <br> RF 39: Organización de pedidos en el tablero Kanban. |
+| Actores | Usuario con rol: <br> -Administrador. |
+| Propósito | Proveer una vista gráfica de los plazos de entrega mediante un calendario de planificación permitiendo reajustar las fechas manualmente. |
+| Precondiciones | El usuario debe estar registrado previamente en el sistema con rol “Administrador”. <br> Deben existir pedidos activos con fechas de término previamente calculadas por el sistema. |
+| Resumen | El administrador accede al calendario de planificación, visualizando las fechas de término, el administrador tiene la facultad para interactuar con la interfaz modificando y ajustando manualmente los plazos. |
+| Postcondiciones | La fecha de término del pedido se actualiza con la nueva fecha asignada manualmente, modificando el calendario y la planificación. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El Administrador ingresa al módulo de planificación. <br> 3. El Administrador selecciona una fecha de término de un pedido en específico para reajustar manualmente esta. <br> 5. El Administrador selecciona la nueva fecha de término y confirma los cambios. | 2. El sistema muestra un calendario con las fechas de término para los pedidos activos. <br> 4. El sistema despliega una interfaz para seleccionar una nueva fecha de término. <br> 6. El sistema actualiza la nueva fecha, el calendario y muestra una notificación de confirmación de la modificación. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.41:” CDU 41 Removiendo etiquetas visuales de pedidos.”
+Tabla 3.42: “Visualizando el tablero de Kanban”
 
 ### Table 46
 
-| Nombre | Removiendo etiquetas visuales de pedidos. |
+| Caso de uso N°42 | Visualizando el tablero de Kanban. |
 | --- | --- |
-| Actores | Usuario con rol Administrador. |
-| Resumen | El usuario autorizado elimina una etiqueta visual previamente asignada a un pedido dentro del tablero Kanban. |
-| Frecuencia | Media. Se ejecuta cuando es necesario quitar una etiqueta que ya no representa la condición actual del pedido. |
-| Precondiciones | El usuario debe estar previamente autenticado y con cuenta en estado ‘Vinculado’. <br> El usuario debe tener rol Administrador. <br> Debe existir un pedido con una etiqueta visual previamente asignada. |
-| Descripción | El usuario autorizado selecciona un pedido etiquetado y ejecuta la opción para remover la etiqueta visual asignada. [Excepción 1], El sistema valida que el pedido exista, que tenga una etiqueta activa y que el usuario cuente con permisos para quitarla. Si la validación es correcta, elimina la etiqueta y actualiza la representación visual del pedido. |
-| Excepciones | Excepción 1: El pedido no posee etiquetas activas, por lo que no existe ningún elemento que remover. |
-| Postcondiciones | La etiqueta visual queda removida del pedido y el tablero refleja el cambio de categorización. |
-| Dependencias | RF10: Acceder al tablero Kanban. <br> RF11: Visualización del detalle del pedido. <br> RF39: Organización de pedidos en el tablero Kanban. |
+| Actores | Usuarios de cualquier rol. |
+| Propósito | Que los usuarios tengan una referencia visual del Kanban. |
+| Precondiciones | Pedidos con estado de pago confirmado. |
+| Resumen | El sistema debe permitir a los usuarios visualizar el tablero Kanban. |
+| Postcondiciones | Pedidos visibles dentro del flujo productivo. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario ve la interfaz del Kanban. | 2. El sistema muestra el Kanban con los pedidos en tiempo real. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.42:” CDU 42 Adjuntando archivo de diseño al pedido.”
+Tabla 3.43: “Visualizando el detalle del pedido”
 
 ### Table 47
 
-| Nombre | Adjuntando archivo de diseño al pedido. |
+| Caso de uso N°43 | Visualizando el detalle del pedido. |
 | --- | --- |
-| Actores | Usuario con rol Ventas. |
-| Resumen | El sistema permite que el usuario adjunte archivos de diseño. |
-| Frecuencia | Media. Se ejecuta cuando el pedido requiere respaldo gráfico o archivos de diseño asociados. |
-| Precondiciones | El usuario debe estar previamente autenticado y con cuenta en estado ‘Vinculado’. <br> El usuario debe estar en el proceso de creación del pedido. |
-| Descripción | El usuario, durante la creación del pedido, adjunta el archivo de diseño correspondiente [Excepción 1], El sistema valida el formato del archivo, lo asocia al pedido y muestra una confirmación de carga exitosa. |
-| Excepciones | Excepción 1: El formato de la muestra no es el correcto. El sistema muestra una alerta de que el formato ingresado no es válido. |
-| Postcondiciones | El archivo de diseño queda asociado al pedido correctamente. |
-| Dependencias | RF26: Búsqueda automática de campos de creación de pedido. |
+| Actores | Usuarios con cualquier rol. |
+| Propósito | Visualizar a detalle el estado del pedido. |
+| Precondiciones | Un pedido con estado de pago confirmado dentro del flujo. |
+| Resumen | El sistema debe permitir visualizar el detalle del pedido. |
+| Postcondiciones | Un pedido con su información detallada visible para el usuario. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario ve la lista de pedidos. | 2. El sistema el permite hacer click al usuario sobre el pedido. |
+| 3. El usuario es capaz de ver el detalle del pedido. | 4. El sistema muestra el detalle del pedido. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.43:” CDU 43 Actualizando automáticamente carga productiva diaria de pedidos listos para producción.”
+Tabla 3.44: “Observando el flujo general de un pedido”
 
 ### Table 48
 
-| Nombre | Actualizando automáticamente carga productiva diaria de pedidos listos para producción |
+| Caso de uso N° 44 | Observando el flujo general de un pedido. |
 | --- | --- |
-| Actores | Usuario con rol Cobranzas. |
-| Resumen | El sistema actualiza automáticamente el nivel de carga productiva diaria considerando los pedidos que se encuentran en la etapa “Listo para producción”. |
-| Frecuencia | Alta. Cada vez que un pedido ingresa a la etapa “Listo para producción”. |
-| Precondiciones | El usuario debe estar previamente autenticado y con cuenta en estado ‘Vinculado’. <br> El pedido debe existir en el sistema. <br> La capacidad de producción debe estar previamente configurada. |
-| Descripción | El usuario con rol Cobranzas confirma el estado de pago de un pedido y firma digitalmente la nota de venta. El sistema actualiza el estado del pedido automáticamente a “Listo para producción”. El sistema identifica los pedidos que se encuentran en dicha etapa, calcula la carga productiva diaria en función del tipo de producto y cantidad de cada pedido, y actualiza automáticamente el nivel de carga productiva correspondiente. [Excepción 1] |
-| Excepciones | Excepción 1: La carga productiva diaria resultante alcanza o supera la capacidad máxima configurada. El sistema actualiza el nivel de carga productiva y marca la fecha correspondiente como sobrecargada para su visualización en los indicadores de carga. |
-| Postcondiciones | La capacidad de producción disponible diaria queda actualizada según la demanda ingresada en el pedido. |
-| Dependencias | RF09: Actualización automática del estado del pedido. <br> RF18: Registro de firma digital al actualizar estado de pago. <br> RF23: Actualizar estado de pago. <br> RF27: Extracción de información desde detalle de pedido. <br> RF45: Configuración de capacidad de producción. <br> RF46: Estimación de carga laboral automática. |
+| Actores | Usuario de cualquier rol. |
+| Propósito | Permitir al usuario visualizar la etapa en la que se encuentran los pedidos mediante la distribución de columnas del tablero Kanban. |
+| Precondiciones | Debe existir un pedido dentro del sistema <br> El usuario debe estar previamente autenticado. |
+| Resumen | El usuario ingresa al tablero Kanban y visualiza este organizado en columnas fijas que representan las etapas del flujo general de producción de los pedidos. |
+| Postcondiciones | El usuario visualiza correctamente en qué estado están los pedidos dentro del flujo general de producción. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario acede al tablero Kanban. | 2. El sistema muestra las columnas asociadas al flujo general de producción. |
+| 3. El usuario visualiza las columnas del tablero según las etapas definidas. | 4. El sistema organiza los pedidos según el estado correspondiente. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.44:” CDU 44 Restringiendo cambio manual a “Listo para producción”.”
+Tabla 3.45: “Cambiando manualmente el estado del pedido”
 
 ### Table 49
 
-| Nombre | Restringiendo cambio manual a “Listo para producción”. |
+| Caso de uso N° 45 | Cambiando manualmente el estado del pedido. |
 | --- | --- |
-| Actores | Usuario con rol Producción o Administrador. |
-| Resumen | El sistema impide al usuario arrastrar un pedido hacia “Listo para producción”, mientras su estado de pago no esté confirmado. |
-| Frecuencia | Baja. Ocurre cada vez que un usuario intenta modificar el estado de un pedido el cual su estado de pago no esté confirmado. |
-| Precondiciones | El usuario debe estar previamente autenticado y con cuenta en estado ‘Vinculado’. <br> Debe existir un pedido en la columna de confirmación de pago. |
-| Descripción | El usuario accede al tablero Kanban y visualiza un pedido cuyo estado de pago aún no se encuentra confirmado. El sistema muestra el pedido en la columna correspondiente con la acción de arrastrar y soltar bloqueada, permitiendo únicamente la visualización del detalle. El usuario intenta interactuar con el pedido para moverlo manualmente, el sistema mantiene bloqueada la acción y conserva el pedido en su columna actual. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | El pedido permanece inalterado en la columna "Confirmación de pago" dentro del tablero. |
-| Dependencias | RF10: Acceder al tablero Kanban. <br> RF11: Visualización del detalle del pedido. <br> RF12: Cambio manual de estado de pedido por arrastrar y soltar. <br> RF23: Actualizar estado de pago. <br> RF09: Actualización automática del estado del pedido. |
+| Actores | Usuario de cualquier rol. |
+| Propósito | Permitir al usuario autorizado cambiar manualmente el estado del pedido. |
+| Precondiciones | Un pedido dentro del flujo de producción. <br> Un usuario autorizado. |
+| Resumen | El sistema debe permitir a los usuarios autorizados cambiar manualmente el estado del pedido. |
+| Postcondiciones | Un pedido en una etapa distinta del flujo Kanban. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario autorizado termina de trabajar el pedido en su etapa del proceso. | 2. El sistema le da la posibilidad de arrastrar el pedido hacia el estado siguiente. |
+| 3. El usuario arrastra el pedido hasta el siguiente estado. | 4. El sistema ancla el pedido al siguiente estado. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.45:” CDU 45 Configurando capacidad de producción.”
+Tabla 3.46: “Visualizando subproceso productivo en Stepper”
 
 ### Table 50
 
-| Nombre | Configurando capacidad de producción. |
+| Caso de uso N° 46 | Visualizando subproceso productivo en Stepper. |
 | --- | --- |
-| Actores | Usuario con rol Administrador. |
-| Resumen | El administrador ajusta la capacidad de producción diaria dentro del sistema. |
-| Frecuencia | Media. Cada vez que el usuario necesite configurar la capacidad de producción diaria. |
-| Precondiciones | El usuario debe estar previamente autenticado y con cuenta en estado ‘Vinculado’. |
-| Descripción | El administrador ingresa al apartado de capacidad diaria para ajustar la producción máxima diaria. El sistema habilita la edición de la capacidad de producción, el usuario ingresa el nuevo valor, [Excepción 1] y el sistema registra y guarda los datos actualizados. |
-| Excepciones | Excepción 1: El administrador ingresa un valor vacío. El sistema rechaza el registro e indica que debe ingresar una capacidad válida. |
-| Postcondiciones | El usuario visualiza que la capacidad máxima diaria de producción se actualiza correctamente. |
-| Dependencias | RF30: Mostrar porcentaje del nivel de carga operativa. <br> RF43: Actualización automática de capacidad de producción. <br> RF46: Estimación de carga laboral automática. <br> RF64: Mapa de carga de producción por día de la semana. |
+| Actores | Usuario de cualquier rol. |
+| Propósito | Permitir al usuario visualizar el estado del subproceso productivo en el que se encuentra el pedido. |
+| Precondiciones | Un pedido dentro del flujo de producción <br> El usuario debe estar previamente autenticado. |
+| Resumen | El sistema debe permitir a los usuarios autorizados visualizar dentro del detalle del pedido el estado del subproceso productivo en el que se encuentra el pedido dependiendo del producto que se esté produciendo. |
+| Postcondiciones | Un pedido en una etapa distinta del flujo Kanban. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario selecciona un pedido dentro del tablero Kanban. | 2. El sistema muestra al cliente el detalle del pedido seleccionado. |
+| 3. El usuario visualiza la sección de subprocesos productivos. | 4. El sistema identifica el tipo de producto asociado al pedido. |
+| 5. El usuario espera la carga de la información. | 6. El sistema muestra el Stepper respecto al tipo de producto resaltando el estado actual del subproceso productivo. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.46:” CDU 46 Visualizando carga laboral diaria.”
+Tabla 3.47: “Actualizando el estado del Sub-Proceso de producción”
 
 ### Table 51
 
-| Nombre | Visualizando carga laboral diaria. |
+| Caso de uso N° 47 | Actualizando el estado del Sub-Proceso de producción. |
 | --- | --- |
-| Actores | Usuario de cualquier rol. |
-| Resumen | El sistema muestra la carga productiva diaria a los usuarios, esta representa la producción asignada y la capacidad máxima diaria. |
-| Frecuencia | Media. Cada vez que se tenga que revisar la capacidad máxima diaria. |
-| Precondiciones | El usuario debe estar previamente autenticado y con cuenta en estado “Vinculado”. <br> La capacidad productiva diaria debe estar definida previamente en el sistema. |
-| Descripción | El usuario accede al módulo Kanban. El sistema consulta la capacidad máxima diaria configurada y recupera los pedidos asignados para la fecha correspondiente. [Excepción 1] Luego calcula la relación entre la producción programada y la capacidad disponible, y muestra el nivel de carga productiva diaria actualizado. |
-| Excepciones | Excepción 1: No existen pedidos asignados para la fecha consultada. El sistema muestra el nivel de carga productiva diaria en 0% e informa que no hay producción asignada para esa fecha. |
-| Postcondiciones | El usuario visualiza la carga laboral diaria actualizada. |
-| Dependencias | RF43: Actualización automática de capacidad de producción. <br> RF45: Configuración de capacidad de producción. <br> RF64: Mapa de carga de producción por día de la seman |
+| Actores | Usuario con rol: <br> -Operario. <br> -Producción. |
+| Propósito | Permitir a los operarios actualizar el estado de los subprocesos de un pedido. |
+| Precondiciones | Debe existir un pedido dentro del flujo de producción, en el estado de “En producción”. |
+| Resumen | El sistema le permite al usuario con rol de operario cambiar el estado del subproceso del pedido. |
+| Postcondiciones | El estado del subproceso dentro del pedido queda actualizado. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario con rol de operario interactúa con un pedido en estado “en producción”. | 2.El sistema muestra el detalle de estado del subproceso en el que se encuentra este. |
+| 3. El usuario con rol de operario, cambia el estado del subproceso del pedido. | 4. El sistema detecta el intento de cambio y cambia el estado. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.47:” CDU 47 Visualizando tiempo real transcurrido del pedido en su etapa actual.”
+Tabla 3.48: “Registrando comentarios en Sub-Procesos”
 
 ### Table 52
 
-| Nombre | Visualizando tiempo real transcurrido del pedido en su etapa actual. |
+| Caso de uso N°48 | Registrando comentarios en Sub-Proceso. |
 | --- | --- |
 | Actores | Usuario de cualquier rol. |
-| Resumen | El sistema muestra al usuario el tiempo real transcurrido de un pedido dentro de su etapa actual desde el detalle del pedido. |
-| Frecuencia | Alta. Cada vez que se actualiza el estado de una etapa |
-| Precondiciones | El usuario debe estar previamente autenticado y con cuenta en estado “Vinculado”. <br> Debe existir un pedido registrado en el sistema. <br> El usuario debe haber accedido al detalle del pedido. <br> El pedido debe tener registrada la fecha y hora de ingreso a la etapa actual. |
-| Descripción | El usuario accede al detalle de un pedido. El sistema identifica la etapa actual del pedido, obtiene la fecha y hora de ingreso a dicha etapa y calcula el tiempo real transcurrido hasta el momento de la consulta. [Excepción 1] Luego muestra el tiempo real transcurrido en el detalle del pedido. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | El usuario visualiza el tiempo real transcurrido del pedido en su etapa actual. <br> El detalle del pedido mantiene disponible la información general del pedido. |
-| Dependencias | RF11: Visualización del detalle del pedido. <br> RF57: Calcular tiempo real transcurrido por etapa. |
+| Propósito | Permitir al usuario registrar observaciones al momento de cambiar el estado del subproceso dentro del estado de producción. |
+| Precondiciones | El usuario debe estar registrado previamente en el sistema. <br> Debe existir un subproceso activo vinculado al pedido. |
+| Resumen | Al ejecutar un cambio de estado en el subproceso de un pedido, el sistema ofrece al usuario un espacio para ingresar una observación. |
+| Postcondiciones | El estado de subproceso se actualiza y el comentario ingresado queda registrado en el historial. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario modifica el estado del subproceso de un pedido activo. <br> 3. El usuario ingresa un comentario y guarda el cambio | 2. El sistema despliega una ventana para ingresar opcionalmente un comentario sobre el subproceso. <br> 4. El sistema valida y actualiza el estado del subproceso, además registra el comentario ingresado. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.48:” CDU 48 Notificando creación de nuevo pedido a jefatura.”
+Tabla 3.49: “Registrando firma electrónica del usuario”
 
 ### Table 53
 
-| Nombre | Notificando creación de nuevo pedido a jefatura. |
+| Caso de uso N°49 | Registrando firma electrónica del usuario. |
 | --- | --- |
-| Actores | Usuario con rol Ventas |
-| Resumen | El sistema notifica automáticamente a jefatura cuando se registra y guarda una nueva orden de producción. |
-| Frecuencia | Media. Ocurre cada vez que se registra un nuevo pedido. |
-| Precondiciones | El usuario debe estar previamente autenticado y con cuenta en estado “Vinculado”. <br> El usuario debe tener rol Ventas <br> Debe existir al menos una cuenta con rol Administrador en estado “Vinculado”. <br> Debe estar configurado al menos un medio de notificación: notificación interna o correo electrónico. |
-| Descripción | El usuario crea y guarda una nuevo pedido, finaliza el proceso de registro y continúa con sus operaciones. El sistema detecta la creación exitosa del pedido, genera la notificación dirigida a jefatura y la envía por los medios configurados. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | El nuevo pedido queda registrado en el sistema. <br> La notificación de creación de pedido queda emitida a la cuenta con rol Administrador. <br> El evento de creación del pedido queda registrado en el sistema. |
-| Dependencias | RF26: Búsqueda automática de campos de creación de pedido. <br> RF05: Acceso a funcionalidades según rol. |
+| Actores | Usuario de cualquier rol. |
+| Propósito | Dejar constancia formal, adjuntando la firma electrónica del usuario involucrado en el cambio de estado del subproceso del estado de producción. |
+| Precondiciones | El usuario debe estar registrado previamente en el sistema. <br> El usuario debe tener una firma electrónica válida y registrada en su perfil. <br> El pedido cuyo subproceso se va a actualizar debe estar vinculado a una ficha de cliente existente. |
+| Resumen | Al momento en que un usuario actualiza el estado de un subproceso dentro de la etapa de producción, el sistema ingresa automáticamente la firma electrónica de dicho usuario y la registra en la ficha del cliente asociado a ese pedido. |
+| Postcondiciones | El estado del subproceso se actualiza, la ficha del cliente almacena la firma electrónica del usuario que realizó la acción. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario confirma la acción de actualizar el estado de un subproceso. | 2. El sistema registra la firma electrónica del usuario que realizó el cambio de estado en la ficha del cliente. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.49:” CDU 49 Visualizando indicador de retraso en el tablero Kanban.”
+Tabla 3.50: “Registrando firma electrónica del usuario en producción”
 
 ### Table 54
 
-| Nombre | Visualizando indicador de retraso en el tablero Kanban RF 49. |
+| Caso de uso N° 50 | Registrando firma electrónica del usuario en producción. |
 | --- | --- |
-| Actores | Usuario con rol Producción, Administrador, Ventas o Cobranzas. |
-| Resumen | El sistema muestra un indicador visual de retraso sobre los pedidos que exceden el tiempo estimado de una etapa. |
-| Frecuencia | Alta. Ocurre cada vez que un pedido supera el tiempo estimado por el sistema. |
-| Precondiciones | El usuario debe estar previamente autenticado y con cuenta en estado “Vinculado”. <br> El usuario debe tener rol: Operario, Administrador, Ventas o Cobranzas. <br> Debe existir un tiempo estimado definido y un tiempo real calculado para el pedido en la etapa. |
-| Descripción | El usuario accede al tablero Kanban y espera la carga de los pedidos visibles a su vista.]. El sistema compara el tiempo real con el tiempo estimado, identifica los pedidos con retraso y muestra en cada tarjeta el indicador visual correspondiente [Excepción 1]. |
-| Excepciones | Excepción 1: No existen pedidos con retraso. El sistema muestra el tablero de forma normal |
-| Postcondiciones | Los pedidos que superan el tiempo estimado muestran un indicador visual de retraso. <br> El indicador queda visible en la tarjeta del pedido dentro del tablero. |
-| Dependencias | RF10: Acceder al tablero Kanban. <br> RF57: Calcular tiempo real transcurrido por etapa. <br> RF47: Visualizar tiempo real transcurrido del pedido en su etapa actual. <br> RF27: Extracción de información desde detalle de pedido. |
+| Actores | Usuario con rol: <br> -Operario. |
+| Propósito | Mantener un historial completo de los cambios de estado realizados en los subprocesos de producción de cada pedido. |
+| Precondiciones | El usuario se encuentra autenticado en el sistema. Existe un pedido dentro del flujo de producción. El pedido cuenta con subprocesos de producción asociados. |
+| Resumen | El usuario cambia el estado de un subproceso de producción y el sistema registra la fecha, hora y usuario responsable, conservando los registros anteriores. |
+| Postcondiciones | El historial del subproceso queda actualizado con un nuevo registro de cambio de estado. Los registros anteriores se conservan sin sobreescritura. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario accede al detalle de un pedido en producción. | 2. El sistema muestra los subprocesos asociados al pedido. |
+| 3. El usuario cambia el estado de un subproceso de producción. | 4. El sistema registra la fecha, hora y usuario responsable de la modificación. |
+| 5. El usuario consulta el historial del subproceso. | 6. El sistema muestra el historial completo de cambios registrados sin sobrescribir eventos previos. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.50:” CDU 50 Notificando disponibilidad para despacho.”
+Tabla 3.51: “Filtrando pedidos visibles”
 
 ### Table 55
 
-| Nombre | Notificando disponibilidad para despacho. |
+| Caso de uso N° 51 | Filtrando pedidos visibles. |
 | --- | --- |
-| Actores | Usuario con rol de Ventas |
-| Resumen | El sistema manda un correo al usuario con rol de ventas cada vez que un pedido llegue a la etapa “Listo para producción” |
-| Frecuencia | Media. Cada vez que un pedido esté listo para entregar. |
-| Precondiciones | El usuario debe tener cualquier rol. <br> El usuario debe estar previamente autenticado. <br> El usuario debe tener una cuenta con estado vinculado. <br> Debe existir un pedido registrado. |
-| Descripción | El usuario de producción actualiza el pedido hasta dejarlo en la etapa “Listo para entrega” [Excepción 1]. El sistema detecta el cambio de estado, recupera la información del pedido y del usuario con el Ventas asociado, genera el aviso de disponibilidad y envía automáticamente la notificación por correo a los vendedores. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | Se notifica con éxito a ventas el término de un pedido |
-| Dependencias | RF 59: Historial consolidado del pedido. <br> RF 09: Actualización automática de estado pedido. |
+| Actores | Usuarios de cualquier rol. |
+| Propósito | Facilitar la búsqueda de pedidos visibles mediante criterios definidos en el sistema. |
+| Precondiciones | El usuario se encuentra autenticado en el sistema. Existen pedidos registrados. El usuario tiene acceso a la vista donde se muestran los pedidos. |
+| Resumen | El usuario aplica un filtro de búsqueda por número de nota de venta, número de orden de producción, nombre del cliente o vendedor que emitió la nota de venta. |
+| Postcondiciones | La vista muestra los pedidos que coinciden con los criterios de búsqueda ingresados por el usuario. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario accede a la vista de pedidos. | 2. El sistema muestra los pedidos visibles para el usuario. |
+| 3. El usuario selecciona un criterio de búsqueda e ingresa el valor correspondiente. | 4. El sistema recibe el criterio y consulta los pedidos asociados. |
+| 5. El usuario aplica el filtro. | 6. El sistema actualiza la vista mostrando los pedidos que coinciden con la búsqueda. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.51:” CDU 51 Registrando observaciones de pedidos.”
+Tabla 3.52: “Asignando etiquetas visuales a pedidos”
 
 ### Table 56
 
-| Nombre | Registrando observaciones de pedidos RF51. |
+| Caso de uso N° 52 | Asignando etiquetas visuales a pedidos. |
 | --- | --- |
-| Actores | Usuarios de cualquier rol. |
-| Resumen | El usuario registra una observación asociada a un pedido. |
-| Frecuencia | Alta. Se ejecuta cada vez que un usuario necesita dejar una observación sobre un pedido. |
-| Precondiciones | El usuario debe tener cualquier rol. <br> El usuario debe estar previamente autenticado. <br> El usuario debe tener una cuenta con estado vinculado. |
-| Descripción | El usuario accede al detalle de un pedido, selecciona la opción para registrar una observación e ingresa al contenido correspondiente [Excepción 1]. El sistema valida que el pedido exista, que el usuario tenga acceso a la operación y que el contenido ingresado cumpla los requisitos para su registro. Si la validación es correcta, guarda la observación y la vincula al pedido seleccionado. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | La observación queda registrada y asociada al pedido correspondiente para su futura consulta. |
-| Dependencias | RF 11: Visualización del detalle del pedido. |
+| Actores | Usuario con rol: <br> -Administrador. <br> -Operario. |
+| Propósito | Categorizar pedidos mediante etiquetas visuales para facilitar su identificación en el flujo de trabajo. |
+| Precondiciones | El usuario se encuentra autenticado en el sistema. Existe un pedido registrado. Las etiquetas Urgencia y Atraso se encuentran disponibles para asignación. |
+| Resumen | El usuario selecciona un pedido y le asigna una etiqueta visual disponible para destacar su condición dentro del proceso. |
+| Postcondiciones | El pedido queda asociado a la etiqueta visual seleccionada y la etiqueta queda visible en la representación del pedido. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario accede a un pedido registrado en el sistema. | 2. El sistema muestra la información del pedido y las opciones de etiquetas visuales. |
+| 3. El usuario selecciona una etiqueta visual disponible. | 4. El sistema recibe la etiqueta seleccionada y la asocia al pedido. |
+| 5. El usuario confirma la asignación de la etiqueta. | 6. El sistema actualiza la representación del pedido con la etiqueta visual asignada. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.52:” CDU 52 Notificando urgencia del pedido.”
+Tabla 3.53: “Organizando pedidos mediante etiquetas en el tablero Kanban”
 
 ### Table 57
 
-| Nombre | Notificando urgencia del pedido. |
+| Caso de uso N° 53 | Organizando pedidos mediante etiquetas en el tablero Kanban. |
 | --- | --- |
-| Actores | Usuario de cualquier rol. |
-| Resumen | Cada vez que se ingrese un pedido clasificado como urgente se emite un anuncio para todos los usuarios. |
-| Frecuencia | Media. Ocurre cada vez que se registra un pedido clasificado con condición de urgencia. |
-| Precondiciones | El usuario debe tener cualquier rol. <br> El usuario debe estar previamente autenticado. <br> El usuario debe tener una cuenta con estado vinculado. |
-| Descripción | El usuario registra un pedido identificado como urgente dentro del flujo de ingreso. El sistema detecta la condición de urgencia, genera una notificación interna asociada al pedido y la pública en el panel de notificaciones para los usuarios con rol Ventas habilitados. [Excepción 1] |
-| Excepciones | [EMPTY] |
-| Postcondiciones | La notificación interna de urgencia queda generada y vinculada al pedido correspondiente para su visualización por usuarios con rol Ventas. |
-| Dependencias | RF 53: Panel de anuncios internos. |
+| Actores | Usuario con rol: <br> -Administrador. |
+| Propósito | Organizar los pedidos en el tablero Kanban mediante etiquetas visuales para apoyar el seguimiento del flujo productivo. |
+| Precondiciones | El usuario se encuentra autenticado con rol Administrador. Existen pedidos visibles en el tablero Kanban. Los pedidos cuentan con etiquetas visuales asociadas. |
+| Resumen | El Administrador accede al tablero Kanban y organiza los pedidos utilizando las etiquetas visuales disponibles. |
+| Postcondiciones | El tablero Kanban muestra los pedidos organizados según las etiquetas aplicadas. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El Administrador accede al tablero Kanban. | 2. El sistema muestra los pedidos disponibles en el tablero. |
+| 3. El Administrador selecciona una etiqueta visual como criterio de organización. | 4. El sistema identifica los pedidos asociados a la etiqueta seleccionada. |
+| 5. El Administrador aplica la organización en el tablero. | 6. El sistema actualiza la visualización de los pedidos según la etiqueta aplicada. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.53:” CDU 53 Visualizando panel de anuncios.”
+Tabla 3.54: “Modificando prioridad de atención de pedidos”
 
 ### Table 58
 
-| Nombre | Visualizando panel de anuncios |
+| Caso de uso N° 54 | Modificando prioridad de atención de pedidos. |
 | --- | --- |
-| Actores | -Usuario de cualquier rol. |
-| Resumen | El usuario puede acceder a una pestaña dedicada a los anuncios internos. |
-| Frecuencia | Media. Ocurre cada vez que el usuario quiera revisar los anuncios realizados. |
-| Precondiciones | El usuario debe tener cualquier rol. <br> El usuario debe estar previamente autenticado. <br> El usuario debe tener una cuenta con estado vinculado. |
-| Descripción | El usuario desde la interfaz principal accede a la pestaña “Panel de anuncios.” El sistema despliega la interfaz del panel. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | El usuario puede informarse de forma rápida sobre los anuncios del sistema. |
-| Dependencias | RF 53: Panel de anuncios internos. |
+| Actores | Usuario con rol: <br> -Administrador. |
+| Propósito | Ajustar la prioridad de atención de pedidos seleccionados dentro del flujo de producción. |
+| Precondiciones | El usuario se encuentra autenticado con rol Administrador. Existen pedidos dentro del flujo de producción. Uno o más pedidos se encuentran disponibles para selección. |
+| Resumen | El Administrador selecciona uno o más pedidos dentro del flujo de producción y modifica su prioridad de atención. |
+| Postcondiciones | Los pedidos seleccionados quedan actualizados con la prioridad de atención definida por el Administrador. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El Administrador accede al flujo de producción. | 2. El sistema muestra los pedidos disponibles dentro del flujo. |
+| 3. El Administrador selecciona uno o más pedidos. | 4. El sistema identifica los pedidos seleccionados para modificar su prioridad. |
+| 5. El Administrador cambia la prioridad de atención. | 6. El sistema actualiza la prioridad de los pedidos seleccionados. |
 
-Tabla 3.54:” CDU 54 Publicando en el panel de anuncios.”
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
+Tabla 3.55: “Calculando tiempo real transcurrido por etapas”
 
 ### Table 59
 
-| Nombre | Publicando en el panel de anuncios RF 54. |
+| Caso de uso N° 55 | Calculando tiempo real trascurrido por etapas. |
 | --- | --- |
-| Actores | Usuario con rol de Administrador. |
-| Resumen | El usuario accede al panel de anuncios, el sistema le permite publicar comunicados y novedades. |
-| Frecuencia | Media. Ocurre cada vez que el Administrador quiera publicar un nuevo comunicado o novedad. |
-| Precondiciones | El usuario debe tener rol de Administrador. <br> El usuario debe estar previamente autenticado. <br> El usuario debe tener una cuenta con estado vinculado. |
-| Descripción | El usuario desde el panel de anuncios y selecciona la opción para crear un nuevo comunicado, completa la información y presiona el botón de publicar [Excepción 1] . El sistema valida los campos obligatorios, una vez validados, los guarda y actualiza la vista del panel interno. |
-| Excepciones | -Excepción 1:El usuario escribe un comunicado o anuncio que excede el número de caracteres máximo. El sistema le dice al usuario por medio de un mensaje “Numero de caracteres excedido” |
-| Postcondiciones | El administrador es capaz de publicar anuncios y comunicados para todos los usuarios |
-| Dependencias | RF 53: Panel de anuncios internos. |
+| Actores | Usuario con rol: <br> -Cobranza. <br> -Producción. |
+| Propósito | Tener un registro claro del tiempo de producción de un pedido en cada etapa. |
+| Precondiciones | Un pedido generado. |
+| Resumen | El sistema calcula y registra automáticamente el tiempo real que demora el pedido en cada etapa. |
+| Postcondiciones | Un registro claro y detallado de los tiempos de trabajo de cada una de las etapas. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario con rol de cobranza o producción recibe el pedido. | 2. El sistema registra el ingreso del pedido a la etapa. |
+| 3. El usuario trabaja en el pedido dentro de su etapa, termina y lo pasa a la siguiente etapa. | 4. El sistema registra la salida del pedido de la etapa. |
+| [EMPTY] | 6.El sistema guarda el tiempo que paso el pedido en la etapa. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.55:” CDU 55 Registrando el ingreso de pedidos bajo sobrecarga operativa.”
+Tabla 3.56: “Calculando diferencia entre tiempo estimado y tiempo real por etapa”
 
 ### Table 60
 
-| Nombre | Registrando el ingreso de pedidos bajo sobrecarga operativa. |
+| Caso de uso N°56 | Calculando diferencia entre tiempo estimado y tiempo real por etapa. |
 | --- | --- |
-| Actores | Usuario con rol de ventas. |
-| Resumen | El sistema genera un registro en el historial cuando un usuario de venta ingresa un pedido bajo sobrecarga operativa. |
-| Frecuencia | Media. Cada vez que el usuario ingresa un pedido bajo una condición de sobrecarga operativa. |
-| Precondiciones | El usuario debe tener rol de ventas. <br> El usuario debe estar previamente autenticado. <br> El usuario debe tener una cuenta con estado vinculado. |
-| Descripción | El usuario con rol Ventas ingresa un pedido en el sistema. El sistema detecta que el pedido se está agendando en una fecha que presenta niveles altos de carga productiva y muestra una advertencia al usuario. El usuario confirma el ingreso del pedido, y el sistema registra la operación como un pedido ingresado bajo condición de sobrecarga operativa. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | Se genera un registro de los pedidos ingresados en días con niveles altos de carga productiva. |
-| Dependencias | [EMPTY] |
+| Actores | Usuario con rol: <br> -Administrador. <br> -Producción. |
+| Propósito | Permitir que el sistema calcule automáticamente la diferencia entre el tiempo estimado predefinido de una etapa y el tiempo real transcurrido del pedido en dicha etapa, dejando el resultado visible para usuarios autorizados. |
+| Precondiciones | El usuario debe estar autenticado y autorizado. Debe existir un pedido con registro de ingreso y salida de una etapa. Debe existir un tiempo estimado predefinido para la etapa. Debe existir un tiempo real calculado para la etapa. |
+| Resumen | Al finalizar una etapa productiva o consultar el detalle del pedido, el sistema compara el tiempo real transcurrido con el tiempo estimado definido para la etapa. Luego calcula la diferencia y la deja visible para el usuario autorizado. |
+| Postcondiciones | La diferencia entre tiempo estimado y tiempo real queda calculada, registrada y visible para el usuario autorizado. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario autorizado accede al detalle de un pedido o actualiza el estado de una etapa. | 2. El sistema identifica la etapa productiva asociada al pedido. |
+| 3. El usuario espera la información de desempeño de la etapa. | 4. El sistema obtiene el tiempo estimado predefinido para la etapa. |
+| 5. El usuario espera la respuesta del sistema. | 6. El sistema obtiene el tiempo real transcurrido del pedido en dicha etapa. |
+| 7. El usuario consulta el resultado. | 8. El sistema calcula la diferencia entre el tiempo estimado y el tiempo real. |
+| 9. El usuario revisa el detalle del pedido. | 10. El sistema muestra la diferencia calculada en la interfaz del pedido o tablero correspondiente. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.56:” CDU 56 Almacenando historial de trazabilidad de producción.”
+Tabla 3.57: “Visualizando indicador visual de retraso en el tablero Kanban”
 
 ### Table 61
 
-| Nombre | Almacenando historial de trazabilidad de producción RF 56. |
+| Caso de uso N°57 | Visualizando indicador visual de retraso en el tablero Kanban. |
 | --- | --- |
-| Actores | Usuario con rol de Producción |
-| Resumen | El usuario cambia el estado de un subproceso y el sistema registra el cambio en el historial. |
-| Frecuencia | Media. Ocurre cada vez que el usuario registre un cambio de estado dentro los subprocesos de un pedido. |
-| Precondiciones | El usuario debe tener rol de Producción. <br> El usuario debe estar previamente autenticado. <br> El usuario debe tener una cuenta con estado vinculado. <br> Debe existir un cambio de estado en un subproceso. |
-| Descripción | El usuario ingresa a la interfaz del detalle de un pedido, realiza un cambio dentro de los subprocesos de un pedido y confirma los cambios hechos. [Excepción 1]. El sistema valida el cambio, registra la fecha en formato DD-MM-YYYY, la hora en formato HH-MM-SS y el usuario responsable del cambio de estado. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | El historial de trazabilidad queda visualizado correctamente. <br> El usuario puede revisar los eventos cronológicos asociados a la orden. |
-| Dependencias | RF57: Calculando y registrando tiempo real por etapa |
+| Actores | Usuario con rol: <br> -Ventas. <br> -Administración. |
+| Propósito | Permitir que el sistema muestre un indicador visual de retraso en la esquina superior de la tarjeta que representa el pedido dentro del tablero Kanban. |
+| Precondiciones | El usuario debe estar autenticado y autorizado para visualizar el tablero Kanban. Debe existir al menos un pedido visible en el tablero. Debe existir una diferencia calculada entre tiempo estimado y tiempo real. Deben estar definidos los indicadores visuales de retraso en el anexo correspondiente. |
+| Resumen | El usuario accede al tablero Kanban. El sistema evalúa el nivel de retraso de cada pedido según la diferencia entre tiempo estimado y tiempo real. Cuando corresponde, muestra un indicador visual en la esquina superior de la tarjeta del pedido. |
+| Postcondiciones | Los pedidos con retraso muestran un indicador visual en el tablero Kanban. El usuario puede identificar visualmente el nivel de retraso del pedido. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario autorizado accede al tablero Kanban. | 2. El sistema carga los pedidos visibles según los permisos del usuario. |
+| 3. El usuario espera la visualización del tablero. | 4. El sistema consulta la diferencia entre tiempo estimado y tiempo real de cada pedido. |
+| 5. El usuario observa las tarjetas del tablero. | 6. El sistema determina el nivel de retraso correspondiente para cada pedido. |
+| 7. El usuario revisa el estado visual de los pedidos. | 8. El sistema muestra el indicador visual de retraso en la esquina superior de la tarjeta del pedido. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.57:” CDU 57 Calculando y registrando tiempo real por etapa.”
+Tabla 3.58: “Notificando creación de nuevo pedido a jefatura”
 
 ### Table 62
 
-| Nombre | Calculando y registrando tiempo real por etapa. |
+| Caso de uso N°58 | Notificando creación de nuevo pedido a jefatura. |
 | --- | --- |
-| Actores | Usuario con rol de Producción <br> Usuario con rol de Administrador. |
-| Resumen | El sistema calcula y guarda el tiempo real transcurrido por etapa cuando un pedido cambia de estado. |
-| Frecuencia | Alta. Ocurre cada vez que se realiza un cambio de estado dentro de un pedido. |
-| Precondiciones | El usuario debe tener rol de Administrador. <br> El usuario debe tener rol de Producción. <br> El usuario debe estar previamente autenticado. <br> El usuario debe tener una cuenta con estado vinculado. <br> Debe realizarse un cambio de estado sobre un pedido. |
-| Descripción | El usuario cambia el estado de un pedido dentro del flujo productivo. [Excepción 1] [Excepción 2] El sistema valida el cambio, identifica la etapa anterior, obtiene la fecha y hora de ingreso a dicha etapa, calcula el tiempo transcurrido y almacena el valor calculado. |
-| Excepciones | Excepción 1: El pedido es cancelado antes de llegar a la última etapa. El sistema registra la fecha y hora de la cancelación. <br> Excepción 2: El cambio de estado no es válido según las reglas del sistema. |
-| Postcondiciones | - El tiempo real transcurrido por etapa queda calculado y almacenado. <br> - El pedido queda asociado al tiempo real registrado de la etapa finalizada. |
-| Dependencias | RF63: Calculando tiempos de producción total |
+| Actores | Usuario con rol: <br> -Ventas. <br> -Administrador. |
+| Propósito | Permitir que el sistema emita una notificación automática al usuario con rol Administrador inmediatamente después de que se cree y guarde un nuevo pedido. |
+| Precondiciones | El usuario con rol Ventas debe estar autenticado. Debe crearse y guardarse correctamente un nuevo pedido. Debe existir al menos una cuenta con rol Administrador habilitada para recibir notificaciones. |
+| Resumen | Cuando el usuario crea y guarda un nuevo pedido, el sistema identifica el evento de creación, genera una notificación automática y la envía al usuario con rol Administrador, ya sea dentro de la aplicación o mediante correo electrónico. |
+| Postcondiciones | La notificación queda generada y enviada al usuario con rol Administrador. El nuevo pedido queda disponible para revisión de jefatura. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario con rol Ventas registra los datos de un nuevo pedido. | 2. El sistema valida los datos requeridos para crear el pedido. |
+| 3. El usuario confirma el guardado del pedido. | 4. El sistema crea y guarda el nuevo pedido en la base de datos. |
+| 5. El usuario finaliza el registro del pedido. | 6. El sistema detecta la creación exitosa del nuevo pedido. |
+| 7. El usuario continúa operando en el sistema. | 8. El sistema genera una notificación automática dirigida a usuarios con rol Administrador. |
+| 9. El usuario con rol Administrador consulta sus notificaciones. | 10. El sistema muestra o envía la notificación de nuevo pedido creado. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.58:” CDU 58 Visualizando trazabilidad específica de un pedido.”
+Tabla 3.59: “Visualizando el historial de trazabilidad de producción”
 
 ### Table 63
 
-| Nombre | Visualizando trazabilidad específica de un pedido. |
+| Caso de uso N°59 | Visualizando el historial de trazabilidad de producción. |
 | --- | --- |
-| Actores | Usuario con cualquier rol. |
-| Resumen | El usuario es capaz de desplegar una vista para el historial de eventos realizados en un pedido específico. |
-| Frecuencia | Media. Ocurre cada vez que el usuario desea revisar la trazabilidad de un pedido. |
-| Precondiciones | El usuario debe tener cualquier rol. <br> El usuario debe estar previamente autenticado. <br> El usuario debe tener una cuenta con estado vinculado. <br> Se ha establecido un rango de fechas. <br> Se tiene uno o más pedidos generados. |
-| Descripción | El usuario selecciona un pedido específico dentro del sistema y hace clic en la opción para ver su historial de trazabilidad. [Excepción 1]. El sistema recibe la solicitud, consulta y valida todos los eventos y cambios de estado asociados a dicho pedido, desplegando el historial en orden cronológico y el usuario quien realizó el cambio. |
-| Excepciones | Excepción 1: No existen registros para el pedido seleccionado, al desplegar el historial el sistema mostrará la columna de información vacía con el mensaje: “No se registran cambios en el pedido” |
-| Postcondiciones | - El usuario es capaz de visualizar el historial de trazabilidad de un pedido, con sus eventos ordenados de manera cronológica. |
-| Dependencias | RF56: Trazabilidad de estados de producción. |
+| Actores | Usuario con rol: <br> -Operario. |
+| Propósito | Sistema debe mostrar a los usuarios una vista de historial de proceso de cada pedido, de forma cronológica. |
+| Precondiciones | El usuario debe estar autorizado con el rol de Operario. <br> El sistema debe contener información en base a la trazabilidad de cada pedido. |
+| Resumen | El usuario ingresa al módulo de Historial de trazabilidad para visualizar el avance cronológico de un pedido registrado en el sistema. |
+| Postcondiciones | El Usuario puede ver el historial correctamente. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario ingresa el módulo de historial de trazabilidad. <br> 3. El usuario selecciona el historial de avance de un pedido. | 2. El sistema cargar y mostrar el módulo de trazabilidad. <br> 4. El sistema le entrega información acerca de un avance de un pedido. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.59:” CDU 59 Visualizando historial consolidado del pedido.”
+Tabla 3.60: “Visualizando historial consolidado del pedido”
 
 ### Table 64
 
-| Nombre | Visualizando historial consolidado del pedido. |
+| Caso de uso N°60 | Visualizando historial consolidado del pedido. |
 | --- | --- |
-| Actores | Usuario con rol de Administración |
-| Resumen | El administrador visualiza un historial consolidado de eventos asociados al detalle de un pedido. |
-| Frecuencia | Media. Ocurre cada vez que el administrador quiere revisar la trazabilidad de los subprocesos. |
-| Precondiciones | El usuario debe tener rol Administrador <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. <br> Se tiene uno o más pedidos generados. |
-| Descripción | El usuario accede al detalle de un pedido y selecciona la opción de ver historial de trazabilidad. [Excepción 1]. El sistema valida que la orden exista y tenga trazabilidad registrada, consulta los eventos asociados y muestra el historial cronológico con identificador, estado, fecha, hora y usuario responsable. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | La información consolidada del historial queda visualizada. <br> El administrador dispone de una vista resumida y cronológica del recorrido del pedido. |
-| Dependencias | RF60: Registrando trazabilidad de comentarios, observaciones y alertas |
+| Actores | Usuario con rol: <br> -Administración. <br> -Gerencia. |
+| Propósito | Permitir que el usuario visualice en el detalle de un pedido el historial cronológico de eventos asociados, utilizando los registros almacenados en la trazabilidad del sistema. |
+| Precondiciones | El usuario debe estar autenticado y autorizado. Debe existir un pedido registrado en el sistema. El pedido debe contar con eventos registrados en la trazabilidad. |
+| Resumen | El usuario accede al detalle de un pedido y solicita visualizar su historial consolidado. El sistema recupera los eventos registrados en la trazabilidad y los muestra en orden cronológico, desde el más reciente al más antiguo. |
+| Postcondiciones | El usuario visualiza el historial consolidado del pedido en su detalle. Los eventos se presentan en secuencia temporal del más reciente al más antiguo. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario autorizado accede al tablero, listado o módulo donde se encuentra el pedido. | 2. El sistema muestra los pedidos disponibles según los permisos del usuario. |
+| 3. El usuario selecciona un pedido específico. | 4. El sistema carga el detalle del pedido seleccionado. |
+| 5. El usuario selecciona la opción de visualizar historial consolidado. | 6. El sistema consulta los eventos registrados en la trazabilidad del pedido. |
+| 7. El usuario espera la carga del historial. | 8. El sistema ordena los eventos desde el más reciente al más antiguo. |
+| 9. El usuario revisa los eventos asociados al pedido. | 10. El sistema muestra el historial cronológico consolidado en el detalle del pedido. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.60:” CDU 60 Registrando trazabilidad de comentarios, observaciones y alertas.”
+Tabla 3.61: “Notificando disponibilidad para despacho”
 
 ### Table 65
 
-| Nombre | Registrando trazabilidad de comentarios, observaciones y alertas RF 60. |
+| Caso de uso N° 61 | Notificando disponibilidad para despacho. |
 | --- | --- |
-| Actores | Usuarios de cualquier rol. |
-| Resumen | El sistema registra los comentarios, observaciones y alertas emitidas por los usuarios del sistema. |
-| Frecuencia | Alta. Ocurre cada vez que se registra una observación, comentario o alerta dentro de un pedido. |
-| Precondiciones | El usuario debe tener cualquier rol. <br> El usuario debe estar previamente autenticado. <br> El usuario debe tener una cuenta con estado vinculado. <br> Se ha establecido un rango de fechas. |
-| Descripción | El usuario registra una observación, comentario o alerta sobre un pedido, o bien se genera un evento asociado dentro del flujo. El sistema identifica el evento producido, obtiene la fecha, la hora y el autor correspondiente, y registra automáticamente esos datos en la trazabilidad del pedido. [Excepción 1]. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | La observación, comentario o alerta queda registrada con su fecha, hora y autor dentro de la trazabilidad del pedido. |
-| Dependencias | RF 51: Realizar observaciones de pedidos. <br> RF 58: Historial de trazabilidad de producción. |
+| Actores | Usuario con rol: <br> -Ventas. |
+| Propósito | Informar por correo electrónico al usuario de Ventas asignado cuando el pedido cambia al estado Listo para entrega. |
+| Precondiciones | Existe un pedido registrado. El pedido tiene un usuario con rol Ventas asignado. El usuario de Ventas tiene una dirección de correo registrada. El pedido cambia al estado Listo para entrega. |
+| Resumen | Cuando el pedido cambia al estado Listo para entrega, el sistema identifica al usuario de Ventas asignado y envía una notificación por correo electrónico. |
+| Postcondiciones | La notificación por correo electrónico queda enviada a la dirección registrada del usuario de Ventas asignado al pedido. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El pedido cambia al estado Listo para entrega. | 2. El sistema detecta el cambio de estado del pedido. |
+| 3. El usuario con rol Ventas asignado mantiene una dirección de correo registrada. | 4. El sistema identifica la dirección de correo asociada al usuario de Ventas. |
+| 5. El usuario con rol Ventas consulta su correo electrónico. | 6. El sistema envía la notificación de disponibilidad para despacho. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.61:” CDU 61 Generando reporte de rendimiento de producción.”
+Tabla 3.62: “Registrando comentarios, observaciones asociadas a un pedido”
 
 ### Table 66
 
-| Nombre | Generando reporte de rendimiento de producción |
+| Caso de uso N° 62 | Registrando comentarios, observaciones asociados a un pedido. |
 | --- | --- |
-| Actores | Usuario con rol de Gerencia |
-| Resumen | El sistema debe generar al gerente un reporte de rendimiento del área de producción. |
-| Frecuencia | Media. Cada vez que el Gerente tenga la necesidad de actualizarse acerca del rendimiento de producción |
-| Precondiciones | El usuario debe tener rol Gerencia. <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. <br> Se ha establecido un rango de fechas. |
-| Descripción | El usuario con rol de gerencia presiona el botón “Generar reporte” en el apartado de “Rendimiento de producción”. [Excepción 1]El sistema detecta la acción y genera el reporte solicitado. |
-| Excepciones | Excepción 1: El rango de fecha ingresado no es válido. El sistema le avisa al usuario por medio de un mensaje de “fecha invalida” |
-| Postcondiciones | El Gerente puede informarse de forma rápida del rendimiento del departamento de producción. |
-| Dependencias | RF65: Filtrando por rango de fechas para generar los reportes. |
+| Actores | Usuario de cualquier rol. |
+| Propósito | Permitir que los usuarios del sistema registren comentarios, observaciones o alertas asociados a un pedido. |
+| Precondiciones | El usuario se encuentra autenticado en el sistema. Existe un pedido registrado. El usuario accede al pedido sobre el que registrará información. |
+| Resumen | El usuario ingresa un comentario, observación o alerta y el sistema guarda el registro asociado al pedido correspondiente. |
+| Postcondiciones | El comentario, observación o alerta queda registrado y asociado al pedido. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario accede a un pedido registrado. | 2. El sistema muestra la información del pedido seleccionado. |
+| 3. El usuario ingresa un comentario, observación o alerta. | 4. El sistema recibe la información ingresada por el usuario. |
+| 5. El usuario confirma el registro. | 6. El sistema guarda el registro y lo asocia al pedido. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.62:” CDU 62 Exportando reporte de cumplimiento.”
+Tabla 3.63: “Registrando trazabilidad de comentarios observaciones y alertas”
 
 ### Table 67
 
-| Nombre | Exportando reporte de cumplimiento |
+| Caso de uso N°63 | Registrando trazabilidad de comentarios, observaciones y alertas. |
 | --- | --- |
-| Actores | Usuario con rol de Gerencia <br> Usuario con rol de Administrador |
-| Resumen | El sistema le permite al Gerente exportar los reportes en distintos formatos. |
-| Frecuencia | Alta. Cada vez que el Gerente o el Administrador necesite exportar uno de los reportes generados por el sistema |
-| Precondiciones | El usuario debe tener rol Gerencia <br> El usuario debe tener rol Administrador. <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. |
-| Descripción | El Gerente o Administrador necesita exportar la información de un reporte, se dirige al botón “Exportar” del reporte objetivo. El sistema detecta la acción y valida las credenciales del usuario, luego le muestra al usuario las distintas opciones de exportación. El usuario escoge una haciendo click en ella. El sistema registra la acción y exporta el reporte en el formato previamente elegido. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | El Gerente y Administrador es capaz de exportar el reporte en el formato escogido. |
+| Actores | Usuario con rol: <br> -Administrador. <br> -Producción. <br> -Gerencia. |
+| Propósito | Permitir que el sistema registre automáticamente fecha, hora y autor para cada comentario, observación o alerta asociada a un pedido. |
+| Precondiciones | El usuario debe estar autenticado. Debe existir un pedido registrado en el sistema. El usuario debe registrar un comentario, observación o alerta asociado al pedido. |
+| Resumen | Cuando un usuario registra un comentario, observación o alerta en un pedido, el sistema almacena el contenido junto con la fecha en formato DD-MM-YYYY, la hora en formato HH:MM:SS y el autor del registro. |
+| Postcondiciones | El comentario, observación o alerta queda registrado con trazabilidad completa, incluyendo fecha, hora y autor. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario accede al detalle de un pedido. | 2. El sistema muestra la información del pedido seleccionado. |
+| 3. El usuario ingresa un comentario, observación o alerta. | 4. El sistema recibe el contenido ingresado por el usuario. |
+| 5. El usuario confirma el registro. | 6. El sistema identifica al usuario autenticado como autor del registro. |
+| 7. El usuario espera la confirmación. | 8. El sistema obtiene la fecha en formato DD-MM-YYYY y la hora en formato HH:MM:SS. |
+| 9. El usuario revisa el registro creado. | 10. El sistema almacena el comentario, observación o alerta con fecha, hora y autor. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.63:” CDU 63 Calculando tiempos de producción total”
+Tabla 3.64: “Removiendo etiquetas visuales de pedidos”
 
 ### Table 68
 
-| Nombre | Calculando tiempos de producción total |
+| Caso de uso N° 64 | Removiendo etiquetas visuales de pedidos. |
 | --- | --- |
-| Actores | Usuario con rol de Ventas <br> Usuario con rol de Producción |
-| Resumen | El sistema calcula el tiempo que un pedido demora en ser terminado por completo. |
-| Frecuencia | Alta. Cada vez que un pedido entre en la etapa de “Listo para la entrega” |
-| Precondiciones | El usuario debe tener rol Ventas. <br> El usuario debe tener el rol de producción <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. <br> Se ha establecido un rango de fechas. |
-| Descripción | El vendedor registra un pedido. El sistema detecta la acción y registra la fecha y hora de la creación. [Excepción 1] El Operador de producción pasa dicho pedido a la última etapa del tablero “listo para entrega”. El sistema detecta la acción y registra la fecha y hora de término del pedido. Con esos datos, calcula el tiempo total transcurrido de ese pedido. |
-| Excepciones | Excepción 1: El pedido es cancelado antes de llegar a la etapa “listo para producción”. El sistema borra la métrica inicial y no calcula nada. |
-| Postcondiciones | El sistema tiene una métrica clara sobre la vida de los pedidos dentro del flujo del sistema. |
-| Dependencias | RF 65: Filtro por rango de fechas en todas las vistas de reportes. |
+| Actores | Usuario con rol: <br> -Administrador. <br> -Producción. |
+| Propósito | Retirar etiquetas visuales asociadas a pedidos cuando ya no correspondan a su categorización actual. |
+| Precondiciones | El usuario se encuentra autenticado con rol Administrador u Operario. Existe un pedido registrado. El pedido tiene al menos una etiqueta visual asignada. |
+| Resumen | El usuario accede a un pedido con etiqueta visual asignada y remueve la etiqueta seleccionada. |
+| Postcondiciones | La etiqueta visual queda removida del pedido y la representación del pedido se actualiza. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario accede a un pedido con etiqueta visual asignada. | 2. El sistema muestra la información del pedido y sus etiquetas visuales. |
+| 3. El usuario selecciona la etiqueta que desea remover. | 4. El sistema identifica la etiqueta seleccionada para remoción. |
+| 5. El usuario confirma la remoción de la etiqueta. | 6. El sistema remueve la etiqueta visual del pedido y actualiza su visualización. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.64:” CDU 64 Visualizando mapa de carga de producción por día de la semana”
+Tabla 3.65: “Visualizando indicador de pedido urgente”
 
 ### Table 69
 
-| Nombre | Visualizando mapa de carga de producción por día de la semana. |
+| Caso de uso N°65 | Visualizando indicador de pedido urgente. |
 | --- | --- |
-| Actores | Usuario con rol de Gerencia. |
-| Resumen | El sistema le muestra al Gerente un mapa de nivel de carga productiva por día. |
-| Frecuencia | Media. Se ejecuta cuando el usuario necesita revisar la distribución semanal de la carga productiva. |
-| Precondiciones | El usuario debe tener rol Gerencia <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. <br> Se ha establecido un rango de fechas. |
-| Descripción | El usuario accede al módulo de analítica, despliega un calendario, selecciona un rango de fechas y solicita la visualización del mapa de carga de producción. [Excepción 1]. El sistema valida el periodo ingresado, consulta los registros de producción del rango seleccionado y muestra el porcentaje de capacidad utilizada en cada día de la semana. |
-| Excepciones | Excepción 1: No existen registros de producción dentro del rango consultado, el sistema informa que no hay datos para generar el mapa. |
-| Postcondiciones | El gerente puede informarse de la carga productiva de forma rápida. |
-| Dependencias | RF 65: Filtro por rango de fechas en todas las vistas de reportes. |
+| Actores | Usuario con rol: <br> -Administrador <br> -Producción. |
+| Propósito | Notificar de forma rápida y eficiente a todos los usuarios con rol de Operario el ingreso de un pedido con la etiqueta de urgente. |
+| Precondiciones | Un pedido con la etiqueta de urgente. <br> Usuarios del área de Producción. <br> Usuario con rol de Administración. |
+| Resumen | Una vez que el usuario con rol de Administrador ingrese un pedido con la etiqueta de “urgente” el sistema genera una notificación automática para todos los usuarios con rol de Operario |
+| Postcondiciones | Una notificación clara del pedido calificado como urgente. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario con rol de Administrador ingresa un pedido con la etiqueta de urgente. | 2. El sistema detecta la etiqueta en el pedido y genera una notificación automática. |
+| 3. Todos los usuarios con rol de Operario ven en tiempo real la notificación emitida por el sistema. | 4. El sistema ingresa el pedido con etiqueta de urgente a la primera etapa de los subprocesos. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.65:” CDU 65 Filtrando los reportes por rango de fecha”
+Tabla 3.66: “Ingresando al panel de anuncios”
 
 ### Table 70
 
-| Nombre | Filtrando los reportes por rango de fecha |
+| Caso de uso N°66 | Ingresando al panel de Anuncios. |
 | --- | --- |
-| Actores | Usuarios con rol de Gerencia <br> Usuarios con rol de Administrador |
-| Resumen | El sistema habilita un formulario de selección de fecha en cada sección de reporte, que filtre las métricas de dicho reporte bajo el rango de fecha establecido |
-| Frecuencia | Medio. Cada vez que el Gerente o el Administrador busquen generar un reporte. |
-| Precondiciones | El usuario debe tener rol Gerencia <br> El usuario debe tener rol Administrador. <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. |
-| Descripción | El usuario necesita generar un reporte preciso, de una fecha en específico, ingresa el rango de fechas en el formulario previo de cada uno de los reportes.[Excepción 1] El sistema detecta la acción y trabaja con las métricas que están dentro del rango de fecha establecido. |
-| Excepciones | Excepción 1: El rango de fecha ingresado no es válido. El sistema le avisa al usuario por medio de un mensaje de “fecha invalida” |
-| Postcondiciones | El Gerente o Administrador puede generar reportes con métricas precisas bajo un rango de fecha escogido por él. |
-| Dependencias | [EMPTY] |
+| Actores | Usuario de cualquier rol. |
+| Propósito | Observar el panel. |
+| Precondiciones | El usuario debe estar previamente autenticado y su estado debe ser “Vinculado”. |
+| Resumen | El usuario de cualquier rol ingresa al panel de anuncios con el fin de observar los últimos anuncios entregados por el Administrador. |
+| Postcondiciones | El usuario ingresa correctamente al panel de Anuncios. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario selecciona el panel de anuncios. <br> 3. El usuario observa el panel de anuncios. | 2. El sistema despliega el módulo de anuncios. <br> 4. El sistema muestra los anuncios internos disponibles. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.66:” CDU 66 Generando reporte de órdenes agrupadas por estado”
+Tabla 3.67: “Publicando anuncios internos”
 
 ### Table 71
 
-| Nombre | Ranqueando los productos más solicitados RF66 |
+| Caso de uso N°67 | Publicando anuncios internos. |
 | --- | --- |
-| Actores | Usuarios con rol de Gerencia <br> Usuarios con rol de Administrador |
-| Resumen | El sistema genera un ranking de los productos más vendidos por la empresa. |
-| Frecuencia | Medio. Cada vez que se necesite la información sobre los productos más vendidos |
-| Precondiciones | El usuario debe tener rol Gerencia <br> El usuario debe tener rol Administrador. <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. <br> Se ha establecido un rango de fechas. |
-| Descripción | Los usuarios con rol de Gerencia y Administrador necesitan saber cuales son los productos mas vendidos. Se dirigen a la sección de ranking y presiona el botón “Generar ranking”. El sistema detecta la acción y genera el ranking de los productos más vendidos. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | El Gerente y Administrador pueden informarse en tiempo real del producto más vendido de la empresa. |
-| Dependencias | [EMPTY] |
+| Actores | Usuario con rol: <br> -Administrador. |
+| Propósito | Permitir al usuario con rol Administrador publicar anuncios por medio de un formulario. |
+| Precondiciones | Usuario con rol de Administrador. <br> Formulario para emitir anuncios dentro del panel del Administrador. |
+| Resumen | El sistema proporciona al administrador un formulario dentro del panel de Administrador para redactar y publicar anuncios internos, generales o asociados a un pedido. |
+| Postcondiciones | Un anuncio claro guardado en el panel de anuncios del sistema. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario con rol Administrador accede al formulario para generar anuncios. | 2. El sistema despliega el formulario con sus campos rellenables. |
+| 3. El usuario con rol de Administrador rellena los campos y presiona el botón “publicar”. | 4. El sistema detecta la acción y publica el anuncio previamente redactado. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.67:” CDU 67 Generando reporte de órdenes agrupadas por estado”
+Tabla 3.68: “Generando reporte de cumplimiento de entrega”
 
 ### Table 72
 
-| Nombre | Generando reporte de órdenes agrupadas por estado |
+| Caso de uso N°68 | Generando reporte de cumplimiento de entrega. |
 | --- | --- |
-| Actores | Usuarios con rol de Gerencia <br> Usuarios con rol de Administrador |
-| Resumen | El sistema genera un reporte que muestra la cantidad de pedidos que hay hasta ese entonces en cada una de las etapas del Kanban |
-| Frecuencia | Media. Cada vez que se necesite información sobre las etapas. |
-| Precondiciones | El usuario debe tener rol Gerencia <br> El usuario debe tener rol Administrador. <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. <br> Se ha establecido un rango de fechas. |
-| Descripción | Los usuarios con rol de Gerencia y Administrador necesitan saber el volumen de pedidos en cada una de las etapas del kanban. Presionan el botón de “Generar reporte” en la sección de “vista general”. El sistema detecta la acción y genera el reporte solicitado |
-| Excepciones | [EMPTY] |
-| Postcondiciones | Los usuarios con rol de Gerencia y Administrador son capaces de informarse sobre el flujo del sistema. |
-| Dependencias | RF 65: Filtro por rango de fechas en todas las vistas de reportes. |
+| Actores | Usuario con rol: <br> -Gerencia. |
+| Propósito | Permitir al usuario con rol Gerencia generar un reporte de los que fueron entregados a tiempo en un rango de fechas dentro del periodo solicitado. |
+| Precondiciones | El usuario debe estar autenticado en el sistema. <br> El usuario debe poseer rol válido de Gerencia. <br> El usuario se encuentra en la vista “Reportes de pedidos”. <br> El sistema debe contener información de los reportes dentro de un periodo solicitado. |
+| Resumen | El usuario con rol Gerencia accede a la vista de “Reportes de pedidos”. para generar reportes de pedidos entregados a tiempo. |
+| Postcondiciones | El sistema entregará con éxito el reporte de pedidos entregados a tiempo y fuera de plazo, incluyendo gráficos de barras y comparación porcentual. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario con rol Gerencia accede al módulo de reportes. | 2. El sistema carga y muestra el módulo de reportes de pedidos. |
+| 3. El usuario selecciona la opción de generar reporte de cumplimiento de pedidos entregados. | 4. El sistema solicita el ingreso del rango de fechas en formato DD-MM-YYYY. |
+| 5. El usuario ingresa la fecha de inicio y la fecha de término del periodo solicitado. | 6. El sistema valida el formato y la coherencia del rango de fechas ingresado. |
+| 7. El usuario confirma la generación del reporte. | 8. El sistema procesa la información de los pedidos entregados a tiempo y fuera de plazo. |
+| 9. El usuario permanece visualizando la carga de la generación del reporte. | 10. El sistema genera el reporte de los pedidos entregados a tiempo y fuera de plazo correctamente, mostrando gráficos de barra y comparación porcentual. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
-Tabla 3.68:” CDU 68 Visualizando indicador de cumplimiento por vendedor”
+Tabla 3.69: “Exportando reporte de pedidos entregados a tiempo y fiera de plazo en formato Excel”
 
 ### Table 73
 
-| Nombre | Visualizando indicador de cumplimiento por vendedor |
+| Caso de uso N°69 | Exportando reporte de pedidos entregados a tiempo y fuera de plazo en formato Excel. |
 | --- | --- |
-| Actores | Usuario con rol de Gerencia <br> Usuario con rol de Administrador |
-| Resumen | El sistema debe generar al Gerente y al administrador una lista de cumplimiento por vendedor |
-| Frecuencia | Media. Cada vez que se necesite revisar el desempeño del departamento de ventas dentro del sistema. |
-| Precondiciones | El usuario debe tener rol Gerencia <br> El usuario debe tener rol Administrador. <br> El usuario debe estar previamente autenticado <br> El usuario debe tener una cuenta con estado vinculado. <br> Se ha establecido un rango de fechas. |
-| Descripción | El Gerente y el Administrador necesitan evaluar el desempeño del departamento de ventas. Presionan el botón “Generar Lista” en la sección de “Cumplimiento por vendedor”. El sistema detecta la acción y genera la lista de cumplimiento. |
-| Excepciones | [EMPTY] |
-| Postcondiciones | Gerente y Administrador van a poder tener metricas claras de los usuarios de ventas. |
-| Dependencias | RF 65: Filtro por rango de fechas en todas las vistas de reportes. |
+| Actores | Usuario con rol: <br> -Gerencia. |
+| Propósito | Permitir al usuario con rol Gerencia exportar un reporte de pedidos entregados a tiempo y fuera de plazo en formato Excel. |
+| Precondiciones | El usuario debe estar autenticado en el sistema. <br> El usuario debe poseer rol válido de Gerencia. <br> El usuario se encuentra en la vista “Reportes de pedidos”. <br> El sistema debe contener información de los reportes dentro de un periodo solicitado. <br> El sistema debió haber generado un reporte antes de exportar el archivo con los datos. |
+| Resumen | El sistema exporta información de pedidos entregados a tiempo y fuera de plazo que había sido generado. |
+| Postcondiciones | El sistema entrega con éxito el reporte de pedidos entregados a tiempo y fuera de plazo en un formato Excel. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario con rol Gerencia permanece en el módulo de reportes de pedidos después de obtenido el reporte de entrega. | 2. El sistema muestra la opción de exportación en Excel. |
+| 3. El usuario selecciona la opción de exportación. | 4. El sistema valida la solicitud y prepara la información correspondiente. |
+| 5. El usuario confirma la exportación del reporte. | 6. El sistema genera el archivo Excel con los pedidos que fueron entregados dentro y fuera del plazo establecido para descarga. |
+| 7. El usuario confirma la descarga del reporte. | 8. El sistema descarga el archivo Excel al usuario con la información solicitada por el Usuario. |
+
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
+Tabla 3.70: “Exportando reportes de producción”
+
+### Table 74
+
+| Caso de uso N°70 | Exportando reportes de producción. |
+| --- | --- |
+| Actores | Usuario con rol: <br> -Gerencia. |
+| Propósito | Permitir la exportación de reportes de producción en formatos Excel y CSV, filtrados por un rango de fechas. |
+| Precondiciones | El usuario debe estar autenticado en el sistema. <br> El usuario debe poseer el rol Gerencia. <br> El sistema debe contar con datos de producción registrados. <br> El módulo de reportes de producción debe estar disponible. |
+| Resumen | El sistema permite al usuario seleccionar un rango de fechas y exportar un reporte de producción que incluye tiempos y entregas generadas dentro del período seleccionado. |
+| Postcondiciones | El reporte de producción es generado según el rango de fechas seleccionado. <br> El archivo es exportado en formato Excel o CSV según elección del usuario. <br> El sistema registra la exportación del reporte. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario accede al módulo de reportes de producción. | 2. El sistema muestra el módulo de reportes de producción con la información recopilada. |
+| 3. El usuario selecciona el rango de fechas requerido. | 4. El sistema valida la solicitud y prepara la información correspondiente para exportar el reporte. |
+| 5. El usuario selecciona el formato de exportación. | 6. El sistema valida la opción seleccionada. |
+| 7. El usuario confirma la exportación del reporte. | 8. El sistema exporta el archivo con la información generada en el formato elegido. |
+
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
+Tabla 3.71 “Visualizando el grafico de tendencia promedio de ciclo de producción”
+
+### Table 75
+
+| Caso de uso N°71 | Visualizando el gráfico de tendencia promedio de ciclo de producción. |
+| --- | --- |
+| Actores | Usuario de rol: <br> -Administrador. <br> -Gerencia. |
+| Propósito | Visualizar un gráfico con el fin de hacer un análisis visual del tiempo promedio del ciclo de productivo los pedidos. |
+| Precondiciones | El usuario debe estar previamente autenticado y su estado debe ser “Vinculado”. <br> Deben existir pedidos en el sistema tanto finalizados como entregados. |
+| Resumen | El usuario ingresa al módulo de analítica en la sección de tiempo promedio de ciclo productivo, donde se observa el tiempo promedio del ciclo productivo de los pedidos, el cual es calculado automáticamente como la diferencia en horas entre la fecha y hora de creación de nota de ventas y la fecha y hora en que el pedido cambie al estado "Listo para entrega". |
+| Postcondiciones | El usuario observa correctamente el tiempo promedio del ciclo productivo de los pedidos. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario selecciona el módulo de analítica en la sección de tiempo promedio de ciclo productivo. | 2. El sistema despliega el módulo de analítica y despliega el gráfico de tendencia de tiempo promedio del ciclo productivo de los pedidos actualizado diariamente. |
+| 3. El usuario observa el gráfico de tendencia. | 4. El sistema actualiza diariamente el gráfico de tendencia. |
+
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
+Tabla 3.72: “Visualizando la carga de producción por día de la semana”
+
+### Table 76
+
+| Caso de uso N° 72 | Visualizando la carga de producción por día de la semana. |
+| --- | --- |
+| Actores | Usuario con rol: <br> -Administrador. <br> -Gerencia. |
+| Propósito | Proporcionar información precisa sobre la cantidad de carga laboral que tiene producción en rangos de fechas definibles a voluntad. |
+| Precondiciones | Registros en tiempo real de la carga de producción. <br> Registros históricos de la carga de producción. <br> Registros estimados de la carga laboral de producción. |
+| Resumen | El sistema proporciona un mapa de carga laboral, que los usuarios con rol de administrador y gerencia pueden consultar en cualquier fecha establecida por ellos. |
+| Postcondiciones | Una visualización clara de la carga laboral en las fechas que el usuario estableció como límites. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario con rol de Administrador o Gerencia consulta por una fecha en el mapa de carga productiva. | 2. El sistema detecta la petición y revisa en el registro la carga productiva entre las fechas propuestas. |
+| 3. El usuario con rol de Administrador o Gerencia espera la respuesta del sistema. | 4. El sistema muestra al usuario el mapa de carga productiva con la información solicitada. |
+
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
+Tabla 3.73: “Filtrando por rango de fechas en todas las vistas de reportes”
+
+### Table 77
+
+| Caso de uso N°73 | Filtrando por rango de fechas en todas las vistas de reportes. |
+| --- | --- |
+| Actores | Usuario con rol: <br> -Gerencia. |
+| Propósito | Permitir la visualización de reportes e indicadores gráficos filtrados según un rango de fechas específico. |
+| Precondiciones | El usuario debe estar autenticado en el sistema. <br> El usuario debe tener acceso al módulo de analítica. <br> El módulo de reportes e indicadores gráficos debe encontrarse operativo. <br> Deben existir datos registrados en el sistema para ser consultados. |
+| Resumen | El sistema permite al usuario seleccionar un rango de fechas en formato DD-MM-YYYY para filtrar la información mostrada en los reportes e indicadores gráficos del módulo de analítica. |
+| Postcondiciones | Los reportes e indicadores gráficos son actualizados según el rango de fechas seleccionado. <br> El sistema muestra únicamente la información correspondiente al período indicado. <br> El filtro aplicado queda visible en la vista actual del módulo de analítica. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario accede al módulo de analítica del sistema. | 2. El sistema muestra los reportes e indicadores gráficos disponibles. |
+| 3. El usuario selecciona la opción de filtrado por rango de fechas. | 4. El sistema habilita los campos para ingresar el rango de fechas. |
+| 5. El usuario ingresa la fecha de inicio y la fecha de término en formato DD-MM-YYYY. | 6. El sistema valida el formato y coherencia de las fechas ingresadas. |
+| 7. El usuario confirma y solicita visualizar los resultados filtrados. | 8. El sistema muestra los reportes e indicadores gráficos actualizados según el rango de fechas seleccionado. |
+
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
+Tabla 3.74: “Visualizando panel de control gerencial”
+
+### Table 78
+
+| Caso de uso N°74 | Visualizando panel de control gerencial. |
+| --- | --- |
+| Actores | Usuario con rol: <br> -Gerencia. |
+| Propósito | Permitir el acceso centralizado a información estratégica y métricas gerenciales del sistema. |
+| Precondiciones | El usuario debe estar autenticado en el sistema. <br> El usuario debe poseer el rol Gerencia. <br> El módulo de panel gerencial debe encontrarse habilitado y operativo. <br> El módulo del panel del sistema debe recopilar información. |
+| Resumen | El sistema permite visualizar un panel de control exclusivo para usuarios con rol Gerencia. |
+| Postcondiciones | El panel de control gerencial queda visible para el usuario. <br> El sistema muestra la información e indicadores asociados a la gestión gerencial. <br> El acceso al panel puede quedar registrado en el sistema. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario accede a la pestaña de panel de control gerencial. | 2. El sistema verifica el rol asociado al usuario. |
+| 3. El usuario solicita visualizar el panel gerencial. | 4. El sistema muestra el panel de control exclusivo con la información correspondiente a Gerencia. |
+
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
+Tabla 3.75: “Visualizando los productos más solicitados”
+
+### Table 79
+
+| Caso de uso N°75 | Visualizando los productos más solicitados. |
+| --- | --- |
+| Actores | Usuario de cualquier rol. |
+| Propósito | Identificar los productos más solicitados dentro de un rango de fechas seleccionado. |
+| Precondiciones | El usuario debe estar previamente autenticado y su estado debe ser “Vinculado”. <br> Deben existir productos solicitados previamente. |
+| Resumen | El usuario de cualquier rol ingresa al módulo de analítica, donde puede fijar un rango de fechas en formato DD-MM-YYYY y observar los productos más solicitados dentro de ese rango. |
+| Postcondiciones | El usuario observa correctamente los productos más solicitados para un rango de fechas. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario selecciona el módulo de analítica. <br> 3. El usuario observa la zona de ranking de productos solicitados y selecciona un rango de fechas en formato DD-MM-YYYY. | 2. El sistema despliega el módulo de analítica. <br> 4. El sistema procesa la información y realiza la búsqueda en el rango solicitado. |
+| 5. El usuario espera la respuesta del sistema. | 6. El sistema despliegue el ranking de productos más solicitados de mayor a menor para el rango que definió el usuario. |
+
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
+Tabla 3.76: “Generando reporte de órdenes agrupadas por estado”
+
+### Table 80
+
+| Caso de uso N°76 | Generando reporte de órdenes agrupadas por estado. |
+| --- | --- |
+| Actores | Usuario con rol: <br> -Gerencia. |
+| Propósito | Permitir la visualización de reportes estadísticos de órdenes de producción agrupadas por estado dentro de un período específico. |
+| Precondiciones | El usuario debe estar autenticado en el sistema. <br> El usuario debe poseer el rol Gerencia. <br> Deben existir órdenes de producción registradas en el sistema. <br> El módulo de analítica y reportes debe encontrarse operativo. |
+| Resumen | El sistema permite generar un reporte de órdenes de producción agrupadas por estado según un rango de fechas seleccionado, mostrando una tabla resumen y una visualización gráfica. |
+| Postcondiciones | El reporte de órdenes agrupadas por estado es generado correctamente. <br> El sistema muestra una tabla resumen con la información obtenida. <br> El sistema presenta una visualización gráfica basada en los estados del tablero Kanban. |
+| Tipos | Principal. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario accede al módulo de reportes de producción. | 2. El sistema carga y muestra los reportes de producción. |
+| 3. El usuario selecciona el reporte de órdenes agrupadas por estado. | 4. El sistema habilita el ingreso del rango de fechas en formato DD-MM-YYYY. |
+| 5. El usuario ingresa la fecha de inicio y fecha de término del período requerido. | 6. El sistema valida el formato y la coherencia del rango de fechas ingresadas. |
+| 7. El usuario confirma la generación del reporte. | 8. El sistema procesa las órdenes de producción agrupándolas según los estados definidos en el tablero Kanban. |
+| 9. El usuario solicita visualizar el resultado generado. | 10. El sistema muestra la tabla resumen y la visualización gráfica correspondiente al reporte solicitado. |
+
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
+Tabla 3.77: “Visualizando indicadores de cumplimiento de vendedores”
+
+### Table 81
+
+| Caso de uso N°77 | Visualizando indicadores de cumplimiento de vendedores. |
+| --- | --- |
+| Actores | Usuario con rol: <br> -Administrador. <br> -Gerencia. |
+| Propósito | Filtrar métricas evaluativas de los vendedores respecto a: <br> -Cantidad de Notas de Venta registradas. <br> -Cantidad de pedidos entregadas a tiempo. <br> -Cantidad de pedidos ingresados en condición de sobrecarga operativa. <br> -Cantidad total de pedidos asociados entregados fuera de plazo. |
+| Precondiciones | -El usuario debe estar previamente autenticado y su estado debe ser “Vinculado”. <br> -Deben existir pedidos previamente asociados al vendedor. |
+| Resumen | El usuario ingresa al módulo de analítica en la sección de cumplimiento de vendedores, donde puede fijar un rango de fechas en formato DD-MM-YYYY y observar las métricas evaluativas asociadas a cada vendedor. |
+| Postcondiciones | El usuario observa correctamente los indicadores de cumplimiento asociados a cada vendedor. |
+| Tipos | Secundario. |
+| Curso normal de eventos | Curso normal de eventos |
+| Acciones de los actores | Respuesta del sistema |
+| 1. El usuario selecciona el módulo de analítica. <br> 3. El usuario observa la sección de cumplimiento de vendedores y selecciona un rango de fechas en formato DD-MM-YYYY. | 2. El sistema despliega el módulo de analítica. <br> 4. El sistema procesa la información y realiza la búsqueda en el rango solicitado. |
+| 5. El usuario espera la respuesta del sistema. | 6. El sistema despliega las métricas de cumplimiento asociados a cada vendedor para el rango que definió el usuario. |
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
@@ -2637,6 +3060,28 @@ Figura 5.9: “Visualizando Calendario de Producción y Ventas”
 
 Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
+Figura 5.10: “Visualizando tareas de producción”
+
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
+Figura 5.11: “Gestionando Producción”
+
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
+Figura 5.12: “Notificando y visualizando Historial de Producción”
+
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
+Figura 5.13: “Notificando alertas de órdenes de producción”Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
+Figura 5.14: “Generando reportes de pedidos a tiempo y atrasados”
+
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
+Figura 5.15: “Visualizando Panel de Control Gerencia”
+
+Fuente: Elaborado por el estudiante de acuerdo con el proyecto
+
 # 11. MATRIZ REQUERIMIENTOS VS CASOS DE USO
 
 La matriz de Requerimientos vs Casos de Uso permite establecer la trazabilidad entre los requerimientos levantados y los casos de uso definidos, verificando que cada necesidad identificada esté asociada a al menos una funcionalidad del sistema.
@@ -2647,7 +3092,7 @@ La matriz correspondiente se presenta en la Tabla 4.1
 
 Tabla 4.1: “Matriz RF vs CU Extendidos.”
 
-### Table 74
+### Table 82
 
 | CU / RF | RF01 | RF02 | RF03 | RF04 | RF05 | RF06 | RF07 | RF08 | RF09 | RF10 | RF11 | RF12 | n... |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -2727,7 +3172,7 @@ Tabla tiempos de proceso.xlsx
 
 Tabla 5.1: “Glosario de términos A”
 
-### Table 75
+### Table 83
 
 | Término | Definición |
 | --- | --- |
@@ -2755,7 +3200,7 @@ Fuente: Elaborado por el estudiante de acuerdo con el proyecto
 
 Tabla 5.2: “Glosario de términos B”
 
-### Table 76
+### Table 84
 
 | Término | Definición |
 | --- | --- |
@@ -3080,7 +3525,7 @@ produccion_tarjetas
 
 ## Footer 1
 
-### Table 77
+### Table 85
 
 | [EMPTY] | 246 | [EMPTY] |
 | --- | --- | --- |
